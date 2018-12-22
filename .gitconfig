@@ -1,3 +1,16 @@
 [user]
-	name = johnpyp
 	email = johnpaulpenaloza@gmail.com
+	name = johnpyp
+[alias]
+  co = checkout
+  ci = commit
+  czp = cz && git pu
+  st = status
+  br = branch
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+  pu = push
+  lg = log --graph --decorate --oneline --branches
+  pn = log --oneline --decorate --graph
+  chlogm = !sh -c 'git log $1...$2  --pretty=format:\"%s [view commit](http://github.com/$3/$4/commit/%H) \"' -
