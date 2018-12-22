@@ -1,4 +1,4 @@
-dotfiles=(".zshrc" ".gitconfig")
+dotfiles=(".zshrc" ".gitconfig", ".zpreztorc")
 
 mkdir -p backups
 for dotfile in "${dotfiles[@]}"
