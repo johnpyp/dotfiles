@@ -52,12 +52,6 @@ bindkey '^[[1;5C' forward-word                                  #
 bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
 bindkey '^[[Z' undo                                             # Shift+tab undo last action
 
-## Alias section 
-alias cp="cp -i"                                                # Confirm before overwriting something
-alias df='df -h'                                                # Human-readable sizes
-alias free='free -m'                                            # Show sizes in MB
-alias gitu='git add . && git commit && git push'
-
 # Theming section  
 autoload -U compinit colors zcalc
 compinit -d
@@ -216,6 +210,28 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
+
+export NVM_DIR="$HOME/.nvm"
+loadnvm() {
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+
+# Load miniconda
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+
+# Set Spaceship ZSH as a prompt
+fpath=($fpath "/home/johnpyp/.zfunctions")
+SPACESHIP_DIR_TRUNC=6
+SPACESHIP_DIR_TRUNC_REPO=false
+autoload -U promptinit; promptinit
+prompt spaceship
+
+# Alias section 
+alias cp="cp -i"                                                # Confirm before overwriting something
+alias df='df -h'                                                # Human-readable sizes
+alias free='free -m'                                            # Show sizes in MB
+alias gitu='git add . && git commit && git push'
 alias ls='ls --color=auto'
 alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
@@ -223,23 +239,8 @@ alias fgrep='fgrep --colour=auto'
 alias ll="ls -l"
 alias la="ls -a"
 alias lal="ls -al"
-export NVM_DIR="$HOME/.nvm"
-loadnvm() {
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-}
 alias copyghssh="curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys"
 alias git=hub
 alias medit="mousepad ~/.zshrc"
 alias cedit="code ~/.zshrc"
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-# fpath=( "$HOME/.zfunctions" $fpath )
-# autoload -U promptinit; promptinit
-# prompt pure
-fpath=($fpath "/home/johnpyp/.zfunctions")
-
-  # Set Spaceship ZSH as a prompt
-  SPACESHIP_DIR_TRUNC=6
-  SPACESHIP_DIR_TRUNC_REPO=false
-  autoload -U promptinit; promptinit
-  prompt spaceship
+alias lsdots="ls -lad ./.*"
