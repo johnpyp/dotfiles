@@ -7,6 +7,23 @@ Installing main package guide:
 yay -S --needed $( < pkglist.txt ) --mflags --nocheck
 ```
 
+Install nvm:
+
+```sh
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | zsh
+# --> Close and reopen terminal
+nvm install lts/dubnium
+npm i -g npm
+npm i -g yarn @vue/cli spaceship-prompt
+```
+
+Install (symlink) dotfiles:
+
+```sh
+cd ~/dotfiles
+./install.sh
+```
+
 Download megasync:
 
 ```sh
@@ -42,19 +59,24 @@ sudo -u postgres -i
 createuser --interactive
 ```
 
-Install nvm:
+Edit geoclue config to allow redshift:
 
 ```sh
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | zsh
-# --> Close and reopen terminal
-nvm install lts/dubnium
-npm i -g npm
-npm i -g yarn @vue/cli spaceship-prompt
+sudo nano /etc/geoclue/geoclue.conf
+
+# Add this to end of the file
+[redshift]
+allowed=true
+system=false
+users=
 ```
 
-Install (symlink) dotfiles:
+Install phoenix on elixir:
 
 ```sh
-cd ~/dotfiles
-./install.sh
+# Install hex
+mix local.hex
+
+# Install Phoenix Archive for generating a new app
+mix archive.install hex phx_new 1.4.0
 ```
