@@ -70,3 +70,13 @@ allowed=true
 system=false
 users=
 ```
+
+Install phoenix on elixir:
+
+```sh
+# Install hex
+mix local.hex
+
+# Install Phoenix Archive for generating a new app
+mix archive.install hex phx_new 1.4.0
+```
