@@ -1,9 +1,15 @@
 dotfiles=(".zshrc" ".gitconfig")
+
+mkdir -p backups
 for dotfile in "${dotfiles[@]}"
 do
   if [ -f ./${dotfile} ]; then
-    ln -sv "${PWD}/${dotfile}" ~
-    echo "${dotfile} found."
+    if [ ! "`readlink ${HOME}/${dotfile}`" -ef "${PWD}/${dotfile}" ]; then
+      if [ -f ${HOME}/${dotfile} ]; then
+        mv -f ${HOME}/${dotfile} ${PWD}/backups
+      fi
+      ln -sv "${PWD}/${dotfile}" ${HOME}
+    fi
   fi
 
 done
