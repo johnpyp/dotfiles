@@ -228,7 +228,7 @@ loadnvm() {
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 }
-  # This loads nvm bash_completion
+alias copyghssh="curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys"
 alias git=hub
 alias medit="mousepad ~/.zshrc"
 alias cedit="code ~/.zshrc"
