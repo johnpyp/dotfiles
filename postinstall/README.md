@@ -1,4 +1,4 @@
-# Post Install Guide
+# Manjaro Post Install Guide
 
 Installing main package guide:
 

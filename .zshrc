@@ -224,6 +224,22 @@ loadnvm() {
 fpath=($fpath "/home/johnpyp/.zfunctions")
 SPACESHIP_DIR_TRUNC=6
 SPACESHIP_DIR_TRUNC_REPO=false
+SPACESHIP_GIT_SHOW=false
+SPACESHIP_BATTERY_SHOW=false
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
 autoload -U promptinit; promptinit
 prompt spaceship
 
