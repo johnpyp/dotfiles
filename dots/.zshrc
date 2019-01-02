@@ -23,7 +23,7 @@ nvm() {
   nvm "$@"
 }
 
-NODE_VERSION=v10.14.2
+NODE_VERSION=v10.15.0
 export PATH=~/.nvm/versions/node/$NODE_VERSION/bin:$PATH
 #
 # ----------------

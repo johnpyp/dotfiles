@@ -15,7 +15,7 @@ go
 google-chrome
 hashcat
 httpie
-hub-git
+hub
 inotify-tools
 intellij-idea-community-edition
 jdk8-openjdk
