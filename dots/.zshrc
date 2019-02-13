@@ -12,19 +12,12 @@ prompt pure
 
 #
 # ----------------
-# NVM and NPM Stuff
+# FNM and NPM Stuff
 # ----------------
 #
-nvm() {
-  unset -f nvm
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  nvm "$@"
-}
+export PATH=$HOME/.fnm:$PATH
+eval `fnm env`
 
-NODE_VERSION=v10.15.0
-export PATH=~/.nvm/versions/node/$NODE_VERSION/bin:$PATH
 #
 # ----------------
 # Normal Initilization Stuff
