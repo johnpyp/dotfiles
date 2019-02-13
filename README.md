@@ -7,14 +7,14 @@ Installing main package guide:
 yay -S --needed $( < pkglist.txt ) --mflags --nocheck
 ```
 
-Install nvm:
+Install fnm:
 
 ```sh
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | zsh
-# --> Close and reopen terminal
-nvm install lts/dubnium
+curl https://raw.githubusercontent.com/Schniz/fnm/master/.ci/install.sh | bash
+fnm install latest
 npm i -g npm
-npm i -g yarn @vue/cli pm2 npm-check
+npm i -g yarn
+yarn global add ...
 ```
 
 Install prezto:
