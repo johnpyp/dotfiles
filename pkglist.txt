@@ -1,4 +1,3 @@
-anydesk
 bitwarden-bin
 dbeaver
 deluge
@@ -19,12 +18,10 @@ hub
 inotify-tools
 intellij-idea-community-edition
 jdk8-openjdk
-jdownloader2
 jre8
 kotlin
 lutris
 miniconda3
-mongodb
 ncdu
 noto-fonts-emoji
 numix-gtk-theme
