@@ -24,7 +24,6 @@ noto-fonts-emoji
 numix-gtk-theme
 otf-fira-code
 postgresql
-postman-bin
 qalculate-gtk
 redshift-gtk-git
 ripgrep
