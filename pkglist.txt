@@ -1,4 +1,4 @@
-bitwarden-bin
+bitwarden
 dbeaver
 deluge
 discord
@@ -7,7 +7,6 @@ docker-compose
 docky
 elixir
 etcher-bin
-exodus
 gimp
 gnome-disk-utility
 go
@@ -16,9 +15,7 @@ hashcat
 httpie
 hub
 inotify-tools
-intellij-idea-community-edition
 jdk8-openjdk
-jre8
 kotlin
 lutris
 miniconda3
@@ -26,7 +23,6 @@ ncdu
 noto-fonts-emoji
 numix-gtk-theme
 otf-fira-code
-plex-media-server
 postgresql
 postman-bin
 qalculate-gtk
@@ -39,3 +35,5 @@ visual-studio-code-bin
 vlc
 wine-staging
 zafiro-icon-theme
+ranger
+fd

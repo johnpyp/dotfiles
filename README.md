@@ -1,20 +1,12 @@
-# Manjaro Post Install Guide
+# DISCLAIMER: I WOULDN'T TRUST ME, WHY SHOULD YOU ???
+
+## Manjaro Post Install Guide
 
 Installing main package guide:
 
 ```sh
 # --mflags --nocheck makes libgcc not run all the tests (like when installing discord)
 yay -S --needed $( < pkglist.txt ) --mflags --nocheck
-```
-
-Install fnm:
-
-```sh
-curl https://raw.githubusercontent.com/Schniz/fnm/master/.ci/install.sh | bash
-fnm install latest
-npm i -g npm
-npm i -g yarn
-yarn global add ...
 ```
 
 Install prezto:
