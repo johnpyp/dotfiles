@@ -2,7 +2,13 @@
 
 ## Manjaro Post Install Guide
 
-Installing main package guide:
+Ranking mirrors:
+```sh
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+```
+
+Install pkglist packages:
 
 ```sh
 # --mflags --nocheck makes libgcc not run all the tests (like when installing discord)
