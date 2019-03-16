@@ -1,0 +1,216 @@
+;=====================================================
+;
+; Polybar config v1.0
+; by s1amber(Adrian Karbowniczyn)
+;
+; For more info visit: https://github.com/jaagr/polybar/
+;
+;=====================================================
+
+[colors]
+dpi = 195
+# tommorow night
+background = #1d1f21 
+Current = #282a2e
+background-alt = #373b41 
+foreground = #c5c8c6 
+foreground-alt = #969896 
+Comment = #969896 
+Red = #cc6666 
+Orange = #de935f 
+Yellow = #f0c674 
+Green = #b5bd68 
+Aqua = #8abeb7 
+Blue = #81a2be 
+Purple = #b294bb 
+
+[bar/0i0]
+monitor = DVI-D-1
+width = 100%
+height = 34
+;offset-x = 200
+;offset-y = 50
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 7
+
+border-size = 0
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 0
+module-margin-right = 2
+
+font-0 = Iosevka Nerd Font:size=12
+font-1 = Iosevka Nerd Font:size=12:bold
+font-2 = FontAwesome:size=14
+
+modules-left = i3
+modules-center = spotify  
+modules-right = alsa cpu wireless-network date battery
+
+wm-restack = i3
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+tray-position = right
+tray-padding = 2
+tray-detached = false
+tray-maxsize = 16
+tray-background = ${colors.background-alt}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-scale = 1.0
+tray-reparent = true
+[module/i3]
+type = internal/i3
+
+pin-workspaces = false
+
+;strip-wsnumbers = true
+
+index-sort = true
+
+enable-click = true
+
+enable-scroll = false
+
+wrapping-scroll = false
+
+fuzzy-match = true
+
+ws-icon-0 = 0;
+ws-icon-1 = 1;1
+ws-icon-2 = 2;2
+ws-icon-3 = 3;3
+ws-icon-4 = 4;4
+ws-icon-5 = 5;5
+ws-icon-6 = 6;6
+ws-icon-7 = 7;7
+ws-icon-8 = 8;8
+
+format = <label-state> <label-mode>
+
+label-active-font = 2
+
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = #407055
+
+label-focused = %icon% 
+label-focused-foreground = #F3E5DA
+label-focused-background = #3f3f3f
+label-focused-underline = ${colors.Yellow}
+label-focused-padding = 2
+
+label-unfocused = %icon%
+label-unfocused-padding = 2
+
+label-visible = %icon%
+label-visible-underline = #555555
+label-visible-padding = 2
+
+label-urgent = %icon%
+label-urgent-foreground = #B7A439
+label-urgent-background =  ${colors.Red}
+label-urgent-padding = 2
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = "%m/%d/%Y"
+time = %H:%M
+
+format-underline = ${colors.Red}
+
+label = %date% %time%
+
+
+[module/alsa]
+type = internal/alsa
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+
+master-mixer = Master
+interval = 5
+
+format-volume = <label-volume>
+label-volume = %{T2}%{T-} %percentage%%
+label-muted = muted
+format = 
+format-volume-underline = ${colors.Blue}
+
+[module/wireless-network]
+type = internal/network
+interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp2s0}
+interval = 3.0
+format-connected-underline = ${colors.Orange}
+format-disconnected-underline = ${colors.Orange}
+label-connected = ⇩ %downspeed% ⇧ %upspeed%   %essid% %local_ip%
+format-connected = <label-connected>
+label-disconnected = not connected
+
+
+[module/spotify]
+type = custom/script
+exec = python3 ~/.config/polybar/spotify.py
+# exec-if = pgrep -x myservice
+tail = true
+interval = 5
+format = <label>
+label = %output%
+
+[module/gpu]
+type = custom/script
+exec = python3 ~/.config/polybar/gpu.py
+# exec-if = pgrep -x myservice
+tail = true
+interval = 5
+format = %{F#969896} GPU%{F-} <label>
+format-underline = ${colors.Green}
+label = %output%
+
+[module/cpu]
+type = custom/script
+exec = python3 ~/.config/polybar/cpu.py
+# exec-if = pgrep -x myservice
+tail = true
+interval = 5
+format = %{F#969896} CPU%{F-} <label>
+format-underline = ${colors.Aqua}
+label = %output%
+# label-name = cpu
+# label-name-font = 1
+# click-left = echo left %counter%
+# click-middle = echo middle %counter%
+# click-right = echo right %counter%
+# double-click-left = echo double left %counter%
+# double-click-middle = echo double middle %counter%
+# double-click-right = echo double right %counter%
+# scroll-up = echo scroll up %counter%
+# scroll-down = echo scroll down %counter%
+
+[module/battery]
+type = internal/battery
+full-at = 99
+battery = BAT1
+adapter = ADP1
+poll-interval = 5
+time-format = %H:%M
+format-charging = <label-charging>⚡
+format-discharging = <label-discharging>🔋
+format-charging-underline = ${colors.Blue}
+format-discharging-underline = ${colors.Blue}
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0

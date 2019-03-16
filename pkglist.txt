@@ -39,3 +39,8 @@ ranger
 fd
 rofi
 nerd-fonts-complete
+ttf-iosevka
+termsyn-font
+polybar
+alsa-utils
+siji-git
