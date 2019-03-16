@@ -55,3 +55,6 @@ alias dstoprm="docker container stop \$(docker ps -aq) && docker container rm \$
 alias pia="/opt/piavpn/run.sh"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 
+# fnm
+export PATH=$HOME/.fnm:$PATH
+eval "`fnm env --multi`"

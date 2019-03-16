@@ -15,6 +15,13 @@ Install pkglist packages:
 yay -S --needed $( < pkglist.txt ) --mflags --nocheck
 ```
 
+Install fnm:
+
+```sh
+curl https://raw.githubusercontent.com/Schniz/fnm/master/.ci/install.sh | bash
+# You may need to use: npm config delete prefix
+```
+
 Install prezto:
 
 ```
