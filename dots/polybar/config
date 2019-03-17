@@ -25,7 +25,7 @@ Blue = #81a2be
 Purple = #b294bb 
 
 [bar/0i0]
-monitor = DVI-D-1
+monitor = ${env:MONITOR:}
 monitor-fallback = eDP1
 width = 100%
 height = 34
