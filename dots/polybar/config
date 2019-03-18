@@ -19,7 +19,7 @@ Comment = #969896
 Red = #cc6666 
 Orange = #de935f 
 Yellow = #f0c674 
-Green = #b5bd68 
+Green = #b5dd68 
 Aqua = #8abeb7 
 Blue = #81a2be 
 Purple = #b294bb 
@@ -197,23 +197,28 @@ label = %output%
 # scroll-up = echo scroll up %counter%
 # scroll-down = echo scroll down %counter%
 
-
 [module/battery]
 type = internal/battery
-; $ ls -1 /sys/class/power_supply/
+
+full-at = 99
+
 battery = BAT0
 adapter = AC
-full-at = 98
 
-format-charging = ⚡ <label-charging>
-format-charging-underline = ${xrdb:color6:#ffb52a}
+poll-interval = 5
 
+format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-underline = ${xrdb:color3:#ff9800}
-
-format-full-prefix =
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${xrdb:color2:#719611}
+format-full = <ramp-capacity> <label-full>
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+format-charging-underline = ${colors.Green} 
+format-charging-padding = 1
+format-discharging-underline = #ffa800
+format-discharging-padding = 1
+format-full-underline = ${self.format-charging-underline}
+format-full-overline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -221,17 +226,12 @@ ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 750
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750 
 
 [module/brightness]
 type = internal/xbacklight
