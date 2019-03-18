@@ -414,9 +414,14 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-bindsym $mod+d exec "rofi -show drun -modi drun,window -show-icons -sidebar-mode -theme Arc-Dark"
+
+######### Custom Keybinds ###########
+# Rofi
+bindsym $mod+grave exec "rofi -show drun -modi drun,window -show-icons -sidebar-mode -theme Arc-Dark"
+bindsym $mod+Tab exec "rofi -show window -modi drun,window -show-icons -sidebar-mode -theme Arc-Dark"
+bindsym $mod+d exec "rofi -show run -show-icons -theme Arc-Dark"
+
+# Moving Workspaces
 bindsym $mod+Shift+bracketleft move workspace to output left
 bindsym $mod+Shift+bracketright move workspace to output right
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
 
