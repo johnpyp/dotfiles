@@ -43,3 +43,6 @@ termsyn-font
 polybar
 alsa-utils
 siji-git
+neofetch
+otf-font-awesome
+

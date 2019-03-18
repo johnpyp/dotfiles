@@ -35,11 +35,11 @@ fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 7
+line-size = 5
 
 border-size = 0
 
-padding-left = 0
+padding-left = 0 
 padding-right = 2
 
 module-margin-left = 0
@@ -49,14 +49,14 @@ font-0 = Iosevka Nerd Font:size=12
 font-1 = Iosevka Nerd Font:size=12:bold
 font-2 = FontAwesome:size=14
 
-modules-left = i3
-modules-center = spotify  
-modules-right = alsa wireless-network date battery
+modules-left = i3 spotify
+modules-center = date 
+modules-right = alsa battery brightness wireless-network 
 
 wm-restack = i3
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
 
 tray-position = right
 tray-padding = 2
@@ -77,9 +77,9 @@ index-sort = true
 
 enable-click = true
 
-enable-scroll = false
+enable-scroll = false 
 
-wrapping-scroll = false
+wrapping-scroll = true 
 
 fuzzy-match = true
 
@@ -124,7 +124,7 @@ type = internal/date
 interval = 5
 
 date = "%m/%d/%Y"
-time = %H:%M
+time = %I:%M %p
 
 format-underline = ${colors.Red}
 
@@ -142,17 +142,17 @@ interval = 5
 
 format-volume = <label-volume>
 label-volume = %{T2}%{T-} %percentage%%
-label-muted = muted
+label-muted =  muted
 format = 
 format-volume-underline = ${colors.Blue}
-
+format-muted-underline = ${colors.Blue}
 [module/wireless-network]
 type = internal/network
 interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp2s0}
 interval = 3.0
 format-connected-underline = ${colors.Orange}
 format-disconnected-underline = ${colors.Orange}
-label-connected =  %downspeed%  %upspeed%  %essid%
+label-connected =  %essid%
 format-connected = <label-connected>
 label-disconnected = not connected
 
@@ -165,6 +165,7 @@ tail = true
 interval = 5
 format = <label>
 label = %output%
+format-foreground = ${colors.Aqua}
 
 [module/gpu]
 type = custom/script
@@ -196,17 +197,83 @@ label = %output%
 # scroll-up = echo scroll up %counter%
 # scroll-down = echo scroll down %counter%
 
+
 [module/battery]
 type = internal/battery
-full-at = 99
-battery = BAT1
-adapter = ADP1
-poll-interval = 5
-time-format = %H:%M
-format-charging = <label-charging>⚡
-format-discharging = <label-discharging>🔋
-format-charging-underline = ${colors.Blue}
-format-discharging-underline = ${colors.Blue}
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging = ⚡ <label-charging>
+format-charging-underline = ${xrdb:color6:#ffb52a}
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = ${xrdb:color3:#ff9800}
+
+format-full-prefix =
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${xrdb:color2:#719611}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-foreground = ${colors.foreground-alt}
+animation-discharging-framerate = 750
+
+[module/brightness]
+type = internal/xbacklight
+
+; XRandR output to get get values from
+; Default: the monitor defined for the running bar
+format =  <label>
+
+; Available tokens:
+;   %percentage% (default)
+label = %percentage%%
+format-underline = ${colors.Yellow}
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.Aqua}
+label-close =  cancel
+label-close-foreground = ${colors.Aqua}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
 
 [settings]
 screenchange-reload = true

@@ -278,7 +278,7 @@ exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
-exec --no-startup-id start_conky_maia
+# exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
 exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
@@ -316,37 +316,6 @@ set_from_resource $term_color12    color12
 set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
-
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-	i3bar_command i3bar
-	status_command i3status 
-	position bottom
-	mode hide
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-	tray_output DVI-D-1
-#	tray_output eDP1
-
-	bindsym button4 nop
-	bindsym button5 nop
-	font xft:URWGothic-Book 12
-	strip_workspace_numbers yes
-    colors {
-        background  #212121
-        statusline  #dddddd
-        separator   #666666
-        # class             border  backgr. text
-        focused_workspace   #2b83a6 #2b83a6 #ffffff
-        active_workspace    #212121 #212121 #ffffff
-        inactive_workspace  #212121 #212121 #86888c
-        urgent_workspace    #d64e4e #d64e4e #ffffff
-        binding_mode        #229c56 #229c56 #ffffff
-    }
-
-}
-
-# hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
@@ -421,7 +390,7 @@ bindsym $mod+grave exec "rofi -show drun -modi drun,window -show-icons -sidebar-
 bindsym $mod+Tab exec "rofi -show window -modi drun,window -show-icons -sidebar-mode -theme Arc-Dark"
 bindsym $mod+d exec "rofi -show run -show-icons -theme Arc-Dark"
 
-# Moving Workspaces
+# Moving Workspaces to Different Monitors
 bindsym $mod+Shift+bracketleft move workspace to output left
 bindsym $mod+Shift+bracketright move workspace to output right
 
