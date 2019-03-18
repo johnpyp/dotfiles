@@ -218,7 +218,6 @@ format-charging-padding = 1
 format-discharging-underline = #ffa800
 format-discharging-padding = 1
 format-full-underline = ${self.format-charging-underline}
-format-full-overline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
