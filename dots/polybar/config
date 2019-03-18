@@ -136,16 +136,16 @@ type = internal/alsa
 master-soundcard = default
 speaker-soundcard = default
 headphone-soundcard = default
-
+mapped = true
 master-mixer = Master
 interval = 5
 
 format-volume = <label-volume>
 label-volume = %{T2}%{T-} %percentage%%
 label-muted =  muted
-format = 
 format-volume-underline = ${colors.Blue}
 format-muted-underline = ${colors.Blue}
+
 [module/wireless-network]
 type = internal/network
 interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp2s0}
