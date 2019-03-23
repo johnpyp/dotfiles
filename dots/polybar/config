@@ -49,9 +49,9 @@ font-0 = Iosevka Nerd Font:size=12
 font-1 = Iosevka Nerd Font:size=12:bold
 font-2 = FontAwesome:size=14
 
-modules-left = i3 spotify
+modules-left = i3 player-mpris-tail 
 modules-center = date 
-modules-right = alsa battery brightness wireless-network 
+modules-right = alsa battery brightness updates-arch-combined wireless-network 
 
 wm-restack = i3
 
@@ -152,20 +152,30 @@ interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp2s0}
 interval = 3.0
 format-connected-underline = ${colors.Orange}
 format-disconnected-underline = ${colors.Orange}
-label-connected =  %essid%
+label-connected =  %{A:networkmanager_dmenu&:} %essid%%{A}
 format-connected = <label-connected>
-label-disconnected = not connected
+label-disconnected = %{A:networkmanager_dmenu&:}not connected%{A}
 
+[module/updates-arch-combined]
+type = custom/script
+exec = ~/.config/pscripts/updates-arch-combined.sh
+interval = 20
+
+format =  <label> Updates 
+format-underline = ${colors.Red}
 
 [module/spotify]
 type = custom/script
-exec = python3 ~/.config/polybar/spotify.py
-# exec-if = pgrep -x myservice
-tail = true
-interval = 5
-format = <label>
-label = %output%
+exec = ~/.config/pscripts/player-mpris-simple.sh
+interval = 1 
 format-foreground = ${colors.Aqua}
+
+[module/player-mpris-tail]
+type = custom/script
+exec = ~/.config/pscripts/player-mpris-tail.py -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:~/.config/pscripts/player-mpris-tail.py previous:} ⏮ %{A} %{A1:~/polybar-scripts/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:~/polybar-scripts/player-mpris-tail.py next:} ⏭ %{A}'
+tail = true
+label = %output%
+format-foreground = ${colors.Green}
 
 [module/gpu]
 type = custom/script

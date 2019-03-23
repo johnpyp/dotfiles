@@ -1,5 +1,5 @@
 dotfiles=(".zshrc" ".gitconfig" ".zpreztorc" ".Xresources")
-config_dotdirectories=("i3" "polybar")
+config_dotdirectories=("i3" "polybar" "pscripts" "networkmanager-dmenu")
 
 mkdir -p backups
 for dotfile in "${dotfiles[@]}"

@@ -52,7 +52,6 @@ alias git=hub
 alias gitu='git add . && git commit && git push'
 alias copyghssh="curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys"
 alias dstoprm="docker container stop \$(docker ps -aq) && docker container rm \$(docker ps -aq)"
-alias pia="/opt/piavpn/run.sh"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 
 # fnm
