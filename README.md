@@ -12,7 +12,7 @@ Install pkglist packages:
 
 ```sh
 # --mflags --nocheck makes libgcc not run all the tests (like when installing discord)
-yay -S --needed $( < pkglist.txt ) --mflags --nocheck
+yay -S $(./pkginstall.sh) --mflags --nocheck
 ```
 
 Install fnm:

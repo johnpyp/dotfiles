@@ -20,6 +20,7 @@ inotify-tools
 jdk8-openjdk
 kotlin
 lutris
+manjaro-pulse
 miniconda3
 ncdu
 neofetch
@@ -30,6 +31,7 @@ numix-gtk-theme
 otf-fira-code
 otf-font-awesome
 pandoc-bin
+pavucontrol
 polybar
 postgresql
 qalculate-gtk
@@ -42,8 +44,10 @@ slack-desktop
 spotify
 termsyn-font
 tk
+tor-browser
 ttf-iosevka
 visual-studio-code-bin
 vlc
 wine-staging
 zafiro-icon-theme
+filezilla
