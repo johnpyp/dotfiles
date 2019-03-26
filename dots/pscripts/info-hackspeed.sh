@@ -5,8 +5,8 @@ KEYBOARD_ID="AT Translated Set 2 keyboard"
 
 # cpm: characters per minute
 # wpm: words per minute (1 word = 5 characters)
-METRIC=cpm
-FORMAT="# %d $METRIC"
+METRIC=wpm
+FORMAT="%d"
 
 INTERVAL=20
 

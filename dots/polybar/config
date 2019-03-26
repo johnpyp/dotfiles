@@ -51,7 +51,7 @@ font-2 = FontAwesome:size=14
 
 modules-left = i3 player-mpris-tail 
 modules-center = date 
-modules-right = audio battery brightness updates-arch-combined wireless-network 
+modules-right = info-hackspeed audio battery brightness updates-arch-combined wireless-network 
 
 wm-restack = i3
 
@@ -174,36 +174,6 @@ tail = true
 label = %output%
 format-foreground = ${colors.Green}
 
-[module/gpu]
-type = custom/script
-exec = python3 ~/.config/polybar/gpu.py
-# exec-if = pgrep -x myservice
-tail = true
-interval = 5
-format = %{F#969896} GPU%{F-} <label>
-format-underline = ${colors.Green}
-label = %output%
-
-[module/cpu]
-type = custom/script
-exec = python3 ~/.config/polybar/cpu.py
-# exec-if = pgrep -x myservice
-tail = true
-interval = 5
-format = %{F#969896} CPU%{F-} <label>
-format-underline = ${colors.Aqua}
-label = %output%
-# label-name = cpu
-# label-name-font = 1
-# click-left = echo left %counter%
-# click-middle = echo middle %counter%
-# click-right = echo right %counter%
-# double-click-left = echo double left %counter%
-# double-click-middle = echo double middle %counter%
-# double-click-right = echo double right %counter%
-# scroll-up = echo scroll up %counter%
-# scroll-down = echo scroll down %counter%
-
 [module/battery]
 type = internal/battery
 
@@ -281,7 +251,12 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
-
+[module/info-hackspeed]
+type = custom/script
+exec = ~/.config/pscripts/info-hackspeed.sh
+format =  <label>
+tail = true
+format-underline = ${colors.Aqua}
 [settings]
 screenchange-reload = true
 
