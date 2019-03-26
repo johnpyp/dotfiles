@@ -51,7 +51,7 @@ font-2 = FontAwesome:size=14
 
 modules-left = i3 player-mpris-tail 
 modules-center = date 
-modules-right = audio battery brightness updates-arch-combined wireless-network 
+modules-right = info-hackspeed audio battery brightness updates-arch-combined wireless-network 
 
 wm-restack = i3
 
@@ -135,11 +135,13 @@ label = %date% %time%
 type = internal/pulseaudio
 interval = 5
 
-format-volume = <label-volume>
-label-volume = %{T2}%{T-} %percentage%%
-label-muted =  muted
+format-volume = <ramp-volume> <label-volume>
+label-muted = ﱝ muted
 format-volume-underline = ${colors.Blue}
 format-muted-underline = ${colors.Blue}
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔 
+ramp-volume-2 = 墳
 
 [module/wireless-network]
 type = internal/network
@@ -172,36 +174,6 @@ tail = true
 label = %output%
 format-foreground = ${colors.Green}
 
-[module/gpu]
-type = custom/script
-exec = python3 ~/.config/polybar/gpu.py
-# exec-if = pgrep -x myservice
-tail = true
-interval = 5
-format = %{F#969896} GPU%{F-} <label>
-format-underline = ${colors.Green}
-label = %output%
-
-[module/cpu]
-type = custom/script
-exec = python3 ~/.config/polybar/cpu.py
-# exec-if = pgrep -x myservice
-tail = true
-interval = 5
-format = %{F#969896} CPU%{F-} <label>
-format-underline = ${colors.Aqua}
-label = %output%
-# label-name = cpu
-# label-name-font = 1
-# click-left = echo left %counter%
-# click-middle = echo middle %counter%
-# click-right = echo right %counter%
-# double-click-left = echo double left %counter%
-# double-click-middle = echo double middle %counter%
-# double-click-right = echo double right %counter%
-# scroll-up = echo scroll up %counter%
-# scroll-down = echo scroll down %counter%
-
 [module/battery]
 type = internal/battery
 
@@ -224,17 +196,17 @@ format-discharging-underline = #ffa800
 format-discharging-padding = 1
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-0 = 
+ramp-capacity-1 =  
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-framerate = 750 
 
 [module/brightness]
@@ -242,12 +214,13 @@ type = internal/xbacklight
 
 ; XRandR output to get get values from
 ; Default: the monitor defined for the running bar
-format =  <label>
+format = 盛 <label>
 
 ; Available tokens:
 ;   %percentage% (default)
 label = %percentage%%
 format-underline = ${colors.Yellow}
+interval = 5
 
 [module/powermenu]
 type = custom/menu
@@ -278,7 +251,12 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
-
+[module/info-hackspeed]
+type = custom/script
+exec = ~/.config/pscripts/info-hackspeed.sh
+format =  <label>
+tail = true
+format-underline = ${colors.Aqua}
 [settings]
 screenchange-reload = true
 

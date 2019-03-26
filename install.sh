@@ -1,4 +1,4 @@
-dotfiles=(".zshrc" ".gitconfig" ".zpreztorc" ".Xresources")
+dotfiles=(".zshrc" ".gitconfig" ".zpreztorc" ".Xresources" ".vimrc")
 config_dotdirectories=("i3" "polybar" "pscripts" "networkmanager-dmenu")
 
 mkdir -p backups
