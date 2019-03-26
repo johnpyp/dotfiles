@@ -55,5 +55,9 @@ alias dstoprm="docker container stop \$(docker ps -aq) && docker container rm \$
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 
 # fnm
-export PATH=$HOME/.fnm:$PATH
-eval "`fnm env --multi`"
+# export PATH=$HOME/.fnm:$PATH
+# eval "`fnm env`"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
