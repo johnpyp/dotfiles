@@ -135,11 +135,13 @@ label = %date% %time%
 type = internal/pulseaudio
 interval = 5
 
-format-volume = <label-volume>
-label-volume = %{T2}%{T-} %percentage%%
-label-muted =  muted
+format-volume = <ramp-volume> <label-volume>
+label-muted = ﱝ muted
 format-volume-underline = ${colors.Blue}
 format-muted-underline = ${colors.Blue}
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔 
+ramp-volume-2 = 墳
 
 [module/wireless-network]
 type = internal/network
@@ -224,17 +226,17 @@ format-discharging-underline = #ffa800
 format-discharging-padding = 1
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-0 = 
+ramp-capacity-1 =  
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-framerate = 750 
 
 [module/brightness]
@@ -242,12 +244,13 @@ type = internal/xbacklight
 
 ; XRandR output to get get values from
 ; Default: the monitor defined for the running bar
-format =  <label>
+format = 盛 <label>
 
 ; Available tokens:
 ;   %percentage% (default)
 label = %percentage%%
 format-underline = ${colors.Yellow}
+interval = 5
 
 [module/powermenu]
 type = custom/menu
