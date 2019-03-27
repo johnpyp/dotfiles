@@ -45,13 +45,12 @@ padding-right = 2
 module-margin-left = 0
 module-margin-right = 2
 
-font-0 = Iosevka Nerd Font:size=12
-font-1 = Iosevka Nerd Font:size=12:bold
-font-2 = FontAwesome:size=14
+font-0 = Hack Nerd Font:size=12
+font-1 = Hack Nerd Font:size=12:bold
 
 modules-left = i3 player-mpris-tail 
 modules-center = date 
-modules-right = info-hackspeed audio battery brightness updates-arch-combined wireless-network 
+modules-right = audio battery brightness updates-arch-combined wireless-network 
 
 wm-restack = i3
 
@@ -161,15 +160,9 @@ interval = 200
 format =  <label> Updates 
 format-underline = ${colors.Red}
 
-[module/spotify]
-type = custom/script
-exec = ~/.config/pscripts/player-mpris-simple.sh
-interval = 1 
-format-foreground = ${colors.Aqua}
-
 [module/player-mpris-tail]
 type = custom/script
-exec = ~/.config/pscripts/player-mpris-tail.py -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:~/.config/pscripts/player-mpris-tail.py previous:} ⏮ %{A} %{A1:~/polybar-scripts/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:~/polybar-scripts/player-mpris-tail.py next:} ⏭ %{A}'
+exec = ~/.config/pscripts/player-mpris-tail.py -f '{:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:~/.config/pscripts/player-mpris-tail.py previous:} 寧 %{A} %{A1:~/.config/pscripts/player-mpris-tail.py play-pause:} {icon-reversed}  %{A} %{A1:~/.config/pscripts/player-mpris-tail.py next:} 嶺 %{A}' --icon-playing 契 --icon-paused  --icon-stopped 栗 
 tail = true
 label = %output%
 format-foreground = ${colors.Green}
@@ -250,15 +243,6 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
-
-[module/info-hackspeed]
-type = custom/script
-exec = ~/.config/pscripts/info-hackspeed.sh
-format =  <label>
-tail = true
-format-underline = ${colors.Aqua}
-[settings]
-screenchange-reload = true
 
 [global/wm]
 margin-top = 0
