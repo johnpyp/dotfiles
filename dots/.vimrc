@@ -20,14 +20,15 @@ Plugin 'morhetz/gruvbox'
 Plugin 'posva/vim-vue'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'mattn/emmet-vim'
+Plugin 'xolox/vim-notes'
+Plugin 'xolox/vim-misc'
 """"""""""""""""""""""""""""""""""""""""" END PLUGINS
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " colorscheme
-
-colorscheme gruvbox
 set background=dark    " Setting dark mode
+colorscheme gruvbox 
 
 map <C-C> :NERDTreeClose<CR>
 map <C-n> :NERDTreeFocus<CR>
@@ -45,4 +46,5 @@ map <leader>ru :%s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<cr>
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 set showcmd
 set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
+let g:notes_directories = ['~/Documents/Notes']
 

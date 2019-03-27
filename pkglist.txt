@@ -9,6 +9,7 @@ docky
 elixir
 etcher-bin
 fd
+filezilla
 gimp
 gnome-disk-utility
 go
@@ -43,6 +44,7 @@ siji-git
 slack-desktop
 spotify
 termsyn-font
+thunar
 tk
 tor-browser
 ttf-iosevka
@@ -50,4 +52,3 @@ visual-studio-code-bin
 vlc
 wine-staging
 zafiro-icon-theme
-filezilla
