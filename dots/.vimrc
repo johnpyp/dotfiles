@@ -17,7 +17,9 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'dracula/vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'morhetz/gruvbox'
-
+Plugin 'posva/vim-vue'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'mattn/emmet-vim'
 """"""""""""""""""""""""""""""""""""""""" END PLUGINS
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -42,3 +44,5 @@ map <leader>ru :%s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<cr>
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 set showcmd
+set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
+
