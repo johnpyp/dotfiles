@@ -54,10 +54,17 @@ alias copyghssh="curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys"
 alias dstoprm="docker container stop \$(docker ps -aq) && docker container rm \$(docker ps -aq)"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 
-# fnm
-# export PATH=$HOME/.fnm:$PATH
-# eval "`fnm env`"
+# NVM Lazy-Loading
+declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+NODE_GLOBALS+=("node")
+NODE_GLOBALS+=("nvm")
+
+load_nvm () {
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+}
+
+for cmd in "${NODE_GLOBALS[@]}"; do
+    eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
+done
