@@ -47,7 +47,7 @@ modules-left = i3 player-mpris-tail
 modules-center = date 
 modules-right = audio battery brightness updates-arch-combined wired-network wireless-network 
 
-tray-position = right
+tray-position = ${env:TRAY_POSITION:right}
 tray-padding = 3
 tray-detached = false
 tray-maxsize = 16
