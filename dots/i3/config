@@ -402,5 +402,7 @@ bindsym $mod+n exec "networkmanager_dmenu"
 # Moving Workspaces to Different Monitors
 bindsym $mod+Shift+bracketleft move workspace to output left
 bindsym $mod+Shift+bracketright move workspace to output right
-
-exec --no-startup-id killall -q pia-client; sleep 1; /opt/piavpn/bin/pia-client
+# Bind Right Alt to Compose key
+exec --no-startup-id setxkbmap -option compose:ralt
+# Kill any PIA process, wait a bit, start it back up
+exec --no-startup-id killall -q pia-client; sleep 9; /opt/piavpn/bin/pia-client
