@@ -43,6 +43,7 @@ rofi
 siji-git
 slack-desktop
 spotify
+steam-manjaro
 termsyn-font
 thunar
 tk

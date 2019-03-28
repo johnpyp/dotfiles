@@ -65,23 +65,16 @@ tray-background = ${colors.background-alt}
 tray-offset-x = 0
 tray-offset-y = 0
 tray-scale = 1.0
+
 [module/i3]
 type = internal/i3
-
 pin-workspaces = false
-
 ;strip-wsnumbers = true
-
 index-sort = true
-
 enable-click = true
-
 enable-scroll = false 
-
 wrapping-scroll = true 
-
 fuzzy-match = true
-
 ws-icon-0 = 0;
 ws-icon-1 = 1;1
 ws-icon-2 = 2;2
@@ -162,10 +155,10 @@ format-underline = ${colors.Red}
 
 [module/player-mpris-tail]
 type = custom/script
-exec = ~/.config/pscripts/player-mpris-tail.py -f '{:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:~/.config/pscripts/player-mpris-tail.py previous:} 寧 %{A} %{A1:~/.config/pscripts/player-mpris-tail.py play-pause:} {icon-reversed}  %{A} %{A1:~/.config/pscripts/player-mpris-tail.py next:} 嶺 %{A}' --icon-playing 契 --icon-paused  --icon-stopped 栗 
+exec = ~/.config/pscripts/player-mpris-tail.py -f 'ﱘ {artist} - "{title}" %{A1:~/.config/pscripts/player-mpris-tail.py previous:} 寧%{A} %{A1:~/.config/pscripts/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:~/.config/pscripts/player-mpris-tail.py next:}嶺 %{A}' --icon-playing 契 --icon-paused  --icon-stopped 栗 
 tail = true
 label = %output%
-format-foreground = ${colors.Green}
+format-underline = ${colors.Aqua}
 
 [module/battery]
 type = internal/battery
