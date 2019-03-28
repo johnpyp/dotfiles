@@ -11,7 +11,7 @@
 dpi = 195
 background-alt = #4d535b
 
-Background = #282a36
+Background = #90282a36
 Current = #44475a
 Selection = #44475a
 Foreground = #f8f8f2
@@ -110,7 +110,7 @@ format-underline = ${colors.Red}
 date = "%m/%d/%Y"
 time = %I:%M %p
 
-label =  %date%    %time%
+label =  %date%   %time%
 
 
 [module/audio]
