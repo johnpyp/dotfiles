@@ -9,11 +9,10 @@
 
 [colors]
 dpi = 195
-# tommorow night
-background = #1d1f21 
+background = #2E3440
 Current = #282a2e
-background-alt = #373b41 
-foreground = #c5c8c6 
+background-alt = #4d535b
+foreground = #eceff4
 foreground-alt = #969896 
 Comment = #969896 
 Red = #cc6666 
@@ -24,20 +23,13 @@ Aqua = #8abeb7
 Blue = #81a2be 
 Purple = #b294bb 
 
-[bar/0i0]
+[bar/top]
 monitor = ${env:MONITOR:}
 monitor-fallback = eDP1
-width = 100%
 height = 34
-;offset-x = 200
-;offset-y = 50
-fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
-
 line-size = 5
-
-border-size = 0
 
 padding-left = 0 
 padding-right = 2
@@ -45,20 +37,18 @@ padding-right = 2
 module-margin-left = 0
 module-margin-right = 2
 
+
+fixed-center = true
 font-0 = Hack Nerd Font:size=12
 font-1 = Hack Nerd Font:size=12:bold
+font-2 = MaterialIcons:size=12
 
 modules-left = i3 player-mpris-tail 
 modules-center = date 
-modules-right = audio battery brightness updates-arch-combined wireless-network 
-
-wm-restack = i3
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
+modules-right = audio battery brightness updates-arch-combined wired-network wireless-network 
 
 tray-position = right
-tray-padding = 2
+tray-padding = 3
 tray-detached = false
 tray-maxsize = 16
 tray-background = ${colors.background-alt}
@@ -118,9 +108,7 @@ interval = 5
 date = "%m/%d/%Y"
 time = %I:%M %p
 
-format-underline = ${colors.Red}
-
-label = %date% %time%
+label =  %date%    %time%
 
 
 [module/audio]
@@ -129,8 +117,6 @@ interval = 5
 
 format-volume = <ramp-volume> <label-volume>
 label-muted = ﱝ muted
-format-volume-underline = ${colors.Blue}
-format-muted-underline = ${colors.Blue}
 ramp-volume-0 = 奄
 ramp-volume-1 = 奔 
 ramp-volume-2 = 墳
@@ -139,11 +125,17 @@ ramp-volume-2 = 墳
 type = internal/network
 interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp2s0}
 interval = 3.0
-format-connected-underline = ${colors.Orange}
-format-disconnected-underline = ${colors.Orange}
-label-connected =  %{A:networkmanager_dmenu&:} %essid%%{A}
+label-connected =  %{A:networkmanager_dmenu&:}直 %essid%%{A}
 format-connected = <label-connected>
 label-disconnected = %{A:networkmanager_dmenu&:}not connected%{A}
+
+[module/wired-network]
+type = internal/network
+interface = ${env:DEFAULT_NETWORK_INTERFACE:enp7s0}
+interval = 3.0
+label-connected =  Wired
+format-connected = <label-connected>
+label-disconnected = not connected
 
 [module/updates-arch-combined]
 type = custom/script
@@ -155,10 +147,9 @@ format-underline = ${colors.Red}
 
 [module/player-mpris-tail]
 type = custom/script
-exec = ~/.config/pscripts/player-mpris-tail.py -f 'ﱘ {artist} - "{title}" %{A1:~/.config/pscripts/player-mpris-tail.py previous:} 寧%{A} %{A1:~/.config/pscripts/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:~/.config/pscripts/player-mpris-tail.py next:}嶺 %{A}' --icon-playing 契 --icon-paused  --icon-stopped 栗 
+exec = ~/.config/pscripts/player-mpris-tail.py -f ' {artist} - "{title}" %{A1:~/.config/pscripts/player-mpris-tail.py previous:} 寧%{A} %{A1:~/.config/pscripts/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:~/.config/pscripts/player-mpris-tail.py next:}嶺 %{A}' --icon-playing 契 --icon-paused  --icon-stopped 栗 
 tail = true
 label = %output%
-format-underline = ${colors.Aqua}
 
 [module/battery]
 type = internal/battery
@@ -180,7 +171,6 @@ format-charging-underline = ${colors.Green}
 format-charging-padding = 1
 format-discharging-underline = #ffa800
 format-discharging-padding = 1
-format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
 ramp-capacity-1 =  
@@ -205,7 +195,6 @@ format = 盛 <label>
 ; Available tokens:
 ;   %percentage% (default)
 label = %percentage%%
-format-underline = ${colors.Yellow}
 interval = 5
 
 [module/powermenu]

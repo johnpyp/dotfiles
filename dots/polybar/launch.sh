@@ -8,5 +8,5 @@ export DEFAULT_NETWORK_INTERFACE=$(ls /sys/class/net | grep wlp | head -n 1 | aw
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 for m in $(polybar --list-monitors | cut -d":" -f1); do
-    MONITOR=$m polybar --reload 0i0 &
+    MONITOR=$m polybar --reload top &
 done
