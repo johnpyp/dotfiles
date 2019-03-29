@@ -46,10 +46,12 @@ spotify
 steam-manjaro
 termsyn-font
 thunar
+tiny-media-manager
 tk
 tor-browser
 ttf-iosevka
 visual-studio-code-bin
 vlc
 wine-staging
+xclip
 zafiro-icon-theme

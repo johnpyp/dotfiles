@@ -77,11 +77,10 @@ bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-bindsym Print exec --no-startup-id i3-scrot
-bindsym $mod+p exec --release --no-startup-id i3-scrot -w
-bindsym $mod+Shift+p --release exec --no-startup-id i3-scrot -s
+# bindsym Print exec --no-startup-id i3-scrot
+bindsym $mod+p --release exec "scrot -m $HOME/Pictures/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'; notify-send 'window captured'"
+bindsym $mod+Shift+p --release exec "scrot -s $HOME/Pictures/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'; notify-send 'selection captured'"
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
-bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # change focus
 bindsym $mod+j focus left
@@ -143,10 +142,6 @@ bindsym $mod+Shift+x move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+x scratchpad show, resize set 1500 900, move position center 
-
-#navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
