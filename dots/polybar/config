@@ -9,7 +9,7 @@
 
 [colors]
 dpi = 195
-background-alt = #4d535b
+BackgroundAlt = #c0282a36
 
 Background = #90282a36
 Current = #44475a
@@ -53,7 +53,7 @@ tray-position = ${env:TRAY_POSITION:right}
 tray-padding = 3
 tray-detached = false
 tray-maxsize = 16
-tray-background = ${colors.background-alt}
+tray-background = ${colors.BackgroundAlt}
 tray-offset-x = 0
 tray-offset-y = 0
 tray-scale = 1.0
