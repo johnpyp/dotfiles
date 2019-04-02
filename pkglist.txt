@@ -9,11 +9,13 @@ docky
 elixir
 etcher-bin
 fd
+feh
 filezilla
 gimp
 gnome-disk-utility
 go
 google-chrome
+gvim
 hashcat
 httpie
 hub

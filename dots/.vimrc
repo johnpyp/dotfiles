@@ -35,7 +35,7 @@ map <C-n> :NERDTreeFocus<CR>
 
 nnoremap <C-j> :tabprevious<CR>                                                                   
 nnoremap <C-k> :tabnext<CR>
-
+noremap <Leader>y "+y
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
