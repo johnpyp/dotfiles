@@ -11,6 +11,7 @@ etcher-bin
 fd
 feh
 filezilla
+fzf
 gimp
 gnome-disk-utility
 go
