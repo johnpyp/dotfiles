@@ -54,6 +54,8 @@ alias copyghssh="curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys"
 alias dstoprm="docker container stop \$(docker ps -aq) && docker container rm \$(docker ps -aq)"
 alias font-list="sort <(fc-list : family) | vim -"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
+export FZF_DEFAULT_COMMAND="fd --type file --follow --color=always"
+export FZF_DEFAULT_OPTS="--ansi"
 
 # NVM Lazy-Loading
 declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)

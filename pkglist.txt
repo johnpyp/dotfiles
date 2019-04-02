@@ -10,6 +10,7 @@ elixir
 etcher-bin
 fd
 filezilla
+fzf
 gimp
 gnome-disk-utility
 go
