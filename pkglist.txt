@@ -5,7 +5,6 @@ deluge
 discord
 docker
 docker-compose
-docky
 elixir
 etcher-bin
 fd
