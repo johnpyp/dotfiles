@@ -23,6 +23,7 @@ inotify-tools
 jdk8-openjdk
 kotlin
 lutris
+maim
 manjaro-pulse
 miniconda3
 ncdu
