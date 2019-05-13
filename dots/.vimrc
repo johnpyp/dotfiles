@@ -22,30 +22,30 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-misc'
+Plugin 'w0rp/ale'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'Valloric/YouCompleteMe'
 """"""""""""""""""""""""""""""""""""""""" END PLUGINS
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " colorscheme
 set background=dark    " Setting dark mode
-colorscheme gruvbox 
+colorscheme gruvbox
 
-map <C-C> :NERDTreeClose<CR>
-map <C-n> :NERDTreeFocus<CR>
+map <C-n> :NERDTreeClose<CR>
+map ` :NERDTreeFocus<CR>
 
-nnoremap <C-j> :tabprevious<CR>                                                                   
-nnoremap <C-k> :tabnext<CR>
 noremap <Leader>y "+y
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
 map <leader>ru :%s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<cr>
 set showcmd
 set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
 let g:notes_directories = ['~/Documents/Notes']
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace'], 'javascript': ['eslint'], 'vue': ['eslint'],}
+let g:user_emmet_leader_key=','
 
+let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
+
+let g:UltiSnipsExpandTrigger="<C-j>"
