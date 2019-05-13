@@ -22,6 +22,7 @@ hub
 inotify-tools
 jdk8-openjdk
 kotlin
+lib32-gnutls
 lutris
 maim
 manjaro-pulse
