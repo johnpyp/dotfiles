@@ -15,6 +15,7 @@ gimp
 gnome-disk-utility
 go
 google-chrome
+gotop
 gvim
 hashcat
 httpie
@@ -25,6 +26,7 @@ kotlin
 lutris
 manjaro-pulse
 miniconda3
+mono
 ncdu
 neofetch
 nerd-fonts-complete
@@ -42,6 +44,7 @@ ranger
 redshift-gtk-git
 ripgrep
 rofi
+rust
 siji-git
 slack-desktop
 spotify
