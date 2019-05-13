@@ -77,9 +77,9 @@ bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-# bindsym Print exec --no-startup-id i3-scrot
-bindsym $mod+p --release exec "scrot -m $HOME/Pictures/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'; notify-send 'window captured'"
-bindsym $mod+Shift+p --release exec "scrot -s $HOME/Pictures/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'; notify-send 'selection captured'"
+bindsym Print exec --no-startup-id i3-scrot -s
+bindsym $mod+p --release exec "maim $HOME/Pictures/screenshot-$(date +%F_%T).png | xclip -selection clipboard -t image/png; notify-send 'window captured'"
+bindsym $mod+Shift+p --release exec "maim -s $HOME/Pictures/screenshot-$(date +%F_%T).png | xclip -selection clipboard -t image/png; notify-send 'selection captured'"
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 
 # change focus
