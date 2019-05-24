@@ -38,9 +38,8 @@ bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-bindsym Print exec --no-startup-id i3-scrot -s
-bindsym $mod+p --release exec "maim $HOME/Pictures/screenshot-$(date +%F_%T).png | xclip -selection clipboard -t image/png; notify-send 'window captured'"
-bindsym $mod+Shift+p --release exec "maim -s $HOME/Pictures/screenshot-$(date +%F_%T).png | xclip -selection clipboard -t image/png; notify-send 'selection captured'"
+
+bindsym $mod+p exec --no-startup-id deepin-screenshot
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 
 # change focus
@@ -236,6 +235,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
+exec --no-startup-id xfce4-clipman
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia

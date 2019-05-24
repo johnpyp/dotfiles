@@ -1,6 +1,8 @@
+
 alsa-utils
 bitwarden
 dbeaver
+deepin-screenshot
 deluge
 discord
 docker
@@ -27,7 +29,6 @@ lib32-gnutls
 lutris
 maim
 manjaro-pulse
-miniconda3
 mono
 ncdu
 neofetch
@@ -41,6 +42,7 @@ pandoc-bin
 pavucontrol
 polybar
 postgresql
+pyenv
 qalculate-gtk
 ranger
 redshift-gtk-git
@@ -61,4 +63,5 @@ visual-studio-code-bin
 vlc
 wine-staging
 xclip
+xfce4-clipman
 zafiro-icon-theme
