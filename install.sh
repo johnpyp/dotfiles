@@ -1,5 +1,5 @@
 dotfiles=(".zshrc" ".gitconfig" ".zpreztorc" ".Xresources" ".vimrc")
-config_dotdirectories=("i3" "polybar" "pscripts" "networkmanager-dmenu" "wallpapers")
+config_dotdirectories=("i3" "polybar" "pscripts" "networkmanager-dmenu" "wallpapers" "nvim" "alacritty")
 
 mkdir -p backups
 for dotfile in "${dotfiles[@]}"
@@ -19,7 +19,7 @@ do
   if [ -d ${PWD}/dots/${config_dotfile} ]; then
     if [ ! "`readlink ${HOME}/.config/${config_dotfile}`" -ef "${PWD}/dots/${config_dotfile}" ]; then
       if [ -d ${HOME}/.config/${config_dotfile} ]; then
-        mv -d ${HOME}/.config/${config_dotfile} ${PWD}/backups
+        mv ${HOME}/.config/${config_dotfile} ${PWD}/backups
       fi
       ln -sv "${PWD}/dots/${config_dotfile}" ${HOME}/.config/${config_dotfile}
     fi

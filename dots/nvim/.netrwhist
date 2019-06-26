@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/johnpyp/dotfiles/dots'
+let g:netrw_dirhist_2='/home/johnpyp/dotfiles/dots/i3'
+let g:netrw_dirhist_3='/home/johnpyp/code/rustlesearch/server'
+let g:netrw_dirhist_4='/home/johnpyp/code/homemedia-docker'
+let g:netrw_dirhist_5='/home/johnpyp/code/homemedia-docker/docs'
+let g:netrw_dirhist_6='/home/johnpyp/code/homemedia-docker'
+let g:netrw_dirhist_7='/home/johnpyp'

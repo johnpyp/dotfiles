@@ -63,19 +63,20 @@ alias dc="docker-compose"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 export FZF_DEFAULT_COMMAND="fd --type file --follow --color=always"
 export FZF_DEFAULT_OPTS="--ansi"
-export PATH=~/.local/bin:$PATH
+export PATH=~/.yarn/bin:~/.local/bin:$PATH
 
 # NVM Lazy-Loading
-declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
-
-NODE_GLOBALS+=("node")
-NODE_GLOBALS+=("nvm")
-
-load_nvm () {
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-}
-
-for cmd in "${NODE_GLOBALS[@]}"; do
-    eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
-done
+# declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
+# 
+# NODE_GLOBALS+=("node")
+# NODE_GLOBALS+=("nvm")
+# 
+# load_nvm () {
+#     export NVM_DIR=~/.nvm
+#     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# }
+# 
+# for cmd in "${NODE_GLOBALS[@]}"; do
+#     eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
+# done
+eval "`fnm env --multi`"
