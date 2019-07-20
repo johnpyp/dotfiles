@@ -1,6 +1,7 @@
 alsa-utils
 betterlockscreen
 bitwarden-bin
+brave
 dbeaver
 deluge
 discord
