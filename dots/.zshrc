@@ -1,4 +1,4 @@
-source ~/.profile
+[ -f ~/.profile ] && source ~/.profile
 # Installing Prezto: git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 # Source Prezto.
