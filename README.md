@@ -1,6 +1,6 @@
 # DISCLAIMER: I WOULDN'T TRUST ME, WHY SHOULD YOU ???
 
-## Manjaro Post Install Guide
+## Manjaro/Arch Post Install Guide
 
 Ranking mirrors:
 ```sh
@@ -11,16 +11,16 @@ rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 Install pkglist packages:
 
 ```sh
-# --mflags --nocheck makes libgcc not run all the tests (like when installing discord)
-yay -S $(./pkginstall.sh) --mflags --nocheck
+yay -S $(./pkginstall.sh)
 ```
-
-Install fnm:
+Install asdf:
 
 ```sh
-curl https://raw.githubusercontent.com/Schniz/fnm/master/.ci/install.sh | bash
-# You may need to use: npm config delete prefix
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+cd ~/.asdf
+git checkout "$(git describe --abbrev=0 --tags)"
 ```
+
 
 Install prezto:
 
@@ -40,14 +40,19 @@ cd ~/dotfiles
 ./install.sh
 ```
 
-Download megasync:
+Install asdf stuff:
 
 ```sh
-cd Downloads
-# Download built package
-curl -O https://mega.nz/linux/MEGAsync/Arch_Extra/x86_64/megasync-x86_64.pkg.tar.xz
-# Install the local package
-sudo pacman -U megasync-x86_64.pkg.tar.xz
+asdf plugin-add crystal
+asdf plugin-add nodejs
+asdf plugin-add hub
+# asdf list-all <name>
+asdf install crystal <version>
+asdf install nodejs <version>
+asdf install hub <version>
+asdf global crystal <version>
+asdf global nodejs <version>
+asdf global hub <version>
 ```
 
 Change Caps_Lock to Right:

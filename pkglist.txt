@@ -1,4 +1,3 @@
-alacritty
 alsa-utils
 betterlockscreen
 bitwarden-bin
@@ -23,12 +22,11 @@ gotop
 gvim
 hashcat
 httpie
-hub
 inotify-tools
+kitty
 lib32-gnutls
 libreoffice-fresh
 lutris
-manjaro-pulse
 mono
 ncdu
 neofetch
@@ -53,7 +51,6 @@ rustup
 siji-git
 slack-desktop
 spotify
-steam-manjaro
 termsyn-font
 thunar
 tk

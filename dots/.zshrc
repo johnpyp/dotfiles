@@ -91,6 +91,3 @@ export PATH=~/.yarn/bin:~/.local/bin:$PATH
 . $HOME/.asdf/asdf.sh
 
 . $HOME/.asdf/completions/asdf.bash
-
-# added by travis gem
-[ -f /home/johnpyp/.travis/travis.sh ] && source /home/johnpyp/.travis/travis.sh
