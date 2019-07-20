@@ -32,6 +32,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
 Plug 'pangloss/vim-javascript'
 Plug 'cakebaker/scss-syntax.vim'
+Plug 'rhysd/vim-crystal'
 
 call plug#end()
 " }}}
@@ -211,4 +212,5 @@ highlight clear ALEInfoSign
 highlight clear SignColumn
 " }}}
 let g:python3_host_prog = expand('~/.pyenv/shims/python')
+let g:crystal_auto_format = 1
 " vim: set sw=2 ts=2 sts=2 et tw=120 ft=vim fdm=marker:

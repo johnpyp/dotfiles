@@ -1,5 +1,6 @@
 alacritty
 alsa-utils
+betterlockscreen
 bitwarden-bin
 dbeaver
 deluge
@@ -62,4 +63,5 @@ visual-studio-code-bin
 vlc
 wine-staging
 xclip
+xfce4-notifyd
 zafiro-icon-theme

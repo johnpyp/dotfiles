@@ -1,4 +1,4 @@
-
+source ~/.profile
 # Installing Prezto: git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 # Source Prezto.
@@ -60,6 +60,8 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias dc="docker-compose"
+alias hlib="cd /media/johnpyp/virt/homemedia"
+alias vim="nvim"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 export FZF_DEFAULT_COMMAND="fd --type file --follow --color=always"
 export FZF_DEFAULT_OPTS="--ansi"
@@ -79,4 +81,16 @@ export PATH=~/.yarn/bin:~/.local/bin:$PATH
 # for cmd in "${NODE_GLOBALS[@]}"; do
 #     eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
 # done
-eval "`fnm env --multi`"
+# Normal NVM
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# eval "`fnm env --multi`"
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
+# added by travis gem
+[ -f /home/johnpyp/.travis/travis.sh ] && source /home/johnpyp/.travis/travis.sh
