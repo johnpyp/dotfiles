@@ -8,12 +8,13 @@ fi
 
 # Customize to your needs...
 prompt pure
-
 #
 # ----------------
 # Normal Initilization Stuff
 # ----------------
 #
+
+bindkey '^H' backward-kill-word
 # [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
