@@ -13,7 +13,6 @@ fd
 feh
 filezilla
 flameshot
-fnm-bin
 fzf
 gimp
 gnome-disk-utility
@@ -55,7 +54,6 @@ spotify-dev
 termsyn-font
 thunar
 tk
-tor-browser
 ttf-iosevka
 visual-studio-code-bin
 vlc
