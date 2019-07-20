@@ -32,9 +32,9 @@ ncdu
 neofetch
 neovim
 nerd-fonts-complete
-networkmanager-dmenu
+networkmanager-dmenu-git
 noto-fonts-emoji
-numix-gtk-theme
+numix-gtk-theme-git
 otf-fira-code
 otf-font-awesome
 pandoc-bin
