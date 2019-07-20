@@ -51,7 +51,7 @@ rofi
 rustup
 siji-git
 slack-desktop
-spotify
+spotify-dev
 termsyn-font
 thunar
 tk
