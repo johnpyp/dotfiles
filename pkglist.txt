@@ -33,6 +33,7 @@ neofetch
 neovim
 nerd-fonts-complete
 networkmanager-dmenu-git
+nordvpn-bin
 noto-fonts-emoji
 numix-gtk-theme-git
 otf-fira-code
@@ -56,6 +57,8 @@ thunar
 tk
 ttf-iosevka
 visual-studio-code-bin
+vivaldi
+vivaldi-codecs-ffmpeg-extra-bin
 vlc
 wine-staging
 xclip

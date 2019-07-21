@@ -16,8 +16,8 @@ prompt pure
 
 bindkey '^H' backward-kill-word
 # [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+# export PATH="$HOME/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
 
 #
 # ----------------
@@ -28,6 +28,7 @@ eval "$(pyenv init -)"
 removelink() {
   [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
 }
+alias sudo="sudo -E"
 alias ex="unarchive"
 alias lsdots="ls -lad ./.*"
 alias cp="cp -i"                                                # Confirm before overwriting something
