@@ -28,6 +28,11 @@ bindkey '^H' backward-kill-word
 removelink() {
   [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
 }
+
+benchzsh() {
+  for i in {1..20}; time zsh -i -c exit
+}
+
 alias sudo="sudo -E"
 alias ex="unarchive"
 alias lsdots="ls -lad ./.*"

@@ -1,4 +1,5 @@
 alsa-utils
+apache-tools
 betterlockscreen
 bitwarden-bin
 brave-bin
@@ -9,6 +10,7 @@ docker
 docker-compose
 elixir
 etcher-bin
+exa
 fd
 feh
 filezilla
@@ -19,15 +21,22 @@ gnome-disk-utility
 go
 google-chrome
 gotop
+gparted
 gvim
 hashcat
+htop
+htop
 httpie
 inotify-tools
 kitty
+lazydocker
 lib32-gnutls
 libreoffice-fresh
 lutris
+lxappearance
+mergerfs
 mono
+mpv
 ncdu
 neofetch
 neovim
@@ -35,7 +44,9 @@ nerd-fonts-complete
 networkmanager-dmenu-git
 nordvpn-bin
 noto-fonts-emoji
+ntp
 numix-gtk-theme-git
+nvidia-settings
 otf-fira-code
 otf-font-awesome
 pandoc-bin
@@ -52,6 +63,9 @@ rustup
 siji-git
 slack-desktop
 spotify-dev
+steam
+steam-native-pcre-fix
+sysbench
 termsyn-font
 thunar
 tk

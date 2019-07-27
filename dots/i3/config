@@ -313,8 +313,6 @@ bindsym $mod+grave exec "rofi -show drun -modi drun,window -show-icons -sidebar-
 bindsym $mod+Tab exec "rofi -show window -modi drun,window -show-icons -sidebar-mode -theme Arc-Dark"
 bindsym $mod+d exec "rofi -show run -show-icons -theme Arc-Dark"
 # Set Wallpaper
-# exec --no-startup-id nitrogen --set-zoom-fill ~/.config/wallpapers/current.jpg --head=0 &
-# exec --no-startup-id nitrogen --set-zoom-fill ~/.config/wallpapers/current.jpg --head=1 &
 exec --no-startup-id feh --bg-fill ~/.config/wallpapers/current.jpg; sleep 1; compton -b
 
 # NetworkManager-dmenu

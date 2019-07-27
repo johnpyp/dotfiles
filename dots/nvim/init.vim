@@ -1,7 +1,6 @@
 " Plug: {{{
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'w0rp/ale'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'morhetz/gruvbox'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
@@ -20,7 +19,6 @@ Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
-" Plug 'ludovicchabant/vim-gutentags'
 Plug 'jparise/vim-graphql'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'sheerun/vim-polyglot'
@@ -30,9 +28,10 @@ Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
-Plug 'pangloss/vim-javascript'
-Plug 'cakebaker/scss-syntax.vim'
 Plug 'rhysd/vim-crystal'
+Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-sensible'
 
 call plug#end()
 " }}}
@@ -46,8 +45,8 @@ let g:gruvbox_italic = 1
 colorscheme gruvbox
 set termguicolors
 " set system clipboard keybindings
-noremap <Leader>y "*y
-noremap <Leader>p "*p
+noremap <Leader>y "+y
+noremap <Leader>p "+p
 " Bind tab cycling
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
@@ -73,6 +72,10 @@ set number
 set relativenumber
 " search case insensitive
 set ignorecase
+" Permanent Undo
+set undodir=~/.vimdid
+set undofile
+
 " italic comments
 hi Comment cterm = italic
 " cursor
@@ -105,13 +108,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['javascript', 'latex', 'rust', 'kotlin']
-" }}}
-" Gutentags: {{{
-" show status
-" set statusline +=%{gutentags#statusline()}
-" set cache dir
-" let g:gutentags_cache_dir = expand('~/.cache/gutentags_cache_dir')
+let g:polyglot_disabled = ['latex', 'rust', 'kotlin']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -211,6 +208,16 @@ highlight clear ALEWarningSign
 highlight clear ALEInfoSign
 highlight clear SignColumn
 " }}}
-let g:python3_host_prog = expand('~/.pyenv/shims/python')
+" Fzf: {{{
+
+nnoremap <C-p> :Files<CR>
+
+"}}}
+" Ripgrep: {{{
+
+let g:rg_format = '%f:%l:%c:%m'
+let g:rg_command = 'rg --no-heading --vimgrep'
+"}}}
+" Crystal: {{{
 let g:crystal_auto_format = 1
-" vim: set sw=2 ts=2 sts=2 et tw=120 ft=vim fdm=marker:
+" }}}

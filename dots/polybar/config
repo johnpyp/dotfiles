@@ -106,7 +106,7 @@ label-urgent-padding = 2
 type = internal/date
 interval = 5
 format-underline = ${colors.Red}
-date = "%m/%d/%Y"
+date = "%a %m/%d/%Y"
 label =  %date%
 
 [module/time]
@@ -116,8 +116,6 @@ format-underline = ${colors.Red}
 time = %I:%M %p
 
 label =  %time%
-
-
 
 [module/audio]
 type = internal/pulseaudio
