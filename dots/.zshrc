@@ -51,30 +51,10 @@ alias dc="docker-compose"
 alias hlib="cd /media/johnpyp/virt/homemedia"
 alias vim="nvim"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
-export FZF_DEFAULT_COMMAND="fd --type file --follow --color=always"
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --color always --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--ansi"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export PATH=~/.yarn/bin:~/.local/bin:$PATH
-
-# NVM Lazy-Loading
-# declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
-# 
-# NODE_GLOBALS+=("node")
-# NODE_GLOBALS+=("nvm")
-# 
-# load_nvm () {
-#     export NVM_DIR=~/.nvm
-#     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-# }
-# 
-# for cmd in "${NODE_GLOBALS[@]}"; do
-#     eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
-# done
-# Normal NVM
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# eval "`fnm env --multi`"
 
 . $HOME/.asdf/asdf.sh
 
