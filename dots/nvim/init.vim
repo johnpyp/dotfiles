@@ -112,6 +112,7 @@ let g:polyglot_disabled = ['latex', 'rust', 'kotlin']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
+let g:fugitive_git_executable = 'hub'
 " }}}
 " Deoplete: {{{
 " set runtimepath +=~/.config/nvim/plugged/deoplete.nvim
