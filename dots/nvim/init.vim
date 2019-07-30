@@ -9,7 +9,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
 Plug 'Shougo/neoinclude.vim'
 Plug 'luochen1990/rainbow'
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'bhurlow/vim-parinfer', { 'for': ['lisp', 'clojure'] }
 Plug 'tpope/vim-sleuth'
 Plug 'Chiel92/vim-autoformat'
@@ -22,20 +22,22 @@ Plug 'tpope/vim-fugitive'
 Plug 'jparise/vim-graphql'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'sheerun/vim-polyglot'
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+" Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
+" Plug 'scrooloose/nerdtree'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
 Plug 'rhysd/vim-crystal'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-sensible'
+"Plug 'tpope/vim-sensible'
 
 call plug#end()
 " }}}
 " General: {{{
+let mapleader = " "
 set fileencoding =utf-8
 " theme
 set background=dark
@@ -53,13 +55,14 @@ nnoremap <C-Right> :tabnext<CR>
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-k> :tabnext<CR>
 nnoremap <Leader>n :tabnew<CR>
+" Bind edit and reload nvim
+nnoremap <leader>ev :split $MYVIMRC<CR>  
+nnoremap <leader>sv :source $MYVIMRC<CR>     
 " save swap every 100ms of no input
 set updatetime =100
 " Auto syntax from filetype + indents
 syntax on
 filetype plugin indent on
-" macro key
-nnoremap <Space> @q
 " indent width
 set tabstop =4
 set shiftwidth =4
@@ -75,6 +78,9 @@ set ignorecase
 " Permanent Undo
 set undodir=~/.vimdid
 set undofile
+
+" set foldmethod
+set foldmethod=marker
 
 " italic comments
 hi Comment cterm = italic
@@ -108,7 +114,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'rust', 'kotlin']
+let g:polyglot_disabled = ['latex', 'kotlin']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -158,6 +164,8 @@ let g:ctrlp_show_hidden = 1
 " }}}
 " Nerdtree: {{{
 " Bind to Ctrl+n
+" map <C-n> :NERDTreeToggle<CR>
+" let NERDTreeQuitOnOpen=1
 "}}}
 " Coc: {{{
 let g:coc_node_path = 'node'
@@ -178,10 +186,11 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 "}}}
 " Asynchronous Lint Engine: {{{
+nnoremap <C-t> :ALEHover<CR>
 let g:ale_linters = {
   \   'javascript': ['eslint'],
   \   'python': ['black'],
-  \   'rust': ['rls'],
+  \   'rust': ['rls', 'cargo'],
   \   'fshap': ['dotnet-fsharplint']
   \}
 
@@ -194,7 +203,7 @@ let g:ale_fixers = {
 let g:ale_rust_cargo_check_tests = 1
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_clippy_options = 'all'
-let g:ale_rust_rls_executable = expand('~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rls')
+" let g:ale_rust_rls_executable = expand('~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rls')
 " js
 let g:ale_javascript_eslint_executable = 'eslint'
 let g:ale_javascript_eslint_options = "--ignore-pattern '!node_modules/*'"
@@ -221,4 +230,8 @@ let g:rg_command = 'rg --no-heading --vimgrep'
 "}}}
 " Crystal: {{{
 let g:crystal_auto_format = 1
+" }}}
+" Rooter: {{{
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_resolve_links = 1
 " }}}

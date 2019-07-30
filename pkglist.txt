@@ -28,6 +28,7 @@ htop
 htop
 httpie
 inotify-tools
+insomnia
 kitty
 lazydocker
 lib32-gnutls

@@ -13,7 +13,7 @@ prompt pure
 # Normal Initilization Stuff
 # ----------------
 #
-
+KEYTIMEOUT=1
 bindkey '^H' backward-kill-word
 # [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 # export PATH="$HOME/.pyenv/bin:$PATH"
@@ -51,7 +51,7 @@ alias dc="docker-compose"
 alias hlib="cd /media/johnpyp/virt/homemedia"
 alias vim="nvim"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --color always --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --smart-case --files --no-ignore --hidden --follow --color always --glob "!.git/*" --glob "!target/*" --glob "!**/node_modules/*"'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export PATH=~/.yarn/bin:~/.local/bin:$PATH
