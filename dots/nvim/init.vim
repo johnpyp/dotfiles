@@ -174,13 +174,20 @@ let g:ctrlp_show_hidden = 1
 " }}}
 " Nerdtree: {{{
 " Bind to Ctrl+n
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :call ToggleNERDTreeFind()<CR>
 " Close nerdtree on enter
 let NERDTreeQuitOnOpen=1
 let g:sidebar_direction = ''
 let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)                                      
 " Close vim if last window open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+function! ToggleNERDTreeFind()
+    if g:NERDTree.IsOpen()
+        execute ':NERDTreeClose'
+    else
+        execute ':NERDTreeFind'
+    endif
+endfunction
 "}}}
 " Coc: {{{
 let g:coc_node_path = 'node'

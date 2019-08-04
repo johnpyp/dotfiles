@@ -9,5 +9,12 @@
         "json",
         "jsonc"
     ],
-    "eslint.autoFixOnSave": true
+    "eslint.autoFixOnSave": true,
+    "eslint.packageManager": "yarn",
+    "eslint.filetypes": [
+        "javascript",
+        "typescript",
+        "vue"
+    ],
+    "vetur.validation.template": false
 }
