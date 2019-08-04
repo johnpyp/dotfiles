@@ -33,6 +33,8 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
 Plug 'rhysd/vim-crystal'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-startify'
+Plug 'mengelbrecht/lightline-bufferline'
 "Plug 'tpope/vim-sensible'
 
 call plug#end()
@@ -45,16 +47,17 @@ set background=dark
 let g:lightline = { 'colorscheme': 'wombat', }
 set noshowmode
 let g:gruvbox_italic = 1
-colorscheme nord
+colorscheme nord 
 set termguicolors
 " set system clipboard keybindings
 noremap <Leader>y "+y
 noremap <Leader>p "+p
 " Bind tab cycling
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
-nnoremap <C-j> :tabprevious<CR>
-nnoremap <C-k> :tabnext<CR>
+nnoremap <left> :bp<CR>
+nnoremap <right> :bn<CR>
+nnoremap <C-h> :bp<CR>
+nnoremap <C-l> :bn<CR>
+nnoremap <leader><leader> <c-^>
 nnoremap <Leader>n :tabnew<CR>
 " Bind edit and reload nvim
 nnoremap <leader>ev :split $MYVIMRC<CR>  
@@ -98,7 +101,8 @@ hi Comment cterm = italic
 set guicursor =n-v-c-sm:block,i-ci-ve:hor100-Cursor,r-cr-o:ver100
 " highlight current line in insert
 autocmd InsertEnter,InsertLeave * set cul!
-" Python stuff
+" show tabline always
+set showtabline=2
 " }}}
 " RainbowBrackets: {{{
 let g:rainbow_active = 1
@@ -216,6 +220,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> <C-t> <Plug>(coc-diagnostic-info)
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -304,10 +309,11 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Fzf: {{{
 
 nnoremap <C-p> :Files<CR>
+nnoremap <leader>; :Buffers<CR>
 
 "}}}
 " Ripgrep: {{{
-
+noremap <leader>s :Rg 
 let g:rg_format = '%f:%l:%c:%m'
 let g:rg_command = 'rg --no-heading --vimgrep'
 "}}}
@@ -317,4 +323,10 @@ let g:crystal_auto_format = 1
 " Rooter: {{{
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
+" }}}
+" Lightline: {{{
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline#bufferline#filename_modifier = ':t'
 " }}}

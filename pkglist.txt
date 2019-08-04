@@ -3,6 +3,7 @@ apache-tools
 betterlockscreen
 bitwarden-bin
 brave-bin
+compton
 dbeaver
 deluge
 discord
