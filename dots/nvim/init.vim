@@ -44,10 +44,10 @@ let mapleader = " "
 set fileencoding =utf-8
 " theme
 set background=dark
-let g:lightline = { 'colorscheme': 'wombat', }
+let g:lightline = { 'colorscheme': 'darcula', }
 set noshowmode
 let g:gruvbox_italic = 1
-colorscheme nord 
+colorscheme OceanicNext 
 set termguicolors
 " set system clipboard keybindings
 noremap <Leader>y "+y
@@ -58,9 +58,8 @@ nnoremap <right> :bn<CR>
 nnoremap <C-h> :bp<CR>
 nnoremap <C-l> :bn<CR>
 nnoremap <leader><leader> <c-^>
-nnoremap <Leader>n :tabnew<CR>
 " Bind edit and reload nvim
-nnoremap <leader>ev :split $MYVIMRC<CR>  
+nnoremap <leader>ev :e $MYVIMRC<CR>  
 nnoremap <leader>sv :source $MYVIMRC<CR>     
 " save swap every 100ms of no input
 set updatetime =100
@@ -178,7 +177,8 @@ let g:ctrlp_show_hidden = 1
 " }}}
 " Nerdtree: {{{
 " Bind to Ctrl+n
-map <C-n> :call ToggleNERDTreeFind()<CR>
+map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
+nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 " Close nerdtree on enter
 let NERDTreeQuitOnOpen=1
 let g:sidebar_direction = ''
@@ -189,7 +189,11 @@ function! ToggleNERDTreeFind()
     if g:NERDTree.IsOpen()
         execute ':NERDTreeClose'
     else
-        execute ':NERDTreeFind'
+      if (expand("%:t") != '')
+        execute ":NERDTreeFind"
+      else
+        execute ":NERDTreeToggle"
+      endif
     endif
 endfunction
 "}}}

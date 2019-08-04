@@ -1,20 +1,17 @@
 {
-    "diagnostic.refreshOnInsertMode": true,
-    "coc.preferences.formatOnSaveFiletypes": [
-        "rust",
-        "javascript",
-        "typescript",
-        "python",
-        "crystal",
-        "json",
-        "jsonc"
-    ],
-    "eslint.autoFixOnSave": true,
-    "eslint.packageManager": "yarn",
-    "eslint.filetypes": [
-        "javascript",
-        "typescript",
-        "vue"
-    ],
-    "vetur.validation.template": false
+  "diagnostic.refreshOnInsertMode": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "rust",
+    "javascript",
+    "typescript",
+    "python",
+    "crystal",
+    "json",
+    "jsonc"
+  ],
+  "eslint.autoFixOnSave": true,
+  "eslint.packageManager": "yarn",
+  "eslint.filetypes": ["javascript", "typescript", "vue"],
+  "vetur.validation.template": false,
+  "prettier.eslintIntegration": true
 }
