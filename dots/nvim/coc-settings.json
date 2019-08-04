@@ -1,0 +1,13 @@
+{
+    "diagnostic.refreshOnInsertMode": true,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "rust",
+        "javascript",
+        "typescript",
+        "python",
+        "crystal",
+        "json",
+        "jsonc"
+    ],
+    "eslint.autoFixOnSave": true
+}

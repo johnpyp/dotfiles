@@ -323,7 +323,7 @@ bindsym $mod+Shift+bracketright move workspace to output right
 # Bind Right Alt to Compose key
 exec --no-startup-id setxkbmap -option compose:ralt
 exec --no-startup-id xautolock -time 20 -locker "betterlockscreen -l dimblur"
-exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id "setxkbmap -option caps:escape"
 exec --no-startup-id "killall dunst; /usr/lib/xfce4/notifyd/xfce4-notifyd"
 # Kill any PIA process, wait a bit, start it back up
 # exec --no-startup-id killall -q pia-client; sleep 9; /opt/piavpn/bin/pia-client

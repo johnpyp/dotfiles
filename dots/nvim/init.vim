@@ -1,8 +1,8 @@
 " Plug: {{{
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'Raimondi/delimitMate'
-Plug 'morhetz/gruvbox'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'itchyny/lightline.vim'
@@ -22,12 +22,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'jparise/vim-graphql'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'sheerun/vim-polyglot'
+Plug 'airblade/vim-gitgutter'
 " Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-" Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
 Plug 'rhysd/vim-crystal'
 Plug 'airblade/vim-rooter'
@@ -44,7 +45,7 @@ set background=dark
 let g:lightline = { 'colorscheme': 'wombat', }
 set noshowmode
 let g:gruvbox_italic = 1
-colorscheme gruvbox
+colorscheme nord
 set termguicolors
 " set system clipboard keybindings
 noremap <Leader>y "+y
@@ -79,6 +80,15 @@ set ignorecase
 set undodir=~/.vimdid
 set undofile
 
+" coc helpful settings
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
 " set foldmethod
 set foldmethod=marker
 
@@ -101,8 +111,8 @@ let g:mkdp_auto_close = 0
 let g:racer_cmd = expand('~/.cargo/bin/racer')
 let g:racer_experimental_completer = 1
 let g:racer_insert_paren = 1
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+"au FileType rust nmap gd <Plug>(rust-def)
+"au FileType rust nmap <leader>gd <Plug>(rust-doc)
 " }}}
 " Haskell: {{{
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
@@ -164,11 +174,24 @@ let g:ctrlp_show_hidden = 1
 " }}}
 " Nerdtree: {{{
 " Bind to Ctrl+n
-" map <C-n> :NERDTreeToggle<CR>
-" let NERDTreeQuitOnOpen=1
+map <C-n> :NERDTreeToggle<CR>
+" Close nerdtree on enter
+let NERDTreeQuitOnOpen=1
+let g:sidebar_direction = ''
+let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)                                      
+" Close vim if last window open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "}}}
 " Coc: {{{
 let g:coc_node_path = 'node'
+let g:coc_global_extensions = [
+  \  "coc-tsserver", 
+  \  "coc-python",
+  \  "coc-rls", 
+  \  "coc-json", 
+  \  "coc-eslint", 
+  \  "coc-vetur" 
+  \]
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -184,39 +207,92 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "}}}
 " Asynchronous Lint Engine: {{{
-nnoremap <C-t> :ALEHover<CR>
-let g:ale_linters = {
-  \   'javascript': ['eslint'],
-  \   'python': ['black'],
-  \   'rust': ['rls', 'cargo'],
-  \   'fshap': ['dotnet-fsharplint']
-  \}
+" nnoremap <C-t> :ALEHover<CR>
+" let g:ale_linters = {
+"   \   'javascript': ['eslint'],
+"   \   'python': ['black'],
+"   \   'rust': ['rls', 'cargo'],
+"   \   'fshap': ['dotnet-fsharplint'],
+"   \   'typescript': ['tsserver','tslint'],
+"   \   'html': ['prettier'],
+"   \   'vue': ['vls']
+"   \}
 
-let g:ale_fixers = {
-  \   'javascript': ['eslint'],
-  \   'python': ['black'],
-  \   'rust': ['rustfmt']
-  \}
-" rust
-let g:ale_rust_cargo_check_tests = 1
-let g:ale_rust_cargo_use_clippy = 1
-let g:ale_rust_cargo_clippy_options = 'all'
-" let g:ale_rust_rls_executable = expand('~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rls')
-" js
-let g:ale_javascript_eslint_executable = 'eslint'
-let g:ale_javascript_eslint_options = "--ignore-pattern '!node_modules/*'"
-" misc
-let g:ale_lint_delay = 50
-let g:ale_echo_msg_format = '%linter%: %s'
-" autofix
-let g:ale_fix_on_save = 1
-let g:ale_linters_explicit = 1
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
-highlight clear ALEInfoSign
-highlight clear SignColumn
+" let g:ale_fixers = {
+"   \   'javascript': ['eslint'],
+"   \   'python': ['black'],
+"   \   'rust': ['rustfmt'],
+"   \   'typescript': ['tslint'],
+"   \   'html': ['prettier'],
+"   \}
+" " rust
+" let g:ale_rust_cargo_check_tests = 1
+" let g:ale_rust_cargo_use_clippy = 1
+" let g:ale_rust_cargo_clippy_options = 'all'
+" " let g:ale_rust_rls_executable = expand('~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rls')
+" " js
+" let g:ale_javascript_eslint_executable = 'eslint'
+" let g:ale_javascript_eslint_options = "--ignore-pattern '!node_modules/*'"
+" " misc
+" let g:ale_lint_on_text_changed = 'always'
+" let g:ale_lint_delay = 25
+" let g:ale_echo_msg_format = '%linter%: %s'
+" " autofix
+" let g:ale_fix_on_save = 1
+" let g:ale_linters_explicit = 1
+" highlight clear ALEErrorSign
+" highlight clear ALEWarningSign
+" highlight clear ALEInfoSign
+" highlight clear SignColumn
 " }}}
 " Fzf: {{{
 
