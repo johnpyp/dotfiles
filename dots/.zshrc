@@ -51,6 +51,7 @@ alias dc="docker-compose"
 alias hlib="cd /media/johnpyp/virt/homemedia"
 alias vim="nvim"
 alias vimdiff="nvim -d"
+alias clearr="printf '\033[2J\033[3J\033[1;1H'"
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 export FZF_DEFAULT_COMMAND='rg --smart-case --files --no-ignore --hidden --follow --color always --glob "!.git/*" --glob "!**/target/*" --glob "!**/node_modules/*"'
 export FZF_DEFAULT_OPTS="--ansi"

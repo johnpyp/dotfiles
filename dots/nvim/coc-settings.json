@@ -7,7 +7,9 @@
     "python",
     "crystal",
     "json",
-    "jsonc"
+    "jsonc",
+    "html",
+    "vue"
   ],
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",

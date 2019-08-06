@@ -29,7 +29,7 @@ Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'scrooloose/nerdtree'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-crystal'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf.vim'
@@ -271,12 +271,11 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "}}}
-" Asynchronous Lint Engine: {{{
-" nnoremap <C-t> :ALEHover<CR>
+" Ale: {{{
 " let g:ale_linters = {
 "   \   'javascript': ['eslint'],
 "   \   'python': ['black'],
-"   \   'rust': ['rls', 'cargo'],
+"   \   'rust': ['rls'],
 "   \   'fshap': ['dotnet-fsharplint'],
 "   \   'typescript': ['tsserver','tslint'],
 "   \   'html': ['prettier'],
@@ -290,17 +289,19 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "   \   'typescript': ['tslint'],
 "   \   'html': ['prettier'],
 "   \}
+" nnoremap <C-t> :ALEHover<CR>
+" " let g:ale_completion_enabled = 1
 " " rust
 " let g:ale_rust_cargo_check_tests = 1
 " let g:ale_rust_cargo_use_clippy = 1
 " let g:ale_rust_cargo_clippy_options = 'all'
-" " let g:ale_rust_rls_executable = expand('~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rls')
+" let g:ale_rust_rls_toolchain = "nightly-2019-08-01"
 " " js
 " let g:ale_javascript_eslint_executable = 'eslint'
 " let g:ale_javascript_eslint_options = "--ignore-pattern '!node_modules/*'"
 " " misc
-" let g:ale_lint_on_text_changed = 'always'
-" let g:ale_lint_delay = 25
+" let g:ale_lint_on_text_changed = 'never'
+" " let g:ale_lint_delay = 50
 " let g:ale_echo_msg_format = '%linter%: %s'
 " " autofix
 " let g:ale_fix_on_save = 1
