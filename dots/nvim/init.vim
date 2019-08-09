@@ -35,6 +35,7 @@ Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-startify'
 Plug 'mengelbrecht/lightline-bufferline'
+Plug 'honza/vim-snippets'
 "Plug 'tpope/vim-sensible'
 
 call plug#end()
@@ -61,6 +62,7 @@ nnoremap <leader><leader> <c-^>
 " Bind edit and reload nvim
 nnoremap <leader>ev :e $MYVIMRC<CR>  
 nnoremap <leader>sv :source $MYVIMRC<CR>     
+nnoremap <leader>bd :%bd\|e#\|bd#<cr>
 " save swap every 100ms of no input
 set updatetime =100
 " Auto syntax from filetype + indents
@@ -205,7 +207,9 @@ let g:coc_global_extensions = [
   \  "coc-rls", 
   \  "coc-json", 
   \  "coc-eslint", 
-  \  "coc-vetur" 
+  \  "coc-vetur",
+  \  "coc-snippets",
+  \  "coc-prettier"
   \]
 
 function! s:check_back_space() abort
@@ -270,6 +274,18 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 "}}}
 " Ale: {{{
 " let g:ale_linters = {

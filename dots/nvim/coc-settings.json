@@ -15,5 +15,7 @@
   "eslint.packageManager": "yarn",
   "eslint.filetypes": ["javascript", "typescript", "vue"],
   "vetur.validation.template": false,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false
 }

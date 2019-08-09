@@ -34,6 +34,7 @@ kitty
 lazydocker
 lib32-gnutls
 libreoffice-fresh
+linux-headers
 lutris
 lxappearance
 mergerfs
