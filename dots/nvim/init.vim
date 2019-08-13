@@ -36,6 +36,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-startify'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'honza/vim-snippets'
+Plug 'ryanoasis/vim-devicons'
+Plug 'samoshkin/vim-mergetool'
 "Plug 'tpope/vim-sensible'
 
 call plug#end()
@@ -48,7 +50,7 @@ set background=dark
 let g:lightline = { 'colorscheme': 'darcula', }
 set noshowmode
 let g:gruvbox_italic = 1
-colorscheme OceanicNext 
+colorscheme hybrid 
 set termguicolors
 " set system clipboard keybindings
 noremap <Leader>y "+y
@@ -62,7 +64,11 @@ nnoremap <leader><leader> <c-^>
 " Bind edit and reload nvim
 nnoremap <leader>ev :e $MYVIMRC<CR>  
 nnoremap <leader>sv :source $MYVIMRC<CR>     
-nnoremap <leader>bd :%bd\|e#\|bd#<cr>
+nnoremap <leader>bd :%bd\|e#\|bd#<CR>
+nnoremap <leader>c/ :nohl<CR>
+" move fast
+noremap <Up> 5k
+noremap <Down> 5j
 " save swap every 100ms of no input
 set updatetime =100
 " Auto syntax from filetype + indents
@@ -116,8 +122,6 @@ let g:mkdp_auto_close = 0
 let g:racer_cmd = expand('~/.cargo/bin/racer')
 let g:racer_experimental_completer = 1
 let g:racer_insert_paren = 1
-"au FileType rust nmap gd <Plug>(rust-def)
-"au FileType rust nmap <leader>gd <Plug>(rust-doc)
 " }}}
 " Haskell: {{{
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
@@ -134,6 +138,10 @@ let g:polyglot_disabled = ['latex', 'kotlin']
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
 let g:fugitive_git_executable = 'hub'
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdh :diffget //3<CR>
 " }}}
 " Deoplete: {{{
 " set runtimepath +=~/.config/nvim/plugged/deoplete.nvim
@@ -183,6 +191,8 @@ map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
 nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 " Close nerdtree on enter
 let NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
+let NERDTreeWinSize = 45
 let g:sidebar_direction = ''
 let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)                                      
 " Close vim if last window open
@@ -351,3 +361,8 @@ let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
 let g:lightline#bufferline#filename_modifier = ':t'
 " }}}
+" Mergetool: {{{
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
+" }}}
+

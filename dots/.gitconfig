@@ -23,3 +23,5 @@
   rebase = true
 [core]
 	editor = nvim
+[merge]
+conflictStyle = diff3
