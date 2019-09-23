@@ -66,6 +66,7 @@ rustup
 siji-git
 slack-desktop
 spotify-dev
+starship-bin
 steam
 steam-native-pcre-fix
 sysbench
