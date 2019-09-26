@@ -73,6 +73,7 @@ sysbench
 termsyn-font
 thunar
 tk
+ttf-cascadia-code
 ttf-iosevka
 visual-studio-code-bin
 vivaldi

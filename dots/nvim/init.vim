@@ -38,6 +38,10 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'honza/vim-snippets'
 Plug 'ryanoasis/vim-devicons'
 Plug 'samoshkin/vim-mergetool'
+Plug 'mattn/emmet-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 "Plug 'tpope/vim-sensible'
 
 call plug#end()
@@ -90,6 +94,7 @@ set ignorecase
 set undodir=~/.vimdid
 set undofile
 
+set conceallevel=3
 " coc helpful settings
 set hidden
 set nobackup
@@ -110,6 +115,24 @@ set guicursor =n-v-c-sm:block,i-ci-ve:hor100-Cursor,r-cr-o:ver100
 autocmd InsertEnter,InsertLeave * set cul!
 " show tabline always
 set showtabline=2
+
+function! CloseOnLast()
+    let cnt = 0
+
+    for i in range(0, bufnr("$"))
+        if buflisted(i)
+            let cnt += 1
+        endif
+    endfor
+
+    if cnt <= 1
+        q
+    else
+        bw
+    endif
+ endfunction
+cnoreabbrev <silent> wq w<bar>Sayonara
+cnoreabbrev <silent> q Sayonara 
 " }}}
 " RainbowBrackets: {{{
 let g:rainbow_active = 1
@@ -133,7 +156,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'kotlin']
+let g:polyglot_disabled = ['latex', 'kotlin', 'javascript']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -164,21 +187,6 @@ nnoremap gdh :diffget //3<CR>
 "   \ 'smart_case': v:true,
 "   \ })
 " }}}
-" TernJS: {{{
-" show types, docs, make case insensitive, select files to check js
-let g:deoplete#sources#ternjs#types = 1
-let g:deoplete#sources#ternjs#docs = 1
-let g:deoplete#sources#ternjs#include_keywords = 1
-let g:deoplete#sources#ternjs#case_insensitive = 1
-let g:deoplete#sources#ternjs#filetypes = [
-  \ 'jsx',
-  \ 'javascript.jsx',
-  \ 'vue',
-  \ 'javascript'
-  \ ]
-" dont open scratch buffer
-set completeopt -=preview
-"}}}
 " CtrlP: {{{
 let g:ctrlp_custom_ignore = {
   \ 'dir': 'node_modules\|target\|\.git\|\.hg\|\.svn\|log\|tmp)$'
@@ -193,8 +201,10 @@ nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 let NERDTreeWinSize = 45
-let g:sidebar_direction = ''
-let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)                                      
+let NERDTreeDirArrows = 1
+let NERDTreeAutoDeleteBuffer = 1
+" let g:sidebar_direction = ''
+" let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)                                      
 " Close vim if last window open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 function! ToggleNERDTreeFind()
@@ -208,6 +218,11 @@ function! ToggleNERDTreeFind()
       endif
     endif
 endfunction
+
+let g:NERDTreeExtensionHighlightColor = {}
+let g:NERDTreeExtensionHighlightColor['vue'] = '42b883'
+
+autocmd FileType nerdtree setlocal nolist
 "}}}
 " Coc: {{{
 let g:coc_node_path = 'node'
@@ -365,4 +380,10 @@ let g:lightline#bufferline#filename_modifier = ':t'
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 " }}}
-
+" Vue: {{{
+let g:vue_pre_processors = [""]
+" }}}
+" Emmet: {{{
+let g:user_emmet_leader_key=','
+let g:user_emmet_mode='n'    "only enable normal mode functions.
+" }}}

@@ -17,5 +17,8 @@
   "vetur.validation.template": false,
   "prettier.eslintIntegration": true,
   "typescript.validate.enable": false,
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "emmet.includeLanguages": {
+    "vue-html": "html"
+  }
 }
