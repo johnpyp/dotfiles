@@ -11,14 +11,14 @@
     "html",
     "vue"
   ],
+  "coc.preferences.rootPatterns": ["package.json"],
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
   "eslint.filetypes": ["javascript", "typescript", "vue"],
-  "vetur.validation.template": false,
-  "prettier.eslintIntegration": true,
   "typescript.validate.enable": false,
   "javascript.validate.enable": false,
   "emmet.includeLanguages": {
     "vue-html": "html"
-  }
+  },
+  "python.pythonPath": "/home/johnpyp/.asdf/shims/python"
 }

@@ -39,10 +39,10 @@ Plug 'honza/vim-snippets'
 Plug 'ryanoasis/vim-devicons'
 Plug 'samoshkin/vim-mergetool'
 Plug 'mattn/emmet-vim'
-Plug 'pangloss/vim-javascript'
+"Plug 'pangloss/vim-javascript'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-"Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sensible'
 
 call plug#end()
 " }}}
@@ -87,7 +87,7 @@ set expandtab
 " show current line
 set number
 " show up/down relative line positions
-set relativenumber
+" set relativenumber
 " search case insensitive
 set ignorecase
 " Permanent Undo
@@ -156,7 +156,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'kotlin', 'javascript']
+let g:polyglot_disabled = ['latex', 'kotlin', 'vue']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -203,8 +203,8 @@ let NERDTreeShowHidden=1
 let NERDTreeWinSize = 45
 let NERDTreeDirArrows = 1
 let NERDTreeAutoDeleteBuffer = 1
-" let g:sidebar_direction = ''
-" let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)                                      
+let g:sidebar_direction = ''
+let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)                                      
 " Close vim if last window open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 function! ToggleNERDTreeFind()
@@ -225,6 +225,7 @@ let g:NERDTreeExtensionHighlightColor['vue'] = '42b883'
 autocmd FileType nerdtree setlocal nolist
 "}}}
 " Coc: {{{
+let b:coc_root_patterns = ['package.json']
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
   \  "coc-tsserver", 
@@ -232,7 +233,6 @@ let g:coc_global_extensions = [
   \  "coc-rls", 
   \  "coc-json", 
   \  "coc-eslint", 
-  \  "coc-vetur",
   \  "coc-snippets",
   \  "coc-prettier"
   \]
@@ -381,7 +381,7 @@ let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 " }}}
 " Vue: {{{
-let g:vue_pre_processors = [""]
+let g:vue_pre_processors='detect_on_enter'
 " }}}
 " Emmet: {{{
 let g:user_emmet_leader_key=','

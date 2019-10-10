@@ -7,7 +7,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-# prompt pure
+prompt pure
 #
 # ----------------
 # Normal Initilization Stuff
@@ -53,7 +53,7 @@ alias vim="nvim"
 alias vimdiff="nvim -d"
 alias clearr="printf '\033[2J\033[3J\033[1;1H'"
 alias synctime="timedatectl set-ntp true"
-VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
+VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 export FZF_DEFAULT_COMMAND='rg --smart-case --files --no-ignore --hidden --follow --color always --glob "!.git/*" --glob "!**/target/*" --glob "!**/node_modules/*"'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
@@ -64,4 +64,4 @@ export PATH=~/.yarn/bin:~/.local/bin:$PATH
 . $HOME/.asdf/completions/asdf.bash
 
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"

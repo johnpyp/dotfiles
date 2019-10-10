@@ -3,6 +3,7 @@ apache-tools
 betterlockscreen
 bitwarden-bin
 brave-bin
+clojure
 compton
 dbeaver
 deluge
@@ -30,7 +31,9 @@ htop
 httpie
 inotify-tools
 insomnia
+intellij-idea-community-edition 
 kitty
+kotlin
 lazydocker
 lib32-gnutls
 libreoffice-fresh
@@ -63,6 +66,7 @@ redshift-gtk-git
 ripgrep
 rofi
 rustup
+scala
 siji-git
 slack-desktop
 spotify-dev
@@ -80,6 +84,7 @@ vivaldi
 vivaldi-codecs-ffmpeg-extra-bin
 vlc
 wine-staging
+xautolock
 xclip
 xfce4-notifyd
 zafiro-icon-theme

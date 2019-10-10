@@ -34,8 +34,7 @@ bindsym $mod+F2 exec google-chrome
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
-bindsym $mod+t exec --no-startup-id pkill compton
-bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+t exec --no-startup-id "pkill compton; sleep 1; compton -b"
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 
 bindsym $mod+p exec --no-startup-id flameshot gui
@@ -99,7 +98,7 @@ bindsym $mod+Shift+x move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+x scratchpad show, resize set 1500 900, move position center
+bindsym $mod+x scratchpad show
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -229,21 +228,13 @@ mode "resize" {
 }
 
 # Autostart applications
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec --no-startup-id manjaro-hello
-exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id xfce4-clipman
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Set keyrepeat
-exec --no-startup-id xset r rate 250 80
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
@@ -313,17 +304,23 @@ bindsym $mod+grave exec "rofi -show drun -modi drun,window -show-icons -sidebar-
 bindsym $mod+Tab exec "rofi -show window -modi drun,window -show-icons -sidebar-mode -theme Arc-Dark"
 bindsym $mod+d exec "rofi -show run -show-icons -theme Arc-Dark"
 # Set Wallpaper
-exec --no-startup-id feh --bg-fill ~/.config/wallpapers/current.jpg; sleep 1
+exec --no-startup-id $HOME/.startup.sh
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id xfce4-clipman
+exec --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id feh --bg-fill $HOME/.config/wallpapers/current.jpg
+exec --no-startup-id xset r rate 250 80
+exec --no-startup-id xautolock -time 20 -locker "betterlockscreen -l dimblur"
+exec --no-startup-id "killall dunst; /usr/lib/xfce4/notifyd/xfce4-notifyd"
+exec --no-startup-id "sleep 1; compton -b"
+exec --no-startup-id setxkbmap -option compose:ralt
 
 # NetworkManager-dmenu
 bindsym $mod+n exec "networkmanager_dmenu"
 # Moving Workspaces to Different Monitors
 bindsym $mod+Shift+bracketleft move workspace to output left
 bindsym $mod+Shift+bracketright move workspace to output right
-# Bind Right Alt to Compose key
-exec --no-startup-id setxkbmap -option compose:ralt
-exec --no-startup-id xautolock -time 20 -locker "betterlockscreen -l dimblur"
-exec --no-startup-id "setxkbmap -option caps:escape"
-exec --no-startup-id "killall dunst; /usr/lib/xfce4/notifyd/xfce4-notifyd"
 # Kill any PIA process, wait a bit, start it back up
 # exec --no-startup-id killall -q pia-client; sleep 9; /opt/piavpn/bin/pia-client
+
