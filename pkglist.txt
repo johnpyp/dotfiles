@@ -31,7 +31,7 @@ htop
 httpie
 inotify-tools
 insomnia
-intellij-idea-community-edition 
+intellij-idea-ultimate-edition 
 kitty
 kotlin
 lazydocker

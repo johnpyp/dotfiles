@@ -9,7 +9,8 @@
     "json",
     "jsonc",
     "html",
-    "vue"
+    "vue",
+    "scala"
   ],
   "coc.preferences.rootPatterns": ["package.json"],
   "eslint.autoFixOnSave": true,
@@ -20,5 +21,12 @@
   "emmet.includeLanguages": {
     "vue-html": "html"
   },
-  "python.pythonPath": "/home/johnpyp/.asdf/shims/python"
+  "python.pythonPath": "/home/johnpyp/.asdf/shims/python",
+  "languageserver": {
+    "metals": {
+      "command": "metals-vim",
+      "rootPatterns": ["build.sbt"],
+      "filetypes": ["scala", "sbt"]
+    }
+  }
 }

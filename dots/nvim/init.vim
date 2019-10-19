@@ -4,16 +4,15 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Raimondi/delimitMate'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'itchyny/lightline.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
 Plug 'Shougo/neoinclude.vim'
-Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'
 " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'bhurlow/vim-parinfer', { 'for': ['lisp', 'clojure'] }
 Plug 'tpope/vim-sleuth'
 Plug 'Chiel92/vim-autoformat'
-Plug 'tpope/vim-classpath', { 'for': ['clojure', 'java', 'scala', 'kotlin'] }
+"Plug 'tpope/vim-classpath', { 'for': ['clojure', 'java', 'scala', 'kotlin'] }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
@@ -43,7 +42,6 @@ Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-sensible'
-
 call plug#end()
 " }}}
 " General: {{{
@@ -135,7 +133,7 @@ cnoreabbrev <silent> wq w<bar>Sayonara
 cnoreabbrev <silent> q Sayonara 
 " }}}
 " RainbowBrackets: {{{
-let g:rainbow_active = 1
+" let g:rainbow_active = 1
 " }}}
 " MarkdownPreview: {{{
 " dont auto close
@@ -156,7 +154,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'kotlin', 'vue']
+let g:polyglot_disabled = ['latex', 'vue']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -274,7 +272,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
+nnoremap <silent> F :call CocAction('format')<CR>
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -311,6 +309,7 @@ let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+
 "}}}
 " Ale: {{{
 " let g:ale_linters = {
@@ -381,7 +380,7 @@ let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 " }}}
 " Vue: {{{
-let g:vue_pre_processors='detect_on_enter'
+let g:vue_pre_processors=''
 " }}}
 " Emmet: {{{
 let g:user_emmet_leader_key=','

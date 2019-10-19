@@ -1,29 +1,48 @@
-[ -f ~/.profile ] && source ~/.profile
-# Installing Prezto: git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+### BEGIN PLUGINS
+if [ ! -e ~/.zplugin ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+  sleep 2
 fi
 
-# Customize to your needs...
-prompt pure
-#
-# ----------------
-# Normal Initilization Stuff
-# ----------------
-#
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+
+# Autosuggestions & fast-syntax-highlighting
+zplugin ice lucid wait atinit"zpcompinit; zpcdreplay"
+zplugin light "zdharma/fast-syntax-highlighting"
+# zsh-autosuggestions
+zplugin ice lucid wait"1" lucid atload"!_zsh_autosuggest_start"
+zplugin load "zsh-users/zsh-autosuggestions"
+
+# Pure Theme
+zplugin ice lucid pick"async.zsh" src"pure.zsh"
+zplugin light "sindresorhus/pure"
+
+# Zsh completions
+zplugin ice lucid wait blockf atpull'zplugin creinstall -q .'
+zplugin light "zsh-users/zsh-completions"
+
+# ls
+zplugin ice lucid wait
+zplugin load "zpm-zsh/ls"
+
+zplugin ice lucid wait"1"
+zplugin load "changyuheng/fz"
+
+zplugin ice lucid wait pick"z.sh"
+zplugin load "rupa/z"
+
+autoload -Uz compinit
+compinit
+zplugin cdreplay
+
+### END PLUGINS
+
 KEYTIMEOUT=1
 bindkey '^H' backward-kill-word
-# [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-# export PATH="$HOME/.pyenv/bin:$PATH"
-# eval "$(pyenv init -)"
-
-#
-# ----------------
-# Aliases and Helper Functions
-# ----------------
-#
+# Enable vim mode
+bindkey -v
 
 removelink() {
   [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
@@ -35,33 +54,24 @@ benchzsh() {
 
 alias sudo="sudo -E"
 alias ex="unarchive"
-alias lsdots="ls -lad ./.*"
-alias cp="cp -i"                                                # Confirm before overwriting something
-alias free='free -m'                                            # Show sizes in MB
+alias cp="cp -i"         # Confirm before overwriting something
+alias free='free -h'                                            # Show sizes in MB
 alias git=hub
-alias gitu='git add . && git commit && git push'
 alias copyghssh="curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys"
-alias dstoprm="docker container stop \$(docker ps -aq) && docker container rm \$(docker ps -aq)"
 alias font-list="sort <(fc-list : family) | vim -"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
 alias dc="docker-compose"
-alias hlib="cd /media/johnpyp/virt/homemedia"
 alias vim="nvim"
 alias vimdiff="nvim -d"
 alias clearr="printf '\033[2J\033[3J\033[1;1H'"
 alias synctime="timedatectl set-ntp true"
+
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
+
 export FZF_DEFAULT_COMMAND='rg --smart-case --files --no-ignore --hidden --follow --color always --glob "!.git/*" --glob "!**/target/*" --glob "!**/node_modules/*"'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export PATH=~/.yarn/bin:~/.local/bin:$PATH
 
 . $HOME/.asdf/asdf.sh
-
 . $HOME/.asdf/completions/asdf.bash
-
-
-# eval "$(starship init zsh)"
+[ -f ~/.profile ] && source ~/.profile
