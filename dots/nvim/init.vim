@@ -1,28 +1,25 @@
 " Plug: {{{
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.local/share/nvim/plugged')
-" Plug 'w0rp/ale'
 Plug 'Raimondi/delimitMate'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'itchyny/lightline.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
-Plug 'Shougo/neoinclude.vim'
-" Plug 'luochen1990/rainbow'
-" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'bhurlow/vim-parinfer', { 'for': ['lisp', 'clojure'] }
 Plug 'tpope/vim-sleuth'
-Plug 'Chiel92/vim-autoformat'
-"Plug 'tpope/vim-classpath', { 'for': ['clojure', 'java', 'scala', 'kotlin'] }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'jparise/vim-graphql'
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'sheerun/vim-polyglot'
-Plug 'airblade/vim-gitgutter'
-" Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-surround'
@@ -131,6 +128,9 @@ function! CloseOnLast()
  endfunction
 cnoreabbrev <silent> wq w<bar>Sayonara
 cnoreabbrev <silent> q Sayonara 
+
+command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
+command! ProfileStop :profile pause
 " }}}
 " RainbowBrackets: {{{
 " let g:rainbow_active = 1
@@ -230,9 +230,10 @@ let g:coc_global_extensions = [
   \  "coc-python",
   \  "coc-rls", 
   \  "coc-json", 
-  \  "coc-eslint", 
   \  "coc-snippets",
-  \  "coc-prettier"
+  \  "coc-prettier",
+  \  "coc-emmet",
+  \  "coc-eslint"
   \]
 
 function! s:check_back_space() abort

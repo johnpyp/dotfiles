@@ -8,6 +8,8 @@ source "$HOME/.zplugin/bin/zplugin.zsh"
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
+
+zplugin snippet OMZ::lib/history.zsh
 # Autosuggestions & fast-syntax-highlighting
 zplugin ice lucid wait atinit"zpcompinit; zpcdreplay"
 zplugin light "zdharma/fast-syntax-highlighting"
@@ -32,6 +34,11 @@ zplugin load "changyuheng/fz"
 
 zplugin ice lucid wait pick"z.sh"
 zplugin load "rupa/z"
+
+zplugin ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
+    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zplugin light trapd00r/LS_COLORS
 
 autoload -Uz compinit
 compinit
@@ -64,13 +71,13 @@ alias vim="nvim"
 alias vimdiff="nvim -d"
 alias clearr="printf '\033[2J\033[3J\033[1;1H'"
 alias synctime="timedatectl set-ntp true"
-
+alias em="emacs -nw"
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 
 export FZF_DEFAULT_COMMAND='rg --smart-case --files --no-ignore --hidden --follow --color always --glob "!.git/*" --glob "!**/target/*" --glob "!**/node_modules/*"'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/.yarn/bin:~/.local/bin:$PATH
+export PATH=~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:$PATH
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
