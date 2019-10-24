@@ -35,6 +35,7 @@ Plug 'honza/vim-snippets'
 Plug 'ryanoasis/vim-devicons'
 Plug 'samoshkin/vim-mergetool'
 Plug 'mattn/emmet-vim'
+Plug 'liuchengxu/vim-which-key'
 "Plug 'pangloss/vim-javascript'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -387,3 +388,40 @@ let g:vue_pre_processors=''
 let g:user_emmet_leader_key=','
 let g:user_emmet_mode='n'    "only enable normal mode functions.
 " }}}
+" WhichKey: {{{
+noremap <silent> <leader> :WhichKey '<Space>'<CR>
+set timeoutlen=500
+call which_key#register('<Space>', "g:which_key_map")
+let g:which_key_map = {}
+let g:which_key_map.g = {
+      \ 'name' : 'Git' ,
+      \ 's' : 'Git Status',
+      \ }
+
+let g:which_key_map.f = {
+      \ 'name' : 'File' ,
+      \ 's' : 'Git Status',
+      \ }
+
+let g:which_key_map.b = {
+      \ 'name' : 'Buffer' ,
+      \ 's' : 'Git Status',
+      \ }
+
+let g:which_key_map.v = {
+      \ 'name' : 'Vim' ,
+      \ 'e' : 'Edit .vimrc',
+      \ 's' : 'Source .vimrc',
+      \ }
+let g:which_key_map.c = {
+      \ 'name' : 'Coc' ,
+      \ 'f' : 'Format code',
+      \ 'a' : 'Code action',
+      \ 'd' : 'Definition',
+      \ ']' : 'Diagnostic next',
+      \ '[' : 'Diagnostic prev',
+      \ }
+
+
+" }}}
+

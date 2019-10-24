@@ -21,12 +21,5 @@
   "emmet.includeLanguages": {
     "vue-html": "html"
   },
-  "python.pythonPath": "/home/johnpyp/.asdf/shims/python",
-  "languageserver": {
-    "metals": {
-      "command": "metals-vim",
-      "rootPatterns": ["build.sbt"],
-      "filetypes": ["scala", "sbt"]
-    }
-  }
+  "python.pythonPath": "/home/johnpyp/.asdf/shims/python"
 }
