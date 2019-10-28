@@ -10,7 +10,8 @@
     "jsonc",
     "html",
     "vue",
-    "scala"
+    "scala",
+    "go"
   ],
   "coc.preferences.rootPatterns": ["package.json"],
   "eslint.autoFixOnSave": true,

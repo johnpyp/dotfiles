@@ -19,7 +19,6 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'jparise/vim-graphql'
-Plug 'sheerun/vim-polyglot'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-surround'
@@ -33,13 +32,13 @@ Plug 'mhinz/vim-startify'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'honza/vim-snippets'
 Plug 'ryanoasis/vim-devicons'
-Plug 'samoshkin/vim-mergetool'
 Plug 'mattn/emmet-vim'
 Plug 'liuchengxu/vim-which-key'
-"Plug 'pangloss/vim-javascript'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-sensible'
+Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 " }}}
 " General: {{{
@@ -50,25 +49,8 @@ set background=dark
 let g:lightline = { 'colorscheme': 'darcula', }
 set noshowmode
 let g:gruvbox_italic = 1
-colorscheme hybrid 
+colorscheme  hybrid
 set termguicolors
-" set system clipboard keybindings
-noremap <Leader>y "+y
-noremap <Leader>p "+p
-" Bind tab cycling
-nnoremap <left> :bp<CR>
-nnoremap <right> :bn<CR>
-nnoremap <C-h> :bp<CR>
-nnoremap <C-l> :bn<CR>
-nnoremap <leader><leader> <c-^>
-" Bind edit and reload nvim
-nnoremap <leader>ev :e $MYVIMRC<CR>  
-nnoremap <leader>sv :source $MYVIMRC<CR>     
-nnoremap <leader>bd :%bd\|e#\|bd#<CR>
-nnoremap <leader>c/ :nohl<CR>
-" move fast
-noremap <Up> 5k
-noremap <Down> 5j
 " save swap every 100ms of no input
 set updatetime =100
 " Auto syntax from filetype + indents
@@ -133,17 +115,9 @@ cnoreabbrev <silent> q Sayonara
 command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
 " }}}
-" RainbowBrackets: {{{
-" let g:rainbow_active = 1
-" }}}
 " MarkdownPreview: {{{
 " dont auto close
 let g:mkdp_auto_close = 0
-" }}}
-" Racer: {{{
-let g:racer_cmd = expand('~/.cargo/bin/racer')
-let g:racer_experimental_completer = 1
-let g:racer_insert_paren = 1
 " }}}
 " Haskell: {{{
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
@@ -160,42 +134,9 @@ let g:polyglot_disabled = ['latex', 'vue']
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
 let g:fugitive_git_executable = 'hub'
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gd :Gvdiff<CR>
-nnoremap gdh :diffget //2<CR>
-nnoremap gdh :diffget //3<CR>
-" }}}
-" Deoplete: {{{
-" set runtimepath +=~/.config/nvim/plugged/deoplete.nvim
-" function! s:check_back_space() abort "{{{
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction"}}}
-" " bind tab to complete
-" inoremap <silent><expr> <TAB>
-"   \ pumvisible() ? "\<C-n>" :
-"   \ <SID>check_back_space() ? "\<TAB>" :
-"   \ deoplete#manual_complete()
-" let g:deoplete#enable_at_startup = 1
-" " delay 50ms, up to 50 finds, up to 8 threads, detect casing
-" call deoplete#custom#option({
-"   \ 'auto_complete_delay': 10,
-"   \ 'camel_case': v:true,
-"   \ 'max_list': 50,
-"   \ 'num_processes': 8,
-"   \ 'smart_case': v:true,
-"   \ })
-" }}}
-" CtrlP: {{{
-let g:ctrlp_custom_ignore = {
-  \ 'dir': 'node_modules\|target\|\.git\|\.hg\|\.svn\|log\|tmp)$'
-  \ }
-let g:ctrlp_show_hidden = 1
 " }}}
 " Nerdtree: {{{
 " Bind to Ctrl+n
-map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
-nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 " Close nerdtree on enter
 let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
@@ -234,7 +175,7 @@ let g:coc_global_extensions = [
   \  "coc-snippets",
   \  "coc-prettier",
   \  "coc-emmet",
-  \  "coc-eslint"
+  \  "coc-go"
   \]
 
 function! s:check_back_space() abort
@@ -251,15 +192,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-nmap <silent> <C-t> <Plug>(coc-diagnostic-info)
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -268,13 +200,7 @@ function! s:show_documentation()
   endif
 endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-nnoremap <silent> F :call CocAction('format')<CR>
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -282,13 +208,6 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
@@ -300,67 +219,14 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<c-j>'
 
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
 
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-"}}}
-" Ale: {{{
-" let g:ale_linters = {
-"   \   'javascript': ['eslint'],
-"   \   'python': ['black'],
-"   \   'rust': ['rls'],
-"   \   'fshap': ['dotnet-fsharplint'],
-"   \   'typescript': ['tsserver','tslint'],
-"   \   'html': ['prettier'],
-"   \   'vue': ['vls']
-"   \}
-
-" let g:ale_fixers = {
-"   \   'javascript': ['eslint'],
-"   \   'python': ['black'],
-"   \   'rust': ['rustfmt'],
-"   \   'typescript': ['tslint'],
-"   \   'html': ['prettier'],
-"   \}
-" nnoremap <C-t> :ALEHover<CR>
-" " let g:ale_completion_enabled = 1
-" " rust
-" let g:ale_rust_cargo_check_tests = 1
-" let g:ale_rust_cargo_use_clippy = 1
-" let g:ale_rust_cargo_clippy_options = 'all'
-" let g:ale_rust_rls_toolchain = "nightly-2019-08-01"
-" " js
-" let g:ale_javascript_eslint_executable = 'eslint'
-" let g:ale_javascript_eslint_options = "--ignore-pattern '!node_modules/*'"
-" " misc
-" let g:ale_lint_on_text_changed = 'never'
-" " let g:ale_lint_delay = 50
-" let g:ale_echo_msg_format = '%linter%: %s'
-" " autofix
-" let g:ale_fix_on_save = 1
-" let g:ale_linters_explicit = 1
-" highlight clear ALEErrorSign
-" highlight clear ALEWarningSign
-" highlight clear ALEInfoSign
-" highlight clear SignColumn
-" }}}
-" Fzf: {{{
-
-nnoremap <C-p> :Files<CR>
-nnoremap <leader>; :Buffers<CR>
-
 "}}}
 " Ripgrep: {{{
-noremap <leader>s :Rg 
 let g:rg_format = '%f:%l:%c:%m'
 let g:rg_command = 'rg --no-heading --vimgrep'
 "}}}
@@ -377,22 +243,16 @@ let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
 let g:lightline#bufferline#filename_modifier = ':t'
 " }}}
-" Mergetool: {{{
-let g:mergetool_layout = 'mr'
-let g:mergetool_prefer_revision = 'local'
-" }}}
-" Vue: {{{
-let g:vue_pre_processors=''
-" }}}
 " Emmet: {{{
 let g:user_emmet_leader_key=','
 let g:user_emmet_mode='n'    "only enable normal mode functions.
 " }}}
 " WhichKey: {{{
 noremap <silent> <leader> :WhichKey '<Space>'<CR>
-set timeoutlen=500
+set timeoutlen=250
 call which_key#register('<Space>', "g:which_key_map")
 let g:which_key_map = {}
+let g:which_key_use_floating_win = 0
 let g:which_key_map.g = {
       \ 'name' : 'Git' ,
       \ 's' : 'Git Status',
@@ -400,12 +260,14 @@ let g:which_key_map.g = {
 
 let g:which_key_map.f = {
       \ 'name' : 'File' ,
-      \ 's' : 'Git Status',
+      \ 's' : 'Search (rg)',
+      \ 'f' : 'Find (fzf)',
       \ }
 
 let g:which_key_map.b = {
       \ 'name' : 'Buffer' ,
-      \ 's' : 'Git Status',
+      \ 'p' : 'Prev buffer',
+      \ 'n' : 'Next buffer',
       \ }
 
 let g:which_key_map.v = {
@@ -415,13 +277,69 @@ let g:which_key_map.v = {
       \ }
 let g:which_key_map.c = {
       \ 'name' : 'Coc' ,
-      \ 'f' : 'Format code',
-      \ 'a' : 'Code action',
+      \ 't' : 'Diagnostic Info',
       \ 'd' : 'Definition',
-      \ ']' : 'Diagnostic next',
-      \ '[' : 'Diagnostic prev',
+      \ 'D' : 'Type definition',
+      \ 'i' : 'Implementation',
+      \ 'r' : 'Actions',
+      \ 'f' : 'Fix current',
       \ }
-
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " }}}
+" KEYBINDS: {{{
+""" General:
+" set system clipboard keybindings
+noremap <Leader>y "+y
+noremap <Leader>p "+p
 
+nnoremap <C-h> :bp<CR>
+nnoremap <C-l> :bn<CR>
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader><leader> <c-^>
+nnoremap <leader>ve :e $MYVIMRC<CR>  
+nnoremap <leader>vs :source $MYVIMRC<CR>     
+nnoremap <silent> <leader>sc :nohl<CR>
+
+""" Coc:
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
+
+nmap <silent> <leader>cd <Plug>(coc-definition)
+nmap <silent> <leader>cD <Plug>(coc-type-definition)
+nmap <silent> <leader>ci <Plug>(coc-implementation)
+nmap <silent> <leader>cr <Plug>(coc-references)
+nmap          <leader>ca <Plug>(coc-codeaction)
+nmap          <leader>cf <Plug>(coc-fix-current)
+
+vmap <C-j> <Plug>(coc-snippets-select)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+nnoremap <silent> F :call CocAction('format')<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+nnoremap <silent> <leader>cl  :<C-u>CocList diagnostics<cr>
+
+""" Fugitive:
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+" nnoremap gdh :diffget //2<CR>
+" nnoremap gdh :diffget //3<CR>
+
+""" NERDTree:
+map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
+nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
+
+""" FZF:
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fb :Buffers<CR>
+
+""" Ripgrep:
+noremap <leader>fs :Rg 
+
+" }}}
