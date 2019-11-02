@@ -60,7 +60,7 @@ benchzsh() {
 }
 
 alias sudo="sudo -E"
-alias ex="unarchive"
+alias archive="tar -zcvf"
 alias cp="cp -i"         # Confirm before overwriting something
 alias free='free -h'                                            # Show sizes in MB
 alias git=hub

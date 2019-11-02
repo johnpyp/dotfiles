@@ -1,4 +1,5 @@
 alsa-utils
+dtrx
 apache-tools
 betterlockscreen
 bitwarden-bin
