@@ -26,6 +26,9 @@ case "$1" in
     shutdown)
         $logind poweroff
         ;;
+    screensoff)
+        xset -display :0.0 dpms force off
+        ;;
     *)
         echo "== ! i3exit: missing or invalid argument ! =="
         echo "Try again with: lock | logout | switch_user | suspend | hibernate | reboot | shutdown"

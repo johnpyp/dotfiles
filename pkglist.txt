@@ -4,6 +4,7 @@ betterlockscreen
 bitwarden-bin
 brave-bin
 clojure
+clojure
 compton
 dbeaver
 deluge
@@ -29,6 +30,7 @@ hashcat
 htop
 htop
 httpie
+hub
 inotify-tools
 insomnia
 intellij-idea-ultimate-edition 
@@ -48,8 +50,9 @@ neofetch
 neovim
 nerd-fonts-complete
 networkmanager-dmenu-git
-nordvpn-bin
+nodejs
 noto-fonts-emoji
+npm
 ntp
 numix-gtk-theme-git
 nvidia-settings
@@ -62,9 +65,10 @@ postgresql
 pyenv
 qalculate-gtk
 ranger
-redshift-gtk-git
+redshift-gtk
 ripgrep
 rofi
+rustup
 rustup
 scala
 siji-git

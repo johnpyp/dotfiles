@@ -50,7 +50,7 @@ KEYTIMEOUT=1
 bindkey '^H' backward-kill-word
 # Enable vim mode
 bindkey -v
-
+bindkey -v '^?' backward-delete-char
 removelink() {
   [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
 }
@@ -77,8 +77,8 @@ VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 export FZF_DEFAULT_COMMAND='rg --smart-case --files --no-ignore --hidden --follow --color always --glob "!.git/*" --glob "!**/target/*" --glob "!**/node_modules/*"'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:$PATH
+export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:$PATH
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+# . $HOME/.asdf/asdf.sh
+# . $HOME/.asdf/completions/asdf.bash
 [ -f ~/.profile ] && source ~/.profile
