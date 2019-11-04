@@ -18,6 +18,7 @@ Plug 'jparise/vim-graphql'
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-which-key'
+Plug 'fatih/vim-go'
 Plug 'mattn/emmet-vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
@@ -131,7 +132,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'vue']
+let g:polyglot_disabled = ['latex', 'vue', 'go']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -246,6 +247,20 @@ let g:lightline#bufferline#filename_modifier = ':t'
 " Emmet: {{{
 let g:user_emmet_leader_key=','
 let g:user_emmet_mode='n'    "only enable normal mode functions.
+" }}}
+" Go: {{{
+let g:go_highlight_types = 1 
+let g:go_highlight_methods = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_parameters = 0
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+"let g:go_highlight_variable_declarations = 1
+"let g:go_highlight_variable_assignments = 1
 " }}}
 " WhichKey: {{{
 noremap <silent> <leader> :WhichKey '<Space>'<CR>
