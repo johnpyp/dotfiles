@@ -7,38 +7,40 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Raimondi/delimitMate'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'itchyny/lightline.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 Plug 'bhurlow/vim-parinfer', { 'for': ['lisp', 'clojure'] }
-Plug 'tpope/vim-sleuth'
+Plug 'honza/vim-snippets'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
+Plug 'itchyny/lightline.vim'
+Plug 'jparise/vim-graphql'
+Plug 'jremmen/vim-ripgrep'
+Plug 'junegunn/fzf.vim'
+Plug 'liuchengxu/vim-which-key'
+Plug 'mattn/emmet-vim'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+Plug 'mhinz/vim-startify'
+Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'rhysd/vim-crystal'
+Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree'
+Plug 'sheerun/vim-polyglot'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
-Plug 'jparise/vim-graphql'
-Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-salve', { 'for': 'clojure' }
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-Plug 'scrooloose/nerdtree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'rhysd/vim-crystal'
-Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf.vim'
-Plug 'mhinz/vim-startify'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'honza/vim-snippets'
-Plug 'ryanoasis/vim-devicons'
-Plug 'mattn/emmet-vim'
-Plug 'liuchengxu/vim-which-key'
-Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'tpope/vim-sensible'
-Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-Plug 'sheerun/vim-polyglot'
 call plug#end()
 " }}}
 " General: {{{
@@ -214,8 +216,6 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
@@ -320,6 +320,7 @@ vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 nnoremap <silent> F :call CocAction('format')<CR>
+nnoremap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 nnoremap <silent> <leader>cl  :<C-u>CocList diagnostics<cr>

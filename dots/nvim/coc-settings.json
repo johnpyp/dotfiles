@@ -22,5 +22,10 @@
   "emmet.includeLanguages": {
     "vue-html": "html"
   },
-  "python.pythonPath": "/home/johnpyp/.asdf/shims/python"
+  "python.pythonPath": "python",
+  "python.formatting.provider": "black",
+  "go.goplsOptions": {
+    "completeUnimported": true,
+    "usePlaceholders": true
+  }
 }
