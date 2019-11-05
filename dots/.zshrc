@@ -83,3 +83,5 @@ export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:$
 # . $HOME/.asdf/asdf.sh
 # . $HOME/.asdf/completions/asdf.bash
 [ -f ~/.profile ] && source ~/.profile
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
