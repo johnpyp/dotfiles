@@ -228,8 +228,10 @@ let g:coc_snippet_prev = '<c-k>'
 
 "}}}
 " Ripgrep: {{{
-let g:rg_format = '%f:%l:%c:%m'
-let g:rg_command = 'rg --no-heading --vimgrep'
+" let g:rg_format = '%f:%l:%c:%m'
+let g:rg_command = 'rg --vimgrep -F'
+let g:rg_highlight = 1
+let g:rg_derive_root = 1
 "}}}
 " Crystal: {{{
 let g:crystal_auto_format = 1

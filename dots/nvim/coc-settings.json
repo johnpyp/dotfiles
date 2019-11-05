@@ -24,6 +24,7 @@
   },
   "python.pythonPath": "python",
   "python.formatting.provider": "black",
+  "python.jediEnabled": false,
   "go.goplsOptions": {
     "completeUnimported": true,
     "usePlaceholders": true
