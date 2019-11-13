@@ -22,7 +22,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'fatih/vim-go'
 Plug 'mattn/emmet-vim'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+"Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -113,9 +113,7 @@ function! CloseOnLast()
         bw
     endif
  endfunction
-cnoreabbrev <silent> wq w<bar>Sayonara
-cnoreabbrev <silent> q Sayonara 
-
+command! BufOnly silent! execute "%bd|e#|bd#"
 command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
 " }}}
@@ -317,6 +315,8 @@ nnoremap <C-h> :bp<CR>
 nnoremap <C-l> :bn<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
+nnoremap <leader>q :bd<CR>
+nnoremap <leader>Q :BufOnly<CR>
 nnoremap <leader><leader> <c-^>
 nnoremap <leader>ve :e $MYVIMRC<CR>  
 nnoremap <leader>vs :source $MYVIMRC<CR>     

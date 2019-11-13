@@ -1,6 +1,6 @@
 [user]
-	email = johnpaulpenaloza@gmail.com
-	name = johnpyp
+  email = johnpaulpenaloza@gmail.com
+  name = johnpyp
 [alias]
   co = checkout
   ci = commit
@@ -14,12 +14,12 @@
   lg = log --graph --decorate --oneline --branches
   pn = log --oneline --decorate --graph
   chlogm = !sh -c 'git log $1...$2  --pretty=format:\"%s [view commit](http://github.com/$3/$4/commit/%H) \"' -
-	d = difftool
+  d = difftool
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [difftool]
-	prompt = false
+  prompt = false
 [pull]
   rebase = true
 [core]
-	editor = nvim
+  editor = nvim

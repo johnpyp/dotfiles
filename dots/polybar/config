@@ -197,13 +197,14 @@ animation-charging-4 = 
 animation-charging-framerate = 750 
 
 [module/brightness]
-type = custom/script
-exec = light -G
-scroll-up = light -A 5
-scroll-down = light -U 5
+type = internal/xbacklight
+exec-if = light
+;exec = light -G
+;scroll-up = light -A 5
+;scroll-down = light -U 5
 format = 盛 <label>
 format-underline = ${colors.Yellow}
-;label = %percentage%%
+label = %percentage%%
 interval = 0.5
 
 [global/wm]

@@ -80,8 +80,7 @@ export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:$PATH
 
-# . $HOME/.asdf/asdf.sh
-# . $HOME/.asdf/completions/asdf.bash
+eval $(keychain --eval --quiet id_rsa)
 [ -f ~/.profile ] && source ~/.profile
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
