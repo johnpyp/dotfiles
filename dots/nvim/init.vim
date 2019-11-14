@@ -272,6 +272,8 @@ let g:which_key_use_floating_win = 0
 let g:which_key_map.g = {
       \ 'name' : 'Git' ,
       \ 's' : 'Git Status',
+      \ 'c' : 'Git Commit',
+      \ 'p' : 'Git Push',
       \ }
 
 let g:which_key_map.f = {
@@ -293,12 +295,15 @@ let g:which_key_map.v = {
       \ }
 let g:which_key_map.c = {
       \ 'name' : 'Coc' ,
+      \ 'a' : 'Code Actions',
       \ 't' : 'Diagnostic Info',
       \ 'd' : 'Definition',
       \ 'D' : 'Type definition',
       \ 'i' : 'Implementation',
       \ 'r' : 'Actions',
-      \ 'f' : 'Fix current',
+      \ 'f' : 'References',
+      \ 'o' : 'Organize Imports',
+      \ 'h' : 'Hover Info',
       \ }
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
@@ -333,19 +338,22 @@ nmap <silent> <leader>ci <Plug>(coc-implementation)
 nmap <silent> <leader>cr <Plug>(coc-references)
 nmap          <leader>ca <Plug>(coc-codeaction)
 nmap          <leader>cf <Plug>(coc-fix-current)
+nnoremap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+nnoremap <silent> <leader>ch :call CocAction('doHover')<CR>
 
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 nnoremap <silent> F :call CocAction('format')<CR>
-nnoremap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 nnoremap <silent> <leader>cl  :<C-u>CocList diagnostics<cr>
 
 """ Fugitive:
 nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gc :Gcommit<CR>
+" nnoremap <leader>gd :Gvdiff<CR>
 " nnoremap gdh :diffget //2<CR>
 " nnoremap gdh :diffget //3<CR>
 

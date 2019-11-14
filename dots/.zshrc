@@ -81,6 +81,7 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:$PATH
 
 eval $(keychain --eval --quiet id_rsa)
+export GO111MODULE="on"
 [ -f ~/.profile ] && source ~/.profile
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
