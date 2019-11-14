@@ -197,15 +197,15 @@ animation-charging-4 = 
 animation-charging-framerate = 750 
 
 [module/brightness]
-type = internal/xbacklight
-exec-if = light
-;exec = light -G
-;scroll-up = light -A 5
-;scroll-down = light -U 5
+type = custom/script
+exec-if = ./backlight-check.sh
+exec = light -G
+scroll-up = light -A 5
+scroll-down = light -U 5
 format = 盛 <label>
 format-underline = ${colors.Yellow}
-label = %percentage%%
-interval = 0.5
+label = %output%%
+interval = 0.2
 
 [global/wm]
 margin-top = 0
