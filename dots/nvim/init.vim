@@ -162,7 +162,7 @@ endfunction
 
 let g:NERDTreeExtensionHighlightColor = {}
 let g:NERDTreeExtensionHighlightColor['vue'] = '42b883'
-
+let g:NERDTreeIgnore = ['^node_modules$']
 autocmd FileType nerdtree setlocal nolist
 "}}}
 " Coc: {{{
