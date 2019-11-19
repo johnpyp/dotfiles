@@ -28,5 +28,11 @@
   "go.goplsOptions": {
     "completeUnimported": true,
     "usePlaceholders": true
+  },
+  "languageserver": {
+    "kotlin": {
+      "command": "~/lsp/kotlin-language-server/server/bin/kotlin-language-server",
+      "filetypes": ["kt", "kotlin"]
+    }
   }
 }

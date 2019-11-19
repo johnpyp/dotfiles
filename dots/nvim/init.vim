@@ -42,6 +42,7 @@ Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
+Plug 'udalov/kotlin-vim'
 call plug#end()
 " }}}
 " General: {{{
@@ -130,7 +131,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'vue', 'go']
+let g:polyglot_disabled = ['latex', 'vue', 'go', 'kotlin']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
