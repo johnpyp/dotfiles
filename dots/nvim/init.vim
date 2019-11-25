@@ -11,18 +11,17 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'bhurlow/vim-parinfer', { 'for': ['lisp', 'clojure'] }
+Plug 'fatih/vim-go'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
 Plug 'itchyny/lightline.vim'
 Plug 'jparise/vim-graphql'
 Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-which-key'
-Plug 'fatih/vim-go'
 Plug 'mattn/emmet-vim'
 Plug 'mengelbrecht/lightline-bufferline'
-"Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -260,8 +259,31 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_format_strings = 1
+let g:go_doc_keywordprg_enabled = 0
 "let g:go_highlight_variable_declarations = 1
 "let g:go_highlight_variable_assignments = 1
+" }}}
+" LSPs: {{{
+""" Kotlin
+if empty(glob('~/lsp/kotlin-language-server/server/bin/kotlin-language-server'))
+  !curl -fLo ~/lsp/kotlin-language-server/server.zip --create-dirs
+    \ https://github.com/fwcd/kotlin-language-server/releases/latest/download/server.zip
+  !unzip ~/lsp/kotlin-language-server/server.zip -d ~/lsp/kotlin-language-server
+endif
+
+"""
+if empty(glob('~/lsp/metals-vim'))
+  !coursier bootstrap
+        \ --java-opt -Xss4m
+        \ --java-opt -Xms100m
+        \ --java-opt -Dmetals.client=coc.nvim
+        \ org.scalameta:metals_2.12:0.7.6
+        \ -r bintray:scalacenter/releases
+        \ -r sonatype:snapshots 
+        \ -o ~/lsp/metals-vim -f
+endif
+
+
 " }}}
 " WhichKey: {{{
 noremap <silent> <leader> :WhichKey '<Space>'<CR>
@@ -339,7 +361,6 @@ nmap <silent> <leader>cr <Plug>(coc-references)
 nmap          <leader>ca <Plug>(coc-codeaction)
 nmap          <leader>cf <Plug>(coc-fix-current)
 nnoremap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
-nnoremap <silent> <leader>ch :call CocAction('doHover')<CR>
 
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)

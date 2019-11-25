@@ -32,7 +32,13 @@
   "languageserver": {
     "kotlin": {
       "command": "~/lsp/kotlin-language-server/server/bin/kotlin-language-server",
+      "rootPatterns": ["build.gradle"],
       "filetypes": ["kt", "kotlin"]
+    },
+    "metals": {
+      "command": "~/lsp/metals-vim",
+      "rootPatterns": ["build.sbt"],
+      "filetypes": ["scala", "sbt"]
     }
   }
 }
