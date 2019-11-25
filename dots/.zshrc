@@ -10,7 +10,10 @@ autoload -Uz _zplugin
 
 
 zplugin snippet OMZ::lib/history.zsh
+zplugin ice lucid wait
 zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+zplugin ice lucid wait
+zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
 # Autosuggestions & fast-syntax-highlighting
 zplugin ice lucid wait atinit"zpcompinit; zpcdreplay"
 zplugin light "zdharma/fast-syntax-highlighting"
