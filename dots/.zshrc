@@ -10,13 +10,13 @@ autoload -Uz _zplugin
 
 
 zplugin snippet OMZ::lib/history.zsh
+zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 # Autosuggestions & fast-syntax-highlighting
 zplugin ice lucid wait atinit"zpcompinit; zpcdreplay"
 zplugin light "zdharma/fast-syntax-highlighting"
 # zsh-autosuggestions
 zplugin ice lucid wait"1" lucid atload"!_zsh_autosuggest_start"
 zplugin load "zsh-users/zsh-autosuggestions"
-
 # Pure Theme
 zplugin ice lucid pick"async.zsh" src"pure.zsh"
 zplugin light "sindresorhus/pure"
