@@ -47,7 +47,7 @@ font-1 = "DroidSansMono Nerd Font:size=12:bold"
 
 modules-left = i3 music
 modules-center = date time
-modules-right = audio battery brightness updates-arch-combined wired-network wireless-network 
+modules-right = openvpn-isrunning audio battery brightness updates-arch-combined wired-network wireless-network 
 
 tray-position = right 
 tray-padding = 3
@@ -154,6 +154,14 @@ exec = ~/.config/pscripts/updates-arch-combined.sh
 interval = 200
 format =  <label> Updates 
 format-underline = ${colors.Red}
+
+[module/openvpn-isrunning]
+type = custom/script
+exec = echo vpn
+exec-if = pgrep -a openvpn$
+interval = 0.5
+format = 歷 OpenVPN 
+format-underline = ${colors.Green}
 
 [module/music]
 type = custom/script

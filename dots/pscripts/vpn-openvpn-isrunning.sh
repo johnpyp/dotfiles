@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ "$(pgrep openvpn)" ]; then
-    echo "#1"
+if [ "$(pgrep -a openvpn$)" ]; then
+    exit 0
 else
-    echo "#2"
+    exit 1
 fi
