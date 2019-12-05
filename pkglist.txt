@@ -1,17 +1,17 @@
 alsa-utils
-dtrx
 apache-tools
 betterlockscreen
 bitwarden-bin
 brave-bin
 clojure
-clojure
 compton
+crystal
 dbeaver
 deluge
 discord
 docker
 docker-compose
+dtrx
 elixir
 etcher-bin
 exa
@@ -72,6 +72,7 @@ rofi
 rustup
 rustup
 scala
+shards
 siji-git
 slack-desktop
 spotify-dev
