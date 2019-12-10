@@ -229,16 +229,19 @@ let g:coc_snippet_prev = '<c-k>'
 "}}}
 " Ale: {{{
 let g:ale_linters = {
-\   'crystal': 'all',
-\   'nix': 'all',
-\   'vim': 'all',
-\   'kotlin': 'all'
-\}
+  \   'crystal': 'all',
+  \   'nix': 'all',
+  \   'vim': 'all',
+  \   'kotlin': 'all'
+  \}
 let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \   'nix': ['nixpkgs-fmt'],
-  \   'kotlin': ['ktlint']
+  \   'kotlin': ['ktlint'],
+  \   'crystal': [{buffer -> {'command': 'crystal tool format %t', 'read_temporary_file': 1}}],
   \}
+
+call ale#Set('crystal_ameba_executable', 'ameba')
 let g:ale_linters_explicit = 1
 
 let g:ale_sign_column_always = 1
@@ -259,23 +262,6 @@ let g:ale_kotlin_ktlint_exeutable = "ktlint"
 let g:rg_command = 'rg --vimgrep -F'
 let g:rg_highlight = 1
 let g:rg_derive_root = 1
-"}}}
-" Ale: {{{
-" let g:rg_format = '%f:%l:%c:%m'
-let g:ale_linters = {
-\   'crystal': 'all',
-\   'vim': 'all',
-\}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'crystal': [{buffer -> {'command': 'crystal tool format %t', 'read_temporary_file': 1}}],
-\}
-call ale#Set('crystal_ameba_executable', 'ameba')
-let g:ale_sign_error = '>'
-let g:ale_sign_warning = '-'
-let g:ale_sign_column_always = 1
-let g:ale_fix_on_save = 1
-let g:ale_linters_explicit = 1
 "}}}
 " Crystal: {{{
 "let g:crystal_auto_format = 1
