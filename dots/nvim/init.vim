@@ -27,7 +27,7 @@ Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lo
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'rafi/awesome-vim-colorschemes'
-Plug 'rhysd/vim-crystal'
+Plug '~/code/vim-crystal'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -42,6 +42,7 @@ Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
+Plug 'dense-analysis/ale'
 Plug 'udalov/kotlin-vim'
 call plug#end()
 " }}}
@@ -225,6 +226,33 @@ let g:coc_snippet_next = '<c-j>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
 
+"}}}
+" Ale: {{{
+let g:ale_linters = {
+\   'crystal': 'all',
+\   'nix': 'all',
+\   'vim': 'all',
+\   'kotlin': 'all'
+\}
+let g:ale_fixers = {
+  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \   'nix': ['nixpkgs-fmt'],
+  \   'kotlin': ['ktlint']
+  \}
+let g:ale_linters_explicit = 1
+
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>'
+let g:ale_sign_warning = '-'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+let g:ale_lint_on_text_changed = 1
+let g:ale_fix_on_save = 1
+
+let g:ale_kotlin_languageserver_executable = "~/lsp/kotlin-language-server/server/bin/kotlin-language-server"
+let g:ale_kotlin_ktlint_exeutable = "ktlint"
 "}}}
 " Ripgrep: {{{
 " let g:rg_format = '%f:%l:%c:%m'

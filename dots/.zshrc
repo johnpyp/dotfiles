@@ -75,6 +75,14 @@ alias vimdiff="nvim -d"
 alias clearr="printf '\033[2J\033[3J\033[1;1H'"
 alias synctime="timedatectl set-ntp true"
 alias em="emacs -nw"
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+# alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 
 # export FZF_DEFAULT_COMMAND='rg --smart-case --files --no-ignore --hidden --follow --color always --glob "!.git/*" --glob "!**/target/*" --glob "!**/node_modules/*"'
@@ -88,3 +96,4 @@ export GO111MODULE="on"
 [ -f ~/.profile ] && source ~/.profile
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fasd --init auto)"
