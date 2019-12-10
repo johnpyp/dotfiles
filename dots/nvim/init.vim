@@ -34,6 +34,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
+Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
@@ -145,7 +146,7 @@ let NERDTreeWinSize = 45
 let NERDTreeDirArrows = 1
 let NERDTreeAutoDeleteBuffer = 1
 let g:sidebar_direction = ''
-let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)                                      
+let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)
 " Close vim if last window open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 function! ToggleNERDTreeFind()
@@ -169,10 +170,10 @@ autocmd FileType nerdtree setlocal nolist
 let b:coc_root_patterns = ['package.json']
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
-  \  "coc-tsserver", 
+  \  "coc-tsserver",
   \  "coc-python",
-  \  "coc-rls", 
-  \  "coc-json", 
+  \  "coc-rls",
+  \  "coc-json",
   \  "coc-snippets",
   \  "coc-prettier",
   \  "coc-emmet",
@@ -231,8 +232,25 @@ let g:rg_command = 'rg --vimgrep -F'
 let g:rg_highlight = 1
 let g:rg_derive_root = 1
 "}}}
+" Ale: {{{
+" let g:rg_format = '%f:%l:%c:%m'
+let g:ale_linters = {
+\   'crystal': 'all',
+\   'vim': 'all',
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'crystal': [{buffer -> {'command': 'crystal tool format %t', 'read_temporary_file': 1}}],
+\}
+call ale#Set('crystal_ameba_executable', 'ameba')
+let g:ale_sign_error = '>'
+let g:ale_sign_warning = '-'
+let g:ale_sign_column_always = 1
+let g:ale_fix_on_save = 1
+let g:ale_linters_explicit = 1
+"}}}
 " Crystal: {{{
-let g:crystal_auto_format = 1
+"let g:crystal_auto_format = 1
 " }}}
 " Rooter: {{{
 let g:rooter_change_directory_for_non_project_files = 'current'
@@ -249,7 +267,7 @@ let g:user_emmet_leader_key=','
 let g:user_emmet_mode='n'    "only enable normal mode functions.
 " }}}
 " Go: {{{
-let g:go_highlight_types = 1 
+let g:go_highlight_types = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_functions = 1
@@ -279,7 +297,7 @@ if empty(glob('~/lsp/metals-vim'))
         \ --java-opt -Dmetals.client=coc.nvim
         \ org.scalameta:metals_2.12:0.7.6
         \ -r bintray:scalacenter/releases
-        \ -r sonatype:snapshots 
+        \ -r sonatype:snapshots
         \ -o ~/lsp/metals-vim -f
 endif
 
@@ -327,6 +345,16 @@ let g:which_key_map.c = {
       \ 'o' : 'Organize Imports',
       \ 'h' : 'Hover Info',
       \ }
+let g:which_key_map.a = {
+      \ 'name' : 'ALE' ,
+      \ 'a' : 'Code Actions',
+      \ 't' : 'ALE Detail',
+      \ 'd' : 'Go To Definition',
+      \ 'i' : 'ALE Info',
+      \ 'o' : 'Organize Imports',
+      \ 'h' : 'Hover Info',
+      \ 'f' : 'ALE Fix',
+      \ }
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
@@ -346,8 +374,8 @@ nnoremap <leader>q :bd<CR>
 nnoremap <leader>w :noa w<CR>
 nnoremap <leader>Q :BufOnly<CR>
 nnoremap <leader><leader> <c-^>
-nnoremap <leader>ve :e $MYVIMRC<CR>  
-nnoremap <leader>vs :source $MYVIMRC<CR>     
+nnoremap <leader>ve :e $MYVIMRC<CR>
+nnoremap <leader>vs :source $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :nohl<CR>
 
 """ Coc:
@@ -366,11 +394,18 @@ nnoremap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organi
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-nnoremap <silent> F :call CocAction('format')<CR>
+nnoremap <silent> F :call CocAction('format')<CR>:ALEFix<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 nnoremap <silent> <leader>cl  :<C-u>CocList diagnostics<cr>
 
+""" Ale:
+nnoremap <silent> <leader>af :ALEFix<CR>
+nnoremap <silent> <leader>ai :ALEInfo<CR>
+nnoremap <silent> <leader>ah :ALEHover<CR>
+nnoremap <silent> <leader>ad :ALEGoToDefinition<CR>
+nnoremap <silent> <leader>ao :ALEOrganizeImports<CR>
+nnoremap <silent> <leader>at :ALEDetail<CR>
 """ Fugitive:
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gp :Gpush<CR>
@@ -389,6 +424,8 @@ nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fb :Buffers<CR>
 
 """ Ripgrep:
-noremap <leader>fs :Rg 
+noremap <leader>fs :Rg
 
+""" Buffers:
+map <leader>w <C-w>
 " }}}
