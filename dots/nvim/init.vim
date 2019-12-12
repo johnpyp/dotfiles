@@ -385,7 +385,7 @@ nnoremap <C-l> :bn<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>q :bd<CR>
-nnoremap <leader>w :noa w<CR>
+nnoremap <leader>W :noa w<CR>
 nnoremap <leader>Q :BufOnly<CR>
 nnoremap <leader><leader> <c-^>
 nnoremap <leader>ve :e $MYVIMRC<CR>
