@@ -44,6 +44,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'dense-analysis/ale'
 Plug 'udalov/kotlin-vim'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 " }}}
 " General: {{{
