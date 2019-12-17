@@ -89,7 +89,7 @@ VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 export FZF_DEFAULT_COMMAND='fd -H -I --type f --exclude "**/target/*" --exclude "**/node_modules/*" --exclude ".git/*" --exclude ".idea/*" --exclude "**/build/*"'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:$PATH
+export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
 
 eval $(keychain --eval --quiet id_rsa)
 export GO111MODULE="on"

@@ -45,6 +45,7 @@ Plug 'tpope/vim-surround'
 Plug 'dense-analysis/ale'
 Plug 'udalov/kotlin-vim'
 Plug 'Yggdroot/indentLine'
+Plug 'alaviss/nim.nvim'
 call plug#end()
 " }}}
 " General: {{{
@@ -66,6 +67,7 @@ filetype plugin indent on
 set tabstop =4
 set shiftwidth =4
 set softtabstop =4
+se nostartofline
 " tab -> space conversion
 set expandtab
 " show current line
@@ -233,7 +235,6 @@ let g:ale_linters = {
   \   'crystal': 'all',
   \   'nix': 'all',
   \   'vim': 'all',
-  \   'kotlin': 'all'
   \}
 let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -255,8 +256,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 1
 let g:ale_fix_on_save = 1
 
-let g:ale_kotlin_languageserver_executable = "~/lsp/kotlin-language-server/server/bin/kotlin-language-server"
-let g:ale_kotlin_ktlint_exeutable = "ktlint"
+let g:ale_kotlin_ktlint_exeutable = "~/lsp/ktlint"
 "}}}
 " Ripgrep: {{{
 " let g:rg_format = '%f:%l:%c:%m'
@@ -303,8 +303,14 @@ if empty(glob('~/lsp/kotlin-language-server/server/bin/kotlin-language-server'))
     \ https://github.com/fwcd/kotlin-language-server/releases/latest/download/server.zip
   !unzip ~/lsp/kotlin-language-server/server.zip -d ~/lsp/kotlin-language-server
 endif
+if empty(glob('~/lsp/ktlint'))
+  !curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.36.0/ktlint &&
+        \ chmod a+x ktlint &&
+        \ mv ktlint ~/lsp
 
-"""
+endif
+
+""" Metals
 if empty(glob('~/lsp/metals-vim'))
   !coursier bootstrap
         \ --java-opt -Xss4m
@@ -315,6 +321,7 @@ if empty(glob('~/lsp/metals-vim'))
         \ -r sonatype:snapshots
         \ -o ~/lsp/metals-vim -f
 endif
+""" Ktlint
 
 
 " }}}
