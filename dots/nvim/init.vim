@@ -239,7 +239,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \   'nix': ['nixpkgs-fmt'],
-  \   'kotlin': ['ktlint'],
+  \   'kotlin': [],
   \   'crystal': [{buffer -> {'command': 'crystal tool format %t', 'read_temporary_file': 1}}],
   \}
 
@@ -256,7 +256,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 1
 let g:ale_fix_on_save = 1
 
-let g:ale_kotlin_ktlint_exeutable = "~/lsp/ktlint"
+" let g:ale_kotlin_ktlint_exeutable = "~/lsp/ktlint"
+let g:ale_kotlin_ktlint_exeutable = "ktlint"
 "}}}
 " Ripgrep: {{{
 " let g:rg_format = '%f:%l:%c:%m'
