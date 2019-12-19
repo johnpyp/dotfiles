@@ -225,7 +225,6 @@ mode "resize" {
 
 # Set keyrepeat
 
-border_radius 0
 
 set $fg #f0f0f0
 set $bg #2c2c2c
@@ -282,5 +281,7 @@ bindsym $mod+n exec "networkmanager_dmenu"
 # Moving Workspaces to Different Monitors
 bindsym $mod+Shift+bracketleft move workspace to output left
 bindsym $mod+Shift+bracketright move workspace to output right
+bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86MonBrightnessUp exec light -A 10
 # Kill any PIA process, wait a bit, start it back up
 # exec --no-startup-id killall -q pia-client; sleep 9; /opt/piavpn/bin/pia-client
