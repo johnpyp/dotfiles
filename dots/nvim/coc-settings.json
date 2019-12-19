@@ -10,12 +10,19 @@
     "html",
     "vue",
     "scala",
-    "go"
+    "go",
+    "clojure"
   ],
-  "coc.preferences.rootPatterns": ["package.json"],
+  "coc.preferences.rootPatterns": [
+    "package.json"
+  ],
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
-  "eslint.filetypes": ["javascript", "typescript", "vue"],
+  "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
   "typescript.validate.enable": false,
   "javascript.validate.enable": false,
   "emmet.includeLanguages": {
@@ -32,18 +39,50 @@
   "languageserver": {
     "kotlin": {
       "command": "~/lsp/kotlin-language-server/server/bin/kotlin-language-server",
-      "rootPatterns": ["gradle.build"],
-      "filetypes": ["kotlin"]
+      "rootPatterns": [
+        "gradle.build"
+      ],
+      "filetypes": [
+        "kotlin"
+      ]
     },
     "metals": {
       "command": "~/lsp/metals-vim",
-      "rootPatterns": ["build.sbt"],
-      "filetypes": ["scala", "sbt"]
+      "rootPatterns": [
+        "build.sbt"
+      ],
+      "filetypes": [
+        "scala",
+        "sbt"
+      ]
     },
     "scry": {
       "command": "~/lsp/scry/bin/linux/scry",
-      "rootPatterns": ["shards.yml"],
-      "filetypes": ["crystal", "cr"]
+      "rootPatterns": [
+        "shards.yml"
+      ],
+      "filetypes": [
+        "crystal",
+        "cr"
+      ]
+    },
+    "clojure-lsp": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "~/lsp/clojure/clojure-lsp"
+      ],
+      "filetypes": [
+        "clojure"
+      ],
+      "rootPatterns": [
+        "project.clj"
+      ],
+      "additionalSchemes": [
+        "jar",
+        "zipfile"
+      ],
+      "initializationOptions": {}
     }
   }
 }

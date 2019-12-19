@@ -315,6 +315,11 @@ if empty(glob('~/lsp/ktlint'))
         \ mv ktlint ~/lsp
 
 endif
+if empty(glob('~/lsp/clojure'))
+  !curl -fLo ~/lsp/clojure/clojure-lsp --create-dirs
+    \ https://github.com/snoe/clojure-lsp/releases/latest/download/clojure-lsp
+
+endif
 
 """ Metals
 if empty(glob('~/lsp/metals-vim'))
