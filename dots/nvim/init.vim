@@ -7,7 +7,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Raimondi/delimitMate'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'bhurlow/vim-parinfer', { 'for': ['lisp', 'clojure'] }
@@ -27,11 +27,11 @@ Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lo
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'rafi/awesome-vim-colorschemes'
-Plug '~/code/vim-crystal'
+Plug 'rhysd/vim-crystal'
 Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
 Plug 'dense-analysis/ale'
@@ -46,6 +46,8 @@ Plug 'dense-analysis/ale'
 Plug 'udalov/kotlin-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'alaviss/nim.nvim'
+" Plug 'mcchrish/nnn.vim'
+Plug 'justinmk/vim-dirvish'
 call plug#end()
 " }}}
 " General: {{{
@@ -89,7 +91,7 @@ set cmdheight=2
 set updatetime=300
 set shortmess+=c
 set signcolumn=yes
-
+let g:netrw_liststyle = 3
 " set foldmethod
 set foldmethod=marker
 
@@ -297,6 +299,9 @@ let g:go_doc_keywordprg_enabled = 0
 "let g:go_highlight_variable_declarations = 1
 "let g:go_highlight_variable_assignments = 1
 " }}}
+" Vineger: {{{
+autocmd FileType netrw setl bufhidden=delete
+" }}}
 " LSPs: {{{
 """ Kotlin
 if empty(glob('~/lsp/kotlin-language-server/server/bin/kotlin-language-server'))
@@ -337,6 +342,7 @@ let g:which_key_map.g = {
       \ 's' : 'Git Status',
       \ 'c' : 'Git Commit',
       \ 'p' : 'Git Push',
+      \ 'b' : 'Git Blame',
       \ }
 
 let g:which_key_map.f = {
@@ -433,13 +439,14 @@ nnoremap <silent> <leader>at :ALEDetail<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gb :Gblame<CR>
 " nnoremap <leader>gd :Gvdiff<CR>
 " nnoremap gdh :diffget //2<CR>
 " nnoremap gdh :diffget //3<CR>
 
 """ NERDTree:
-map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
-nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
+" map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
+" nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 
 """ FZF:
 nnoremap <C-p> :Files<CR>

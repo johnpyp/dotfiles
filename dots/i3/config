@@ -275,6 +275,7 @@ exec --no-startup-id xautolock -time 20 -locker "betterlockscreen -l dimblur"
 exec --no-startup-id "killall dunst; /usr/lib/xfce4/notifyd/xfce4-notifyd"
 exec --no-startup-id "sleep 1; compton -b"
 exec --no-startup-id setxkbmap -option compose:ralt
+exec --no-startup-id redshift-gtk
 
 # NetworkManager-dmenu
 bindsym $mod+n exec "networkmanager_dmenu"
