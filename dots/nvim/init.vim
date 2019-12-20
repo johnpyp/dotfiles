@@ -6,11 +6,15 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.local/share/nvim/plugged')
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'justinmk/vim-dirvish'
 Plug 'Raimondi/delimitMate'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
-Plug 'bhurlow/vim-parinfer', { 'for': ['lisp', 'clojure'] }
+Plug 'alaviss/nim.nvim'
+Plug 'dense-analysis/ale'
+Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'fatih/vim-go'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
@@ -29,25 +33,20 @@ Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'rhysd/vim-crystal'
 Plug 'ryanoasis/vim-devicons'
-" Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
-Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-salve', { 'for': 'clojure' }
+Plug 'tpope/vim-salve'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'dense-analysis/ale'
 Plug 'udalov/kotlin-vim'
-Plug 'Yggdroot/indentLine'
-Plug 'alaviss/nim.nvim'
-" Plug 'mcchrish/nnn.vim'
-Plug 'justinmk/vim-dirvish'
 call plug#end()
 " }}}
 " General: {{{
@@ -270,6 +269,9 @@ let g:rg_derive_root = 1
 " Crystal: {{{
 "let g:crystal_auto_format = 1
 " }}}
+" Clojure: {{{
+"let g:salve_auto_start_repl = 1
+" }}}
 " Rooter: {{{
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
@@ -451,7 +453,7 @@ nnoremap <leader>gb :Gblame<CR>
 
 """ NERDTree:
 " map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
-" nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
+nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 
 """ FZF:
 nnoremap <C-p> :Files<CR>
