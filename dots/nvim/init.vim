@@ -21,8 +21,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
 Plug 'itchyny/lightline.vim'
 Plug 'jparise/vim-graphql'
 Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mattn/emmet-vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -35,7 +33,7 @@ Plug 'rhysd/vim-crystal'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
@@ -150,6 +148,7 @@ let NERDTreeShowHidden=1
 let NERDTreeWinSize = 45
 let NERDTreeDirArrows = 1
 let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeNaturalSort = 1
 let g:sidebar_direction = ''
 let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)
 " Close vim if last window open
@@ -166,8 +165,6 @@ function! ToggleNERDTreeFind()
     endif
 endfunction
 
-let g:NERDTreeExtensionHighlightColor = {}
-let g:NERDTreeExtensionHighlightColor['vue'] = '42b883'
 let g:NERDTreeIgnore = ['^node_modules$']
 autocmd FileType nerdtree setlocal nolist
 "}}}
@@ -182,7 +179,8 @@ let g:coc_global_extensions = [
   \  "coc-snippets",
   \  "coc-prettier",
   \  "coc-emmet",
-  \  "coc-go"
+  \  "coc-go",
+  \  "coc-lists"
   \]
 
 function! s:check_back_space() abort
@@ -196,7 +194,9 @@ inoremap <silent><expr> <Tab>
       \ coc#refresh()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+imap <expr> <CR> pumvisible()
+                     \ ? "\<C-Y>"
+                     \ : "<Plug>delimitMateCR"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 function! s:show_documentation()
@@ -236,6 +236,7 @@ let g:ale_linters = {
   \   'crystal': 'all',
   \   'nix': 'all',
   \   'vim': 'all',
+  \   'rust': []
   \}
 let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -277,10 +278,29 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
 " }}}
 " Lightline: {{{
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
 let g:lightline#bufferline#filename_modifier = ':t'
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \ 'tabline': {
+  \   'left': [ [ 'buffers'] ]
+  \ },
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+  \ },
+  \ 'component_function': {
+  \   'cocstatus': 'coc#status'
+  \ },
+  \ 'component_expand': {
+  \   'buffers': 'lightline#bufferline#buffers'
+  \ },
+  \ 'component_type': {
+  \   'buffers': 'tabsel'
+  \ },
+  \ }
+
+
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 " }}}
 " Emmet: {{{
 let g:user_emmet_leader_key=','
@@ -303,6 +323,9 @@ let g:go_doc_keywordprg_enabled = 0
 " }}}
 " Vineger: {{{
 autocmd FileType netrw setl bufhidden=delete
+" }}}
+" DelimitMate: {{{
+"let delimitMate_expand_cr = 1
 " }}}
 " LSPs: {{{
 """ Kotlin
@@ -355,7 +378,7 @@ let g:which_key_map.g = {
 let g:which_key_map.f = {
       \ 'name' : 'File' ,
       \ 's' : 'Search (rg)',
-      \ 'f' : 'Find (fzf)',
+      \ 'f' : 'Find File (files)',
       \ }
 
 let g:which_key_map.b = {
@@ -415,16 +438,16 @@ nnoremap <leader>vs :source $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :nohl<CR>
 
 """ Coc:
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
+nnoremap <silent> [c <Plug>(coc-diagnostic-prev)
+nnoremap <silent> ]c <Plug>(coc-diagnostic-next)
+nnoremap <silent> <leader>ct <Plug>(coc-diagnostic-info)
 
-nmap <silent> <leader>cd <Plug>(coc-definition)
-nmap <silent> <leader>cD <Plug>(coc-type-definition)
-nmap <silent> <leader>ci <Plug>(coc-implementation)
-nmap <silent> <leader>cr <Plug>(coc-references)
-nmap          <leader>ca <Plug>(coc-codeaction)
-nmap          <leader>cf <Plug>(coc-fix-current)
+nnoremap <silent> <leader>cd <Plug>(coc-definition)
+nnoremap <silent> <leader>cD <Plug>(coc-type-definition)
+nnoremap <silent> <leader>ci <Plug>(coc-implementation)
+nnoremap <silent> <leader>cr <Plug>(coc-references)
+nnoremap          <leader>ca :CocAction<CR>
+nnoremap          <leader>cf <Plug>(coc-fix-current)
 nnoremap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 vmap <C-j> <Plug>(coc-snippets-select)
@@ -456,12 +479,12 @@ nnoremap <leader>gb :Gblame<CR>
 nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 
 """ FZF:
-nnoremap <C-p> :Files<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
+nnoremap <C-p> :CocList files<CR>
+nnoremap <leader>ff :CocList files<CR>
+nnoremap <leader>fb :CocList buffers<CR>
 
 """ Ripgrep:
-noremap <leader>fs :Rg
+noremap <leader>fs :Rg<space>
 
 """ Buffers:
 map <leader>w <C-w>
