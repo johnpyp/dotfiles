@@ -7,7 +7,7 @@
     ../modules/default-user.nix
     ../modules/bluetooth.nix
     ../modules/sound.nix
-    ../modules/desktop.nix
+    ../modules/xserver.nix
     ../modules/general.nix
   ];
   # Machine specific networking

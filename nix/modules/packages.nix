@@ -1,21 +1,25 @@
 { config, pkgs, ... }:
-
 {
-
   environment.systemPackages = with pkgs; [
     acpi
+    alacritty
+    bat
     betterlockscreen
+    binutils
     bitwarden
+    brave
+    clang
     clojure
     compton
-    leiningen
+    conda
     coursier
     crystal
     curl
+    di
     discord
     docker
     docker-compose
-    dolphin
+    etcher
     exa
     exodus
     fd
@@ -23,70 +27,92 @@
     firefox
     flameshot
     fzf
-    gcc
     git
     gitAndTools.hub
+    glibc
+    gnome3.gnome-disk-utility
     gnome3.networkmanagerapplet
     go
     google-chrome
+    gotop
     gparted
     gradle
-    clang
     htop
     insomnia
     jdk12
     jetbrains.idea-ultimate
+    just
     keybase-gui
     keychain
     kitty
     kotlin
     ktlint
+    lazydocker
+    leiningen
+    libratbag
+    libreoffice
     lxappearance-gtk3
+    mergerfs
     mypy
     ncdu
     neofetch
     neovim
+    nix-index
     nixfmt
     nixpkgs-fmt
     nodejs-12_x
+    ntfsprogs
     okular
     openjdk
+    papirus-icon-theme
     parted
     pavucontrol
+    piper
+    plex-media-player
     qalculate-gtk
     ranger
+    redshift
     ripgrep
     rofi
-    rustfmt
     rustup
+    rxvt
+    scry
     shards
+    skim
     spotify
+    starship
     unrar
     unzip
     vim
-    vscode
     wget
+    woeusb
     xautolock
+    xfce.thunar
     xfce4-14.xfce4-notifyd
     zafiro-icons
     zlib
     zsh
     zstd
+    libpqxx
+    postgresql
+    llvmPackages.libclang
 
     (
       python3.withPackages (
         ps:
           with ps; [
+            pandas
             beautifulsoup4
             dbus-python
             flask
             matplotlib
             numpy
-            pandas
             pygobject3
             requests
             scipy
             virtualenvwrapper
+            mypy
+            black
           ]
       )
     )

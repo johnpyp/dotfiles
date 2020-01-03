@@ -21,4 +21,8 @@
     };
     fonts = with pkgs; [ nerdfonts cascadia-code ];
   };
+  # Gnome keyring
+  services.gnome3.gnome-keyring.enable = true;
+  # Printing
+  services.printing.enable = true;
 }
