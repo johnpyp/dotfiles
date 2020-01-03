@@ -8,7 +8,6 @@ source "$HOME/.zplugin/bin/zplugin.zsh"
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
-
 zplugin snippet OMZ::lib/history.zsh
 zplugin ice lucid wait
 zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
@@ -21,16 +20,16 @@ zplugin light "zdharma/fast-syntax-highlighting"
 zplugin ice lucid wait"1" lucid atload"!_zsh_autosuggest_start"
 zplugin load "zsh-users/zsh-autosuggestions"
 # Pure Theme
-zplugin ice lucid pick"async.zsh" src"pure.zsh"
-zplugin light "sindresorhus/pure"
+# zplugin ice lucid pick"async.zsh" src"pure.zsh"
+# zplugin light "sindresorhus/pure"
 
 # Zsh completions
 zplugin ice lucid wait blockf atpull'zplugin creinstall -q .'
 zplugin light "zsh-users/zsh-completions"
 
 # ls
-zplugin ice lucid wait
-zplugin load "zpm-zsh/ls"
+# zplugin ice lucid wait
+# zplugin load "zpm-zsh/ls"
 
 zplugin ice lucid wait"1"
 zplugin load "changyuheng/fz"
@@ -72,21 +71,17 @@ alias font-list="sort <(fc-list : family) | vim -"
 alias dc="docker-compose"
 alias vim="nvim"
 alias vimdiff="nvim -d"
-alias clearr="printf '\033[2J\033[3J\033[1;1H'"
+alias clr="printf '\033[2J\033[3J\033[1;1H'"
 alias synctime="timedatectl set-ntp true"
 alias em="emacs -nw"
-alias a='fasd -a'        # any
-alias s='fasd -si'       # show / search / select
-alias d='fasd -d'        # directory
-alias f='fasd -f'        # file
-alias sd='fasd -sid'     # interactive directory selection
-alias sf='fasd -sif'     # interactive file selection
-# alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-alias zz='fasd_cd -d -i' # cd with interactive selection
+# ls memes
+alias ls='exa --git --icons --classify --group-directories-first --time-style=long-iso --group --color-scale'
+alias ll='ls -la'
+alias l='ls --git-ignore'
+alias la='ls -a'
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
-
-# export FZF_DEFAULT_COMMAND='rg --smart-case --files --no-ignore --hidden --follow --color always --glob "!.git/*" --glob "!**/target/*" --glob "!**/node_modules/*"'
-export FZF_DEFAULT_COMMAND='fd -H -I --type f --exclude "**/target/*" --exclude "**/node_modules/*" --exclude ".git/*" --exclude ".idea/*" --exclude "**/build/*"'
+SKIM_DEFAULT_COMMAND="fd --type f"
+export FZF_DEFAULT_COMMAND='fd -H --type f --exclude ".git/*" --exclude ".idea/*"'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
@@ -96,4 +91,4 @@ export GO111MODULE="on"
 [ -f ~/.profile ] && source ~/.profile
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(fasd --init auto)"
+eval "$(starship init zsh)"

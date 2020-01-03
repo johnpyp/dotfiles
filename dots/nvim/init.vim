@@ -14,7 +14,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'alaviss/nim.nvim'
 Plug 'dense-analysis/ale'
-Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
+Plug 'eraserhd/parinfer-rust', {'do': 'nix-shell --run \"cargo build --release \"'}
 Plug 'fatih/vim-go'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
@@ -33,7 +33,6 @@ Plug 'rhysd/vim-crystal'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
@@ -45,6 +44,8 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'udalov/kotlin-vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 " }}}
 " General: {{{
@@ -258,7 +259,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 1
 let g:ale_fix_on_save = 1
 
-" let g:ale_kotlin_ktlint_exeutable = "~/lsp/ktlint"
 let g:ale_kotlin_ktlint_exeutable = "ktlint"
 "}}}
 " Ripgrep: {{{
@@ -334,15 +334,12 @@ if empty(glob('~/lsp/kotlin-language-server/server/bin/kotlin-language-server'))
     \ https://github.com/fwcd/kotlin-language-server/releases/latest/download/server.zip
   !unzip ~/lsp/kotlin-language-server/server.zip -d ~/lsp/kotlin-language-server
 endif
-if empty(glob('~/lsp/ktlint'))
-  !curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.36.0/ktlint &&
-        \ chmod a+x ktlint &&
-        \ mv ktlint ~/lsp
 
-endif
+""" Clojure
 if empty(glob('~/lsp/clojure'))
   !curl -fLo ~/lsp/clojure/clojure-lsp --create-dirs
     \ https://github.com/snoe/clojure-lsp/releases/latest/download/clojure-lsp
+  !chmod +x ~/lsp/clojure/clojure-lsp
 
 endif
 
@@ -357,7 +354,6 @@ if empty(glob('~/lsp/metals-vim'))
         \ -r sonatype:snapshots
         \ -o ~/lsp/metals-vim -f
 endif
-""" Ktlint
 
 
 " }}}
@@ -438,16 +434,16 @@ nnoremap <leader>vs :source $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :nohl<CR>
 
 """ Coc:
-nnoremap <silent> [c <Plug>(coc-diagnostic-prev)
-nnoremap <silent> ]c <Plug>(coc-diagnostic-next)
-nnoremap <silent> <leader>ct <Plug>(coc-diagnostic-info)
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
 
-nnoremap <silent> <leader>cd <Plug>(coc-definition)
-nnoremap <silent> <leader>cD <Plug>(coc-type-definition)
-nnoremap <silent> <leader>ci <Plug>(coc-implementation)
-nnoremap <silent> <leader>cr <Plug>(coc-references)
+nmap <silent> <leader>cd <Plug>(coc-definition)
+nmap <silent> <leader>cD <Plug>(coc-type-definition)
+nmap <silent> <leader>ci <Plug>(coc-implementation)
+nmap <silent> <leader>cr <Plug>(coc-references)
 nnoremap          <leader>ca :CocAction<CR>
-nnoremap          <leader>cf <Plug>(coc-fix-current)
+nmap          <leader>cf <Plug>(coc-fix-current)
 nnoremap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 vmap <C-j> <Plug>(coc-snippets-select)
@@ -479,9 +475,9 @@ nnoremap <leader>gb :Gblame<CR>
 nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 
 """ FZF:
-nnoremap <C-p> :CocList files<CR>
-nnoremap <leader>ff :CocList files<CR>
-nnoremap <leader>fb :CocList buffers<CR>
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fb :Buffers<CR>
 
 """ Ripgrep:
 noremap <leader>fs :Rg<space>
