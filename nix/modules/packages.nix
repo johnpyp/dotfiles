@@ -27,6 +27,7 @@
     firefox
     flameshot
     fzf
+    gimp
     git
     gitAndTools.hub
     glibc
@@ -49,10 +50,13 @@
     ktlint
     lazydocker
     leiningen
+    libpqxx
     libratbag
     libreoffice
+    llvmPackages.libclang
     lxappearance-gtk3
     mergerfs
+    mpv
     mypy
     ncdu
     neofetch
@@ -69,6 +73,7 @@
     pavucontrol
     piper
     plex-media-player
+    postgresql
     qalculate-gtk
     ranger
     redshift
@@ -89,13 +94,11 @@
     xautolock
     xfce.thunar
     xfce4-14.xfce4-notifyd
+    youtube-dl
     zafiro-icons
     zlib
     zsh
     zstd
-    libpqxx
-    postgresql
-    llvmPackages.libclang
 
     (
       python3.withPackages (

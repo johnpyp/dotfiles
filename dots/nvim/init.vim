@@ -433,6 +433,8 @@ nnoremap <leader>ve :e $MYVIMRC<CR>
 nnoremap <leader>vs :source $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :nohl<CR>
 
+nnoremap <C-k> 5k
+nnoremap <C-j> 5j
 """ Coc:
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)

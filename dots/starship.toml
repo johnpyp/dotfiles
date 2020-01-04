@@ -1,0 +1,8 @@
+[character]
+style_success = "cyan bold"
+error_symbol = "✗"
+use_symbol_for_status = true
+
+[directory]
+truncate_to_repo = false
+truncation_length = 8

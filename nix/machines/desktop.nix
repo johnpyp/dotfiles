@@ -31,9 +31,9 @@
         Option         "metamodes" "DVI-D-0: 1920x1080_144 +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, HDMI-0: nvidia-auto-select +3840+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, HDMI-1: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
       '';
     xrandrHeads = [
-      { output = "HDMI-1"; }
-      { output = "DVI-D-0"; primary = true; }
       { output = "HDMI-0"; }
+      { output = "DVI-D-0"; primary = true; }
+      { output = "HDMI-1"; }
     ];
   };
 
