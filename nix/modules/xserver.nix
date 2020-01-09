@@ -8,7 +8,7 @@
       enable = true;
       xkbOptions = "caps:escape, compose:ralt";
       autoRepeatDelay = 200;
-      autoRepeatInterval = 30;
+      autoRepeatInterval = 10;
       layout = "us";
       libinput = {
         enable = true;

@@ -9,9 +9,12 @@
     ../modules/sound.nix
     ../modules/xserver.nix
     ../modules/general.nix
+    ../modules/networking.nix
   ];
   # Machine specific networking
-  networking = import ../modules/networking.nix "wlp2s0";
+  networking.hostName = "johnpyp-nixos-laptop";
+  networking.interfaces.wlp2s0.useDHCP = true;
+  networking.wireguard.enable = true;
 
   time.timeZone = "America/New_York";
 
