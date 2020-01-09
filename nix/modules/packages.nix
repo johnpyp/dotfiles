@@ -75,6 +75,7 @@
     postgresql
     qalculate-gtk
     ranger
+    iptables
     redshift
     ripgrep
     rofi

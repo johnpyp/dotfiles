@@ -1,9 +1,4 @@
-args@{ config, pkgs, ... }:
-let
-  cfg = {
-    interface = "enp7s0";
-  };
-in
+{ config, pkgs, ... }:
 {
   imports = [
     ../modules/packages.nix
@@ -13,15 +8,13 @@ in
     ../modules/sound.nix
     ../modules/xserver.nix
     ../modules/general.nix
-    # ../modules/wireguard.nix
+    ../modules/networking.nix
   ];
   # Machine specific networking
-  networking = {
-    hostName = "johnpyp-nixos-desktop";
-    networkmanager.enable = true;
-    useDHCP = false;
-    interfaces.${cfg.interface}.useDHCP = true;
-  };
+  networking.hostName = "johnpyp-nixos-desktop";
+  networking.interfaces.enp7s0.useDHCP = true;
+  networking.wireguard.enable = true;
+
   time.timeZone = "America/New_York";
 
   # Firewall, for plex

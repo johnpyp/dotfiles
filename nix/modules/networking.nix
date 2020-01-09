@@ -3,11 +3,12 @@
   networking = {
     networkmanager.enable = true;
     useDHCP = false;
-    wireguard.interfaces = {
+    nameservers = [ "1.1.1.1" "0.0.0.0" ];
+    wg-quick.interfaces = {
       # "wg0" is the network interface name. You can name the interface arbitrarily.
       "wg0" = {
         # Determines the IP address and subnet of the client's end of the tunnel interface.
-        ips = [
+        address = [
           "10.65.178.54/32"
           "fc00:bbbb:bbbb:bb01::2:b235/128"
         ];
@@ -19,7 +20,9 @@
         # recommended.
         privateKeyFile = "/home/johnpyp/secret/mullvad-ny.txt";
         # privateKey = "/o2pNKOrDIzPP1WA+6Fa27kL2aoyB0wV8sRwmhXM37M=";
+        # postUp = "iptables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && ip6tables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT";
 
+        # preDown = "iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && ip6tables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT";
         peers = [
           # For a client configuration, one peer entry for the server will suffice.
           {
