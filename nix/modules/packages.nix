@@ -72,7 +72,6 @@
     parted
     pavucontrol
     piper
-    plex-media-player
     postgresql
     qalculate-gtk
     ranger
@@ -104,18 +103,20 @@
       python3.withPackages (
         ps:
           with ps; [
-            pandas
             beautifulsoup4
+            black
             dbus-python
             flask
+            jedi
             matplotlib
+            mypy
             numpy
+            pandas
             pygobject3
+            pylint
             requests
             scipy
             virtualenvwrapper
-            mypy
-            black
           ]
       )
     )

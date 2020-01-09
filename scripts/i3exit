@@ -6,7 +6,7 @@
 
 case "$1" in
     lock)
-        blurlock
+        betterlockscreen -l dimblur
         ;;
     logout)
         i3-msg exit
@@ -15,10 +15,10 @@ case "$1" in
         dm-tool switch-to-greeter
         ;;
     suspend)
-        blurlock && $logind suspend
+        betterlockscreen -l dimblur && $logind suspend
         ;;
     hibernate)
-        blurlock && $logind hibernate
+        betterlockscreen -l dimblur && $logind hibernate
         ;;
     reboot)
         $logind reboot

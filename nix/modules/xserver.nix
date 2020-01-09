@@ -6,9 +6,9 @@
     };
     xserver = {
       enable = true;
-      xkbOptions = "caps:escape";
+      xkbOptions = "caps:escape, compose:ralt";
       autoRepeatDelay = 200;
-      autoRepeatInterval = 100;
+      autoRepeatInterval = 30;
       layout = "us";
       libinput = {
         enable = true;

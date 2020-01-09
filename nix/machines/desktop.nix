@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+args@{ config, pkgs, ... }:
+let
+  cfg = {
+    interface = "enp7s0";
+  };
+in
 {
   imports = [
     ../modules/packages.nix
@@ -8,22 +13,19 @@
     ../modules/sound.nix
     ../modules/xserver.nix
     ../modules/general.nix
+    # ../modules/wireguard.nix
   ];
   # Machine specific networking
   networking = {
     hostName = "johnpyp-nixos-desktop";
     networkmanager.enable = true;
     useDHCP = false;
-    interfaces.enp7s0.useDHCP = true;
+    interfaces.${cfg.interface}.useDHCP = true;
   };
-
   time.timeZone = "America/New_York";
 
   # Firewall, for plex
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 80 443 32400 ];
-  };
+  networking.firewall.enable = false;
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     screenSection =

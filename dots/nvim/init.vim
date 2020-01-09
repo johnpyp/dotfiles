@@ -428,11 +428,13 @@ nnoremap <leader>bp :bp<CR>
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>W :noa w<CR>
 nnoremap <leader>Q :BufOnly<CR>
-nnoremap <leader><leader> <c-^>
+nnoremap <leader><leader> :Files<CR>
 nnoremap <leader>ve :e $MYVIMRC<CR>
 nnoremap <leader>vs :source $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :nohl<CR>
 
+nnoremap j gj
+nnoremap k gk
 nnoremap <C-k> 5k
 nnoremap <C-j> 5j
 """ Coc:

@@ -80,8 +80,9 @@ alias ll='ls -la'
 alias l='ls --git-ignore'
 alias la='ls -a'
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
-SKIM_DEFAULT_COMMAND="fd --type f"
-export FZF_DEFAULT_COMMAND='fd -H --type f --exclude ".git/*" --exclude ".idea/*"'
+export SKIM_DEFAULT_COMMAND="fd --color always"
+export SKIM_DEFAULT_OPTIONS="--ansi"
+export FZF_DEFAULT_COMMAND='fd --color always'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH

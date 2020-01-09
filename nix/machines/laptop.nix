@@ -11,12 +11,7 @@
     ../modules/general.nix
   ];
   # Machine specific networking
-  networking = {
-    hostName = "johnpyp-nixos-laptop";
-    networkmanager.enable = true;
-    useDHCP = false;
-    interfaces.wlp2s0.useDHCP = true;
-  };
+  networking = import ../modules/networking.nix "wlp2s0";
 
   time.timeZone = "America/New_York";
 
