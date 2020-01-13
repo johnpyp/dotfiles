@@ -181,7 +181,7 @@ let g:coc_global_extensions = [
   \  "coc-prettier",
   \  "coc-emmet",
   \  "coc-go",
-  \  "coc-lists"
+  \  "coc-lists",
   \  "coc-java"
   \]
 
