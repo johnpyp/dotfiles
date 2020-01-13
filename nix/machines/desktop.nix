@@ -13,7 +13,6 @@
   # Machine specific networking
   networking.hostName = "johnpyp-nixos-desktop";
   networking.interfaces.enp7s0.useDHCP = true;
-  networking.wireguard.enable = true;
 
   time.timeZone = "America/New_York";
 

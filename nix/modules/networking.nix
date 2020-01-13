@@ -8,34 +8,31 @@
       # "wg0" is the network interface name. You can name the interface arbitrarily.
       "wg0" = {
         # Determines the IP address and subnet of the client's end of the tunnel interface.
-        address = [
-          "10.65.178.54/32"
-          "fc00:bbbb:bbbb:bb01::2:b235/128"
-        ];
+        address = [ "10.29.1.129/24" ];
         listenPort = 51820;
+        dns = [ "1.1.1.1" ];
         # Path to the private key file.
         #
         # Note: The private key can also be included inline via the privateKey option,
         # but this makes the private key world-readable; thus, using privateKeyFile is
         # recommended.
-        privateKeyFile = "/home/johnpyp/secret/mullvad-ny.txt";
-        # privateKey = "/o2pNKOrDIzPP1WA+6Fa27kL2aoyB0wV8sRwmhXM37M=";
-        # postUp = "iptables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && ip6tables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT";
+        privateKeyFile = "/home/johnpyp/secret/torgaurd/NewYork2.pass";
+        preUp = "${pkgs.nettools}/bin/route add -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
+        postDown = "${pkgs.nettools}/bin/route del -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
 
-        # preDown = "iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && ip6tables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT";
         peers = [
           # For a client configuration, one peer entry for the server will suffice.
           {
             # Public key of the server (not a file path).
-            publicKey = "Wy2FhqDJcZU03O/D9IUG/U5BL0PLbF06nvsfgIwrmGk=";
+            publicKey = "ZBvdkjaT6t2h3k/MQjLDgqM/F1JfOB5Vgm3mLkySUhY=";
 
             # Forward all the traffic via VPN.
-            allowedIPs = [ "0.0.0.0/1" "::0/1" ];
+            allowedIPs = [ "0.0.0.0/0" "::0/0" ];
             # Or forward only particular subnets
             #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
 
             # Set this to the server IP and port.
-            endpoint = "185.232.22.58:51820";
+            endpoint = "159.65.251.93:443";
 
             # Send keepalives every 25 seconds. Important to keep NAT tables alive.
             persistentKeepalive = 25;

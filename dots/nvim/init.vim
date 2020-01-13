@@ -182,6 +182,7 @@ let g:coc_global_extensions = [
   \  "coc-emmet",
   \  "coc-go",
   \  "coc-lists"
+  \  "coc-java"
   \]
 
 function! s:check_back_space() abort

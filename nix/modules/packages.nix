@@ -5,6 +5,7 @@
     alacritty
     bat
     betterlockscreen
+    bind
     binutils
     bitwarden
     brave
@@ -40,6 +41,7 @@
     gradle
     htop
     insomnia
+    iptables
     jdk12
     jetbrains.idea-ultimate
     just
@@ -57,6 +59,7 @@
     lxappearance-gtk3
     mergerfs
     mpv
+    multimc
     mypy
     ncdu
     neofetch
@@ -68,14 +71,15 @@
     ntfsprogs
     okular
     openjdk
+    openjdk8
     papirus-icon-theme
     parted
     pavucontrol
     piper
     postgresql
     qalculate-gtk
+    qbittorrent
     ranger
-    iptables
     redshift
     ripgrep
     rofi
@@ -122,15 +126,6 @@
       )
     )
   ];
-  nixpkgs.overlays = [
-    (
-      self: super: {
-        my-polybar = super.polybar.override {
-          i3Support = true;
-          pulseSupport = true;
-        };
-      }
-    )
-  ];
+  nixpkgs.overlays = [];
   nixpkgs.config.allowUnfree = true;
 }

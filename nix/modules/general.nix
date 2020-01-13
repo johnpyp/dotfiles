@@ -9,6 +9,8 @@
     keybase.enable = true;
     kbfs.enable = true;
     kbfs.mountPoint = "/home/johnpyp/keybase";
+    gnome3.gnome-keyring.enable = true;
+    printing.enable = true;
   };
   # Fonts
   fonts = {
@@ -21,8 +23,13 @@
     };
     fonts = with pkgs; [ nerdfonts cascadia-code ];
   };
-  # Gnome keyring
-  services.gnome3.gnome-keyring.enable = true;
-  # Printing
-  services.printing.enable = true;
+  security.sudo.extraRules = [
+    {
+      commands = [
+        { command = "${pkgs.wireguard}/bin/wg-quick"; options = [ "NOPASSWD" ]; }
+        { command = "${pkgs.wireguard}/bin/wg"; options = [ "NOPASSWD" ]; }
+      ];
+      groups = [ "wheel" ];
+    }
+  ];
 }

@@ -17,7 +17,7 @@
       windowManager.i3 = {
         enable = true;
         package = pkgs.i3-gaps;
-        extraPackages = with pkgs; [ rofi my-polybar betterlockscreen ];
+        extraPackages = with pkgs; [ rofi polybarFull betterlockscreen ];
       };
       desktopManager = {
         xterm.enable = false;

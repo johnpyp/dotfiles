@@ -11,7 +11,8 @@
     "vue",
     "scala",
     "go",
-    "clojure"
+    "clojure",
+    "java"
   ],
   "coc.preferences.rootPatterns": ["package.json"],
   "eslint.autoFixOnSave": true,
