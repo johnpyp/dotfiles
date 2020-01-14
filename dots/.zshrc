@@ -9,30 +9,21 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
 zplugin snippet OMZ::lib/history.zsh
+
 zplugin ice lucid wait
 zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+
 zplugin ice lucid wait
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
-# Autosuggestions & fast-syntax-highlighting
+
 zplugin ice lucid wait atinit"zpcompinit; zpcdreplay"
-zplugin light "zdharma/fast-syntax-highlighting"
-# zsh-autosuggestions
+zplugin load "zdharma/fast-syntax-highlighting"
+
 zplugin ice lucid wait"1" lucid atload"!_zsh_autosuggest_start"
 zplugin load "zsh-users/zsh-autosuggestions"
-# Pure Theme
-# zplugin ice lucid pick"async.zsh" src"pure.zsh"
-# zplugin light "sindresorhus/pure"
 
-# Zsh completions
 zplugin ice lucid wait blockf atpull'zplugin creinstall -q .'
-zplugin light "zsh-users/zsh-completions"
-
-# ls
-# zplugin ice lucid wait
-# zplugin load "zpm-zsh/ls"
-
-zplugin ice lucid wait"1"
-zplugin load "changyuheng/fz"
+zplugin load "zsh-users/zsh-completions"
 
 zplugin ice lucid wait pick"z.sh"
 zplugin load "rupa/z"
