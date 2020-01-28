@@ -19,6 +19,7 @@
     curl
     di
     discord
+    diskus
     docker
     docker-compose
     eclipses.eclipse-java
@@ -27,6 +28,7 @@
     exodus
     fd
     feh
+    filezilla
     firefox
     flameshot
     fzf
@@ -44,6 +46,7 @@
     gparted
     gradle
     htop
+    imagemagick
     insomnia
     iptables
     jdk12
@@ -59,13 +62,16 @@
     lazydocker
     leiningen
     libmediainfo
+    libnotify
     libpqxx
     libratbag
     libreoffice
+    libwebp
     llvmPackages.libclang
     lxappearance-gtk3
     mergerfs
     mergerfs-tools
+    mozjpeg
     mpv
     multibootusb
     multimc
@@ -82,6 +88,7 @@
     okular
     openjdk
     openjdk8
+    optipng
     p7zip
     papirus-icon-theme
     parted
@@ -90,6 +97,7 @@
     peek
     piper
     plex-media-player
+    pngquant
     postgresql
     qalculate-gtk
     qbittorrent
@@ -130,7 +138,6 @@
             flask
             jedi
             matplotlib
-            mypy
             numpy
             pandas
             pygobject3
