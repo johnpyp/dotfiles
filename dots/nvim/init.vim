@@ -25,7 +25,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'mattn/emmet-vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-startify'
-Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'rafi/awesome-vim-colorschemes'
@@ -46,6 +46,7 @@ Plug 'tpope/vim-surround'
 Plug 'udalov/kotlin-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'AndrewRadev/tagalong.vim'
 call plug#end()
 " }}}
 " General: {{{
@@ -182,7 +183,9 @@ let g:coc_global_extensions = [
   \  "coc-emmet",
   \  "coc-go",
   \  "coc-lists",
-  \  "coc-java"
+  \  "coc-java",
+  \  "coc-html",
+  \  "coc-eslint"
   \]
 
 function! s:check_back_space() abort
@@ -435,7 +438,9 @@ nnoremap <leader>vs :source $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :nohl<CR>
 
 nnoremap j gj
+vnoremap j gj
 nnoremap k gk
+vnoremap k gk
 nnoremap <C-k> 5k
 nnoremap <C-j> 5j
 """ Coc:

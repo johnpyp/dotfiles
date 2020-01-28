@@ -32,4 +32,8 @@
       groups = [ "wheel" ];
     }
   ];
+
+  environment.variables = {
+    LIBCLANG_PATH = "${pkgs.llvmPackages.libclang}/lib";
+  };
 }

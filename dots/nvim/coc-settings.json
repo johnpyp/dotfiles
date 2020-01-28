@@ -12,7 +12,9 @@
     "scala",
     "go",
     "clojure",
-    "java"
+    "java",
+    "css",
+    "scss"
   ],
   "coc.preferences.rootPatterns": ["package.json"],
   "eslint.autoFixOnSave": true,

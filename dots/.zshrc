@@ -67,9 +67,11 @@ alias synctime="timedatectl set-ntp true"
 alias em="emacs -nw"
 # ls memes
 alias ls='exa --git --icons --classify --group-directories-first --time-style=long-iso --group --color-scale'
-alias ll='ls -la'
 alias l='ls --git-ignore'
+alias ll='ls -l'
 alias la='ls -a'
+alias lla='ls -la'
+
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 export SKIM_DEFAULT_COMMAND="fd --color always"
 export SKIM_DEFAULT_OPTIONS="--ansi"

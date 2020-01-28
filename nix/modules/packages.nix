@@ -9,6 +9,7 @@
     binutils
     bitwarden
     brave
+    chromium
     clang
     clojure
     compton
@@ -20,6 +21,7 @@
     discord
     docker
     docker-compose
+    eclipses.eclipse-java
     etcher
     exa
     exodus
@@ -31,7 +33,9 @@
     gimp
     git
     gitAndTools.hub
+    glib
     glibc
+    gn
     gnome3.gnome-disk-utility
     gnome3.networkmanagerapplet
     go
@@ -44,21 +48,26 @@
     iptables
     jdk12
     jetbrains.idea-ultimate
+    jq
     just
     keybase-gui
     keychain
     kitty
     kotlin
+    krita
     ktlint
     lazydocker
     leiningen
+    libmediainfo
     libpqxx
     libratbag
     libreoffice
     llvmPackages.libclang
     lxappearance-gtk3
     mergerfs
+    mergerfs-tools
     mpv
+    multibootusb
     multimc
     mypy
     ncdu
@@ -69,16 +78,22 @@
     nixpkgs-fmt
     nodejs-12_x
     ntfsprogs
+    obs-studio
     okular
     openjdk
     openjdk8
+    p7zip
     papirus-icon-theme
     parted
+    patchelf
     pavucontrol
+    peek
     piper
+    plex-media-player
     postgresql
     qalculate-gtk
     qbittorrent
+    qemu
     ranger
     redshift
     ripgrep
@@ -90,6 +105,7 @@
     skim
     spotify
     starship
+    tldr
     unrar
     unzip
     vim

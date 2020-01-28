@@ -30,6 +30,9 @@
       { output = "HDMI-1"; }
     ];
   };
-
+  networking.wg-quick.interfaces.wg0 = {
+    preUp = "${pkgs.nettools}/bin/route add -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
+    postDown = "${pkgs.nettools}/bin/route del -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
+  };
   system.stateVersion = "19.09";
 }
