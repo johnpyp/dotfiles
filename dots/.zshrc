@@ -49,9 +49,12 @@ removelink() {
 }
 
 benchzsh() {
-  for i in {1..20}; time zsh -i -c exit
+  repeat 20 { time zsh -i -c exit }
 }
 
+checkip() {
+ curl https://ipapi.co/json/ 
+}
 alias sudo="sudo -E"
 alias archive="tar -zcvf"
 alias cp="cp -i"         # Confirm before overwriting something
