@@ -1,0 +1,45 @@
+font:
+  size: 10.5
+  # Normal (roman) font face
+  normal:
+    # Font family
+    #
+    # Default:
+    #   - (macOS) Menlo
+    #   - (Linux/BSD) monospace
+    #   - (Windows) Consolas
+    family: Cascadia Code
+
+    # The `style` can be specified to pick a specific face.
+    style: Regular
+# Colors (Snazzy)
+colors:
+  # Default colors
+  primary:
+    background: '#282a36'
+    foreground: '#eff0eb'
+
+  # Normal colors
+  normal:
+    black:   '#282a36'
+    red:     '#ff5c57'
+    green:   '#5af78e'
+    yellow:  '#f3f99d'
+    blue:    '#57c7ff'
+    magenta: '#ff6ac1'
+    cyan:    '#9aedfe'
+    white:   '#f1f1f0'
+
+  # Bright colors
+  bright:
+    black:   '#686868'
+    red:     '#ff5c57'
+    green:   '#c8fcd9'
+    yellow:  '#f3f99d'
+    blue:    '#57c7ff'
+    magenta: '#ff6ac1'
+    cyan:    '#9aedfe'
+    white:   '#f1f1f0'
+  cursor:
+    text:    '#111111'
+    cursor:  '#bbbbbb'

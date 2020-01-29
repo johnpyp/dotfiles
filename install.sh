@@ -1,5 +1,5 @@
 dotfiles=(".zshrc" ".gitconfig" ".Xresources" ".vimrc" ".ripgreprc" ".ideavimrc" ".vpn")
-config_dotdirectories=("i3" "polybar" "pscripts" "networkmanager-dmenu" "wallpapers" "nvim" "kitty" "redshift.conf" "starship.toml")
+config_dotdirectories=("i3" "polybar" "pscripts" "networkmanager-dmenu" "wallpapers" "nvim" "kitty" "redshift.conf" "starship.toml" "alacritty")
 
 mkdir -p backups
 for dotfile in "${dotfiles[@]}"
