@@ -4,11 +4,11 @@
     ../modules/packages.nix
     ../modules/boot-efi.nix
     ../modules/ssh.nix
-    ../modules/default-user.nix
     ../modules/sound.nix
     ../modules/xserver.nix
     ../modules/general.nix
     ../modules/networking.nix
+    ../users.nix
   ];
   # Machine specific networking
   networking.hostName = "johnpyp-nixos-desktop";

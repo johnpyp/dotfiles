@@ -61,5 +61,6 @@
     }
   },
   "diagnostic.virtualText": true,
-  "diagnostic.virtualTextPrefix": "> "
+  "diagnostic.virtualTextPrefix": "> ",
+  "java.errors.incompleteClasspath.severity": "ignore"
 }

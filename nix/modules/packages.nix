@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     acpi
     alacritty
+    alsaLib
     bat
     betterlockscreen
     bind
@@ -66,6 +67,7 @@
     libpqxx
     libratbag
     libreoffice
+    libudev
     libwebp
     llvmPackages.libclang
     lxappearance-gtk3
@@ -96,6 +98,7 @@
     pavucontrol
     peek
     piper
+    pkg-config
     plex-media-player
     pngquant
     postgresql

@@ -136,7 +136,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'vue', 'go', 'kotlin']
+let g:polyglot_disabled = ['latex', 'go', 'kotlin']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
