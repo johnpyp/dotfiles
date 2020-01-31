@@ -1,0 +1,27 @@
+- defaults:
+    link:
+      relink: true
+      create: true
+
+- clean: ['~', '~/.config']
+
+- link:
+    ~/.vimrc: dots/.vimrc
+    ~/.zshrc: dots/.zshrc
+    ~/.gitconfig: dots/.gitconfig
+    ~/.Xresources: dots/.Xresources
+    ~/.ripgreprc: dots/.ripgreprc
+    ~/.ideavimrc: dots/.ideavimrc
+    ~/.config/i3/config: dots/i3/config
+    ~/.config/polybar: dots/polybar
+    ~/.config/kitty/themes: dots/kitty/themes
+    ~/.config/kitty/kitty.conf: dots/kitty/kitty.conf
+    ~/.config/redshift.conf: dots/redshift.conf
+    ~/.config/starship.toml: dots/starship.toml
+    ~/.config/alacritty/alacritty.yml: dots/alacritty/alacritty.yml
+
+- create:
+    - ~/code
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
