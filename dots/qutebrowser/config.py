@@ -18,7 +18,11 @@
 # unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
 # read from JavaScript is always the global value.
 # Type: FormatString
-config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}', 'https://web.whatsapp.com/')
+config.set(
+    "content.headers.user_agent",
+    "Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}",
+    "https://web.whatsapp.com/",
+)
 
 # User agent to send.  The following placeholders are defined:  *
 # `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
@@ -32,7 +36,11 @@ config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{w
 # unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
 # read from JavaScript is always the global value.
 # Type: FormatString
-config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0', 'https://accounts.google.com/*')
+config.set(
+    "content.headers.user_agent",
+    "Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0",
+    "https://accounts.google.com/*",
+)
 
 # User agent to send.  The following placeholders are defined:  *
 # `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
@@ -46,7 +54,11 @@ config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko
 # unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
 # read from JavaScript is always the global value.
 # Type: FormatString
-config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99 Safari/537.36', 'https://*.slack.com/*')
+config.set(
+    "content.headers.user_agent",
+    "Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99 Safari/537.36",
+    "https://*.slack.com/*",
+)
 
 # User agent to send.  The following placeholders are defined:  *
 # `{os_info}`: Something like "X11; Linux x86_64". * `{webkit_version}`:
@@ -60,31 +72,35 @@ config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/53
 # unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
 # read from JavaScript is always the global value.
 # Type: FormatString
-config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0', 'https://docs.google.com/*')
+config.set(
+    "content.headers.user_agent",
+    "Mozilla/5.0 ({os_info}; rv:71.0) Gecko/20100101 Firefox/71.0",
+    "https://docs.google.com/*",
+)
 
 # Load images automatically in web pages.
 # Type: Bool
-config.set('content.images', True, 'chrome-devtools://*')
+config.set("content.images", True, "chrome-devtools://*")
 
 # Load images automatically in web pages.
 # Type: Bool
-config.set('content.images', True, 'devtools://*')
+config.set("content.images", True, "devtools://*")
 
 # Enable JavaScript.
 # Type: Bool
-config.set('content.javascript.enabled', True, 'chrome-devtools://*')
+config.set("content.javascript.enabled", True, "chrome-devtools://*")
 
 # Enable JavaScript.
 # Type: Bool
-config.set('content.javascript.enabled', True, 'devtools://*')
+config.set("content.javascript.enabled", True, "devtools://*")
 
 # Enable JavaScript.
 # Type: Bool
-config.set('content.javascript.enabled', True, 'chrome://*/*')
+config.set("content.javascript.enabled", True, "chrome://*/*")
 
 # Enable JavaScript.
 # Type: Bool
-config.set('content.javascript.enabled', True, 'qute://*/*')
+config.set("content.javascript.enabled", True, "qute://*/*")
 
 # Switch between tabs using the mouse wheel.
 # Type: Bool
@@ -98,7 +114,7 @@ c.tabs.mousewheel_switching = True
 #   - next: After the current tab.
 #   - first: At the beginning.
 #   - last: At the end.
-c.tabs.new_position.unrelated = 'next'
+c.tabs.new_position.unrelated = "next"
 
 # Which tab to select when the focused tab is removed.
 # Type: SelectOnRemove
@@ -106,7 +122,7 @@ c.tabs.new_position.unrelated = 'next'
 #   - prev: Select the tab which came before the closed one (left in horizontal, above in vertical).
 #   - next: Select the tab which came after the closed one (right in horizontal, below in vertical).
 #   - last-used: Select the previously selected tab.
-c.tabs.select_on_remove = 'next'
+c.tabs.select_on_remove = "next"
 
 # When to show the tab bar.
 # Type: String
@@ -115,17 +131,17 @@ c.tabs.select_on_remove = 'next'
 #   - never: Always hide the tab bar.
 #   - multiple: Hide the tab bar if only one tab is open.
 #   - switching: Show the tab bar when switching tabs.
-c.tabs.show = 'always'
+c.tabs.show = "always"
 
 # Font used in the tab bar.
 # Type: QtFont
-c.fonts.tabs = '11pt Cascadia Code'
+c.fonts.tabs = "11pt Cascadia Code"
 
 c.editor.command = ["nvim {}"]
 c.url.searchengines = {
     "DEFAULT": "https://google.com/search?q={}",
-    "ddg": "https://duckduckgo.com/?q={}"
+    "ddg": "https://duckduckgo.com/?q={}",
 }
 # Bindings for normal mode
-config.bind('<Ctrl+h>', 'tab-prev')
-config.bind('<Ctrl+l>', 'tab-next')
+config.bind("<Ctrl+h>", "tab-prev")
+config.bind("<Ctrl+l>", "tab-next")

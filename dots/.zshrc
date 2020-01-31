@@ -53,7 +53,7 @@ benchzsh() {
 }
 
 checkip() {
- curl https://ipapi.co/json/ 
+ curl https://ipapi.co/json/
 }
 alias sudo="sudo -E"
 alias archive="tar -zcvf"
