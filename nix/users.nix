@@ -19,13 +19,6 @@ in
     programs.home-manager = {
       enable = true;
     };
-    # xdg.configFile = {
-    #   "i3/config".source = ../dots/i3/config;
-    #   "polybar/".source = ../dots/polybar;
-    #   "pscripts/".source = ../dots/pscripts;
-    #   "nvim/init.vim".source = ../dots/nvim/init.vim;
-    #   "nvim/coc-settings.json".source = ../dots/nvim/coc-settings.json;
-    #   "starship.toml".source = ../dots/starship.toml;
-    # };
+    xsession.windowManager.i3 = import ./home/i3.nix { pkgs = pkgs; };
   };
 }

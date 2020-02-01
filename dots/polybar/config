@@ -49,7 +49,7 @@ modules-left = i3 music
 modules-center = date time
 modules-right = openvpn-isrunning audio battery brightness updates-arch-combined wired-network wireless-network
 
-tray-position = right
+tray-position = ${env:TRAY_POSITION}
 tray-padding = 3
 tray-detached = false
 tray-maxsize = 16

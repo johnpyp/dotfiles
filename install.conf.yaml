@@ -1,6 +1,6 @@
 - defaults:
     link:
-      relink: true
+      force: true
       create: true
 
 - clean: ['~', '~/.config']
@@ -12,7 +12,7 @@
     ~/.Xresources: dots/.Xresources
     ~/.ripgreprc: dots/.ripgreprc
     ~/.ideavimrc: dots/.ideavimrc
-    ~/.config/i3/config: dots/i3/config
+    # ~/.config/i3/config: dots/i3/config
     ~/.config/polybar: dots/polybar
     ~/.config/kitty/themes: dots/kitty/themes
     ~/.config/kitty/kitty.conf: dots/kitty/kitty.conf
