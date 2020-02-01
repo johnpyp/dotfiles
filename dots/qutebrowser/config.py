@@ -142,6 +142,7 @@ c.url.searchengines = {
     "DEFAULT": "https://google.com/search?q={}",
     "ddg": "https://duckduckgo.com/?q={}",
 }
+c.tabs.title.format = "[{index}] {current_title}"
 # Bindings for normal mode
 config.bind("<Ctrl+h>", "tab-prev")
 config.bind("<Ctrl+l>", "tab-next")

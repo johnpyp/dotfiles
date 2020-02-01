@@ -47,6 +47,8 @@ Plug 'udalov/kotlin-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'AndrewRadev/tagalong.vim'
+Plug 'aserebryakov/vim-todo-lists'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 " }}}
 " General: {{{
@@ -102,7 +104,7 @@ set guicursor =n-v-c-sm:block,i-ci-ve:hor100-Cursor,r-cr-o:ver100
 autocmd InsertEnter,InsertLeave * set cul!
 " show tabline always
 set showtabline=2
-
+set regexpengine=1
 function! CloseOnLast()
     let cnt = 0
 
@@ -136,7 +138,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'go', 'kotlin']
+let g:polyglot_disabled = ['latex', 'go', 'vue', 'kotlin']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -168,6 +170,35 @@ function! ToggleNERDTreeFind()
 endfunction
 
 let g:NERDTreeIgnore = ['^node_modules$']
+let g:NERDTreeHighlightCursorline = 0
+
+let s:brown = "905532"
+let s:aqua =  "3AFFDB"
+let s:blue = "689FB6"
+let s:darkBlue = "44788E"
+let s:purple = "834F79"
+let s:lightPurple = "834F79"
+let s:red = "AE403F"
+let s:beige = "F5C06F"
+let s:yellow = "F09F17"
+let s:orange = "D4843E"
+let s:darkOrange = "F16529"
+let s:pink = "CB6F6F"
+let s:salmon = "EE6E73"
+let s:green = "8FAA54"
+let s:lightGreen = "31B53E"
+let s:white = "FFFFFF"
+let s:rspec_red = 'FE405F'
+let s:git_orange = 'F54D27'
+
+let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+let g:NERDTreeExtensionHighlightColor['vue'] = s:green " sets the color of css files to blue
+
+let g:NERDTreeSyntaxDisableDefaultExtensions = 1
+let g:NERDTreeDisableExactMatchHighlight = 1
+let g:NERDTreeDisablePatternMatchHighlight = 1
+let g:NERDTreeSyntaxEnabledExtensions = ['js', 'css', 'php', 'js', 'vim', 'json', 'vue', 'rs', 'yml', 'jpg', 'png', 'java', 'py', 'scss', 'less', 'html', 'htm', 'gif', 'ts', 'go', 'sh', 'md'] " example
+
 autocmd FileType nerdtree setlocal nolist
 "}}}
 " Coc: {{{
@@ -437,12 +468,12 @@ nnoremap <leader>ve :e $MYVIMRC<CR>
 nnoremap <leader>vs :source $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :nohl<CR>
 
-nnoremap j gj
-vnoremap j gj
-nnoremap k gk
-vnoremap k gk
-nnoremap <C-k> 5k
-nnoremap <C-j> 5j
+nnoremap <silent> j gj
+vnoremap <silent> j gj
+nnoremap <silent> k gk
+vnoremap <silent> k gk
+nnoremap <silent> <C-k> 5k
+nnoremap <silent> <C-j> 5j
 """ Coc:
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)

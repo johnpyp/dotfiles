@@ -1,41 +1,41 @@
 ### BEGIN PLUGINS
-if [ ! -e ~/.zplugin ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+if [ ! -e ~/.zinit ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
   sleep 2
 fi
 
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-zplugin snippet OMZ::lib/history.zsh
+zinit snippet OMZ::lib/history.zsh
 
-zplugin ice lucid wait
-zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+zinit ice lucid wait
+zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
-zplugin ice lucid wait
-zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
+zinit ice lucid wait
+zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 
-zplugin ice lucid wait atinit"zpcompinit; zpcdreplay"
-zplugin load "zdharma/fast-syntax-highlighting"
+zinit ice lucid wait atinit"zpcompinit; zpcdreplay"
+zinit load "zdharma/fast-syntax-highlighting"
 
-zplugin ice lucid wait"1" lucid atload"!_zsh_autosuggest_start"
-zplugin load "zsh-users/zsh-autosuggestions"
+zinit ice lucid wait"1" lucid atload"!_zsh_autosuggest_start"
+zinit load "zsh-users/zsh-autosuggestions"
 
-zplugin ice lucid wait blockf atpull'zplugin creinstall -q .'
-zplugin load "zsh-users/zsh-completions"
+zinit ice lucid wait blockf atpull'zinit creinstall -q .'
+zinit load "zsh-users/zsh-completions"
 
-zplugin ice lucid wait pick"z.sh"
-zplugin load "rupa/z"
+zinit ice lucid wait pick"z.sh"
+zinit load "rupa/z"
 
-zplugin ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
+zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
     atpull'%atclone' pick"clrs.zsh" nocompile'!' \
     atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zplugin light trapd00r/LS_COLORS
+zinit light trapd00r/LS_COLORS
 
 autoload -Uz compinit
 compinit
-zplugin cdreplay
+zinit cdreplay
 
 ### END PLUGINS
 
