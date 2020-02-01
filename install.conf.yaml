@@ -19,6 +19,7 @@
     ~/.config/redshift.conf: dots/redshift.conf
     ~/.config/starship.toml: dots/starship.toml
     ~/.config/alacritty/alacritty.yml: dots/alacritty/alacritty.yml
+    ~/.config/pscripts: dots/pscripts
 
 - create:
     - ~/code
