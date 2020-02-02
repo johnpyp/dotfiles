@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  home-manager = import (builtins.fetchTarball "https://github.com/rycee/home-manager/archive/release-19.09.tar.gz") {};
+  home-manager = import (builtins.fetchTarball "https://github.com/rycee/home-manager/archive/master.tar.gz") {};
 in
 {
   imports = [ home-manager.nixos ];

@@ -25,6 +25,9 @@ mod4 + {1-9}
 mod4 + {_,shift +} {h,j,k,l}
   i3-msg {focus,move} {left,down,up,right}
 
+mod4 + {w,s,e}
+  i3-msg layout {tabbed,stacked,default}
+
 mod4 + {grave,Tab}
   rofi -show {drun,window} -modi drun,window -show-icons -sidebar-mode -theme Arc-Dark
 
