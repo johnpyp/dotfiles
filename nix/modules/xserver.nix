@@ -19,9 +19,6 @@
       #   package = pkgs.i3-gaps;
       #   extraPackages = with pkgs; [ rofi polybarFull betterlockscreen ];
       # };
-      desktopManager = {
-        xterm.enable = false;
-      };
       displayManager = {
         lightdm.enable = true;
       };

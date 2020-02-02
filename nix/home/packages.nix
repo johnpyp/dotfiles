@@ -58,6 +58,8 @@
     keychain
     kitty
     kotlin
+    polybarFull
+    betterlockscreen
     krita
     ktlint
     lazydocker

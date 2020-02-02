@@ -27,8 +27,7 @@
   };
   extraConfig =
     ''
-      set $mode_system (l)ock, (e)xit, screens(o)ff, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
-      mode "$mode_system" {
+      mode "lock-exit-off-suspend-hibernate-reboot-Shutdown" {
           bindsym l exec --no-startup-id betterlockscreen -l dimblur, mode "default"
           bindsym o exec --no-startup-id $HOME/dotfiles/scripts/i3exit screensoff, mode "default"
           bindsym s exec --no-startup-id $HOME/dotfiles/scripts/i3exit suspend, mode "default"

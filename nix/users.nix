@@ -13,11 +13,12 @@ in
   };
   home-manager.users.johnpyp = {
     home.packages = (import ./home/packages.nix { pkgs = pkgs; }).packages;
-    programs.home-manager = {
-      enable = true;
-    };
+    programs.home-manager.enable = true;
     services.sxhkd = import ./home/sxhkd.nix { pkgs = pkgs; };
+
     xsession.enable = true;
+    xsession.profileExtra = "source /etc/profile";
+    xsession.windowManager.command = "i3";
     xsession.windowManager.i3 = import ./home/i3.nix { pkgs = pkgs; };
     # xdg.configFile = {
     #   "sxhkd/sxhkdrc".source = ../dots/sxhkdrc;
