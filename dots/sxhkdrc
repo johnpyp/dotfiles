@@ -1,6 +1,9 @@
 XF86MonBrightness{Down,Up}
   light -{U,A} 10
 
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+  amixer set Master {10%+,10%-,toggle}
+
 mod4 + shift + space
   i3-msg floating toggle
 
