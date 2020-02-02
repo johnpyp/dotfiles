@@ -47,7 +47,6 @@
     gparted
     gradle
     htop
-    i3
     imagemagick
     insomnia
     iptables

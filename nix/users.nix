@@ -16,12 +16,12 @@ in
     programs.home-manager = {
       enable = true;
     };
-    # services.sxhkd = import ./home/sxhkd.nix { pkgs = pkgs; };
-    # xsession.enable = true;
-    # xsession.windowManager.i3 = import ./home/i3.nix { pkgs = pkgs; };
-    xdg.configFile = {
-      "sxhkd/sxhkdrc".source = ../dots/sxhkdrc;
-      "i3/config".source = ../dots/i3/config;
-    };
+    services.sxhkd = import ./home/sxhkd.nix { pkgs = pkgs; };
+    xsession.enable = true;
+    xsession.windowManager.i3 = import ./home/i3.nix { pkgs = pkgs; };
+    # xdg.configFile = {
+    #   "sxhkd/sxhkdrc".source = ../dots/sxhkdrc;
+    #   "i3/config".source = ../dots/i3/config;
+    # };
   };
 }

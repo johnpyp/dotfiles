@@ -19,7 +19,7 @@
     };
     startup = [
       { command = "nm-applet"; notification = false; }
-      { command = "~/.config/polybar/launch.sh"; always = true; notification = false; }
+      { command = "$HOME/.config/polybar/launch.sh"; always = true; notification = false; }
       { command = "feh --bg-fill $HOME/.config/wallpapers/current.jpg"; notification = false; }
       { command = "xautolock -time 30 -locker \"betterlockscreen -l dimblur\""; notification = false; }
       { command = "redshift-gtk"; notification = false; }
