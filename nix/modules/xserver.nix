@@ -6,7 +6,7 @@
     };
     xserver = {
       enable = true;
-      xkbOptions = "caps:escape, compose:ralt";
+      xkbOptions = "caps:escape, compose:ralt, altwin:swap_alt_win";
       autoRepeatDelay = 200;
       autoRepeatInterval = 10;
       layout = "us";

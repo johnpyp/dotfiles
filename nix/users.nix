@@ -12,13 +12,16 @@ in
     shell = pkgs.zsh;
   };
   home-manager.users.johnpyp = {
-    home.packages = with pkgs; [
-      kate
-      qutebrowser
-    ];
+    home.packages = (import ./home/packages.nix { pkgs = pkgs; }).packages;
     programs.home-manager = {
       enable = true;
     };
-    xsession.windowManager.i3 = import ./home/i3.nix { pkgs = pkgs; };
+    # services.sxhkd = import ./home/sxhkd.nix { pkgs = pkgs; };
+    # xsession.enable = true;
+    # xsession.windowManager.i3 = import ./home/i3.nix { pkgs = pkgs; };
+    xdg.configFile = {
+      "sxhkd/sxhkdrc".source = ../dots/sxhkdrc;
+      "i3/config".source = ../dots/i3/config;
+    };
   };
 }
