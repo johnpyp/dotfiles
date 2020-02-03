@@ -19,11 +19,11 @@
         package = pkgs.i3-gaps;
         extraPackages = with pkgs; [ rofi polybarFull betterlockscreen ];
       };
-      desktopManager = {
-        xterm.enable = false;
-      };
+      # desktopManager = {
+      #   xterm.enable = false;
+      # };
       displayManager = {
-        defaultSession = "none+i3";
+        # defaultSession = "none+i3";
         lightdm.enable = true;
       };
     };
