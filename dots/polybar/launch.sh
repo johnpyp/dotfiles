@@ -7,7 +7,7 @@ export DEFAULT_NETWORK_INTERFACE=$(ls /sys/class/net | grep wlp | head -n 1 | aw
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 outputs=$(xrandr --query | grep " connected" | cut -d" " -f1)
-tray_output=eDP1
+tray_output="eDP-1"
 
 for m in $outputs; do
   if [[ $m == "DVI-D-0" ]]; then
@@ -21,7 +21,6 @@ for m in $outputs; do
   if [[ $m == $tray_output ]]; then
     export TRAY_POSITION=right
   fi
-
   polybar --reload top &
   disown
 done
