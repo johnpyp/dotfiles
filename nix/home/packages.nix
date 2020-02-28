@@ -1,9 +1,14 @@
 { pkgs }:
 {
   packages = with pkgs; [
+    # jdk12
+    # openjdk8
+    # mergerfs
+    go-2fa
     acpi
     alacritty
     alsaLib
+    appimage-run
     bat
     betterlockscreen
     bind
@@ -39,6 +44,7 @@
     glib
     glibc
     gn
+    gnome3.pomodoro
     gnome3.gnome-disk-utility
     gnome3.networkmanagerapplet
     go
@@ -46,12 +52,12 @@
     gotop
     gparted
     gradle
+    hashcat
     htop
     i3
     imagemagick
     insomnia
     iptables
-    # jdk12
     jetbrains.idea-ultimate
     jq
     just
@@ -72,7 +78,6 @@
     libwebp
     llvmPackages.libclang
     lxappearance-gtk3
-    #mergerfs
     mergerfs-tools
     mozjpeg
     mpv
@@ -85,12 +90,12 @@
     nix-index
     nixfmt
     nixpkgs-fmt
-    nodejs-12_x
+    nodejs-13_x
     ntfsprogs
     obs-studio
     okular
     openjdk
-    # openjdk8
+    openssl
     optipng
     p7zip
     papirus-icon-theme
@@ -118,6 +123,7 @@
     skim
     spotify
     starship
+    sxhkd
     tldr
     unrar
     unzip
@@ -132,7 +138,6 @@
     zlib
     zsh
     zstd
-    sxhkd
 
     (
       python3.withPackages (

@@ -20,7 +20,7 @@
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
   "eslint.filetypes": ["javascript", "typescript", "vue"],
-  "typescript.validate.enable": false,
+  "typescript.validate.enable": true,
   "javascript.validate.enable": false,
   "emmet.includeLanguages": {
     "vue-html": "html"
@@ -31,6 +31,7 @@
   "python.linting.mypyEnabled": true,
   "rust.wait_to_build": 200,
   "rust.clippy_preference": "on",
+  "vetur.format.enable": false,
   "go.goplsOptions": {
     "completeUnimported": true,
     "usePlaceholders": true

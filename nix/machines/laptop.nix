@@ -9,6 +9,7 @@
     ../modules/xserver.nix
     ../modules/general.nix
     ../modules/networking.nix
+    ../modules/wireguard.nix
     ../users.nix
   ];
   # Machine specific networking

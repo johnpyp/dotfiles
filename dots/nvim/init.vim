@@ -48,6 +48,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'aserebryakov/vim-todo-lists'
+"Plug 'HerringtonDarkholme/yats.vim'
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 " }}}
@@ -123,6 +124,10 @@ function! CloseOnLast()
 command! BufOnly silent! execute "%bd|e#|bd#"
 command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
+
+augroup filetypedetect
+    autocmd BufNew,BufNewFile,BufRead *.ts :setfiletype javascript
+augroup END
 " }}}
 " MarkdownPreview: {{{
 " dont auto close
@@ -138,7 +143,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'go', 'vue', 'kotlin']
+let g:polyglot_disabled = ['latex', 'go', 'vue', 'kotlin', 'typescript']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -361,6 +366,9 @@ autocmd FileType netrw setl bufhidden=delete
 " }}}
 " DelimitMate: {{{
 "let delimitMate_expand_cr = 1
+" }}}
+" Tagalong: {{{
+let g:tagalong_additional_filetypes = ['vue']
 " }}}
 " LSPs: {{{
 """ Kotlin
