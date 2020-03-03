@@ -34,5 +34,5 @@
   #   preUp = "${pkgs.nettools}/bin/route add -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
   #   postDown = "${pkgs.nettools}/bin/route del -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
   # };
-  system.stateVersion = "19.09";
+  system.stateVersion = "20.09";
 }

@@ -4,7 +4,6 @@
   environment.systemPackages = with pkgs; [
     # jdk12
     # openjdk8
-    neovim
     acpi
     alacritty
     alsaLib
@@ -74,9 +73,12 @@
     libudev
     libwebp
     llvmPackages.libclang
+    lm_sensors
+    lutris
     lxappearance-gtk3
     mergerfs
     mergerfs-tools
+    minecraft
     mozjpeg
     mpv
     multibootusb
@@ -84,6 +86,7 @@
     mypy
     ncdu
     neofetch
+    neovim
     nix-index
     nixpkgs-fmt
     nodejs-13_x
@@ -103,6 +106,7 @@
     plex-media-player
     pngquant
     postgresql
+    psensor
     qalculate-gtk
     qbittorrent
     qemu
@@ -120,6 +124,7 @@
     starship
     sxhkd
     tldr
+    tmux
     unrar
     unzip
     vim
@@ -133,6 +138,7 @@
     zlib
     zsh
     zstd
+
 
     (
       python3.withPackages (
@@ -156,9 +162,5 @@
     )
   ];
   nixpkgs.overlays = [];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.0.2u"
-  ];
   nixpkgs.config.allowUnfree = true;
 }
