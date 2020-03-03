@@ -1,16 +1,16 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../modules/packages.nix
-    ../modules/boot-efi.nix
-    ../modules/ssh.nix
     ../modules/bluetooth.nix
-    ../modules/sound.nix
-    ../modules/gui.nix
+    ../modules/boot-efi.nix
     ../modules/general.nix
+    ../modules/gui.nix
     ../modules/networking.nix
-    ../modules/wireguard.nix
+    ../modules/packages.nix
+    ../modules/sound.nix
+    ../modules/ssh.nix
     ../modules/users.nix
+    ../modules/wireguard.nix
   ];
   # Machine specific networking
   networking.hostName = "johnpyp-nixos-laptop";
