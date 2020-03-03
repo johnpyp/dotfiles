@@ -23,17 +23,4 @@
     };
     fonts = with pkgs; [ nerdfonts cascadia-code ];
   };
-  security.sudo.extraRules = [
-    {
-      commands = [
-        { command = "${pkgs.wireguard}/bin/wg-quick"; options = [ "NOPASSWD" ]; }
-        { command = "${pkgs.wireguard}/bin/wg"; options = [ "NOPASSWD" ]; }
-      ];
-      groups = [ "wheel" ];
-    }
-  ];
-
-  environment.variables = {
-    LIBCLANG_PATH = "${pkgs.llvmPackages.libclang}/lib";
-  };
 }

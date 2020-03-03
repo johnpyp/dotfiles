@@ -6,11 +6,11 @@
     ../modules/ssh.nix
     ../modules/bluetooth.nix
     ../modules/sound.nix
-    ../modules/xserver.nix
+    ../modules/gui.nix
     ../modules/general.nix
     ../modules/networking.nix
     ../modules/wireguard.nix
-    ../users.nix
+    ../modules/users.nix
   ];
   # Machine specific networking
   networking.hostName = "johnpyp-nixos-laptop";
@@ -26,5 +26,5 @@
   services.tlp.enable = true;
   services.logind.lidSwitch = "suspend";
 
-  system.stateVersion = "19.09";
+  system.stateVersion = "20.03";
 }

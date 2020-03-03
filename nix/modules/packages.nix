@@ -2,157 +2,163 @@
 {
   # environment.systemPackages = (import ../home/packages.nix {pkgs = pkgs;}).packages;
   environment.systemPackages = with pkgs; [
-    # acpi
-    # alacritty
-    # alsaLib
-    # bat
-    # betterlockscreen
-    # bind
-    # binutils
-    # bitwarden
-    # brave
-    # chromium
-    # clang
-    # clojure
-    # compton
-    # conda
-    # coursier
-    # crystal
-    # curl
-    # di
-    # discord
-    # diskus
-    # docker
-    # docker-compose
-    # eclipses.eclipse-java
-    # etcher
-    # exa
-    # exodus
-    # fd
-    # feh
-    # filezilla
-    # firefox
-    # flameshot
-    # fzf
-    # gimp
-    # git
-    # gitAndTools.hub
-    # glib
-    # glibc
-    # gn
-    # gnome3.gnome-disk-utility
-    # gnome3.networkmanagerapplet
-    # go
-    # google-chrome
-    # gotop
-    # gparted
-    # gradle
-    # htop
-    # imagemagick
-    # insomnia
-    # iptables
     # jdk12
-    # jetbrains.idea-ultimate
-    # jq
-    # just
-    # keybase-gui
-    # keychain
-    # kitty
-    # kotlin
-    # krita
-    # ktlint
-    # lazydocker
-    # leiningen
-    # libmediainfo
-    # libnotify
-    # libpqxx
-    # libratbag
-    # libreoffice
-    # libudev
-    # libwebp
-    # llvmPackages.libclang
-    # lxappearance-gtk3
+    # openjdk8
+    neovim
+    acpi
+    alacritty
+    alsaLib
+    bat
+    betterlockscreen
+    bind
+    binutils
+    bitwarden
+    brave
+    chromium
+    clang
+    clojure
+    compton
+    conda
+    coursier
+    crystal
+    curl
+    di
+    discord
+    docker
+    docker-compose
+    eclipses.eclipse-java
+    etcher
+    exa
+    exodus
+    fd
+    feh
+    filezilla
+    firefox
+    flameshot
+    fzf
+    gimp
+    git
+    gitAndTools.hub
+    glib
+    glibc
+    gn
+    gnome3.gnome-disk-utility
+    gnome3.networkmanagerapplet
+    gnome3.pomodoro
+    go
+    gparted
+    gradle
+    hashcat
+    htop
+    i3
+    imagemagick
+    insomnia
+    iptables
+    jetbrains.idea-ultimate
+    jpegoptim
+    jq
+    just
+    keybase-gui
+    keychain
+    kitty
+    kotlin
+    krita
+    ktlint
+    lazydocker
+    leiningen
+    libmediainfo
+    libnotify
+    libpqxx
+    libratbag
+    libreoffice
+    libudev
+    libwebp
+    llvmPackages.libclang
+    lxappearance-gtk3
     mergerfs
     mergerfs-tools
-    # mozjpeg
-    # mpv
-    # multibootusb
-    # multimc
-    # mypy
-    # ncdu
-    # neofetch
-    # neovim
-    # nix-index
-    # nixfmt
-    # nixpkgs-fmt
-    # nodejs-12_x
-    # ntfsprogs
-    # obs-studio
-    # okular
-    # openjdk
-    # openjdk8
-    # optipng
-    # p7zip
-    # papirus-icon-theme
-    # parted
-    # patchelf
-    # pavucontrol
-    # peek
-    # piper
-    # pkg-config
-    # plex-media-player
-    # pngquant
-    # postgresql
-    # qalculate-gtk
-    # qbittorrent
-    # qemu
-    # ranger
-    # redshift
-    # ripgrep
-    # rofi
-    # rustup
-    # rxvt
-    # scry
-    # shards
-    # skim
-    # spotify
-    # starship
-    # tldr
-    # unrar
-    # unzip
-    # vim
-    # wget
-    # woeusb
-    # xautolock
-    # xfce.thunar
-    # xfce4-14.xfce4-notifyd
-    # youtube-dl
-    # zafiro-icons
-    # zlib
-    # zsh
-    # zstd
+    mozjpeg
+    mpv
+    multibootusb
+    multimc
+    mypy
+    ncdu
+    neofetch
+    nix-index
+    nixpkgs-fmt
+    nodejs-13_x
+    ntfsprogs
+    obs-studio
+    okular
+    openjdk
+    optipng
+    p7zip
+    papirus-icon-theme
+    parted
+    patchelf
+    pavucontrol
+    peek
+    piper
+    pkg-config
+    plex-media-player
+    pngquant
+    postgresql
+    qalculate-gtk
+    qbittorrent
+    qemu
+    qutebrowser
+    ranger
+    redshift
+    ripgrep
+    rofi
+    rustup
+    rxvt
+    scry
+    shards
+    skim
+    spotify
+    starship
+    sxhkd
+    tldr
+    unrar
+    unzip
+    vim
+    wget
+    xautolock
+    xfce.thunar
+    xfce4-14.xfce4-notifyd
+    youtube-dl
+    ytop
+    zafiro-icons
+    zlib
+    zsh
+    zstd
 
-    # (
-    #   python3.withPackages (
-    #     ps:
-    #       with ps; [
-    #         beautifulsoup4
-    #         black
-    #         dbus-python
-    #         flask
-    #         jedi
-    #         matplotlib
-    #         numpy
-    #         pandas
-    #         pygobject3
-    #         pylint
-    #         requests
-    #         scipy
-    #         virtualenvwrapper
-    #       ]
-    #   )
-    # )
+    (
+      python3.withPackages (
+        ps:
+          with ps; [
+            beautifulsoup4
+            black
+            dbus-python
+            flask
+            jedi
+            matplotlib
+            numpy
+            pandas
+            pygobject3
+            pylint
+            requests
+            scipy
+            virtualenvwrapper
+          ]
+      )
+    )
   ];
   nixpkgs.overlays = [];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.0.2u"
+  ];
   nixpkgs.config.allowUnfree = true;
 }

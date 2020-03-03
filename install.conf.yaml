@@ -12,7 +12,8 @@
     ~/.Xresources: dots/.Xresources
     ~/.ripgreprc: dots/.ripgreprc
     ~/.ideavimrc: dots/.ideavimrc
-    # ~/.config/i3/config: dots/i3/config
+    ~/.config/i3/config: dots/i3/config
+    ~/.config/sxhkd/sxhkdrc: dots/sxhkdrc
     ~/.config/polybar: dots/polybar
     ~/.config/kitty/themes: dots/kitty/themes
     ~/.config/kitty/kitty.conf: dots/kitty/kitty.conf
@@ -20,6 +21,8 @@
     ~/.config/starship.toml: dots/starship.toml
     ~/.config/alacritty/alacritty.yml: dots/alacritty/alacritty.yml
     ~/.config/pscripts: dots/pscripts
+    ~/.config/qutebrowser/config.py: dots/qutebrowser/config.py
+    ~/.config/nvim: dots/nvim
 
 - create:
     - ~/code
