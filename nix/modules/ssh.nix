@@ -5,4 +5,5 @@
     enableSSHSupport = true;
   };
   services.openssh.enable = true;
+  programs.ssh.askPassword = "";
 }
