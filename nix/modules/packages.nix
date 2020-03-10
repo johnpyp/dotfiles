@@ -12,9 +12,11 @@
     bind
     binutils
     bitwarden
+    gnumake
     brave
     chromium
     clang
+    gcc
     clojure
     compton
     conda
@@ -89,11 +91,11 @@
     neovim
     nix-index
     nixpkgs-fmt
-    nodejs-13_x
+    nodejs-12_x
     ntfsprogs
     obs-studio
     okular
-    openjdk
+    jdk12
     optipng
     p7zip
     papirus-icon-theme
@@ -103,7 +105,6 @@
     peek
     piper
     pkg-config
-    plex-media-player
     pngquant
     postgresql
     psensor

@@ -15,10 +15,10 @@ case "$1" in
         dm-tool switch-to-greeter
         ;;
     suspend)
-        betterlockscreen -l dimblur && $logind suspend
+        $logind suspend
         ;;
     hibernate)
-        betterlockscreen -l dimblur && $logind hibernate
+        $logind hibernate
         ;;
     reboot)
         $logind reboot

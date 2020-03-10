@@ -49,7 +49,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'aserebryakov/vim-todo-lists'
 "Plug 'HerringtonDarkholme/yats.vim'
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 " }}}
 " General: {{{
