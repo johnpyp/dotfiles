@@ -9,6 +9,7 @@
     ../modules/sound.nix
     ../modules/ssh.nix
     ../modules/users.nix
+    # ../modules/wireguard.nix
   ];
   # Machine specific networking
   networking.hostName = "johnpyp-nixos-desktop";
@@ -34,5 +35,6 @@
   #   preUp = "${pkgs.nettools}/bin/route add -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
   #   postDown = "${pkgs.nettools}/bin/route del -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
   # };
+  boot.kernelPackages = pkgs.linuxPackages;
   system.stateVersion = "20.09";
 }

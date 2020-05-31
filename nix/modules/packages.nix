@@ -4,39 +4,55 @@
   environment.systemPackages = with pkgs; [
     # jdk12
     # openjdk8
+    # rustup
+    # firefox
+    # libreoffice
+    # nodejs-14_x
+    # p7zip
+    # podman
     acpi
     alacritty
     alsaLib
     bat
     betterlockscreen
+    betterlockscreen
     bind
     binutils
     bitwarden
-    gnumake
     brave
+    caddy
+    cargo
     chromium
+    cinnamon.nemo
     clang
-    gcc
     clojure
+    colordiff
     compton
     conda
     coursier
     crystal
     curl
     di
+    direnv
     discord
     docker
     docker-compose
+    dotnet-sdk_3
+    dotnetPackages.Nuget
     eclipses.eclipse-java
+    efibootmgr
+    emacs
+    emacs-all-the-icons-fonts
     etcher
     exa
     exodus
     fd
     feh
+    ffmpeg-full
     filezilla
-    firefox
     flameshot
     fzf
+    gcc
     gimp
     git
     gitAndTools.hub
@@ -46,16 +62,20 @@
     gnome3.gnome-disk-utility
     gnome3.networkmanagerapplet
     gnome3.pomodoro
+    gnumake
     go
     gparted
     gradle
     hashcat
     htop
+    httpie
     i3
     imagemagick
     insomnia
     iptables
+    jdk11
     jetbrains.idea-ultimate
+    jetbrains.rider
     jpegoptim
     jq
     just
@@ -71,9 +91,9 @@
     libnotify
     libpqxx
     libratbag
-    libreoffice
     libudev
     libwebp
+    litecli
     llvmPackages.libclang
     lm_sensors
     lutris
@@ -81,6 +101,7 @@
     mergerfs
     mergerfs-tools
     minecraft
+    mono
     mozjpeg
     mpv
     multibootusb
@@ -95,9 +116,9 @@
     ntfsprogs
     obs-studio
     okular
-    jdk12
+    omnisharp-roslyn
+    openssl
     optipng
-    p7zip
     papirus-icon-theme
     parted
     patchelf
@@ -105,30 +126,39 @@
     peek
     piper
     pkg-config
+    pkg-config
+    plex-media-player
     pngquant
+    polybarFull
     postgresql
     psensor
     qalculate-gtk
     qbittorrent
     qemu
+    qpdf
     qutebrowser
     ranger
+    redis
     redshift
     ripgrep
     rofi
-    rustup
+    rofi
+    rustc
     rxvt
-    scry
+    sbt
     shards
     skim
     spotify
     starship
+    sublime
     sxhkd
     tldr
     tmux
     unrar
     unzip
     vim
+    vlc
+    vscode
     wget
     xautolock
     xfce.thunar
@@ -137,6 +167,7 @@
     ytop
     zafiro-icons
     zlib
+    zoom-us
     zsh
     zstd
 
@@ -155,6 +186,7 @@
             pandas
             pygobject3
             pylint
+            python-language-server
             requests
             scipy
             virtualenvwrapper
@@ -162,6 +194,10 @@
       )
     )
   ];
-  nixpkgs.overlays = [];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "p7zip-16.02"
+  ];
+  nixpkgs.overlays = [ ];
   nixpkgs.config.allowUnfree = true;
 }

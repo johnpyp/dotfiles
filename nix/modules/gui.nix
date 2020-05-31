@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   services = {
-    compton = {
+    picom = {
       enable = true;
     };
     xserver = {
@@ -19,7 +19,10 @@
         package = pkgs.i3-gaps;
         extraPackages = with pkgs; [ rofi polybarFull betterlockscreen ];
       };
+      # desktopManager.gnome3.enable = true;
       displayManager = {
+
+        # gdm.enable = true;
         lightdm.enable = true;
       };
     };

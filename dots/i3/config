@@ -79,7 +79,7 @@ floating_modifier $mod
 exec --no-startup-id $HOME/.startup.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id feh --bg-fill $HOME/.config/wallpapers/current.jpg
+exec --no-startup-id feh --bg-fill $HOME/.config/wallpapers/current.png
 exec --no-startup-id xautolock -time 30 -locker "betterlockscreen -l dimblur"
 exec --no-startup-id redshift-gtk
 exec_always --no-startup-id pkill sxhkd; sleep 1; sxhkd &

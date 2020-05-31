@@ -14,16 +14,16 @@ Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'alaviss/nim.nvim'
 Plug 'dense-analysis/ale'
-Plug 'eraserhd/parinfer-rust', {'do': 'nix-shell --run \"cargo build --release \"'}
+"Plug 'eraserhd/parinfer-rust', {'do': 'nix-shell --run \"cargo build --release \"'}
 Plug 'fatih/vim-go'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 Plug 'jparise/vim-graphql'
 Plug 'jremmen/vim-ripgrep'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mattn/emmet-vim'
-Plug 'mengelbrecht/lightline-bufferline'
+" Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-startify'
 " Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -48,19 +48,33 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'aserebryakov/vim-todo-lists'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'AlessandroYorba/Despacio'
 "Plug 'HerringtonDarkholme/yats.vim'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'yuezk/vim-js'
+"Plug 'maxmellon/vim-jsx-pretty'
+"Plug 'chemzqm/vim-jsx-improve'
+Plug 'leafgarland/typescript-vim'
+"Plug 'othree/yajs.vim'
+"Plug 'HerringtonDarkholme/yats.vim'
+
 call plug#end()
 " }}}
 " General: {{{
 let mapleader = " "
 set fileencoding =utf-8
+set encoding=UTF-8
+"set guifont=DroidSansMono\ Nerd\ Font\ 11
 " theme
 set background=dark
-let g:lightline = { 'colorscheme': 'darcula', }
+" let g:lightline = { 'colorscheme': 'darcula', }
 set noshowmode
 let g:gruvbox_italic = 1
-colorscheme  hybrid
+let g:despacio_Twilight = 1
+colorscheme hybrid
 set termguicolors
 " save swap every 100ms of no input
 set updatetime =100
@@ -71,7 +85,7 @@ filetype plugin indent on
 set tabstop =4
 set shiftwidth =4
 set softtabstop =4
-se nostartofline
+set nostartofline
 " tab -> space conversion
 set expandtab
 " show current line
@@ -97,6 +111,9 @@ let g:netrw_liststyle = 3
 " set foldmethod
 set foldmethod=marker
 
+if !has('gui_running')
+  set t_Co=256
+endif
 " italic comments
 hi Comment cterm = italic
 " cursor
@@ -105,7 +122,7 @@ set guicursor =n-v-c-sm:block,i-ci-ve:hor100-Cursor,r-cr-o:ver100
 autocmd InsertEnter,InsertLeave * set cul!
 " show tabline always
 set showtabline=2
-set regexpengine=1
+set regexpengine=0
 function! CloseOnLast()
     let cnt = 0
 
@@ -125,9 +142,10 @@ command! BufOnly silent! execute "%bd|e#|bd#"
 command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
 
-augroup filetypedetect
-    autocmd BufNew,BufNewFile,BufRead *.ts :setfiletype javascript
-augroup END
+
+" autocmd BufNewFile,BufRead *.ts set ft=javascript
+
+let $FZF_DEFAULT_COMMAND = 'fd -t f""'
 " }}}
 " MarkdownPreview: {{{
 " dont auto close
@@ -210,18 +228,35 @@ autocmd FileType nerdtree setlocal nolist
 let b:coc_root_patterns = ['package.json']
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
-  \  "coc-tsserver",
-  \  "coc-python",
-  \  "coc-rls",
-  \  "coc-json",
-  \  "coc-snippets",
-  \  "coc-prettier",
+  \  "coc-cssmodules",
   \  "coc-emmet",
+  \  "coc-eslint",
+  \  "coc-explorer",
+  \  "coc-flow",
+  \  "coc-fsharp",
   \  "coc-go",
-  \  "coc-lists",
-  \  "coc-java",
+  \  "coc-highlight",
   \  "coc-html",
-  \  "coc-eslint"
+  \  "coc-java",
+  \  "coc-json",
+  \  "coc-lists",
+  \  "coc-markdownlint",
+  \  "coc-metals",
+  \  "coc-omnisharp",
+  \  "coc-prettier",
+  \  "coc-python",
+  \  "coc-r-lsp",
+  \  "coc-reason",
+  \  "coc-rust-analyzer",
+  \  "coc-snippets",
+  \  "coc-svelte",
+  \  "coc-svg",
+  \  "coc-tailwindcss",
+  \  "coc-texlab",
+  \  "coc-tsserver",
+  \  "coc-vimlsp",
+  \  "coc-xml",
+  \  "coc-yaml"
   \]
 
 function! s:check_back_space() abort
@@ -252,7 +287,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -271,13 +306,39 @@ let g:coc_snippet_next = '<c-j>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
 
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
+let g:coc_explorer_global_presets = {
+\   'cwd': {
+\      'root-uri': 'getcwd()',
+\   },
+\   'floating': {
+\      'position': 'floating',
+\   },
+\   'floatingLeftside': {
+\      'position': 'floating',
+\      'floating-position': 'left-center',
+\      'floating-width': 50,
+\   },
+\   'floatingRightside': {
+\      'position': 'floating',
+\      'floating-position': 'left-center',
+\      'floating-width': 50,
+\   },
+\   'simplify': {
+\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
 "}}}
 " Ale: {{{
 let g:ale_linters = {
   \   'crystal': 'all',
   \   'nix': 'all',
   \   'vim': 'all',
-  \   'rust': []
+  \   'rust': [],
+  \   'cpp': ['clang']
   \}
 let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -318,29 +379,32 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
 " }}}
 " Lightline: {{{
-let g:lightline#bufferline#filename_modifier = ':t'
-let g:lightline = {
-  \ 'colorscheme': 'wombat',
-  \ 'tabline': {
-  \   'left': [ [ 'buffers'] ]
-  \ },
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-  \ },
-  \ 'component_function': {
-  \   'cocstatus': 'coc#status'
-  \ },
-  \ 'component_expand': {
-  \   'buffers': 'lightline#bufferline#buffers'
-  \ },
-  \ 'component_type': {
-  \   'buffers': 'tabsel'
-  \ },
-  \ }
+" let g:lightline#bufferline#filename_modifier = ':t'
+" let g:lightline = {
+"   \ 'colorscheme': 'wombat',
+"   \ 'tabline': {
+"   \   'left': [ [ 'buffers'] ]
+"   \ },
+"   \ 'active': {
+"   \   'left': [ [ 'mode', 'paste' ],
+"   \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+"   \ },
+"   \ 'component_function': {
+"   \   'cocstatus': 'coc#status'
+"   \ },
+"   \ 'component_expand': {
+"   \   'buffers': 'lightline#bufferline#buffers'
+"   \ },
+"   \ 'component_type': {
+"   \   'buffers': 'tabsel'
+"   \ },
+"   \ }
 
 
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme="bubblegum"
+"let g:airline_powerline_fonts = 1
 " }}}
 " Emmet: {{{
 let g:user_emmet_leader_key=','
@@ -471,7 +535,7 @@ nnoremap <leader>bp :bp<CR>
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>W :noa w<CR>
 nnoremap <leader>Q :BufOnly<CR>
-nnoremap <leader><leader> :Files<CR>
+" nnoremap <leader><leader> :Files<CR>
 nnoremap <leader>ve :e $MYVIMRC<CR>
 nnoremap <leader>vs :source $MYVIMRC<CR>
 nnoremap <silent> <leader>sc :nohl<CR>
@@ -503,6 +567,8 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 nnoremap <silent> <leader>cl  :<C-u>CocList diagnostics<cr>
 
+nmap <space>e :execute "CocCommand explorer" getcwd()<CR>
+
 """ Ale:
 nnoremap <silent> <leader>af :ALEFix<CR>
 nnoremap <silent> <leader>ai :ALEInfo<CR>
@@ -521,7 +587,8 @@ nnoremap <leader>gb :Gblame<CR>
 
 """ NERDTree:
 " map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
-nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
+nmap <silent> <leader>n :execute "CocCommand explorer" getcwd()<CR>
+" nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 
 """ FZF:
 nnoremap <C-p> :Files<CR>
@@ -534,3 +601,4 @@ noremap <leader>fs :Rg<space>
 """ Buffers:
 map <leader>w <C-w>
 " }}}
+let g:yats_host_keyword = 1

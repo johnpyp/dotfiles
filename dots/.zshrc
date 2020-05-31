@@ -56,10 +56,13 @@ checkip() {
  curl https://ipapi.co/json/
 }
 alias sudo="sudo -E"
+alias ssh="TERM=xterm-256color ssh"
 alias archive="tar -zcvf"
 alias cp="cp -i"         # Confirm before overwriting something
 alias free='free -h'                                            # Show sizes in MB
 alias git=hub
+alias gs="git status"
+alias gc="git commit"
 alias copyghssh="curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys"
 alias font-list="sort <(fc-list : family) | vim -"
 alias dc="docker-compose"
@@ -76,12 +79,14 @@ alias la='ls -a'
 alias lla='ls -la'
 
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
+export TERM=xterm-256color
 export SKIM_DEFAULT_COMMAND="fd --color always"
 export SKIM_DEFAULT_OPTIONS="--ansi"
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
+export PATH=~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
+export XDG_DATA_HOME=$HOME/.local/share
 
 eval $(keychain --eval --quiet id_rsa)
 export GO111MODULE="on"
@@ -89,3 +94,4 @@ export GO111MODULE="on"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(starship init zsh)"
+eval "$(direnv hook zsh)"

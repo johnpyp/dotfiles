@@ -6,7 +6,7 @@ noremap <Leader>N  :action HideSideWindows<CR>
 noremap <Leader>r  :action Run<CR>
 noremap <Leader>ve :e ~/.ideavimrc<CR>
 noremap <Leader>vs :source ~/.ideavimrc<CR>
-nnoremap <C-h> :action PreviousTab<CR> 
+nnoremap <C-h> :action PreviousTab<CR>
 nnoremap <C-l> :action NextTab<CR>
 nnoremap <C-n> :action ActivateProjectToolWindow<CR>
 nnoremap <C-p> :action GotoFile<CR>
