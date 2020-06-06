@@ -32,11 +32,14 @@
     coursier
     crystal
     curl
+    dbeaver
+    deno
     di
     direnv
     discord
     docker
     docker-compose
+    docui
     dotnet-sdk_3
     dotnetPackages.Nuget
     eclipses.eclipse-java
@@ -55,6 +58,7 @@
     gcc
     gimp
     git
+    git-lfs
     gitAndTools.hub
     glib
     glibc
@@ -66,6 +70,7 @@
     go
     gparted
     gradle
+    gtop
     hashcat
     htop
     httpie
@@ -74,8 +79,10 @@
     insomnia
     iptables
     jdk11
+    jetbrains.datagrip
     jetbrains.idea-ultimate
     jetbrains.rider
+    jetbrains.webstorm
     jpegoptim
     jq
     just
@@ -91,6 +98,7 @@
     libnotify
     libpqxx
     libratbag
+    libreoffice-fresh
     libudev
     libwebp
     litecli
@@ -98,6 +106,7 @@
     lm_sensors
     lutris
     lxappearance-gtk3
+    mediainfo
     mergerfs
     mergerfs-tools
     minecraft
@@ -119,6 +128,7 @@
     omnisharp-roslyn
     openssl
     optipng
+    pandoc
     papirus-icon-theme
     parted
     patchelf
@@ -148,17 +158,21 @@
     sbt
     shards
     skim
+    snapraid
     spotify
     starship
     sublime
     sxhkd
+    sysstat
     tldr
     tmux
+    trash-cli
     unrar
     unzip
     vim
     vlc
     vscode
+    watchman
     wget
     xautolock
     xfce.thunar
@@ -170,6 +184,7 @@
     zoom-us
     zsh
     zstd
+    sshfs
 
 
     (

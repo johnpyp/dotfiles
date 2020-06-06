@@ -3,7 +3,7 @@
   users.users.johnpyp = {
     isNormalUser = true;
     home = "/home/johnpyp";
-    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" "user-with-access-to-virtualbox" ];
     initialPassword = "johnpyp";
     shell = pkgs.zsh;
     subUidRanges = [

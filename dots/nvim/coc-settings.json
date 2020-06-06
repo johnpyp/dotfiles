@@ -15,17 +15,17 @@
     "java",
     "css",
     "scss",
-    "javascriptreact"
+    "javascriptreact",
+    "yaml"
   ],
-
+  "yaml.format.enable": true,
   "metals.statusBarEnabled": true,
   "coc.preferences.rootPatterns": ["package.json"],
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
   "eslint.filetypes": ["javascript", "typescript", "vue", "javascriptreact"],
   "codeLens.enable": false,
-  "javascript.validate.enable": true,
-  "javascript.suggestionActions.enabled": false,
+  "javascript.validate.enable": false,
   "emmet.includeLanguages": {
     "vue-html": "html",
     "javascript": "javascriptreact",

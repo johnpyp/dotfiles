@@ -229,6 +229,7 @@ let b:coc_root_patterns = ['package.json']
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
   \  "coc-cssmodules",
+  \  "coc-css",
   \  "coc-emmet",
   \  "coc-eslint",
   \  "coc-explorer",
@@ -527,6 +528,7 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 " set system clipboard keybindings
 noremap <Leader>y "+y
 noremap <Leader>p "+p
+vmap y ygv<Esc>
 
 nnoremap <C-h> :bp<CR>
 nnoremap <C-l> :bn<CR>
