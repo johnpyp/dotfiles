@@ -2,6 +2,7 @@
 {
   # Docker
   virtualisation.docker.enable = true;
+  virtualisation.docker.liveRestore = false;
   # virtualisation.virtualbox.host.enable = true;
   # virtualisation.virtualbox.host.enableExtensionPack = true;
   # Shell
@@ -22,6 +23,7 @@
       defaultFonts.monospace = [ "Cascadia Code" ];
       defaultFonts.sansSerif = [ "roboto" ];
       defaultFonts.serif = [ "roboto-slab" ];
+      defaultFonts.emoji = [ "Noto Color Emoji" ];
     };
     fonts = with pkgs; [ nerdfonts cascadia-code ];
   };

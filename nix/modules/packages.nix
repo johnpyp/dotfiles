@@ -105,7 +105,7 @@
     llvmPackages.libclang
     lm_sensors
     lutris
-    lxappearance-gtk3
+    lxappearance
     mediainfo
     mergerfs
     mergerfs-tools
@@ -137,7 +137,7 @@
     piper
     pkg-config
     pkg-config
-    plex-media-player
+    #plex-media-player
     pngquant
     polybarFull
     postgresql
@@ -176,7 +176,7 @@
     wget
     xautolock
     xfce.thunar
-    xfce4-14.xfce4-notifyd
+    # xfce4-14.xfce4-notifyd
     youtube-dl
     ytop
     zafiro-icons
@@ -185,6 +185,7 @@
     zsh
     zstd
     sshfs
+    # brave-nightly
 
 
     (
@@ -197,9 +198,11 @@
             flask
             jedi
             matplotlib
+            mypy
             numpy
             pandas
             pygobject3
+            pylint
             pylint
             python-language-server
             requests
@@ -213,6 +216,22 @@
   nixpkgs.config.permittedInsecurePackages = [
     "p7zip-16.02"
   ];
-  nixpkgs.overlays = [ ];
+  # nixpkgs.overlays = [
+  #   (
+  #     self: super: {
+  #       brave-nightly = super.brave.overrideAttrs (old: rec {
+  #         version = "1.12.68";
+  #
+  #         src = super.fetchurl {
+  #
+  #           url = "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser-nightly_${version}_amd64.deb";
+  #           sha256 = "12jcna6lbpbhcxpnc8pm0kmy63axf3nvpd51i3prjanqk63r5yah";
+  #         };
+  #
+  #       });
+  #     }
+  #   )
+  #
+  # ];
   nixpkgs.config.allowUnfree = true;
 }

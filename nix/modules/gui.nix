@@ -19,6 +19,11 @@
         package = pkgs.i3-gaps;
         extraPackages = with pkgs; [ rofi polybarFull betterlockscreen ];
       };
+      # desktopManager = {
+      #   default = "xfce";
+      #   xterm.enable = false;
+      #   xfce.enable = true;
+      # };
       # desktopManager.gnome3.enable = true;
       displayManager = {
 

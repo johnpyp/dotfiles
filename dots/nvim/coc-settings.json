@@ -18,6 +18,7 @@
     "javascriptreact",
     "yaml"
   ],
+  "rust-analyzer.serverPath": "rust-analyzer",
   "yaml.format.enable": true,
   "metals.statusBarEnabled": true,
   "coc.preferences.rootPatterns": ["package.json"],
@@ -32,11 +33,12 @@
     "jsx": "javascriptreact",
     "javascriptreact": "javascriptreact"
   },
-  "python.pythonPath": "~/.conda/bin/python",
+  "python.pythonPath": "python",
   "python.formatting.provider": "black",
   "python.jediEnabled": true,
   "python.linting.mypyEnabled": true,
-  "python.linting.mypyPath": "/run/current-system/sw/bin/mypy",
+  "python.linting.pylintEnabled": true,
+  //  "python.linting.mypyPath": "/run/current-system/sw/bin/mypy",
   "omnisharp.useDotnet": true,
   "vetur.format.enable": false,
   "go.goplsOptions": {

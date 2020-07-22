@@ -17,7 +17,6 @@ Plug 'dense-analysis/ale'
 "Plug 'eraserhd/parinfer-rust', {'do': 'nix-shell --run \"cargo build --release \"'}
 Plug 'fatih/vim-go'
 Plug 'honza/vim-snippets'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn'  }
 " Plug 'itchyny/lightline.vim'
 Plug 'jparise/vim-graphql'
 Plug 'jremmen/vim-ripgrep'
@@ -34,7 +33,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-classpath'
-Plug 'tpope/vim-commentary'
+"Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -52,20 +52,24 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'AlessandroYorba/Despacio'
+Plug 'chriskempson/base16-vim'
 "Plug 'HerringtonDarkholme/yats.vim'
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 "Plug 'yuezk/vim-js'
 "Plug 'maxmellon/vim-jsx-pretty'
 "Plug 'chemzqm/vim-jsx-improve'
-Plug 'leafgarland/typescript-vim'
+"Plug 'leafgarland/typescript-vim'
 "Plug 'othree/yajs.vim'
 "Plug 'HerringtonDarkholme/yats.vim'
+Plug 'leafOfTree/vim-vue-plugin'
+Plug 'joshdick/onedark.vim'
+Plug 'ajh17/Spacegray.vim'
 
 call plug#end()
 " }}}
 " General: {{{
 let mapleader = " "
-set fileencoding =utf-8
+set fileencoding=UTF-8
 set encoding=UTF-8
 "set guifont=DroidSansMono\ Nerd\ Font\ 11
 " theme
@@ -74,17 +78,31 @@ set background=dark
 set noshowmode
 let g:gruvbox_italic = 1
 let g:despacio_Twilight = 1
-colorscheme hybrid
-set termguicolors
+let g:spacegray_low_contrast = 1
+let g:spacegray_underline_search = 1
+let g:spacegray_use_italics = 1
+colorscheme onedark
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 " save swap every 100ms of no input
-set updatetime =100
+set updatetime=100
 " Auto syntax from filetype + indents
 syntax on
 filetype plugin indent on
 " indent width
-set tabstop =4
-set shiftwidth =4
-set softtabstop =4
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set nostartofline
 " tab -> space conversion
 set expandtab
@@ -123,6 +141,8 @@ autocmd InsertEnter,InsertLeave * set cul!
 " show tabline always
 set showtabline=2
 set regexpengine=0
+
+set mouse=a
 function! CloseOnLast()
     let cnt = 0
 
@@ -147,10 +167,6 @@ command! ProfileStop :profile pause
 
 let $FZF_DEFAULT_COMMAND = 'fd -t f""'
 " }}}
-" MarkdownPreview: {{{
-" dont auto close
-let g:mkdp_auto_close = 0
-" }}}
 " Haskell: {{{
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
@@ -161,7 +177,7 @@ let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 " }}}
 " Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'go', 'vue', 'kotlin', 'typescript']
+let g:polyglot_disabled = ['latex', 'markdown', 'go', 'vue', 'kotlin']
 " }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
@@ -241,7 +257,6 @@ let g:coc_global_extensions = [
   \  "coc-java",
   \  "coc-json",
   \  "coc-lists",
-  \  "coc-markdownlint",
   \  "coc-metals",
   \  "coc-omnisharp",
   \  "coc-prettier",

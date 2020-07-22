@@ -6,3 +6,15 @@ use_symbol_for_status = true
 [directory]
 truncate_to_repo = false
 truncation_length = 8
+
+[git_branch]
+disabled = true
+
+[git_commit]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_status]
+disabled = true
