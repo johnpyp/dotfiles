@@ -10,8 +10,9 @@ mod4 + shift + space
 mod4 + shift + {1-9}
   i3-msg move container to workspace number {1-9}; i3-msg workspace {1-9}
 
-mod4 + shift + {bracketleft,bracketright}
-  i3-msg move workspace to output {left,right}
+## BUG: This is managed within i3's config to fix a bug with i3-msg's mouse movement with this
+# mod4 + shift + {bracketleft,bracketright}
+#  i3-msg move workspace to output {left,right} && i3-msg focus output {left,right}
 
 mod4 + shift + {c,r,q}
   i3-msg {reload,restart,kill}

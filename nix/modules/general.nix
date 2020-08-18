@@ -7,6 +7,7 @@
   # virtualisation.virtualbox.host.enableExtensionPack = true;
   # Shell
   environment.shells = [ pkgs.bashInteractive pkgs.zsh ];
+
   # Keybase
   services = {
     keybase.enable = true;
@@ -14,6 +15,7 @@
     kbfs.mountPoint = "/home/johnpyp/keybase";
     gnome3.gnome-keyring.enable = true;
     printing.enable = true;
+    spotifyd.enable = true;
   };
   # Fonts
   fonts = {

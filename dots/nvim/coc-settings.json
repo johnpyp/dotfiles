@@ -25,6 +25,10 @@
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
   "eslint.filetypes": ["javascript", "typescript", "vue", "javascriptreact"],
+  "vetur.validation.style": false,
+  "css.validate": false,
+  "scss.validate": false,
+  "vetur.format.defaultFormatter.css": "prettier",
   "codeLens.enable": false,
   "javascript.validate.enable": false,
   "emmet.includeLanguages": {
@@ -73,7 +77,8 @@
     "slim",
     "svelte",
     "twig",
-    "vue"
+    "vue",
+    "pug"
   ],
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextPrefix": "> ",

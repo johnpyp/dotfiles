@@ -23,7 +23,6 @@
     caddy
     cargo
     chromium
-    cinnamon.nemo
     clang
     clojure
     colordiff
@@ -36,7 +35,7 @@
     deno
     di
     direnv
-    discord
+    #discord
     docker
     docker-compose
     docui
@@ -100,7 +99,6 @@
     libratbag
     libreoffice-fresh
     libudev
-    libwebp
     litecli
     llvmPackages.libclang
     lm_sensors
@@ -113,7 +111,6 @@
     mono
     mozjpeg
     mpv
-    multibootusb
     multimc
     mypy
     ncdu
@@ -142,11 +139,11 @@
     polybarFull
     postgresql
     psensor
-    qalculate-gtk
-    qbittorrent
-    qemu
-    qpdf
-    qutebrowser
+    # qalculate-gtk
+    # qbittorrent
+    # qemu
+    # qpdf
+    # qutebrowser
     ranger
     redis
     redshift

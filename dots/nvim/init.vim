@@ -179,6 +179,10 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 " Polyglot: {{{
 let g:polyglot_disabled = ['latex', 'markdown', 'go', 'vue', 'kotlin']
 " }}}
+" Vue: {{{
+let g:vim_vue_plugin_use_pug = 1
+let g:vim_vue_plugin_use_scss = 1
+" }}}
 " Fugitive: {{{
 set statusline +=%{FugitiveStatusline()}
 let g:fugitive_git_executable = 'hub'

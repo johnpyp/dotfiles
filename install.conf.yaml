@@ -3,7 +3,7 @@
       force: true
       create: true
 
-- clean: ['~', '~/.config']
+- clean: ["~", "~/.config"]
 
 - link:
     ~/.vimrc: dots/.vimrc
@@ -12,6 +12,7 @@
     ~/.Xresources: dots/.Xresources
     ~/.ripgreprc: dots/.ripgreprc
     ~/.ideavimrc: dots/.ideavimrc
+    ~/.tmux.conf: dots/.tmux.conf
     ~/.config/i3/config: dots/i3/config
     ~/.config/sxhkd/sxhkdrc: dots/sxhkdrc
     ~/.config/polybar: dots/polybar
@@ -20,6 +21,7 @@
     ~/.config/redshift.conf: dots/redshift.conf
     ~/.config/starship.toml: dots/starship.toml
     ~/.config/alacritty/alacritty.yml: dots/alacritty/alacritty.yml
+    ~/.config/pulse/default.pa: dots/pulse/default.pa
     ~/.config/pscripts: dots/pscripts
     ~/.config/qutebrowser/config.py: dots/qutebrowser/config.py
     ~/.config/nvim: dots/nvim
@@ -28,4 +30,4 @@
     - ~/code
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
+    - [git submodule update --init --recursive, Installing submodules]

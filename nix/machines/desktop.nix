@@ -36,6 +36,16 @@
   #   preUp = "${pkgs.nettools}/bin/route add -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
   #   postDown = "${pkgs.nettools}/bin/route del -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
   # };
+
+  # nix = {
+  #   package = pkgs.nixFlakes;
+  #   extraOptions = pkgs.lib.optionalString
+  #     (config.nix.package == pkgs.nixFlakes)
+  #     "experimental-features = nix-command flakes";
+  # };
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.pulseaudio.support32Bit = true;
   hardware.openrazer.enable = true;
   boot.kernelPackages = pkgs.linuxPackages;
   system.stateVersion = "20.09";
