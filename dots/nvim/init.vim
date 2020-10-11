@@ -5,65 +5,41 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+let g:polyglot_disabled = ['latex', 'markdown', 'go', 'vue']
+
 call plug#begin('~/.local/share/nvim/plugged')
-"Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'justinmk/vim-dirvish'
+
+Plug 'AndrewRadev/tagalong.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
+Plug 'ajh17/Spacegray.vim'
 Plug 'alaviss/nim.nvim'
+Plug 'aserebryakov/vim-todo-lists'
+Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
-"Plug 'eraserhd/parinfer-rust', {'do': 'nix-shell --run \"cargo build --release \"'}
 Plug 'fatih/vim-go'
 Plug 'honza/vim-snippets'
-" Plug 'itchyny/lightline.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'jparise/vim-graphql'
-Plug 'jremmen/vim-ripgrep'
-Plug 'liuchengxu/vim-which-key'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'leafOfTree/vim-vue-plugin'
 Plug 'mattn/emmet-vim'
-" Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-startify'
-" Plug 'neoclide/coc-eslint', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'rafi/awesome-vim-colorschemes'
-Plug 'rhysd/vim-crystal'
 Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-classpath'
-"Plug 'tpope/vim-commentary'
 Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'tpope/vim-classpath'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-salve'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'udalov/kotlin-vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
-Plug 'AndrewRadev/tagalong.vim'
-Plug 'aserebryakov/vim-todo-lists'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'AlessandroYorba/Despacio'
-Plug 'chriskempson/base16-vim'
-"Plug 'HerringtonDarkholme/yats.vim'
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-"Plug 'yuezk/vim-js'
-"Plug 'maxmellon/vim-jsx-pretty'
-"Plug 'chemzqm/vim-jsx-improve'
-"Plug 'leafgarland/typescript-vim'
-"Plug 'othree/yajs.vim'
-"Plug 'HerringtonDarkholme/yats.vim'
-Plug 'leafOfTree/vim-vue-plugin'
-Plug 'joshdick/onedark.vim'
-Plug 'ajh17/Spacegray.vim'
 
 call plug#end()
 " }}}
@@ -162,22 +138,21 @@ command! BufOnly silent! execute "%bd|e#|bd#"
 command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
 
+function! SplitLineNicely()
+    " Save previous value of last search register
+    let saved_last_search_pattern = @/
+
+    " :substitute replaces the content of the search register with the `\s\+`
+    " pattern highlighting all whitespaces in the file
+    substitute /\s\+/\r/g
+
+    " Restore previous search register
+    let @/ = saved_last_search_pattern
+endfunction
 
 " autocmd BufNewFile,BufRead *.ts set ft=javascript
 
 let $FZF_DEFAULT_COMMAND = 'fd -t f""'
-" }}}
-" Haskell: {{{
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
-" }}}
-" Polyglot: {{{
-let g:polyglot_disabled = ['latex', 'markdown', 'go', 'vue', 'kotlin']
 " }}}
 " Vue: {{{
 let g:vim_vue_plugin_use_pug = 1
@@ -187,65 +162,7 @@ let g:vim_vue_plugin_use_scss = 1
 set statusline +=%{FugitiveStatusline()}
 let g:fugitive_git_executable = 'hub'
 " }}}
-" Nerdtree: {{{
-" Bind to Ctrl+n
-" Close nerdtree on enter
-let NERDTreeQuitOnOpen=1
-let NERDTreeShowHidden=1
-let NERDTreeWinSize = 45
-let NERDTreeDirArrows = 1
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeNaturalSort = 1
-let g:sidebar_direction = ''
-let g:NERDTreeWinPos=get(g:,'NERDTreeWinPos',sidebar_direction)
-" Close vim if last window open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-function! ToggleNERDTreeFind()
-    if g:NERDTree.IsOpen()
-        execute ':NERDTreeClose'
-    else
-      if (expand("%:t") != '')
-        execute ":NERDTreeFind"
-      else
-        execute ":NERDTreeToggle"
-      endif
-    endif
-endfunction
-
-let g:NERDTreeIgnore = ['^node_modules$']
-let g:NERDTreeHighlightCursorline = 0
-
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:darkBlue = "44788E"
-let s:purple = "834F79"
-let s:lightPurple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
-
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['vue'] = s:green " sets the color of css files to blue
-
-let g:NERDTreeSyntaxDisableDefaultExtensions = 1
-let g:NERDTreeDisableExactMatchHighlight = 1
-let g:NERDTreeDisablePatternMatchHighlight = 1
-let g:NERDTreeSyntaxEnabledExtensions = ['js', 'css', 'php', 'js', 'vim', 'json', 'vue', 'rs', 'yml', 'jpg', 'png', 'java', 'py', 'scss', 'less', 'html', 'htm', 'gif', 'ts', 'go', 'sh', 'md'] " example
-
-autocmd FileType nerdtree setlocal nolist
-"}}}
 " Coc: {{{
-let b:coc_root_patterns = ['package.json']
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
   \  "coc-cssmodules",
@@ -266,7 +183,6 @@ let g:coc_global_extensions = [
   \  "coc-prettier",
   \  "coc-python",
   \  "coc-r-lsp",
-  \  "coc-reason",
   \  "coc-rust-analyzer",
   \  "coc-snippets",
   \  "coc-svelte",
@@ -275,6 +191,7 @@ let g:coc_global_extensions = [
   \  "coc-texlab",
   \  "coc-tsserver",
   \  "coc-vimlsp",
+  \  "coc-vetur",
   \  "coc-xml",
   \  "coc-yaml"
   \]
@@ -382,49 +299,14 @@ let g:ale_fix_on_save = 1
 
 let g:ale_kotlin_ktlint_exeutable = "ktlint"
 "}}}
-" Ripgrep: {{{
-" let g:rg_format = '%f:%l:%c:%m'
-let g:rg_command = 'rg --vimgrep -F'
-let g:rg_highlight = 1
-let g:rg_derive_root = 1
-"}}}
-" Crystal: {{{
-"let g:crystal_auto_format = 1
-" }}}
-" Clojure: {{{
-"let g:salve_auto_start_repl = 1
-" }}}
 " Rooter: {{{
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
+let g:rooter_patterns = [".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", ".project", ".projectkeep"]
 " }}}
-" Lightline: {{{
-" let g:lightline#bufferline#filename_modifier = ':t'
-" let g:lightline = {
-"   \ 'colorscheme': 'wombat',
-"   \ 'tabline': {
-"   \   'left': [ [ 'buffers'] ]
-"   \ },
-"   \ 'active': {
-"   \   'left': [ [ 'mode', 'paste' ],
-"   \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-"   \ },
-"   \ 'component_function': {
-"   \   'cocstatus': 'coc#status'
-"   \ },
-"   \ 'component_expand': {
-"   \   'buffers': 'lightline#bufferline#buffers'
-"   \ },
-"   \ 'component_type': {
-"   \   'buffers': 'tabsel'
-"   \ },
-"   \ }
-
-
-" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" Airline: {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme="bubblegum"
-"let g:airline_powerline_fonts = 1
 " }}}
 " Emmet: {{{
 let g:user_emmet_leader_key=','
@@ -442,143 +324,67 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_format_strings = 1
 let g:go_doc_keywordprg_enabled = 0
-"let g:go_highlight_variable_declarations = 1
-"let g:go_highlight_variable_assignments = 1
-" }}}
-" Vineger: {{{
-autocmd FileType netrw setl bufhidden=delete
-" }}}
-" DelimitMate: {{{
-"let delimitMate_expand_cr = 1
 " }}}
 " Tagalong: {{{
 let g:tagalong_additional_filetypes = ['vue']
 " }}}
-" LSPs: {{{
-""" Kotlin
-if empty(glob('~/lsp/kotlin-language-server/server/bin/kotlin-language-server'))
-  !curl -fLo ~/lsp/kotlin-language-server/server.zip --create-dirs
-    \ https://github.com/fwcd/kotlin-language-server/releases/latest/download/server.zip
-  !unzip ~/lsp/kotlin-language-server/server.zip -d ~/lsp/kotlin-language-server
-endif
-
-""" Clojure
-if empty(glob('~/lsp/clojure'))
-  !curl -fLo ~/lsp/clojure/clojure-lsp --create-dirs
-    \ https://github.com/snoe/clojure-lsp/releases/latest/download/clojure-lsp
-  !chmod +x ~/lsp/clojure/clojure-lsp
-
-endif
-
-""" Metals
-if empty(glob('~/lsp/metals-vim'))
-  !coursier bootstrap
-        \ --java-opt -Xss4m
-        \ --java-opt -Xms100m
-        \ --java-opt -Dmetals.client=coc.nvim
-        \ org.scalameta:metals_2.12:0.7.6
-        \ -r bintray:scalacenter/releases
-        \ -r sonatype:snapshots
-        \ -o ~/lsp/metals-vim -f
-endif
-
-
-" }}}
-" WhichKey: {{{
-noremap <silent> <leader> :WhichKey '<Space>'<CR>
-set timeoutlen=250
-call which_key#register('<Space>', "g:which_key_map")
-let g:which_key_map = {}
-let g:which_key_use_floating_win = 0
-let g:which_key_map.g = {
-      \ 'name' : 'Git' ,
-      \ 's' : 'Git Status',
-      \ 'c' : 'Git Commit',
-      \ 'p' : 'Git Push',
-      \ 'b' : 'Git Blame',
-      \ }
-
-let g:which_key_map.f = {
-      \ 'name' : 'File' ,
-      \ 's' : 'Search (rg)',
-      \ 'f' : 'Find File (files)',
-      \ }
-
-let g:which_key_map.b = {
-      \ 'name' : 'Buffer' ,
-      \ 'p' : 'Prev buffer',
-      \ 'n' : 'Next buffer',
-      \ }
-
-let g:which_key_map.v = {
-      \ 'name' : 'Vim' ,
-      \ 'e' : 'Edit .vimrc',
-      \ 's' : 'Source .vimrc',
-      \ }
-let g:which_key_map.c = {
-      \ 'name' : 'Coc' ,
-      \ 'a' : 'Code Actions',
-      \ 't' : 'Diagnostic Info',
-      \ 'd' : 'Definition',
-      \ 'D' : 'Type definition',
-      \ 'i' : 'Implementation',
-      \ 'r' : 'Actions',
-      \ 'f' : 'References',
-      \ 'o' : 'Organize Imports',
-      \ 'h' : 'Hover Info',
-      \ }
-let g:which_key_map.a = {
-      \ 'name' : 'ALE' ,
-      \ 'a' : 'Code Actions',
-      \ 't' : 'ALE Detail',
-      \ 'd' : 'Go To Definition',
-      \ 'i' : 'ALE Info',
-      \ 'o' : 'Organize Imports',
-      \ 'h' : 'Hover Info',
-      \ 'f' : 'ALE Fix',
-      \ }
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
-" }}}
 " KEYBINDS: {{{
+
 """ General:
-" set system clipboard keybindings
+" Set system clipboard keybindings
 noremap <Leader>y "+y
 noremap <Leader>p "+p
 vmap y ygv<Esc>
 
+" Navigate between buffers
 nnoremap <C-h> :bp<CR>
 nnoremap <C-l> :bn<CR>
-nnoremap <leader>bn :bn<CR>
-nnoremap <leader>bp :bp<CR>
+imap <C-h> <ESC> :bp<CR>
+imap <C-l> <ESC> :bn<CR>
+
+" Quit buffer only
 nnoremap <leader>q :bd<CR>
-nnoremap <leader>W :noa w<CR>
+
+" Quit all buffers *except* this one
 nnoremap <leader>Q :BufOnly<CR>
-" nnoremap <leader><leader> :Files<CR>
+
+" Save without triggering anything, i.e save without autoformat
+nnoremap <leader>W :noa w<CR>
+
+" Edit and source init.vim
 nnoremap <leader>ve :e $MYVIMRC<CR>
 nnoremap <leader>vs :source $MYVIMRC<CR>
-nnoremap <silent> <leader>sc :nohl<CR>
 
+" Clear selection
+nnoremap <silent> <leader>e :nohl<CR>
+
+" command! SplitLine :call SplitLineNicely()
+
+" Visual navigation
 nnoremap <silent> j gj
 vnoremap <silent> j gj
 nnoremap <silent> k gk
 vnoremap <silent> k gk
+
+" Larger vertical jumps
 nnoremap <silent> <C-k> 5k
 nnoremap <silent> <C-j> 5j
+
 """ Coc:
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
 
-nmap <silent> <leader>cd <Plug>(coc-definition)
-nmap <silent> <leader>cD <Plug>(coc-type-definition)
-nmap <silent> <leader>ci <Plug>(coc-implementation)
-nmap <silent> <leader>cr <Plug>(coc-references)
-nnoremap          <leader>ca :CocAction<CR>
-nmap          <leader>cf <Plug>(coc-fix-current)
-nnoremap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+nmap <silent> <leader>ft <Plug>(coc-diagnostic-info)
+nmap <silent> <leader>fd <Plug>(coc-definition)
+nmap <silent> <leader>fD <Plug>(coc-type-definition)
+nmap <silent> <leader>fi <Plug>(coc-implementation)
+nmap <silent> <leader>fr <Plug>(coc-references)
+nmap <silent> <leader>ff <Plug>(coc-fix-current)
+nmap <silent> <leader>fo :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+nnoremap <silent> <leader>fl  :<C-u>CocList diagnostics<cr>
+
+xmap <silent> <leader>fa :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>fa :CocCommand actions.open<CR>
 
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
@@ -586,9 +392,6 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 nnoremap <silent> F :call CocAction('format')<CR>:ALEFix<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-nnoremap <silent> <leader>cl  :<C-u>CocList diagnostics<cr>
-
-nmap <space>e :execute "CocCommand explorer" getcwd()<CR>
 
 """ Ale:
 nnoremap <silent> <leader>af :ALEFix<CR>
@@ -597,29 +400,22 @@ nnoremap <silent> <leader>ah :ALEHover<CR>
 nnoremap <silent> <leader>ad :ALEGoToDefinition<CR>
 nnoremap <silent> <leader>ao :ALEOrganizeImports<CR>
 nnoremap <silent> <leader>at :ALEDetail<CR>
+
 """ Fugitive:
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gb :Gblame<CR>
-" nnoremap <leader>gd :Gvdiff<CR>
-" nnoremap gdh :diffget //2<CR>
-" nnoremap gdh :diffget //3<CR>
 
-""" NERDTree:
-" map <silent> <C-n> :call ToggleNERDTreeFind()<CR>
+""" CocExplorer:
 nmap <silent> <leader>n :execute "CocCommand explorer" getcwd()<CR>
-" nnoremap <silent> <Leader>n :call ToggleNERDTreeFind()<CR>
 
 """ FZF:
 nnoremap <C-p> :Files<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>b :Buffers<CR>
+noremap <leader>s :Rg<space>
 
-""" Ripgrep:
-noremap <leader>fs :Rg<space>
-
-""" Buffers:
+""" Windows:
 map <leader>w <C-w>
+
 " }}}
-let g:yats_host_keyword = 1

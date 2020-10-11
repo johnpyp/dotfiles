@@ -1,0 +1,17 @@
+autolock
+betterlockscreen
+feh
+i3-gaps
+i3lock-color
+imagemagick
+light
+lxappearance
+network-manager-applet
+pavucontrol
+picom
+polybar
+redshift
+rofi
+scrot
+sxhkd
+xorg-xinput

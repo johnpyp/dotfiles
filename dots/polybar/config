@@ -42,10 +42,11 @@ module-margin-right = 2
 
 
 fixed-center = true
+
 font-0 = "DroidSansMono Nerd Font:size=12"
 font-1 = "DroidSansMono Nerd Font:size=12:bold"
 
-modules-left = i3 music
+modules-left = i3
 modules-center = date time
 modules-right = openvpn-isrunning audio battery brightness updates-arch-combined wired-network wireless-network
 

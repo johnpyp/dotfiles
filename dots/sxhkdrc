@@ -4,7 +4,7 @@ XF86MonBrightness{Down,Up}
 XF86Audio{RaiseVolume,LowerVolume,Mute}
   amixer set Master {10%+,10%-,toggle}
 
-mod4 + shift + space
+mod4 + s
   i3-msg floating toggle
 
 mod4 + shift + {1-9}
@@ -26,8 +26,8 @@ mod4 + {1-9}
 mod4 + {_,shift +} {h,j,k,l}
   i3-msg {focus,move} {left,down,up,right}
 
-mod4 + {w,s,e}
-  i3-msg layout {tabbed,stacked,default}
+mod4 + {w,e}
+  i3-msg layout {tabbed,default}
 
 mod4 + {grave,Tab}
   rofi -no-lazy-grab -show drun -theme $HOME/dotfiles/dots/rofi.rasi
@@ -45,7 +45,7 @@ mod4 + 0
   i3-msg mode "lock-exit-off-suspend-hibernate-reboot-Shutdown"
 
 mod4 + Return
-  alacritty
+  kitty
 
 mod4 + Escape
   pkill sxhkd; sleep 1; sxhkd &; $HOME/.config/polybar/launch.sh
@@ -54,4 +54,7 @@ mod4 + p
   flameshot gui
 
 Print
+  flameshot gui
+
+ctrl + Print
   flameshot screen -c

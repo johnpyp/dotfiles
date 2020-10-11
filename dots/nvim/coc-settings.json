@@ -18,7 +18,6 @@
     "javascriptreact",
     "yaml"
   ],
-  "rust-analyzer.serverPath": "rust-analyzer",
   "yaml.format.enable": true,
   "metals.statusBarEnabled": true,
   "coc.preferences.rootPatterns": ["package.json"],
@@ -31,18 +30,24 @@
   "vetur.format.defaultFormatter.css": "prettier",
   "codeLens.enable": false,
   "javascript.validate.enable": false,
+  "typescript.preferences.importModuleSpecifier": "relative",
   "emmet.includeLanguages": {
     "vue-html": "html",
     "javascript": "javascriptreact",
     "jsx": "javascriptreact",
     "javascriptreact": "javascriptreact"
   },
+
+  "snippets.extends": {
+    "cpp": ["c"],
+    "javascriptreact": ["javascript"],
+    "typescript": ["javascript", "javascript-jsdoc"]
+  },
   "python.pythonPath": "python",
   "python.formatting.provider": "black",
-  "python.jediEnabled": true,
+  "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "python.linting.pylintEnabled": true,
-  //  "python.linting.mypyPath": "/run/current-system/sw/bin/mypy",
   "omnisharp.useDotnet": true,
   "vetur.format.enable": false,
   "go.goplsOptions": {

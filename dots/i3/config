@@ -76,13 +76,20 @@ smart_gaps on
 smart_borders on
 hide_edge_borders none
 
-font xft:URWGothic-Book 11
+font xft:FiraSans 11
 floating_modifier $mod
 
-exec --no-startup-id $HOME/.startup.sh
-exec --no-startup-id nm-applet
+exec alacritty
+exec --no-startup-id xinput --set-prop <device id> 'libinput Accel Profile Enabled' 0, 1
+exec --no-startup-id setxkbmap -option 'caps:escape, compose:ralt, altwin:swap_alt_win' -layout us
+exec --no-startup-id xset r rate 200 100
+exec --no-startup-id $HOME/dotfiles/scripts/flat-mice
 exec --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id feh --bg-fill $HOME/.config/wallpapers/current.png
+exec --no-startup-id feh --bg-fill $HOME/dotfiles/wallpapers/current.png
 exec --no-startup-id xautolock -time 30 -locker "betterlockscreen -l dimblur"
+exec --no-startup-id nm-applet &
 exec --no-startup-id redshift-gtk
-exec_always --no-startup-id pkill sxhkd; sleep 1; sxhkd &
+exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
+# exec --no-startup-id autorandr --change
+exec --no-startup-id picom -b
+exec_always --no-startup-id pkill sxhkd; sleep 0.2; sxhkd &

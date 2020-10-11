@@ -1,0 +1,4 @@
+discord
+obs-studio
+plex-media-player
+spotify

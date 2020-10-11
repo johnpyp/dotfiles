@@ -13,6 +13,8 @@
     ~/.ripgreprc: dots/.ripgreprc
     ~/.ideavimrc: dots/.ideavimrc
     ~/.tmux.conf: dots/.tmux.conf
+    ~/.config/picom/picom.conf: dots/picom/picom.conf
+    ~/.config/autorandr/postswitch: dots/autorandr/postswitch
     ~/.config/i3/config: dots/i3/config
     ~/.config/sxhkd/sxhkdrc: dots/sxhkdrc
     ~/.config/polybar: dots/polybar
