@@ -88,10 +88,10 @@
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextPrefix": "> ",
   "java.errors.incompleteClasspath.severity": "ignore",
-  "explorer.icon.enableVimDevicons": true,
   "explorer.quitOnOpen": true,
   "explorer.position": "right",
   "explorer.previewAction.onHover": false,
+  "explorer.icon.enableNerdfont": true,
   "explorer.keyMappings": {
     "i": "cd",
 

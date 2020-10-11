@@ -1,0 +1,4 @@
+#!/bin/bash
+
+feh --bg-fill $HOME/dotfiles/wallpapers/current.png
+$HOME/.config/polybar/launch.sh

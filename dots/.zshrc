@@ -97,10 +97,8 @@ alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 
-alias tmux='tmux -f "$HOME/.tmux/tmux.conf"'
-
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
-#export TERM=xterm-256color
+
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
