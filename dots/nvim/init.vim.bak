@@ -1,0 +1,769 @@
+let g:coc_enabled = 1
+" Plug: {{{
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+let g:polyglot_disabled = ['latex', 'markdown', 'pandoc', 'go', 'vue']
+
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'AndrewRadev/tagalong.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
+Plug 'aserebryakov/vim-todo-lists'
+Plug 'chriskempson/base16-vim'
+Plug 'dense-analysis/ale'
+Plug 'fatih/vim-go'
+Plug 'honza/vim-snippets'
+Plug 'joshdick/onedark.vim'
+Plug 'jparise/vim-graphql'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'leafOfTree/vim-vue-plugin'
+Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-startify'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'ryanoasis/vim-devicons'
+Plug 'sheerun/vim-polyglot'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-classpath'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'lervag/vimtex'
+Plug 'voldikss/vim-floaterm'
+Plug 'Shougo/echodoc.vim'
+
+Plug 'ferrine/md-img-paste.vim'
+"Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
+let g:sleuth_automatic = 1
+
+let g:echodoc#enable_at_startup = 1
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'plasticboy/vim-markdown'
+
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+"Plug '~/code/nvim-tree.lua'
+
+if has('nvim-0.5.0')
+    "Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+
+    if (!g:coc_enabled)
+        Plug 'neovim/nvim-lspconfig'
+        Plug 'nvim-lua/lsp_extensions.nvim'
+        Plug 'nvim-lua/completion-nvim'
+        Plug 'nvim-lua/diagnostic-nvim'
+
+        Plug 'SirVer/ultisnips'
+    else
+        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    endif
+endif
+
+call plug#end()
+" }}}
+" General: {{{
+let mapleader = " "
+set fileencoding=UTF-8
+set encoding=UTF-8
+"set guifont=DroidSansMono\ Nerd\ Font\ 11
+" theme
+set background=dark
+set noshowmode
+
+colorscheme onedark
+set termguicolors
+" Auto syntax from filetype + indents
+syntax on
+filetype plugin indent on
+" indent width
+"
+set tabstop=4 softtabstop=0 shiftwidth=4 expandtab smarttab
+" show current line
+set number
+" search case insensitive
+set ignorecase
+" Permanent Undo
+set undofile
+set conceallevel=0
+" coc helpful settings
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=150
+set shortmess+=c
+set signcolumn=yes
+set showbreak=﬌
+set linebreak
+
+if !g:coc_enabled
+    set completeopt=menuone,noinsert,noselect
+endif
+
+
+let g:netrw_liststyle = 3
+" set foldmethod
+set foldmethod=marker
+
+" italic comments
+highlight Comment cterm=italic gui=italic
+" cursor
+set guicursor =n-v-c-sm:block,i-ci-ve:hor100-Cursor,r-cr-o:ver100
+" highlight current line in insert
+autocmd InsertEnter,InsertLeave * set cul!
+" show tabline always
+set showtabline=2
+set regexpengine=0
+
+set mouse=a
+function! CloseOnLast()
+    let cnt = 0
+
+    for i in range(0, bufnr("$"))
+        if buflisted(i)
+            let cnt += 1
+        endif
+    endfor
+
+    if cnt <= 1
+        q
+    else
+        bw
+    endif
+endfunction
+command! BufOnly silent! execute "%bd|e#|bd#"
+command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
+command! ProfileStop :profile pause
+
+" }}}
+" KEYBINDS: {{{
+
+""" General:
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+imap <expr> <CR> pumvisible()
+            \ ? "\<C-Y>"
+            \ : "<Plug>delimitMateCR"
+
+let delimitMate_quotes = "\" ' `"
+au FileType markdown let b:delimitMate_quotes = "\" ' ` $"
+" Set system clipboard keybindings
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+vmap y ygv<Esc>
+
+" Navigate between buffers
+nnoremap <C-h> :bp<CR>
+nnoremap <C-l> :bn<CR>
+imap <C-h> <ESC> :bp<CR>
+imap <C-l> <ESC> :bn<CR>
+
+" Quit buffer only
+nnoremap <leader>q :bd<CR>
+
+" Quit all buffers *except* this one
+nnoremap <leader>Q :BufOnly<CR>
+
+" Save without triggering anything, i.e save without autoformat
+nnoremap <leader>W :noa w<CR>
+
+" Edit and source init.vim
+nnoremap <leader>ve :e $MYVIMRC<CR>
+nnoremap <leader>vs :source $MYVIMRC<CR>
+
+" Clear selection
+nnoremap <silent> <leader>e :nohl<CR>
+
+" Visual navigation
+nnoremap <silent> j gj
+vnoremap <silent> j gj
+nnoremap <silent> k gk
+vnoremap <silent> k gk
+
+" Larger vertical jumps
+nnoremap <silent> <C-k> 5k
+nnoremap <silent> <C-j> 5j
+
+""" LSP:
+
+if (g:coc_enabled)
+    nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
+    "nmap <silent> <leader>cd <Plug>(coc-definition)
+    "nmap <silent> <leader>cD <Plug>(coc-type-definition)
+    "nmap <silent> <leader>ci <Plug>(coc-implementation)
+    "nmap <silent> <leader>cr <Plug>(coc-references)
+    nmap <silent> <leader>cR <Plug>(coc-rename)
+    nmap <silent> <leader>cf <Plug>(coc-fix-current)
+    nmap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+
+    nnoremap <silent><nowait> <leader>cl  :<C-u>CocList diagnostics<cr>
+
+    xmap <silent> <leader>ca :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+    nmap <silent> <leader>ca :CocCommand actions.open<CR>
+
+    vmap <C-j> <Plug>(coc-snippets-select)
+    imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+    nnoremap <silent> F :call CocAction('format')<CR>:ALEFix<CR>
+    nnoremap <silent> K :call ShowDocumentation()<CR>
+
+else
+    " nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
+    nmap <silent> <leader>cd <cmd>lua vim.lsp.buf.definition()<CR>
+    nmap <silent> <leader>cD <cmd>lua vim.lsp.buf.type_definition()<CR>
+    nmap <silent> <leader>ci <cmd>lua vim.lsp.buf.implementation()<CR>
+    nmap <silent> <leader>cr <cmd>lua vim.lsp.buf.references()<CR>
+    nmap <silent> <leader>cR <cmd>lua vim.lsp.buf.rename()<CR>
+    xmap <silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+    nmap <silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+
+    nnoremap <silent> <leader>cn :cn<CR>
+    nnoremap <silent> <leader>cp :cp<CR>
+    nnoremap <silent> <leader>cq :ccl<CR>
+    " nmap <silent> <leader>cf <cmd>lua vim.lsp.buf.<Plug>(coc-fix-current)
+    "
+    "
+    nmap <silent> <leader>ff gg=G<C-o>
+    nmap <silent> <leader>co <cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>
+
+    nnoremap <silent> F :ALEFix<CR>
+    nnoremap <silent> K :call ShowDocumentation()<CR>
+endif
+    nnoremap <silent> <leader>n :LuaTreeToggle<CR>
+
+
+let g:floaterm_autoclose = 1
+function! CompileMarkdownTerm()
+    if (index(["markdown", "pandoc"], &filetype) >= 0)
+        :FloatermNew "compile-md" "%"
+    endif
+endfunction
+
+function! OpenCorresponding(file_raw, file_extension)
+    let file_extension = a:file_extension
+    let file_raw = a:file_raw
+    let file = fnamemodify(file_raw, ":p:r") . "." . file_extension
+    if file_extension is? 'pdf'
+        if !empty($PDFVIEWER)
+            return expand('$PDFVIEWER') . ' ' . file
+        elseif executable('zathura')
+            return 'zathura ' . file
+        elseif executable('mupdf')
+            return 'mupdf ' . file
+        endif
+    elseif file_extension is? 'html'
+        if !empty($BROWSER)
+            return expand('$BROWSER') . ' ' . file
+        elseif executable('chrome')
+            return 'chrome ' . file
+        elseif executable('firefox')
+            return 'firefox ' . file
+        elseif executable('chromium')
+            return 'chromium ' . file
+        endif
+    elseif file_extension is? 'odt' && executable('okular')
+        return 'okular ' . file
+    elseif file_extension is? 'epub' && executable('okular')
+        return 'okular ' . file
+    else
+        return 'xdg-open ' . file
+    endif
+endfunction
+
+command! -nargs=0 CompileMarkdown :call CompileMarkdownTerm()
+
+nnoremap <silent> <leader>ll :call CompileMarkdownTerm()<CR>
+nnoremap <silent> <leader>op :call system(OpenCorresponding(expand("%:p"), "pdf") . "&!")<CR>
+
+""" Ale:
+nnoremap <silent> <leader>af :ALEFix<CR>
+nnoremap <silent> <leader>ai :ALEInfo<CR>
+nnoremap <silent> <leader>ah :ALEHover<CR>
+nnoremap <silent> <leader>ad :ALEGoToDefinition<CR>
+nnoremap <silent> <leader>ao :ALEOrganizeImports<CR>
+nnoremap <silent> <leader>at :ALEDetail<CR>
+
+""" Fugitive:
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gb :Gblame<CR>
+
+""" Markdown:
+nmap <C-m> <Plug>MarkdownPreviewToggle
+
+""" FZF:
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>s :RGFuzzy<CR>
+
+""" Windows:
+map <leader>w <C-w>
+
+autocmd FileType markdown nnoremap <buffer><silent> <leader>I :call mdip#MarkdownClipboardImage()<CR>
+
+" }}}
+" Ale: {{{
+let g:ale_linters = {
+            \   'crystal': 'all',
+            \   'nix': 'all',
+            \   'vim': 'all',
+            \   'rust': [],
+            \   'cpp': ['clang'],
+            \}
+let g:ale_fixers = {
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \   'nix': ['nixpkgs-fmt'],
+            \   'kotlin': [],
+            \}
+
+let g:ale_linters_explicit = 1
+
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>'
+let g:ale_sign_warning = '-'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+let g:ale_lint_on_text_changed = 1
+let g:ale_fix_on_save = 1
+
+let g:ale_kotlin_ktlint_exeutable = "ktlint"
+"}}}
+" Coc: {{{
+let g:node_client_debug = 1
+let g:coc_node_path = 'node'
+let g:coc_global_extensions = [
+            \  "coc-cssmodules",
+            \  "coc-css",
+            \  "coc-emmet",
+            \  "coc-eslint",
+            \  "coc-go",
+            \  "coc-html",
+            \  "coc-java",
+            \  "coc-json",
+            \  "coc-lists",
+            \  "coc-metals",
+            \  "coc-prettier",
+            \  "coc-python",
+            \  "coc-rust-analyzer",
+            \  "coc-snippets",
+            \  "coc-svg",
+            \  "coc-tailwindcss",
+            \  "coc-texlab",
+            \  "coc-tsserver",
+            \  "coc-vimlsp",
+            \  "coc-vetur",
+            \  "coc-xml",
+            \  "coc-yaml",
+            \  "coc-floatinput"
+            \]
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" inoremap <silent><expr> <Tab>
+"             \ pumvisible() ? "\<C-n>" :
+"             \ <SID>check_back_space() ? "\<Tab>" :
+"             \ coc#refresh()
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+function! ShowDocumentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+
+  elseif (g:coc_enabled && coc#rpc#ready())
+    call CocActionAsync('doHover')
+  elseif (!g:coc_enabled && lua vim.lsp.buf.server_ready())
+    lua vim.lsp.buf.hover()
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+"autocmd CursorHold * silent call CocActionAsync('highlight')
+" Remap for format selected region
+augroup mygroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    " autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
+" let g:coc_explorer_global_presets = {
+"             \   'cwd': {
+"             \      'root-uri': 'getcwd()',
+"             \   },
+"             \   'floating': {
+"             \      'position': 'floating',
+"             \   },
+"             \   'floatingLeftside': {
+"             \      'position': 'floating',
+"             \      'floating-position': 'left-center',
+"             \      'floating-width': 50,
+"             \   },
+"             \   'floatingRightside': {
+"             \      'position': 'floating',
+"             \      'floating-position': 'left-center',
+"             \      'floating-width': 50,
+"             \   },
+"             \   'simplify': {
+"             \     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+"             \   }
+"             \ }
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
+"}}}
+" LuaTree: {{{
+
+let g:lua_tree_quit_on_open = 1
+let g:lua_tree_side = 'right'
+let g:lua_tree_width = 40 "30 by default
+let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
+let g:lua_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
+let g:lua_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
+let g:lua_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
+let g:lua_tree_git_hl = 0 "0 by default, will enable file highlight for git attributes (can be used without the icons).
+let g:lua_tree_show_icons = {
+            \ 'git': 1,
+            \ 'folders': 1,
+            \ 'files': 1,
+            \}
+"If 0, do not show the icons for one of 'git' 'folder' and 'files'
+"1 by default, notice that if 'files' is 1, it will only display
+"if nvim-web-devicons is installed and on your runtimepath
+
+" You can edit keybindings be defining this variable
+" You don't have to define all keys.
+" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
+let g:lua_tree_bindings = {
+            \ 'edit':            ['<CR>', 'o'],
+            \ 'edit_vsplit':     '<C-v>',
+            \ 'edit_split':      '<C-x>',
+            \ 'edit_tab':        '<C-t>',
+            \ 'toggle_ignored':  'I',
+            \ 'toggle_dotfiles': '.',
+            \ 'refresh':         'R',
+            \ 'preview':         '<Tab>',
+            \ 'cd':              '<C-]>',
+            \ 'create':          'a',
+            \ 'remove':          'd',
+            \ 'rename':          'r',
+            \ 'cut':             'x',
+            \ 'copy':            'c',
+            \ 'paste':           'p',
+            \ 'prev_git_item':   '[c',
+            \ 'next_git_item':   ']c'
+            \ }
+
+"}}}
+" Fugitive: {{{
+let g:fugitive_git_executable = 'hub'
+" }}}
+" Fzf: {{{
+let $FZF_DEFAULT_COMMAND = 'fd -t f""'
+
+function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --ignore-case --line-buffered -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RGFuzzy call RipgrepFzf(<q-args>, <bang>0)
+" }}}
+" Rooter: {{{
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_resolve_links = 1
+let g:rooter_patterns = [".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", ".project", ".projectkeep"]
+" }}}
+" Airline: {{{
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme="bubblegum"
+" }}}
+" Emmet: {{{
+let g:user_emmet_leader_key=','
+let g:user_emmet_mode='n'    "only enable normal mode functions.
+" }}}
+" Tagalong: {{{
+let g:tagalong_additional_filetypes = ['vue']
+" }}}
+" Vue: {{{
+let g:vim_vue_plugin_use_pug = 1
+let g:vim_vue_plugin_use_scss = 1
+" }}}
+" Go: {{{
+let g:go_highlight_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_parameters = 0
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_doc_keywordprg_enabled = 0
+" }}}
+" Vimtex: {{{
+let g:tex_flavor = 'latex'
+let g:tex_conceal = ''
+
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_complete_recursive_bib = 1
+let g:vimtex_complete_enabled = 1
+let g:vimtex_view_forward_search_on_start = 0
+
+" Use lualatex by default
+let g:vimtex_compiler_latexmk_engines = {
+            \ '_'                : '-lualatex',
+            \ 'pdflatex'         : '-pdf',
+            \ 'dvipdfex'         : '-pdfdvi',
+            \ 'lualatex'         : '-lualatex',
+            \ 'xelatex'          : '-xelatex',
+            \ 'context (pdftex)' : '-pdf -pdflatex=texexec',
+            \ 'context (luatex)' : '-pdf -pdflatex=context',
+            \ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
+            \}
+
+let g:vimtex_compiler_latexmk = {
+            \ 'build_dir' : '',
+            \ 'callback' : 1,
+            \ 'continuous' : 1,
+            \ 'executable' : 'latexmk',
+            \ 'hooks' : [],
+            \ 'options' : [
+            \   '-verbose',
+            \   '-file-line-error',
+            \   '-synctex=1',
+            \   '-interaction=nonstopmode',
+            \   '--shell-escape'
+            \ ],
+            \}
+
+" }}}
+" Pandoc: {{{
+"let g:pandoc#filetypes#handled = ['markdown']
+let g:pandoc#filetypes#pandoc_markdown = 0
+let g:pandoc#formatting#mode = 'sA'
+"let g:pandoc#formatting#textwidth = 99
+let g:pandoc#modules#disabled = ["folding"]
+
+function! MyPandocOpen(file)
+    let file = shellescape(fnamemodify(a:file, ':p'))
+    let file_extension = fnamemodify(a:file, ':e')
+    if file_extension is? 'pdf'
+        if !empty($PDFVIEWER)
+            return expand('$PDFVIEWER') . ' ' . file
+        elseif executable('zathura')
+            return 'zathura ' . file
+        elseif executable('mupdf')
+            return 'mupdf ' . file
+        endif
+    elseif file_extension is? 'html'
+        if !empty($BROWSER)
+            return expand('$BROWSER') . ' ' . file
+        elseif executable('chrome')
+            return 'chrome ' . file
+        elseif executable('firefox')
+            return 'firefox ' . file
+        elseif executable('chromium')
+            return 'chromium ' . file
+        endif
+    elseif file_extension is? 'odt' && executable('okular')
+        return 'okular ' . file
+    elseif file_extension is? 'epub' && executable('okular')
+        return 'okular ' . file
+    else
+        return 'xdg-open ' . file
+    endif
+endfunction
+
+let g:pandoc#command#custom_open = "MyPandocOpen"
+let g:pandoc#command#autoexec_on_writes = 0
+let g:pandoc#command#autoexec_command = "Pandoc pdf"
+
+let g:pandoc#syntax#conceal#blacklist = [
+            \ 'subscript',
+            \ 'superscript',
+            \ 'list'
+            \]
+
+" }}}
+" Markdown Preview: {{{
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 0
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it can be use in markdown file
+" default: 0
+let g:mkdp_command_for_global = 0
+
+" set to 1, preview server available to others in your network
+" by default, the server listens on localhost (127.0.0.1)
+" default: 0
+let g:mkdp_open_to_the_world = 0
+
+" use custom IP to open preview page
+" useful when you work in remote vim and preview on local browser
+" more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" default empty
+let g:mkdp_open_ip = ''
+
+" specify browser to open preview page
+" default: ''
+let g:mkdp_browser = ''
+
+" set to 1, echo preview page url in command line when open preview page
+" default is 0
+let g:mkdp_echo_preview_url = 0
+
+" a custom vim function name to open preview page
+" this function will receive url as param
+" default is empty
+" let g:mkdp_browserfunc = ''
+
+function! g:Open_browser(url)
+    silent exec "!google-chrome-stable --app=" . a:url
+endfunction
+let g:mkdp_browserfunc = 'g:Open_browser'
+
+" options for markdown render
+" mkit: markdown-it options for render
+" katex: katex options for math
+" uml: markdown-it-plantuml options
+" maid: mermaid options
+" disable_sync_scroll: if disable sync scroll, default 0
+" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+"   middle: mean the cursor position alway show at the middle of the preview page
+"   top: mean the vim top viewport alway show at the top of the preview page
+"   relative: mean the cursor position alway show at the relative positon of the preview page
+" hide_yaml_meta: if hide yaml metadata, default is 1
+" sequence_diagrams: js-sequence-diagrams options
+" content_editable: if enable content editable for preview page, default: v:false
+" disable_filename: if disable filename header for preview page, default: 0
+let g:mkdp_preview_options = {
+            \ 'mkit': {},
+            \ 'katex': {},
+            \ 'uml': {},
+            \ 'maid': {},
+            \ 'disable_sync_scroll': 0,
+            \ 'sync_scroll_type': 'middle',
+            \ 'hide_yaml_meta': 1,
+            \ 'sequence_diagrams': {},
+            \ 'flowchart_diagrams': {},
+            \ 'content_editable': v:false,
+            \ 'disable_filename': 0
+            \ }
+
+" use a custom markdown style must be absolute path
+" like '/Users/username/markdown.css' or expand('~/markdown.css')
+let g:mkdp_markdown_css = ''
+
+" use a custom highlight style must absolute path
+" like '/Users/username/highlight.css' or expand('~/highlight.css')
+let g:mkdp_highlight_css = ''
+
+" use a custom port to start server or random for empty
+let g:mkdp_port = ''
+
+" preview page title
+" ${name} will be replace with the file name
+let g:mkdp_page_title = '「${name}」'
+
+" }}}
+" Markdown Syntax: {{{
+let g:vim_markdown_math = 1
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+
+" }}}
+
+
+if has('nvim-0.5.0')
+    lua require"lua-stuff"
+
+    if !g:coc_enabled
+        lua require"lsp"
+    endif
+
+    "autocmd BufEnter * lua require'completion'.on_attach()
+
+    let g:diagnostic_enable_virtual_text = 1
+    let g:diagnostic_auto_popup_while_jump = 0
+
+	let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+    let g:completion_trigger_on_delete = 1
+
+    let g:completion_enable_snippet = 'UltiSnips'
+    let g:completion_confirm_key = "\<C-y>"
+
+    let g:UltiSnipsExpandTrigger="<c-e>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+    call sign_define('LspDiagnosticsErrorSign', {'text' : ' ', 'texthl' : 'LspDiagnosticsError'})
+    call sign_define('LspDiagnosticsWarningSign', {'text' : ' ', 'texthl' : 'LspDiagnosticsWarning'})
+    call sign_define('LspDiagnosticsInformationSign', {'text' : ' ', 'texthl' : 'LspDiagnosticsInformation'})
+    call sign_define('LspDiagnosticsHintSign', {'text' : '﨣', 'texthl' : 'LspDiagnosticsHint'})
+
+    let g:Hexokinase_highlighters = ['foregroundfull']
+
+endif
+
+" augroup markdown_filetype
+"   autocmd BufEnter *.md set filetype=markdown
+" augroup END

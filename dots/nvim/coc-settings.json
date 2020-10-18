@@ -1,60 +1,80 @@
 {
-  "diagnostic.refreshOnInsertMode": true,
+  // Coc
   "coc.preferences.formatOnSaveFiletypes": [
-    "rust",
+    "css",
+    "go",
+    "html",
+    "java",
     "javascript",
-    "typescript",
-    "python",
+    "javascriptreact",
     "json",
     "jsonc",
-    "html",
-    "vue",
+    "latex",
+    "markdown",
+    "python",
+    "rust",
     "scala",
-    "go",
-    "clojure",
-    "java",
-    "css",
     "scss",
-    "javascriptreact",
+    "svg",
+    "typescript",
+    "vim",
+    "vue",
+    "xml",
     "yaml"
   ],
-  "yaml.format.enable": true,
-  "metals.statusBarEnabled": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextPrefix": "> ",
+  "diagnostic.refreshOnInsertMode": true,
+  "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.rootPatterns": ["package.json"],
+  "suggest.echodocSupport": true,
+  "suggest.autoTrigger": "always",
+  "codeLens.enable": false,
+  // Yaml
+  "yaml.format.enable": true,
+  // Metals
+  "metals.statusBarEnabled": true,
+  // Eslint
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
   "eslint.filetypes": ["javascript", "typescript", "vue", "javascriptreact"],
+  // Vetur
   "vetur.validation.style": false,
+  "vetur.format.enable": false,
+  // CSS
   "css.validate": false,
   "scss.validate": false,
-  "vetur.format.defaultFormatter.css": "prettier",
-  "codeLens.enable": false,
+  // Typescript/Javascript
   "javascript.validate.enable": false,
   "typescript.preferences.importModuleSpecifier": "relative",
+  // Emmet
   "emmet.includeLanguages": {
     "vue-html": "html",
     "javascript": "javascriptreact",
     "jsx": "javascriptreact",
     "javascriptreact": "javascriptreact"
   },
-
+  // Snippets
   "snippets.extends": {
     "cpp": ["c"],
     "javascriptreact": ["javascript"],
     "typescript": ["javascript", "javascript-jsdoc"]
   },
+  // Python
   "python.pythonPath": "python",
   "python.formatting.provider": "black",
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "python.linting.pylintEnabled": true,
-  "omnisharp.useDotnet": true,
-  "vetur.format.enable": false,
+  // Go
   "go.goplsOptions": {
     "completeUnimported": true,
     "usePlaceholders": true
   },
   "go.goplsPath": "gopls",
+  // Java
+  "java.errors.incompleteClasspath.severity": "ignore",
+  // TailwindCSS
   "tailwindCSS.htmlLanguages": [
     "HTML (EEx)",
     "HTML (Eex)",
@@ -84,81 +104,5 @@
     "twig",
     "vue",
     "pug"
-  ],
-  "diagnostic.virtualText": true,
-  "diagnostic.virtualTextPrefix": "> ",
-  "java.errors.incompleteClasspath.severity": "ignore",
-  "explorer.quitOnOpen": true,
-  "explorer.position": "right",
-  "explorer.previewAction.onHover": false,
-  "explorer.icon.enableNerdfont": true,
-  "explorer.keyMappings": {
-    "i": "cd",
-
-    "gk": "expandablePrev",
-    "gj": "expandableNext",
-
-    "*": "toggleSelection",
-    "<tab>": "actionMenu",
-
-    "h": "collapse",
-    "l": ["expandable?", "expand", "open"],
-    "J": ["toggleSelection", "nodeNext"],
-    "K": ["toggleSelection", "nodePrev"],
-    "O": "expand:recursive",
-    "X": "collapse:recursive",
-    "<2-LeftMouse>": [
-      "expandable?",
-      ["expanded?", "collapse", "expand"],
-      "open"
-    ],
-    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
-    "o": ["expanded?", "collapse", "expand"],
-    "e": "open",
-    "s": "open:split",
-    "S": "open:split:plain",
-    "E": "open:vsplit",
-    "t": "open:tab",
-    "u": "gotoParent",
-    "gp": "preview:labeling",
-
-    "y": "copyFilepath",
-    "Y": "copyFilename",
-    "c": "copyFile",
-    "x": "cutFile",
-    "p": "pasteFile",
-    // Change this back to `delete` when trash is working
-    "d": "deleteForever",
-    "D": "deleteForever",
-
-    "a": "addFile",
-    "A": "addDirectory",
-    "r": "rename",
-
-    ".": "toggleHidden",
-    "R": "refresh",
-
-    "?": "help",
-    "q": "quit",
-    "<esc>": "esc",
-    // "X": "systemExecute",
-    "gd": "listDrive",
-
-    "f": "search",
-    "F": "searchRecursive",
-
-    "gf": "gotoSource:file",
-    "gb": "gotoSource:buffer",
-
-    "[[": "sourcePrev",
-    "]]": "sourceNext",
-
-    "[d": "diagnosticPrev",
-    "]d": "diagnosticNext",
-
-    "[c": "gitPrev",
-    "]c": "gitNext",
-    "<<": "gitStage",
-    ">>": "gitUnstage"
-  }
+  ]
 }
