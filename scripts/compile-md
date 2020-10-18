@@ -1,0 +1,14 @@
+#!/bin/bash
+filename=$1
+
+if [ -z "$filename" ]
+then
+    echo "Filename is empty, exiting"
+    exit 1
+fi
+
+filenoext="${filename%.*}"
+
+echo "Target file: ${filenoext}.pdf"
+
+pandoc -f markdown -t pdf "$filename" -o "$filenoext".pdf --template eisvogel --listings
