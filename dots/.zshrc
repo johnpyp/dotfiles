@@ -11,7 +11,7 @@ autoload -Uz _zinit
 zinit snippet OMZ::lib/history.zsh
 
 zinit ice lucid wait
-zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+zinit snippet OMZP::colored-man-pages
 
 zinit light zinit-zsh/z-a-bin-gem-node
 
@@ -20,7 +20,7 @@ zinit wait lucid light-mode for \
             zdharma/fast-syntax-highlighting \
         atload"_zsh_autosuggest_start" \
             zsh-users/zsh-autosuggestions \
-        blockf atpull'zinit creinstall -q .' \
+        atpull"zinit creinstall -q ." \
             zsh-users/zsh-completions
 
 zinit wait lucid light-mode for \
@@ -49,6 +49,9 @@ zinit light trapd00r/LS_COLORS
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 
+zinit ice wait lucid atpull"zinit creinstall -q ."
+zinit light asdf-vm/asdf
+
 autoload -Uz compinit
 compinit
 zinit cdreplay
@@ -72,8 +75,8 @@ benchzsh() {
 checkip() {
  curl https://ipapi.co/json/
 }
+
 alias sudo="sudo -E"
-alias ssh="TERM=xterm-256color ssh"
 alias archive="tar -zcvf"
 alias cp="cp -i"         # Confirm before overwriting something
 alias free='free -h'                                            # Show sizes in MB
@@ -97,12 +100,22 @@ alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 
+# Get the ip of an ssh destination
+sship() {
+  ssh -G $1 | awk '/^hostname / { print $2 }'
+}
+
+# Forget (remove from known_hosts) an ssh destination
+sshforget() {
+  ssh-keygen -R $(sship $1)
+}
+
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
+export PATH=~/dotfiles/scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
 export XDG_DATA_HOME=$HOME/.local/share
 
 eval $(keychain --eval --quiet id_rsa)
