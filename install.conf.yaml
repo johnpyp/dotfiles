@@ -6,7 +6,6 @@
 - clean: ["~", "~/.config"]
 
 - link:
-    ~/.vimrc: dots/.vimrc
     ~/.zshrc: dots/.zshrc
     ~/.gitconfig: dots/.gitconfig
     ~/.Xresources: dots/.Xresources
@@ -27,6 +26,7 @@
     ~/.config/pscripts: dots/pscripts
     ~/.config/qutebrowser/config.py: dots/qutebrowser/config.py
     ~/.config/nvim: dots/nvim
+    ~/.pandoc/templates/eisvogel.latex: dots/pandoc/templates/eisvogel.tex
 
 - create:
     - ~/code
