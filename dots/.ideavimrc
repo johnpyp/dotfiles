@@ -6,10 +6,10 @@ noremap <Leader>N  :action HideSideWindows<CR>
 noremap <Leader>r  :action Run<CR>
 noremap <Leader>ve :e ~/.ideavimrc<CR>
 noremap <Leader>vs :source ~/.ideavimrc<CR>
-nnoremap <C-h> :action PreviousTab<CR>
-nnoremap <C-l> :action NextTab<CR>
+nnoremap H :action PreviousTab<CR>
+nnoremap L :action NextTab<CR>
 nnoremap <C-n> :action ActivateProjectToolWindow<CR>
-nnoremap <C-p> :action GotoFile<CR>
+nnoremap <leader>f :action GotoFile<CR>
 
 nnoremap <leader>q :q<CR>
 nnoremap <leader>Q :action CloseAllEditorsButActive<CR>
@@ -18,8 +18,8 @@ nnoremap <leader>ca :action ShowIntentionActions<CR>
 nnoremap <leader>cd :action GotoDeclaration<CR>
 nnoremap <leader>cD :action GotoTypeDeclaration<CR>
 nnoremap <leader>co :action OptimizeImports<CR>
-nnoremap <leader>sc :nohl<CR>
-nnoremap <leader>e  :action ShowErrorDescription<CR>
+nnoremap <leader>e :nohl<CR>
+nnoremap <leader>ce  :action ShowErrorDescription<CR>
 
 nnoremap F :action ReformatCode<CR>
 nnoremap K :action QuickJavaDoc<CR>

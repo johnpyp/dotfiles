@@ -1,0 +1,14 @@
+- defaults:
+    link:
+      force: true
+      create: true
+- link:
+    /usr/share/fonts/:
+      glob: true
+      path: dots/slim/fonts/*
+    /etc/slim.conf:
+      path: dots/slim/slim.conf
+    /usr/share/slim/themes/custom:
+      path: dots/slim/custom
+    /usr/share/slim/themes/custom/background.png:
+      path: wallpapers/current.png

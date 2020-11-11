@@ -11,6 +11,8 @@ for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
 for_window [class="Lxappearance"] floating enable sticky enable border normal
 for_window [class="Pavucontrol"] floating enable
+for_window [class="Redacted"] floating enable
+for_window [class="KDialog"] floating enable resize set 800 600
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -79,17 +81,13 @@ hide_edge_borders none
 font xft:FiraSans 11
 floating_modifier $mod
 
-exec alacritty
-exec --no-startup-id xinput --set-prop <device id> 'libinput Accel Profile Enabled' 0, 1
-exec --no-startup-id setxkbmap -option 'caps:escape, compose:ralt, altwin:swap_alt_win' -layout us
-exec --no-startup-id xset r rate 200 100
-exec --no-startup-id $HOME/dotfiles/scripts/flat-mice
-exec --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id feh --bg-fill $HOME/dotfiles/wallpapers/current.png
-exec --no-startup-id xautolock -time 30 -locker "betterlockscreen -l dimblur"
-exec --no-startup-id nm-applet &
-exec --no-startup-id redshift-gtk
-exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
-# exec --no-startup-id autorandr --change
-exec --no-startup-id picom -b
-exec_always --no-startup-id pkill sxhkd; sleep 0.2; sxhkd &
+exec "kitty"
+exec --no-startup-id "$HOME/.scripts/startup.sh"
+exec --no-startup-id "$HOME/.config/polybar/launch.sh"
+exec --no-startup-id "feh --bg-fill $HOME/dotfiles/wallpapers/current.png"
+exec --no-startup-id "nm-applet &"
+exec --no-startup-id "sxhkd c $HOME/.config/sxhkd/i3.sxhkdrc"
+exec --no-startup-id "redshift-gtk"
+exec --no-startup-id "/usr/lib/xfce4/notifyd/xfce4-notifyd &"
+exec --no-startup-id "picom -b"
+# exec --no-startup-id "xautolock -time 30 -locker 'betterlockscreen -l dimblur'"

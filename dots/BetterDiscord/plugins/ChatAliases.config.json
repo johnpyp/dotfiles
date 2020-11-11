@@ -1,0 +1,80 @@
+{
+  "amounts": {
+    "minAliasLength": 3
+  },
+  "changeLog": {
+    "version": "2.1.9"
+  },
+  "configs": {
+    "autoc": true,
+    "case": false,
+    "exact": true,
+    "file": false,
+    "regex": false
+  },
+  "settings": {
+    "addAutoComplete": true,
+    "addContextMenu": true,
+    "replaceBeforeSend": false,
+    "triggerEdit": true,
+    "triggerNormal": true,
+    "triggerUpload": true
+  },
+  "words": {
+    "angelthump": {
+      "replace": ":AngelThump1::AngelThump2::AngelThump3:",
+      "filedata": null,
+      "case": false,
+      "exact": true,
+      "autoc": true,
+      "regex": false,
+      "file": false
+    },
+    "fuckyouu": {
+      "replace": ":middle_finger::pogfish: :middle_finger:",
+      "filedata": null,
+      "case": false,
+      "exact": true,
+      "autoc": true,
+      "regex": false,
+      "file": false
+    },
+    "king": {
+      "replace": ":crown: :pensive: :fist:",
+      "filedata": null,
+      "case": false,
+      "exact": true,
+      "autoc": true,
+      "regex": false,
+      "file": false
+    },
+    "pikawide": {
+      "replace": ":pikawide1::pikawide2::pikawide3:",
+      "filedata": null,
+      "case": false,
+      "exact": true,
+      "autoc": true,
+      "regex": false,
+      "file": false
+    },
+    "widepeepohappy": {
+      "replace": ":widepeepohappy0::widepeepohappy1::widepeepohappy2:",
+      "filedata": null,
+      "case": false,
+      "exact": true,
+      "autoc": true,
+      "regex": false,
+      "file": false
+    },
+    "widest": {
+      "replace": ":widest1::widest2::widest3::widest4::widest5::widest6:",
+      "filedata": null,
+      "case": false,
+      "exact": true,
+      "autoc": true,
+      "regex": false,
+      "file": false
+    }
+  }
+}
+

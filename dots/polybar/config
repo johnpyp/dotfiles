@@ -51,10 +51,10 @@ modules-center = date time
 modules-right = openvpn-isrunning audio battery brightness updates-arch-combined wired-network wireless-network
 
 tray-position = ${env:TRAY_POSITION}
-tray-padding = 3
+tray-padding = 2
 tray-detached = false
-tray-maxsize = 16
-tray-background = ${colors.BackgroundAlt}
+tray-maxsize = 24
+tray-background = ${colors.background}
 tray-offset-x = 0
 tray-offset-y = 0
 tray-scale = 1.0

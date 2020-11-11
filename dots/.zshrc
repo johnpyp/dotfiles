@@ -24,11 +24,11 @@ zinit wait lucid light-mode for \
             zsh-users/zsh-completions
 
 zinit wait lucid light-mode for \
-        "kutsan/zsh-system-clipboard" \
         "hlissner/zsh-autopair" \
         "wfxr/forgit" \
         "zdharma/history-search-multi-word" \
         "agkozak/zsh-z"
+        # "kutsan/zsh-system-clipboard" \
 
 zinit wait"1" lucid from"gh-r" as"null" for \
         sbin"fzf"          junegunn/fzf-bin \
@@ -58,7 +58,7 @@ zinit cdreplay
 
 ### END PLUGINS
 
-export CONDA_DEFAULT_ENV=""
+# export CONDA_DEFAULT_ENV=""
 KEYTIMEOUT=1
 bindkey '^H' backward-kill-word
 # Enable vim mode
@@ -77,7 +77,6 @@ checkip() {
 }
 
 alias sudo="sudo -E"
-alias archive="tar -zcvf"
 alias cp="cp -i"         # Confirm before overwriting something
 alias free='free -h'                                            # Show sizes in MB
 alias git=hub
@@ -93,12 +92,24 @@ alias synctime="timedatectl set-ntp true"
 alias em="emacs -nw"
 alias extract="aunpack"
 alias ex="aunpack"
+alias archive="apack -e -F .zip"
 # ls memes
 alias ls='exa --icons --classify --group-directories-first --time-style=long-iso --group --color-scale'
 alias l='ls --git-ignore'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
+alias goodsync="rsync -auvxHAWXP --numeric-ids --info=progress2"
+
+alias coa="conda deactivate && conda activate"
+alias cod="conda deactivate"
+alias coc="conda create --name"
+alias s="source ~/.zshrc"
+alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+
+sshforward() {
+  ssh $1 -L $2\:localhost\:$2 -N
+}
 
 # Get the ip of an ssh destination
 sship() {
@@ -123,11 +134,11 @@ export GO111MODULE="on"
 
 [ -f ~/.profile ] && source ~/.profile
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#eval "$(starship init zsh)"
 
 if [ "$(command -v bat)" ]; then
   unalias -m 'cat'
-  alias cat='bat -pp --theme="Nord"'
+  cat() { bat -pp --theme="Nord" $@ }
+  compdef _files cat
 fi
 if [ -e /home/johnpyp/.nix-profile/etc/profile.d/nix.sh ]; then . /home/johnpyp/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
