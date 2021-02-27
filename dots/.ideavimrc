@@ -1,3 +1,5 @@
+set ideajoin
+
 let mapleader = " "
 noremap <Leader>y  "+y
 noremap <Leader>p  "+p
@@ -9,6 +11,7 @@ noremap <Leader>vs :source ~/.ideavimrc<CR>
 nnoremap H :action PreviousTab<CR>
 nnoremap L :action NextTab<CR>
 nnoremap <C-n> :action ActivateProjectToolWindow<CR>
+
 nnoremap <leader>f :action GotoFile<CR>
 
 nnoremap <leader>q :q<CR>
@@ -18,10 +21,10 @@ nnoremap <leader>ca :action ShowIntentionActions<CR>
 nnoremap <leader>cd :action GotoDeclaration<CR>
 nnoremap <leader>cD :action GotoTypeDeclaration<CR>
 nnoremap <leader>co :action OptimizeImports<CR>
+nnoremap <leader>cr :action RenameElement<CR>
+nnoremap <leader>ce :action ShowErrorDescription<CR>
 nnoremap <leader>e :nohl<CR>
-nnoremap <leader>ce  :action ShowErrorDescription<CR>
 
 nnoremap F :action ReformatCode<CR>
 nnoremap K :action QuickJavaDoc<CR>
 
-nnoremap <leader>ff :action GotoFile<CR>

@@ -7,6 +7,7 @@
 
 - link:
     ~/.zshrc: dots/.zshrc
+    ~/.p10k.zsh: dots/.p10k.zsh
     ~/.gitconfig: dots/.gitconfig
     ~/.Xresources: dots/.Xresources
     ~/.ripgreprc: dots/.ripgreprc
@@ -14,6 +15,7 @@
     ~/.tmux.conf: dots/.tmux.conf
     ~/.scripts: dots/.scripts
     ~/.fonts: dots/.fonts
+    ~/.npmrc: dots/.npmrc
     ~/.config/kwalletrc: dots/kwalletrc
     ~/.config/rofi: dots/rofi
     ~/.config/picom/picom.conf: dots/picom/picom.conf
@@ -31,14 +33,16 @@
     ~/.config/qutebrowser/config.py: dots/qutebrowser/config.py
     ~/.config/nvim: dots/nvim
     ~/.pandoc/templates/eisvogel.latex: dots/pandoc/templates/eisvogel.tex
-    ~/.config/BetterDiscord/plugins:
-      glob: true
-      path: dots/BetterDiscord/plugins/*
+    # ~/.config/BetterDiscord/plugins:
+    #   glob: true
+    #   path: dots/BetterDiscord/plugins/*
+    ~/.config/dunst: dots/dunst
 
 - create:
     - ~/code
     - ~/.vimdid
+    - ~/.npm-global
 
 - shell:
-    - sudo ./install-sudo
+    # - sudo ./install-sudo
     - [git submodule update --init --recursive, Installing submodules]

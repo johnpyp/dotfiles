@@ -1,9 +1,11 @@
 { config, lib, pkgs, ... }:
 {
   users.users.johnpyp = {
-    isNormalUser = true;
+    name = "johnpyp";
+    uid = 1000;
     home = "/home/johnpyp";
-    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" "user-with-access-to-virtualbox" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" "user-with-access-to-virtualbox" "plugdev" "wireshark"];
+    isNormalUser = true;
     initialPassword = "johnpyp";
     shell = pkgs.zsh;
     subUidRanges = [
@@ -13,5 +15,11 @@
       { count = 65534; startGid = 100001; }
     ];
   };
+
+  # users.groups.johnpyp = {
+  #   name = "johnpyp";
+  #   members = ["johnpyp"];
+  #   gid = 1000;
+  # };
 
 }

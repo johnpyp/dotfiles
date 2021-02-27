@@ -26,11 +26,11 @@ mod4 + {1-9}
 mod4 + {_,shift +} {h,j,k,l}
   i3-msg {focus,move} {left,down,up,right}
 
-mod4 + {w,e}
-  i3-msg layout {tabbed,default}
+mod4 + {w,e,a}
+  i3-msg layout {tabbed,default,stacked}
 
 mod4 + {grave,Tab}
-  rofi -no-disable-history -no-lazy-grab -show drun -theme $HOME/dotfiles/dots/rofi.rasi
+  rofi -theme $HOME/dotfiles/dots/rofi.rasi -no-disable-history -no-lazy-grab -show drun
 
 mod4 + d
   rofi -show run -show-icons -theme Arc-Dark
@@ -42,14 +42,13 @@ mod4 + r
   i3-msg mode resize
 
 mod4 + 0
-  $HOME/.config/rofi/scripts/powermenu.sh
-  # i3-msg mode "lock-exit-off-suspend-hibernate-reboot-shutdown"
+  i3-msg mode "lock-exit-off-suspend-hibernate-reboot-Shutdown"
 
 mod4 + Return
   kitty
 
 mod4 + Escape
-  pkill --signal USR1 -x sxhkd
+  pkill sxhkd; sleep 1; sxhkd &; $HOME/.config/polybar/launch.sh; pkill --signal USR1 -x sxhkd
 
 mod4 + p
   flameshot gui

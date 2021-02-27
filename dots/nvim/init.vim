@@ -9,11 +9,8 @@ endif
 let g:polyglot_disabled = ['latex', 'markdown', 'pandoc', 'go', 'vue']
 
 call plug#begin('~/.local/share/nvim/plugged')
+
 Plug 'AndrewRadev/tagalong.vim'
-"Plug 'Raimondi/delimitMate'
-Plug 'Shougo/echodoc.vim'
-" Plug 'airblade/vim-gitgutter'
-Plug 'pantharshit00/vim-prisma'
 Plug 'airblade/vim-rooter'
 Plug 'fatih/vim-go'
 Plug 'ferrine/md-img-paste.vim'
@@ -21,27 +18,51 @@ Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'leafOfTree/vim-vue-plugin'
-Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'norcalli/nvim-colorizer.lua'
+" Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'pantharshit00/vim-prisma'
 Plug 'plasticboy/vim-markdown'
+"Plug 'romgrk/barbar.nvim'
+" Plug 'romgrk/doom-one.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-sleuth'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'voldikss/vim-floaterm'
-
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'romgrk/barbar.nvim'
-Plug 'romgrk/doom-one.vim'
-" Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'nvim-treesitter/nvim-treesitter'
-" Plug 'kyazdani42/nvim-tree.lua'
+Plug 'mhinz/vim-startify'
+Plug 'moll/vim-bbye'
+" Plug 'sainnhe/edge'
+Plug 'rakr/vim-one'
+Plug 'rbong/vim-crystalline'
+Plug 'arcticicestudio/nord-vim'
+" Plug 'bagrat/vim-buffet'
+Plug 'itchyny/lightline.vim'
+Plug 'sainnhe/artify.vim'
+Plug 'itchyny/vim-gitbranch'
+Plug 'macthecadillac/lightline-gitdiff'
+Plug 'maximbaz/lightline-ale'
+Plug 'albertomontesg/lightline-asyncrun'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'yazgoo/unicodemoji'
+Plug 'chrisbra/unicode.vim'
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/glyph-palette.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'zeis/vim-kolor'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'chriskempson/base16-vim'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 call plug#end()
 " }}}
@@ -54,7 +75,8 @@ set noshowmode
 
 let g:nvcode_termcolors=256
 set termguicolors
-colorscheme doom-one
+colorscheme one
+let g:one_allow_italics = 1 " I love italic for comments
 syntax on
 set tabstop=2 softtabstop=0 shiftwidth=2 expandtab smarttab
 set number
@@ -64,6 +86,7 @@ set conceallevel=0
 set hidden
 set nobackup
 set nowritebackup
+set backupcopy=yes
 set cmdheight=2
 set updatetime=150
 set shortmess+=c
@@ -72,6 +95,7 @@ set showbreak=﬌
 set linebreak
 set foldmethod=marker
 set showtabline=2
+set inccommand=split
 set mouse=a
 highlight Comment cterm=italic gui=italic
 set guicursor=
@@ -93,15 +117,18 @@ vmap y ygv<Esc>
 " nnoremap <silent> <C-l> :bn<CR>
 " Re-order to previous/next
 
-nnoremap <silent> H :BufferPrevious<CR>
-nnoremap <silent> L :BufferNext<CR>
+map! <F13> <Nop>
+map! <F14> <Nop>
+
+nnoremap <silent> H :bp<CR>
+nnoremap <silent> L :bn<CR>
 
 nnoremap <silent> <C-h> :BufferMovePrevious<CR>
 nnoremap <silent> <C-l> :BufferMoveNext<CR>
-inoremap <silent> <C-h> <ESC> :BufferMovePrevious<CR>
-inoremap <silent> <C-l> <ESC> :BufferMoveNext<CR>
+" inoremap <silent> <C-h> <ESC> :BufferMovePrevious<CR>
+" inoremap <silent> <C-l> <ESC> :BufferMoveNext<CR>
 
-nnoremap <leader>q :BufferClose<CR>
+nnoremap <leader>q :Bdelete<CR>
 nnoremap <leader>W :noa w<CR>
 
 " vimrc
@@ -116,17 +143,15 @@ vnoremap <silent> j gj
 nnoremap <silent> k gk
 vnoremap <silent> k gk
 
-" nnoremap <silent> <leader>n :LuaTreeToggle<CR>
 
 " Fzf:
-nnoremap <silent> <leader>s :Rg<CR>
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <silent> <leader>l :Buffers<CR>
+nnoremap <silent> <C-i> :Rg<CR>
+nnoremap <silent> <C-p> :Files<CR>
+" nnoremap <silent> <leader>l :Buffers<CR>
 
 " Fugitive:
 nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gp :Gpush<CR>
-nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gb :Gblame<CR>
 
 " Markdown:
@@ -140,44 +165,222 @@ map <leader>w <C-w>
 "let delimitMate_quotes = "\" ' `"
 "au FileType markdown let b:delimitMate_quotes = "\" ' ` $"
 " }}}
-" Lua Tree: {{{
-let g:lua_tree_quit_on_open = 1
-let g:lua_tree_side = 'right'
-let g:lua_tree_width = 40 "30 by default
-let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-let g:lua_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
-let g:lua_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
-let g:lua_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
-let g:lua_tree_git_hl = 0 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-let g:lua_tree_show_icons = {
-            \ 'git': 1,
-            \ 'folders': 1,
-            \ 'files': 1,
-            \}
+" Coc: {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Extensions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:coc_node_path = 'node'
+let g:coc_global_extensions = [
+            \  "coc-css",
+            \  "coc-emmet",
+            \  "coc-eslint",
+            \  "coc-explorer",
+            \  "coc-go",
+            \  "coc-html",
+            \  "coc-java",
+            \  "coc-kotlin",
+            \  "coc-json",
+            \  "coc-lists",
+            \  "coc-metals",
+            \  "coc-pairs",
+            \  "coc-prettier",
+            \  "coc-python",
+            \  "coc-rust-analyzer",
+            \  "coc-snippets",
+            \  "coc-svg",
+            \  "coc-tailwindcss",
+            \  "coc-texlab",
+            \  "coc-tsserver",
+            \  "coc-vetur",
+            \  "coc-xml",
+            \  "coc-yaml"
+            \]
 
-let g:lua_tree_bindings = {
-            \ 'edit':            ['<CR>', 'o'],
-            \ 'edit_vsplit':     '<C-v>',
-            \ 'edit_split':      '<C-x>',
-            \ 'edit_tab':        '<C-t>',
-            \ 'toggle_ignored':  'I',
-            \ 'toggle_dotfiles': '.',
-            \ 'refresh':         'R',
-            \ 'preview':         '<Tab>',
-            \ 'cd':              '<C-]>',
-            \ 'create':          'a',
-            \ 'remove':          'd',
-            \ 'rename':          'r',
-            \ 'cut':             'x',
-            \ 'copy':            'c',
-            \ 'paste':           'p',
-            \ 'prev_git_item':   '[c',
-            \ 'next_git_item':   ']c'
-            \ }
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Keybinds
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gD :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-declaration)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gs :call CocActionAsync('showSignatureHelp')<CR>
+
+nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
+nmap <silent> <leader>cr <Plug>(coc-rename)
+nmap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+nmap <silent> <leader>ca v<Plug>(coc-codeaction-selected)<C-C>
+xmap <silent> <leader>ca :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+nnoremap <nowait> <leader>l  :<C-u>CocList diagnostics<cr>
+
+vmap <C-j> <Plug>(coc-snippets-select)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+nnoremap <silent> <leader>f :call CocAction('format')<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+
+nnoremap <silent> <leader>n :execute "CocCommand explorer" getcwd()<CR>
+
+" nnoremap <silent> <leader>n :Fern . -drawer -toggle -reveal=%<CR>
+
+
+augroup CocExplorerCustom
+  autocmd!
+augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Autocommands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if $CONDA_PREFIX == ""
+  let s:current_python_path="/usr/bin/python"
+else
+  let s:current_python_path=$CONDA_PREFIX.'/bin/python'
+endif
+call coc#config('python', {'pythonPath': s:current_python_path})
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+augroup cocgroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType json setlocal formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
+    autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+    autocmd FileType markdown,pandoc,tex,latex let b:coc_pairs = [["$", "$"]]
+
+    " autocmd StdinReadPre * let s:std_in=1
+    " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+augroup end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Commands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+command! -nargs=* -complete=custom,s:GrepArgs CocRg exe 'CocList -I grep -i '.<q-args>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper Functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! ShowDocumentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+function! s:GrepArgs(...)
+  let list = ['-S', '--smart-case', '-w', '--word-regexp', '-e', '--regexp', '--ignore-files']
+  return join(list, "\n")
+endfunction
+""" }}}"""
+" Fern: {{{
+function! s:init_fern() abort
+
+  nnoremap <Plug>(fern-close-drawer) :<C-u>FernDo close -drawer -stay<CR>
+  nmap <buffer><silent> <Plug>(fern-action-open-and-close)
+      \ <Plug>(fern-action-open)
+      \ <Plug>(fern-close-drawer)
+
+  nmap <buffer><expr>
+      \ <Plug>(fern-my-expand-or-collapse)
+      \ fern#smart#leaf(
+      \   "\<Plug>(fern-action-collapse)",
+      \   "\<Plug>(fern-action-expand)",
+      \   "\<Plug>(fern-action-collapse)",
+      \ )
+
+  nmap <buffer><silent><expr>
+        \ <Plug>(fern-my-open-or-expand)
+        \ fern#smart#leaf(
+        \   "\<Plug>(fern-action-open-and-close)",
+        \   "\<Plug>(fern-my-expand-or-collapse)",
+        \ )
+
+  nmap <buffer><silent><expr>
+        \ <Plug>(fern-my-collapse-or-leave)
+        \ fern#smart#leaf(
+        \   "\<Plug>(fern-action-open-and-close)",
+        \   "\<Plug>(fern-action-expand)",
+        \ )
+  nmap <buffer><nowait> l <Plug>(fern-my-open-or-expand)
+  nmap <buffer><nowait> <CR> <Plug>(fern-my-open-or-expand)
+  nmap <buffer><nowait> x <Plug>(fern-action-collapse)
+  nmap <buffer><nowait> u <Plug>(fern-action-leave)
+
+  nmap <buffer> r <Plug>(fern-action-reload)
+  nmap <buffer> R gg<Plug>(fern-action-reload)<C-o>
+
+  " Define NERDTree like mappings
+  " nmap <buffer> o <Plug>(fern-action-open:edit)
+  " nmap <buffer> go <Plug>(fern-action-open:edit)<C-w>p
+  " nmap <buffer> t <Plug>(fern-action-open:tabedit)
+  " nmap <buffer> T <Plug>(fern-action-open:tabedit)gT
+  " nmap <buffer> i <Plug>(fern-action-open:split)
+  " nmap <buffer> gi <Plug>(fern-action-open:split)<C-w>p
+  " nmap <buffer> s <Plug>(fern-action-open:vsplit)
+  " nmap <buffer> gs <Plug>(fern-action-open:vsplit)<C-w>p
+  " nmap <buffer> ma <Plug>(fern-action-new-path)
+  " nmap <buffer> P gg
+  "
+  " nmap <buffer> C <Plug>(fern-action-enter)
+  " nmap <buffer> u <Plug>(fern-action-leave)
+  " nmap <buffer> r <Plug>(fern-action-reload)
+  " nmap <buffer> R gg<Plug>(fern-action-reload)<C-o>
+  " nmap <buffer> cd <Plug>(fern-action-cd)
+  " nmap <buffer> CD gg<Plug>(fern-action-cd)<C-o>
+  "
+  " nmap <buffer> I <Plug>(fern-action-hide-toggle)
+
+  nmap <buffer> q :<C-u>quit<CR>
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+  autocmd FileType fern call glyph_palette#apply()
+  autocmd FileType nerdtree,startify call glyph_palette#apply()
+augroup END
+
+let g:fern#renderer = "nerdfont"
 " }}}
 " Other Plugin Config: {{{
-lua require'colorizer'.setup({ "*", }, { mode = 'foreground' })
+" lua require'colorizer'.setup({ "*", }, { mode = 'foreground' })
 
 let loaded_netrwPlugin = 1
 
@@ -185,28 +388,40 @@ let g:csv_nomap_h = 1
 let g:csv_nomap_l = 1
 
 
+" let g:edge_enable_italic = 1
+" let g:edge_better_performance = 1
+" " let g:lightline.colorscheme = 'edge'
+" let g:edge_style = 'edge'
+
 let bufferline = {}
 let bufferline.animation = v:false
 let bufferline.closable = v:false
 let bufferline.maximum_padding = 2
 
-let g:echodoc#enable_at_startup = 1
 let g:netrw_liststyle = 3
 
 let g:floaterm_autoclose = 1
 
 let g:sleuth_automatic = 1
 
-let g:fugitive_git_executable = 'hub'
+" let g:fugitive_git_executable = 'hub'
 
 let g:tagalong_additional_filetypes = ['vue']
 
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
-let g:rooter_patterns = [".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", ".project", ".projectkeep"]
+let g:rooter_patterns = [".git", "_darcs", ".hg", ".bzr", ".svn", ".project", ".projectkeep"]
 
-let g:airline_theme="bubblegum"
-let g:airline#extensions#tabline#enabled = 0
+let g:airline_extensions = ["tabline", "coc", "branch"]
+
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+let g:airline_theme="tomorrow"
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline                                            
 let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
 let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)      
@@ -216,6 +431,87 @@ let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers o
 let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline               
 let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers                                                              
 let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
+
+" function! g:BuffetSetCustomColors()
+"   hi! BuffetCurrentBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#00FF00 guifg=#000000
+" endfunction
+"
+" let g:buffet_powerline_separators = 0
+" let g:buffet_tab_icon = "\uf00a"
+" let g:buffet_left_trunc_icon = "\uf0a8"
+" let g:buffet_right_trunc_icon = "\uf0a9"
+
+" function! StatusLine(...)
+"   return crystalline#mode() . crystalline#right_mode_sep('')
+"         \ . ' %f%h%w%m%r ' . crystalline#right_sep('', 'Fill') . '%='
+"         \ . crystalline#left_sep('', 'Fill') . ' %{&ft}[%{&fenc!=#""?&fenc:&enc}][%{&ff}] %l/%L %c%V %P '
+" endfunction
+" let g:crystalline_enable_sep = 1
+" let g:crystalline_statusline_fn = 'StatusLine'
+" let g:crystalline_theme = 'onedark'
+" set laststatus=2
+"
+" set tabline=%!crystalline#bufferline()
+" set showtabline=2
+
+
+" function! StatusLine(current, width)
+"   let l:s = ''
+"
+"   if a:current
+"     let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
+"   else
+"     let l:s .= '%#CrystallineInactive#'
+"   endif
+"   let l:s .= ' %f%h%w%m%r '
+"   if a:current
+"     let l:s .= crystalline#right_sep('', 'Fill') . '%{fugitive#head()}'
+"   endif
+"
+"   let l:s .= '%='
+"   if a:current
+"     let l:s .= crystalline#left_sep('', 'Fill') . ' %{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
+"     let l:s .= crystalline#left_mode_sep('')
+"   endif
+"   if a:width > 80
+"     let l:s .= ' %{&ft}[%{&fenc!=#""?&fenc:&enc}][%{&ff}] %l/%L %c%V %P '
+"   else
+"     let l:s .= ' '
+"   endif
+"
+"   return l:s
+" endfunction
+
+" function! BufferlineParts(buf, max_width) abort
+"   let [l:empty, l:mod, l:left, l:nomod] = crystalline#get_tab_strings()
+"   let l:right = getbufvar(a:buf, '&mod') ? l:mod : l:nomod
+"   let l:name = pathshorten(bufname(a:buf))
+"   let l:short_name = l:name[-a:max_width : ]
+"   if l:short_name ==# ''
+"     let l:short_name = l:empty
+"   endif
+"   return l:name
+" endfunction
+"
+" function! TabLine()
+"   let l:vimlabel = has('nvim') ?  ' NVIM ' : ' VIM '
+"   return crystalline#bufferline(2, len(l:vimlabel), 1, 0, 'BufferlineParts') . '%=%#CrystallineTab# ' . l:vimlabel
+" endfunction
+"
+" let g:crystalline_enable_sep = 0
+" let g:crystalline_statusline_fn = 'StatusLine'
+" let g:crystalline_tabline_fn = 'TabLine'
+" let g:crystalline_theme = 'onedark'
+"
+" set showtabline=2
+" set guioptions-=e
+" set laststatus=2
+
+
+let g:VM_theme = 'codedark'
+let g:VM_leader = ','
+let g:VM_maps = {}
+let g:VM_maps['Motion ,'] = ',,'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Markdown
@@ -231,7 +527,7 @@ endfunction
 
 function! CompileMarkdownTerm()
     if (index(["markdown", "pandoc"], &filetype) >= 0)
-        :FloatermNew "compile-md" "%"
+        :FloatermNew "$HOME/.scripts/compile-md" "%"
     endif
 endfunction
 
@@ -243,7 +539,7 @@ let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 1
 let g:mkdp_open_to_the_world = 0
 function! g:Open_browser(url)
-    silent exec "!google-chrome-stable --app=" . a:url
+    silent exec "!brave --app=" . a:url
 endfunction
 let g:mkdp_browserfunc = 'g:Open_browser'
 
@@ -292,7 +588,163 @@ let g:go_doc_keywordprg_enabled = 0
 " }
 " EOF
 " }}}
+" Lightline: {{{
+function! CocCurrentFunction()"{{{
+  return get(b:, 'coc_current_function', '')
+endfunction"}}}
+function! Devicons_Filetype()"{{{
+  " return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction"}}}
+function! Devicons_Fileformat()"{{{
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction"}}}
+function! Artify_active_tab_num(n) abort"{{{
+  return Artify(a:n, 'bold')." \ue0bb"
+endfunction"}}}
+function! Tab_num(n) abort"{{{
+  return a:n." \ue0bb"
+endfunction"}}}
+function! Gitbranch() abort"{{{
+  if gitbranch#name() !=# ''
+    return gitbranch#name()." \ue725"
+  else
+    return "\ue61b"
+  endif
+endfunction"}}}
+function! Artify_inactive_tab_num(n) abort"{{{
+  return Artify(a:n, 'double_struck')." \ue0bb"
+endfunction"}}}
+function! Artify_lightline_tab_filename(s) abort"{{{
+  return Artify(lightline#tab#filename(a:s), 'monospace')
+endfunction"}}}
+function! Artify_lightline_mode() abort"{{{
+  return Artify(lightline#mode(), 'monospace')
+endfunction"}}}
+function! Artify_line_percent() abort"{{{
+  return Artify(string((100*line('.'))/line('$')), 'bold')
+endfunction"}}}
+function! Artify_line_num() abort"{{{
+  return Artify(string(line('.')), 'bold')
+endfunction"}}}
+function! Artify_col_num() abort"{{{
+  return Artify(string(getcurpos()[2]), 'bold')
+endfunction"}}}
+function! Artify_gitbranch() abort"{{{
+  if gitbranch#name() !=# ''
+    return Artify(gitbranch#name(), 'monospace')." \ue725"
+  else
+    return "\ue61b"
+  endif
+endfunction"}}}
+set laststatus=2  " Basic
+set noshowmode  " Disable show mode info
+augroup lightlineCustom
+  autocmd!
+  autocmd BufWritePost * call lightline_gitdiff#query_git() | call lightline#update()
+augroup END
+let g:lightlineArtify = 0
+let g:lightline = {}
+let g:lightline.separator = { 'left': "\ue0b8", 'right': "\ue0be" }
+let g:lightline.subseparator = { 'left': "\ue0b9", 'right': "\ue0b9" }
+let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
+let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_warnings = "\uf529"
+let g:lightline#ale#indicator_errors = "\uf00d"
+let g:lightline#ale#indicator_ok = "\uf00c"
+let g:lightline_gitdiff#indicator_added = '+'
+let g:lightline_gitdiff#indicator_deleted = '-'
+let g:lightline_gitdiff#indicator_modified = '*'
+let g:lightline_gitdiff#min_winwidth = '70'
+let g:lightline#asyncrun#indicator_none = ''
+let g:lightline#asyncrun#indicator_run = 'Running...'
+let g:lightline.active = {
+    \ 'left': [ [ 'mode', 'paste' ],
+    \           [ 'gitbranch', 'readonly', 'filename', 'modified', 'fileformat', 'devicons_filetype' ] ],
+    \ 'right': [ [ 'lineinfo' ],
+    \            [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'pomodoro' ],
+    \            [ 'asyncrun_status', 'coc_status' ] ]
+    \ }
+let g:lightline.inactive = {
+    \ 'left': [ ['mode', 'paste'], [ 'gitbranch', 'filename' , 'modified', 'fileformat', 'devicons_filetype' ]],
+    \ 'right': [ [ 'lineinfo' ] ]
+    \ }
+let g:lightline.tabline = {
+    \ 'left': [ [ 'vim_logo', 'buffers' ] ],
+    \ 'right': []
+    \ }
+let g:lightline.tab = {
+    \ 'active': [ 'tabnum', 'filename', 'modified' ],
+    \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
+let g:lightline.tab_component = {
+      \ }
+let g:lightline.tab_component_function = {
+      \ 'artify_activetabnum': 'Artify_active_tab_num',
+      \ 'artify_inactivetabnum': 'Artify_inactive_tab_num',
+      \ 'artify_filename': 'Artify_lightline_tab_filename',
+      \ 'filename': 'lightline#tab#filename',
+      \ 'modified': 'lightline#tab#modified',
+      \ 'readonly': 'lightline#tab#readonly',
+      \ 'tabnum': 'Tab_num'
+      \ }
+let g:lightline.component = {
+      \ 'artify_gitbranch' : '%{Artify_gitbranch()}',
+      \ 'artify_mode': '%{Artify_lightline_mode()}',
+      \ 'artify_lineinfo': "%2{Artify_line_percent()}\uf295 %3{Artify_line_num()}:%-2{Artify_col_num()}",
+      \ 'gitstatus' : '%{lightline_gitdiff#get_status()}',
+      \ 'bufinfo': '%{bufname("%")}:%{bufnr("%")}',
+      \ 'vim_logo': "\ue62b",
+      \ 'mode': '%{lightline#mode()}',
+      \ 'absolutepath': '%F',
+      \ 'relativepath': '%f',
+      \ 'filename': '%t',
+      \ 'filesize': "%{HumanSize(line2byte('$') + len(getline('$')))}",
+      \ 'fileencoding': '%{&fenc!=#""?&fenc:&enc}',
+      \ 'fileformat': '%{&fenc!=#""?&fenc:&enc}[%{&ff}]',
+      \ 'filetype': '%{&ft!=#""?&ft:"no ft"}',
+      \ 'modified': '%M',
+      \ 'bufnum': '%n',
+      \ 'paste': '%{&paste?"PASTE":""}',
+      \ 'readonly': '%R',
+      \ 'charvalue': '%b',
+      \ 'charvaluehex': '%B',
+      \ 'percent': '%2p%%',
+      \ 'percentwin': '%P',
+      \ 'spell': '%{&spell?&spelllang:""}',
+      \ 'lineinfo': '%2p%% %3l:%-2v',
+      \ 'line': '%l',
+      \ 'column': '%c',
+      \ 'close': '%999X X ',
+      \ 'winnr': '%{winnr()}'
+      \ }
+let g:lightline.component_function = {
+      \ 'gitbranch': 'Gitbranch',
+      \ 'devicons_filetype': 'Devicons_Filetype',
+      \ 'devicons_fileformat': 'Devicons_Fileformat',
+      \ 'coc_status': 'coc#status'
+      \ }
+let g:lightline.component_expand = {
+      \ 'linter_checking': 'lightline#ale#checking',
+      \ 'linter_warnings': 'lightline#ale#warnings',
+      \ 'linter_errors': 'lightline#ale#errors',
+      \ 'linter_ok': 'lightline#ale#ok',
+      \ 'asyncrun_status': 'lightline#asyncrun#status',
+      \ 'coc_currentfunction': 'CocCurrentFunction',
+      \ 'buffers': 'lightline#bufferline#buffers'
+      \ }
+let g:lightline.component_type = {
+      \ 'linter_warnings': 'warning',
+      \ 'linter_errors': 'error',
+      \ 'buffers': 'tabsel'
+      \ }
+let g:lightline.component_visible_condition = {
+      \ 'gitstatus': 'lightline_gitdiff#get_status() !=# ""'
+      \ }
+let g:lightline.colorscheme = 'onedark'
+" }}}
 " Imports: {{{
 set runtimepath^=/home/johnpyp/code/coc-prisma
-source $HOME/.config/nvim/coc.vim
+" source $HOME/.config/nvim/coc.vim
+" source $HOME/.config/nvim/luamode.vim
 " }}}

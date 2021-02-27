@@ -2,26 +2,22 @@
 {
   # environment.systemPackages = (import ../home/packages.nix {pkgs = pkgs;}).packages;
   environment.systemPackages = with pkgs; [
-    # jdk12
-    # openjdk8
-    # rustup
-    # firefox
-    # libreoffice
-    # nodejs-14_x
-    # p7zip
-    # podman
     acpi
     alacritty
     alsaLib
+    atool
+    awscli2
     bat
-    betterlockscreen
+    betterdiscordctl
     betterlockscreen
     bind
     binutils
     bitwarden
+    bottom
     brave
     caddy
     cargo
+    chromedriver
     chromium
     clang
     clojure
@@ -29,16 +25,17 @@
     compton
     conda
     coursier
-    crystal
     curl
     dbeaver
+    deluge
     deno
     di
     direnv
-    #discord
+    discord
     docker
     docker-compose
     docui
+    dolphin
     dotnet-sdk_3
     dotnetPackages.Nuget
     eclipses.eclipse-java
@@ -51,14 +48,18 @@
     fd
     feh
     ffmpeg-full
+    file
     filezilla
+    fira
     flameshot
     fzf
+    gallery-dl
     gcc
     gimp
     git
     git-lfs
     gitAndTools.hub
+    github-cli
     glib
     glibc
     gn
@@ -70,6 +71,7 @@
     gparted
     gradle
     gtop
+    gzip
     hashcat
     htop
     httpie
@@ -92,6 +94,7 @@
     krita
     ktlint
     lazydocker
+    lazygit
     leiningen
     libmediainfo
     libnotify
@@ -115,49 +118,52 @@
     mypy
     ncdu
     neofetch
-    neovim
     nix-index
     nixpkgs-fmt
-    nodejs-12_x
+    nodejs-14_x
+    nordic
     ntfsprogs
     obs-studio
     okular
     omnisharp-roslyn
     openssl
     optipng
+    p7zip
     pandoc
+    pantheon.elementary-gtk-theme
     papirus-icon-theme
     parted
     patchelf
     pavucontrol
     peek
+    pipenv
     piper
     pkg-config
-    pkg-config
-    #plex-media-player
+    plex-media-player
     pngquant
+    poetry
+    poetry
     polybarFull
+    pop-gtk-theme
     postgresql
+    protontricks
     psensor
-    # qalculate-gtk
-    # qbittorrent
-    # qemu
-    # qpdf
-    # qutebrowser
+    qbittorrent
     ranger
     redis
     redshift
     ripgrep
-    rofi
-    rofi
-    rustc
+    rustup
     rxvt
     sbt
-    shards
+    sccache
     skim
     snapraid
     spotify
+    pass
+    sshfs
     starship
+    steam
     sublime
     sxhkd
     sysstat
@@ -167,22 +173,23 @@
     unrar
     unzip
     vim
+    vimix-gtk-themes
     vlc
     vscode
     watchman
     wget
+    wireguard-tools
     xautolock
     xfce.thunar
-    # xfce4-14.xfce4-notifyd
+    xfce.xfce4-notifyd
     youtube-dl
-    ytop
     zafiro-icons
+    zip
     zlib
     zoom-us
     zsh
     zstd
-    sshfs
-    # brave-nightly
+    xdg_utils
 
 
     (
@@ -198,10 +205,11 @@
             mypy
             numpy
             pandas
+            pynvim
             pygobject3
             pylint
-            pylint
             python-language-server
+            pytorch
             requests
             scipy
             virtualenvwrapper
@@ -210,9 +218,9 @@
     )
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "p7zip-16.02"
-  ];
+  # nixpkgs.config.permittedInsecurePackages = [
+  #   "p7zip-16.02"
+  # ];
   # nixpkgs.overlays = [
   #   (
   #     self: super: {
@@ -230,5 +238,12 @@
   #   )
   #
   # ];
+
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    }))
+  ];
+
   nixpkgs.config.allowUnfree = true;
 }

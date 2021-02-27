@@ -46,15 +46,15 @@ fixed-center = true
 font-0 = "DroidSansMono Nerd Font:size=12"
 font-1 = "DroidSansMono Nerd Font:size=12:bold"
 
-modules-left = i3
+modules-left = i3 music
 modules-center = date time
-modules-right = openvpn-isrunning audio battery brightness updates-arch-combined wired-network wireless-network
+modules-right = audio battery brightness updates-arch-combined wired-network wireless-network
 
 tray-position = ${env:TRAY_POSITION}
-tray-padding = 2
+tray-padding = 3
 tray-detached = false
-tray-maxsize = 24
-tray-background = ${colors.background}
+tray-maxsize = 20
+tray-background = ${colors.BackgroundAlt}
 tray-offset-x = 0
 tray-offset-y = 0
 tray-scale = 1.0
@@ -107,7 +107,7 @@ label-urgent-padding = 2
 type = internal/date
 interval = 5
 format-underline = ${colors.Red}
-date = "%a %m/%d/%Y"
+date = "%a %Y-%m-%d"
 label =  %date%
 
 [module/time]
@@ -115,7 +115,6 @@ type = internal/date
 interval = 5
 format-underline = ${colors.Red}
 time = %I:%M %p
-
 label =  %time%
 
 [module/audio]
@@ -141,7 +140,7 @@ format-disconnected-underline = ${colors.Purple}
 
 [module/wired-network]
 type = internal/network
-interface = enp7s0
+interface = enp8s0
 interval = 3.0
 label-connected =  Wired
 format-connected = <label-connected>

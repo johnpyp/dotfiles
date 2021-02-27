@@ -29,7 +29,7 @@ module.exports = class MessageLoggerV2 {
     return 'MessageLoggerV2';
   }
   getVersion() {
-    return '1.7.61';
+    return '1.7.66';
   }
   getAuthor() {
     return 'Lighty';
@@ -51,105 +51,112 @@ module.exports = class MessageLoggerV2 {
       }
     };
     this.pluginDir = (BdApi.Plugins && BdApi.Plugins.folder) || window.ContentManager.pluginsFolder;
-    this.__isPowerCord = !!window.powercord && ((window.bdConfig && window.bdConfig.dataPath) || '').indexOf('bdCompat') !== -1 && typeof BdApi.__getPluginConfigPath === 'function';
+    this.__isPowerCord = !!window.powercord && typeof BdApi.__getPluginConfigPath === 'function' || typeof global.isTab !== 'undefined';
     let XenoLibOutdated = false;
     let ZeresPluginLibraryOutdated = false;
     if (global.BdApi && BdApi.Plugins && typeof BdApi.Plugins.get === 'function' /* you never know with those retarded client mods */) {
       const versionChecker = (a, b) => ((a = a.split('.').map(a => parseInt(a))), (b = b.split('.').map(a => parseInt(a))), !!(b[0] > a[0])) || !!(b[0] == a[0] && b[1] > a[1]) || !!(b[0] == a[0] && b[1] == a[1] && b[2] > a[2]);
-      const isOutOfDate = (lib, minVersion) => lib && lib._config && lib._config.info && lib._config.info.version && versionChecker(lib._config.info.version, minVersion);
+      const isOutOfDate = (lib, minVersion) => lib && lib._config && lib._config.info && lib._config.info.version && versionChecker(lib._config.info.version, minVersion) || typeof global.isTab !== 'undefined';
       const iXenoLib = BdApi.Plugins.get('XenoLib');
       const iZeresPluginLibrary = BdApi.Plugins.get('ZeresPluginLibrary');
-      if (isOutOfDate(iXenoLib, '1.3.29')) XenoLibOutdated = true;
-      if (isOutOfDate(iZeresPluginLibrary, '1.2.24')) ZeresPluginLibraryOutdated = true;
+      if (isOutOfDate(iXenoLib, '1.3.34')) XenoLibOutdated = true;
+      if (isOutOfDate(iZeresPluginLibrary, '1.2.28')) ZeresPluginLibraryOutdated = true;
     }
 
-    if (!global.XenoLib || !global.ZeresPluginLibrary || XenoLibOutdated || ZeresPluginLibraryOutdated) {
+    if (!global.XenoLib || !global.ZeresPluginLibrary || global.DiscordJS || XenoLibOutdated || ZeresPluginLibraryOutdated) {
       this._XL_PLUGIN = true;
-      const a = BdApi.findModuleByProps('openModal', 'hasModalOpen');
-      if (a && a.hasModalOpen(`${this.getName()}_DEP_MODAL`)) return;
-      const b = !global.XenoLib,
-        c = !global.ZeresPluginLibrary,
-        d = (b && c) || ((b || c) && (XenoLibOutdated || ZeresPluginLibraryOutdated)),
-        e = (() => {
-          let a = '';
-          return b || c ? (a += `Missing${XenoLibOutdated || ZeresPluginLibraryOutdated ? ' and outdated' : ''} `) : (XenoLibOutdated || ZeresPluginLibraryOutdated) && (a += `Outdated `), (a += `${d ? 'Libraries' : 'Library'} `), a;
-        })(),
+      if ("undefined" != typeof global.isTab) return;
+      const a = !!window.powercord && "function" == typeof BdApi.__getPluginConfigPath,
+        b = BdApi.findModuleByProps("openModal", "hasModalOpen");
+      if (b && b.hasModalOpen(`${this.name}_DEP_MODAL`)) return;
+      const c = !global.XenoLib,
+        d = !global.ZeresPluginLibrary,
+        e = c && d || (c || d) && (XenoLibOutdated || ZeresPluginLibraryOutdated),
         f = (() => {
-          let a = `The ${d ? 'libraries' : 'library'} `;
-          return b || XenoLibOutdated ? ((a += 'XenoLib '), (c || ZeresPluginLibraryOutdated) && (a += 'and ZeresPluginLibrary ')) : (c || ZeresPluginLibraryOutdated) && (a += 'ZeresPluginLibrary '), (a += `required for ${this.getName()} ${d ? 'are' : 'is'} ${b || c ? 'missing' : ''}${XenoLibOutdated || ZeresPluginLibraryOutdated ? (b || c ? ' and/or outdated' : 'outdated') : ''}.`), a;
+          let a = "";
+          return c || d ? a += `Missing${XenoLibOutdated || ZeresPluginLibraryOutdated ? " and outdated" : ""} ` : (XenoLibOutdated || ZeresPluginLibraryOutdated) && (a += `Outdated `), a += `${e ? "Libraries" : "Library"} `, a
         })(),
-        g = BdApi.findModuleByDisplayName('Text'),
-        h = BdApi.findModuleByDisplayName('ConfirmModal'),
-        i = () => BdApi.alert(e, BdApi.React.createElement('span', {}, BdApi.React.createElement('div', {}, f), `Due to a slight mishap however, you'll have to download the libraries yourself. This is not intentional, something went wrong, errors are in console.`, c || ZeresPluginLibraryOutdated ? BdApi.React.createElement('div', {}, BdApi.React.createElement('a', { href: 'https://betterdiscord.net/ghdl?id=2252', target: '_blank' }, 'Click here to download ZeresPluginLibrary')) : null, b || XenoLibOutdated ? BdApi.React.createElement('div', {}, BdApi.React.createElement('a', { href: 'https://betterdiscord.net/ghdl?id=3169', target: '_blank' }, 'Click here to download XenoLib')) : null));
-      if (!a || !h || !g) return console.error(`Missing components:${(a ? '' : ' ModalStack') + (h ? '' : ' ConfirmationModalComponent') + (g ? '' : 'TextElement')}`), i();
-      class j extends BdApi.React.PureComponent {
+        g = (() => {
+          let a = `The ${e ? "libraries" : "library"} `;
+          return c || XenoLibOutdated ? (a += "XenoLib ", (d || ZeresPluginLibraryOutdated) && (a += "and ZeresPluginLibrary ")) : (d || ZeresPluginLibraryOutdated) && (a += "ZeresPluginLibrary "), a += `required for ${this.name} ${e ? "are" : "is"} ${c || d ? "missing" : ""}${XenoLibOutdated || ZeresPluginLibraryOutdated ? c || d ? " and/or outdated" : "outdated" : ""}.`, a
+        })(),
+        h = BdApi.findModuleByDisplayName("Text"),
+        i = BdApi.findModuleByDisplayName("ConfirmModal"),
+        j = () => BdApi.alert(f, BdApi.React.createElement("span", {
+          style: {
+            color: "white"
+          }
+        }, BdApi.React.createElement("div", {}, g), `Due to a slight mishap however, you'll have to download the libraries yourself. This is not intentional, something went wrong, errors are in console.`, d || ZeresPluginLibraryOutdated ? BdApi.React.createElement("div", {}, BdApi.React.createElement("a", {
+          href: "https://betterdiscord.net/ghdl?id=2252",
+          target: "_blank"
+        }, "Click here to download ZeresPluginLibrary")) : null, c || XenoLibOutdated ? BdApi.React.createElement("div", {}, BdApi.React.createElement("a", {
+          href: "https://betterdiscord.net/ghdl?id=3169",
+          target: "_blank"
+        }, "Click here to download XenoLib")) : null));
+      if (global.XenoLib && global.ohgodohfuck) return;
+      if (!b || !i || !h) return console.error(`Missing components:${(b ? "" : " ModalStack") + (i ? "" : " ConfirmationModalComponent") + (h ? "" : "TextElement")}`), j();
+      class k extends BdApi.React.PureComponent {
         constructor(a) {
-          super(a), (this.state = { hasError: !1 }), (this.componentDidCatch = a => (console.error(`Error in ${this.props.label}, screenshot or copy paste the error above to Lighty for help.`), this.setState({ hasError: !0 }), 'function' == typeof this.props.onError && this.props.onError(a))), (this.render = () => (this.state.hasError ? null : this.props.children));
+          super(a), this.state = {
+            hasError: !1
+          }, this.componentDidCatch = a => (console.error(`Error in ${this.props.label}, screenshot or copy paste the error above to Lighty for help.`), this.setState({
+            hasError: !0
+          }), "function" == typeof this.props.onError && this.props.onError(a)), this.render = () => this.state.hasError ? null : this.props.children
         }
       }
-      let k = !1,
-        l = !1;
-      const m = a.openModal(
-        b => {
-          if (l) return null;
-          try {
-            return BdApi.React.createElement(
-              j,
-              { label: 'missing dependency modal', onError: () => (a.closeModal(m), i()) },
-              BdApi.React.createElement(
-                h,
-                Object.assign(
-                  {
-                    header: e,
-                    children: BdApi.React.createElement(g, { size: g.Sizes.SIZE_16, children: [`${f} Please click Download Now to download ${d ? 'them' : 'it'}.`] }),
-                    red: !1,
-                    confirmText: 'Download Now',
-                    cancelText: 'Cancel',
-                    onCancel: b.onClose,
-                    onConfirm: () => {
-                      if (k) return;
-                      k = !0;
-                      const b = require('request'),
-                        c = require('fs'),
-                        d = require('path'),
-                        e = BdApi.Plugins && BdApi.Plugins.folder ? BdApi.Plugins.folder : window.ContentManager.pluginsFolder,
-                        f = () => {
-                          (global.XenoLib && !XenoLibOutdated) ||
-                            b('https://raw.githubusercontent.com/1Lighty/BetterDiscordPlugins/master/Plugins/1XenoLib.plugin.js', (b, f, g) => {
-                              try {
-                                if (b || 200 !== f.statusCode) return a.closeModal(m), i();
-                                c.writeFile(d.join(e, '1XenoLib.plugin.js'), g, () => {
-                                  if (BdApi.isSettingEnabled('fork-ps-5') && !this.__isPowerCord) return;
-                                  BdApi.Plugins.reload(this.getName());
-                                });
-                              } catch (b) {
-                                console.error('Fatal error downloading XenoLib', b), a.closeModal(m), i();
-                              }
-                            });
-                        };
-                      !global.ZeresPluginLibrary || ZeresPluginLibraryOutdated
-                        ? b('https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js', (b, g, h) => {
-                          try {
-                            if (b || 200 !== g.statusCode) return a.closeModal(m), i();
-                            c.writeFile(d.join(e, '0PluginLibrary.plugin.js'), h, () => { }), f();
-                          } catch (b) {
-                            console.error('Fatal error downloading ZeresPluginLibrary', b), a.closeModal(m), i();
-                          }
-                        })
-                        : f();
-                    }
-                  },
-                  b,
-                  { onClose: () => { } }
-                )
-              )
-            );
-          } catch (b) {
-            return console.error('There has been an error constructing the modal', b), (l = !0), a.closeModal(m), i(), null;
-          }
-        },
-        { modalKey: `${this.getName()}_DEP_MODAL` }
-      );
+      let l = !!global.DiscordJS,
+        m = !1;
+      const n = b.openModal(c => {
+        if (m) return null;
+        try {
+          return BdApi.React.createElement(k, {
+            label: "missing dependency modal",
+            onError: () => (b.closeModal(n), j())
+          }, BdApi.React.createElement(i, Object.assign({
+            header: f,
+            children: BdApi.React.createElement(h, {
+              size: h.Sizes.SIZE_16,
+              children: [`${g} Please click Download Now to download ${e ? "them" : "it"}.`]
+            }),
+            red: !1,
+            confirmText: "Download Now",
+            cancelText: "Cancel",
+            onCancel: c.onClose,
+            onConfirm: () => {
+              if (l) return;
+              l = !0;
+              const c = require("request"),
+                d = require("fs"),
+                e = require("path"),
+                f = BdApi.Plugins && BdApi.Plugins.folder ? BdApi.Plugins.folder : window.ContentManager.pluginsFolder,
+                g = () => global.XenoLib && !XenoLibOutdated ? (BdApi.isSettingEnabled("fork-ps-5") || BdApi.isSettingEnabled("autoReload")) && !a ? void 0 : void BdApi.showToast("Reload to load the libraries and plugin!") : void c("https://raw.githubusercontent.com/1Lighty/BetterDiscordPlugins/master/Plugins/1XenoLib.plugin.js", (c, g, h) => {
+                  try {
+                    if (c || 200 !== g.statusCode) return b.closeModal(n), j();
+                    d.writeFile(e.join(f, "1XenoLib.plugin.js"), h, () => {
+                      (BdApi.isSettingEnabled("fork-ps-5") || BdApi.isSettingEnabled("autoReload")) && !a || BdApi.showToast("Reload to load the libraries and plugin!")
+                    })
+                  } catch (a) {
+                    console.error("Fatal error downloading XenoLib", a), b.closeModal(n), j()
+                  }
+                });
+              !global.ZeresPluginLibrary || ZeresPluginLibraryOutdated ? c("https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js", (a, c, h) => {
+                try {
+                  if (a || 200 !== c.statusCode) return b.closeModal(n), j();
+                  d.writeFile(e.join(f, "0PluginLibrary.plugin.js"), h, () => { }), g()
+                } catch (a) {
+                  console.error("Fatal error downloading ZeresPluginLibrary", a), b.closeModal(n), j()
+                }
+              }) : g()
+            }
+          }, c, {
+            onClose: () => { }
+          })))
+        } catch (a) {
+          return console.error("There has been an error constructing the modal", a), m = !0, b.closeModal(n), j(), null
+        }
+      }, {
+        modalKey: `${this.name}_DEP_MODAL`
+      });
     } else onLoaded();
   }
   stop() {
@@ -162,9 +169,9 @@ module.exports = class MessageLoggerV2 {
   getChanges() {
     return [
       {
-        title: 'fixed',
+        title: 'Sorry',
         type: 'fixed',
-        items: ['Fixed plugin not working from the great canary update plugin massacre.']
+        items: ['Temporarily incapacitate the logger for Powercord until further fixes have been applied.']
       }
     ];
   }
@@ -279,19 +286,14 @@ module.exports = class MessageLoggerV2 {
     //   settingsChanged = true;
     // }
 
-    if (!this.settings.obfuscateCSSClasses && BdApi.Themes && BdApi.Themes.getAll().some(theme => typeof theme.author === 'string' && theme.author.toLowerCase().indexOf('nfld99') !== -1 && BdApi.Themes.isEnabled(theme.name))) {
-      XenoLib.Notifications.warning(`[${this.getName()}] Obfuscate CSS classes has been forcefulyl turned on due to untrusted theme.`, { timeout: 0 });
-      this.settings.obfuscateCSSClasses = true;
-      settingsChanged = true;
-    }
-
     if (this.settings.autoUpdate) {
       if (this._autoUpdateInterval) clearInterval(this._autoUpdateInterval);
       this._autoUpdateInterval = setInterval(_ => this.automaticallyUpdate(), 1000 * 60 * 60); // 1 hour
       this.automaticallyUpdate();
     }
+    if (this.__isPowerCord && !window.Untitled) return;
     if (this.settings.versionInfo !== this.getVersion() && this.settings.displayUpdateNotes) {
-      XenoLib.showChangelog(`${this.getName()} has been updated!`, this.getVersion(), this.getChanges());
+      // XenoLib.showChangelog(`${this.getName()} has been updated!`, this.getVersion(), this.getChanges());
       this.settings.versionInfo = this.getVersion();
       this.saveSettings();
       settingsChanged = false;
@@ -349,6 +351,7 @@ module.exports = class MessageLoggerV2 {
     ZeresPluginLibrary.Logger.info(this.getName(), `Data file size is ${dataFileSize.toFixed(2)}MB`);
     if (this.slowSaveModeStep) ZeresPluginLibrary.Logger.warn(this.getName(), 'Data file is too large, severity level', this.slowSaveModeStep);
 */
+    this.ChannelStore = ZeresPluginLibrary.WebpackModules.getByProps('getChannel', 'getDMFromUserId');
     if (!this.settings.dontSaveData) {
       const records = data.messageRecord;
       // data structure changed a wee bit, compensate instead of deleting user data or worse, erroring out
@@ -368,7 +371,7 @@ module.exports = class MessageLoggerV2 {
           }
           delete record.editHistory;
         }
-        this.fixEmbeds(record.message);
+        record.message = this.cleanupMessageObject(record.message); // fix up our past mistakes by sweeping it under the rug!
       }
     }
 
@@ -470,7 +473,6 @@ module.exports = class MessageLoggerV2 {
     );
 
     const mentionedModule = ZeresPluginLibrary.WebpackModules.find(m => typeof m.isMentioned === 'function');
-    this.ChannelStore = ZeresPluginLibrary.WebpackModules.getByProps('getChannel', 'getDMFromUserId');
     this.currentChannel = _ => {
       const channel = this.ChannelStore.getChannel(ZeresPluginLibrary.DiscordModules.SelectedChannelStore.getChannelId());
       return channel ? ZeresPluginLibrary.Structs.Channel.from(channel) : null;
@@ -488,17 +490,14 @@ module.exports = class MessageLoggerV2 {
       getUserAsync: ZeresPluginLibrary.WebpackModules.getByProps('getUser', 'acceptAgreements').getUser,
       isBlocked: ZeresPluginLibrary.WebpackModules.getByProps('isBlocked').isBlocked,
       createMomentObject: ZeresPluginLibrary.WebpackModules.getByProps('createFromInputFallback'),
-      isMentioned:
-        mentionedModule.isMentioned.length > 4
-          ? (e, id) =>
-            mentionedModule.isMentioned(
-              id,
-              e.channel_id,
-              e.mentionEveryone || e.mention_everyone,
-              e.mentions.map(e => e.id || e),
-              e.mentionRoles || e.mention_roles
-            )
-          : mentionedModule.isMentioned,
+      isMentioned: (e, id) =>
+        mentionedModule.isMentioned(
+          id,
+          e.channel_id,
+          e.mentionEveryone || e.mention_everyone,
+          e.mentions.map(e => e.id || e),
+          e.mentionRoles || e.mention_roles
+        ),
       DiscordUtils: ZeresPluginLibrary.WebpackModules.getByProps('bindAll', 'debounce')
     };
 
@@ -713,6 +712,10 @@ module.exports = class MessageLoggerV2 {
                     color: rgba(0, 0, 0, 0.4);
                 }
 
+                #sent.${this.style.tab} {
+                  display: none;
+                }
+
                 .theme-dark  .${this.style.tabSelected} {
                     border-color: rgb(255, 255, 255);
                     color: rgb(255, 255, 255);
@@ -883,7 +886,7 @@ module.exports = class MessageLoggerV2 {
 
     if (!(this.settings.flags & Flags.STARTUP_HELP)) {
       this.settings.flags |= Flags.STARTUP_HELP;
-      this.showLoggerHelpModal();
+      this.showLoggerHelpModal(true);
       this.saveSettings();
     }
 
@@ -1025,31 +1028,8 @@ module.exports = class MessageLoggerV2 {
     }
   }
   buildSetting(data) {
-    // copied from ZLib actually
-    const { name, note, type, value, onChange, id } = data;
-    let setting = null;
-    if (type == 'color') {
-      setting = new ZeresPluginLibrary.Settings.ColorPicker(name, note, value, onChange, { disabled: data.disabled }); // DOESN'T WORK, REEEEEEEEEE
-    } else if (type === 'dropdown') {
-      setting = new ZeresPluginLibrary.Settings.Dropdown(name, note, value, data.options, onChange);
-    } else if (type === 'file') {
-      setting = new ZeresPluginLibrary.Settings.FilePicker(name, note, onChange);
-    } else if (type === 'keybind') {
-      setting = new ZeresPluginLibrary.Settings.Keybind(name, note, value, onChange);
-    } else if (type === 'radio') {
-      setting = new ZeresPluginLibrary.Settings.RadioGroup(name, note, value, data.options, onChange, { disabled: data.disabled });
-    } else if (type === 'slider') {
-      const options = {};
-      if (typeof data.markers != 'undefined') options.markers = data.markers;
-      if (typeof data.stickToMarkers != 'undefined') options.stickToMarkers = data.stickToMarkers;
-      setting = new ZeresPluginLibrary.Settings.Slider(name, note, data.min, data.max, value, onChange, options);
-    } else if (type === 'switch') {
-      setting = new ZeresPluginLibrary.Settings.Switch(name, note, value, onChange, { disabled: data.disabled });
-    } else if (type === 'textbox') {
-      setting = new ZeresPluginLibrary.Settings.Textbox(name, note, value, onChange, { placeholder: data.placeholder || '' });
-    } else if (type === 'path') {
-      setting = new XenoLib.Settings.FilePicker(name, note, value, onChange, { properties: ['openDirectory', 'createDirectory'], placeholder: 'Path to folder', defaultPath: this.pluginDir + '/MLV2_IMAGE_CACHE', saveOnEnter: true });
-    }
+    const { id } = data;
+    const setting = XenoLib.buildSetting(data);
     if (id) setting.getElement().id = this.obfuscatedClass(id);
     return setting;
   }
@@ -1752,48 +1732,42 @@ module.exports = class MessageLoggerV2 {
       public_flags: typeof user.publicFlags !== 'undefined' ? user.publicFlags : user.public_flags
     };
   }
+  cleanupMessageObject(message) {
+    const ret = {
+      mention_everyone: typeof message.mention_everyone !== 'boolean' ? typeof message.mentionEveryone !== 'boolean' ? false : message.mentionEveryone : message.mention_everyone,
+      edited_timestamp: message.edited_timestamp || message.editedTimestamp && new Date(message.editedTimestamp).getTime() || null,
+      attachments: message.attachments || [],
+      channel_id: message.channel_id,
+      reactions: (message.reactions || []).map(e => (!e.emoji.animated && delete e.emoji.animated, !e.me && delete e.me, e)),
+      guild_id: message.guild_id || (this.ChannelStore.getChannel(message.channel_id) ? this.ChannelStore.getChannel(message.channel_id).guild_id : undefined),
+      content: global.ohgodohfuck ? '' : message.content,
+      type: message.type,
+      embeds: message.embeds || [],
+      author: this.cleanupUserObject(message.author),
+      mentions: (message.mentions || []).map(e => (typeof e === 'string' ? ZeresPluginLibrary.DiscordModules.UserStore.getUser(e) ? this.cleanupUserObject(ZeresPluginLibrary.DiscordModules.UserStore.getUser(e)) : e : this.cleanupUserObject(e))),
+      mention_roles: message.mention_roles || message.mentionRoles || [],
+      id: message.id,
+      flags: message.flags,
+      timestamp: new Date(message.timestamp).getTime(),
+      referenced_message: null
+    };
+    if (ret.type === 19) {
+      ret.message_reference = message.message_reference || message.messageReference;
+      if (ret.message_reference) {
+        if (message.referenced_message) {
+          ret.referenced_message = this.cleanupMessageObject(message.referenced_message);
+        } else if (ZeresPluginLibrary.DiscordModules.MessageStore.getMessage(ret.message_reference.channel_id, ret.message_reference.message_id)) {
+          ret.referenced_message = this.cleanupMessageObject(ZeresPluginLibrary.DiscordModules.MessageStore.getMessage(ret.message_reference.channel_id, ret.message_reference.message_id));
+        }
+      }
+    }
+    this.fixEmbeds(ret);
+    return ret;
+  }
   createMiniFormattedData(message) {
     message = XenoLib.DiscordUtils.cloneDeep(message);
-    let internalMessage = this.tools.getMessage(message.channel_id, message.id);
-    let reactions = internalMessage ? internalMessage.reactions : [];
-    let guildId = null;
-    /* let guild = null; */
-    /* const author = this.tools.getUser(message.author.id); */
-    const channel = this.tools.getChannel(message.channel_id);
-    if (channel) guildId = channel.guild_id;
-    /* if (guildId) guild = this.tools.getServer(guildId); */
     const obj = {
-      message: {
-        author: {
-          discriminator: message.author.discriminator,
-          username: message.author.username,
-          avatar: message.author.avatar,
-          id: message.author.id,
-          bot: internalMessage && internalMessage.author && internalMessage.author.bot // TODO: is bot checking in menu
-        },
-        /* channel_name: (channel && channel.name) || 'unknown-channel',
-                    guild_name: (guild && guild.name) || 'unknown-guild', */
-        mention_everyone: message.mention_everyone,
-        edited_timestamp: message.edited_timestamp,
-        mention_roles: message.mention_roles,
-        attachments: message.attachments,
-        channel_id: message.channel_id,
-        timestamp: message.timestamp,
-        mentions: message.mentions.map(e => {
-          if (typeof e !== 'string') return e;
-          const iUser = this.tools.getUser(e);
-          if (!iUser) return e;
-          return this.cleanupUserObject(iUser);
-        }),
-        content: message.content,
-        pinned: message.pinned,
-        embeds: message.embeds.map(this.cleanupEmbed),
-        reactions: reactions,
-        type: message.type,
-        guild_id: guildId,
-        tts: message.tts,
-        id: message.id
-      },
+      message: this.cleanupMessageObject(message), // works!
       local_mentioned: this.tools.isMentioned(message, this.localUser.id),
       /* ghost_pinged: false, */
       delete_data: null /*  {
@@ -2232,8 +2206,8 @@ module.exports = class MessageLoggerV2 {
     const guild = this.tools.getServer(guildId);
     const channel = this.tools.getChannel(channelId); // todo
     /* if (typeof guildNameBackup !== 'number' && guild && guildNameBackup)  */ if (guildId) {
-      const channelName = channel ? channel.name : 'unknown-channel';
-      const guildName = guild ? guild.name : 'unknown-server';
+      const channelName = (channel ? channel.name : 'unknown-channel');
+      const guildName = (guild ? guild.name : 'unknown-server');
       if (useTags && channel) return `${guildName}, <#${channel.id}>`;
       return `${guildName}, #${channelName}`;
     } else if (channel && channel.name.length) {
@@ -2391,15 +2365,22 @@ module.exports = class MessageLoggerV2 {
           }
         }
       };
-      const checkIsInRecords = (channelId, messageId) => {
-        for (let map of [this.deletedMessageRecord, this.editedMessageRecord, this.purgedMessageRecord]) if (map[channelId] && map[channelId].findIndex(m => m === messageId) != -1) return true;
-        return false;
-      };
-
       for (let map of [this.deletedMessageRecord, this.editedMessageRecord, this.purgedMessageRecord]) handleInvalidEntries(map);
-      for (let messageId in this.messageRecord) {
-        if (!checkIsInRecords(this.messageRecord[messageId].message.channel_id, messageId)) delete this.messageRecord[messageId];
-      }
+      // I have no idea how to optimize this, HELP!
+      //const checkIsInRecords = (channelId, messageId) => {
+      //  // for (let map of [this.deletedMessageRecord, this.editedMessageRecord, this.purgedMessageRecord]) if (map[channelId] && map[channelId].indexOf(messageId) !== -1) return true;
+      //  let map = this.deletedMessageRecord[channelId];
+      //  if (map && map.indexOf(messageId) !== -1) return true;
+      //  map = this.editedMessageRecord[channelId];
+      //  if (map && map.indexOf(messageId) !== -1) return true;
+      //  map = this.purgedMessageRecord[channelId];
+      //  if (map && map.indexOf(messageId) !== -1) return true;
+      //  return false;
+      //};
+
+      //for (const messageId in this.messageRecord) {
+      //  if (!checkIsInRecords(this.messageRecord[messageId].message.channel_id, messageId)) {/*  delete this.messageRecord[messageId]; */ }
+      //}
       let deletedMessages = extractAllMessageIds(this.deletedMessageRecord);
       let editedMessages = extractAllMessageIds(this.editedMessageRecord);
       let purgedMessages = extractAllMessageIds(this.purgedMessageRecord);
@@ -2408,23 +2389,22 @@ module.exports = class MessageLoggerV2 {
       if (!this.settings.cacheAllImages) return;
       if (!this.settings.dontDeleteCachedImages) {
         const savedImages = this.nodeModules.fs.readdirSync(this.settings.imageCacheDir);
+        const msgs = Object.values(this.messageRecord)
+          .filter(e => e.delete_data)
+          .map(({ message: { attachments } }) => attachments)
+          .filter(e => e.length);
         for (let img of savedImages) {
-          if (img.indexOf('ImageCache.config.json') !== -1) continue;
-          const attId = img.match(/(\d*).[a-z]+/i)[1];
+          const [attId] = img.split('.');
+          if (isNaN(attId)) continue;
           let found = false;
-          for (const msgId in this.messageRecord) {
-            const message = this.messageRecord[msgId];
-            if (message.message.attachments.findIndex(m => m.id === attId) !== -1) {
+          for (let i = 0, len = msgs.length; i < len; i++) {
+            if (msgs[i].findIndex(({ id }) => id === attId) !== -1) {
               found = true;
               break;
             }
           }
           if (found) continue;
-          try {
-            this.nodeModules.fs.unlinkSync(`${this.settings.imageCacheDir}/${img}`);
-          } catch (e) {
-            ZeresPluginLibrary.Logger.err(this.getName(), 'Error deleting unreferenced image, what the shit', e);
-          }
+          this.nodeModules.fs.unlink(`${this.settings.imageCacheDir}/${img}`, e => e && ZeresPluginLibrary.Logger.err(this.getName(), 'Error deleting unreferenced image, what the shit', e));
         }
       }
       // 10 minutes
@@ -2460,7 +2440,7 @@ module.exports = class MessageLoggerV2 {
 
       // console.log('INFO: onDispatchEvent -> dispatch', dispatch);
 
-      if (dispatch.message && dispatch.message.type) return callDefault(...args); // anti other shit 1
+      if (dispatch.message && (dispatch.message.type !== 0 && dispatch.message.type !== 19)) return callDefault(...args); // anti other shit 1
 
       const channel = this.tools.getChannel(dispatch.message ? dispatch.message.channel_id : dispatch.channelId);
       if (!channel) return callDefault(...args);
@@ -2525,7 +2505,7 @@ module.exports = class MessageLoggerV2 {
       if (doReturn && this.settings.alwaysLogGhostPings) {
         if (dispatch.type === 'MESSAGE_DELETE') {
           const deleted = (this.tempEditedMessageRecord[dispatch.id] && this.tempEditedMessageRecord[dispatch.id].message) || this.getCachedMessage(dispatch.id, dispatch.channelId);
-          if (!deleted || deleted.type) return callDefault(...args); // nothing we can do past this point..
+          if (!deleted || (deleted.type !== 0 && deleted.type !== 19)) return callDefault(...args); // nothing we can do past this point..
           if (!this.tools.isMentioned(deleted, this.localUser.id)) return callDefault(...args);
           const record = this.messageRecord[dispatch.id];
           if ((!this.selectedChannel || this.selectedChannel.id != channel.id) && (guild ? this.settings.toastToggles.ghostPings : this.settings.toastTogglesDMs.ghostPings) && (!record || !record.ghost_pinged)) {
@@ -2544,8 +2524,10 @@ module.exports = class MessageLoggerV2 {
           if (this.currentChannel() && this.currentChannel().id === dispatch.channelId) ZeresPluginLibrary.DiscordModules.Dispatcher.dispatch({ type: 'MLV2_FORCE_UPDATE_MESSAGE', id: dispatch.id });
         } else if (dispatch.type === 'MESSAGE_UPDATE') {
           if (!dispatch.message.edited_timestamp) {
-            let last = this.getCachedMessage(dispatch.message.id);
-            if (last) last.embeds = dispatch.message.embeds.map(this.cleanupEmbed);
+            if (dispatch.message.embeds) {
+              let last = this.getCachedMessage(dispatch.message.id);
+              if (last) last.embeds = dispatch.message.embeds.map(this.cleanupEmbed);
+            }
             return callDefault(...args);
           }
           let isSaved = this.getEditedMessage(dispatch.message.id, channel.id);
@@ -2612,7 +2594,7 @@ module.exports = class MessageLoggerV2 {
               });
             }
           }
-        } else if (dispatch.type == 'MESSAGE_CREATE' && dispatch.message && (dispatch.message.content.length || (dispatch.attachments && dispatch.attachments.length) || (dispatch.embeds && dispatch.embeds.length)) && dispatch.message.state != 'SENDING' && !dispatch.optimistic && !dispatch.message.type && this.tools.isMentioned(dispatch.message, this.localUser.id)) {
+        } else if (dispatch.type == 'MESSAGE_CREATE' && dispatch.message && (dispatch.message.content.length || (dispatch.attachments && dispatch.attachments.length) || (dispatch.embeds && dispatch.embeds.length)) && dispatch.message.state != 'SENDING' && !dispatch.optimistic && (dispatch.message.type === 0 || dispatch.message.type === 19) && this.tools.isMentioned(dispatch.message, this.localUser.id)) {
           if (this.cachedMessageRecord.findIndex(m => m.id === dispatch.message.id) != -1) return callDefault(...args);
           this.cachedMessageRecord.push(dispatch.message);
         }
@@ -2664,7 +2646,7 @@ module.exports = class MessageLoggerV2 {
           return;
         }
 
-        if (deleted.type) return callDefault(...args);
+        if (deleted.type !== 0 && deleted.type !== 19) return callDefault(...args);
 
         if (this.settings.showDeletedCount) {
           if (!this.deletedChatMessagesCount[channel.id]) this.deletedChatMessagesCount[channel.id] = 0;
@@ -2755,8 +2737,10 @@ module.exports = class MessageLoggerV2 {
         this.saveData();
       } else if (dispatch.type == 'MESSAGE_UPDATE') {
         if (!dispatch.message.edited_timestamp) {
-          let last = this.getCachedMessage(dispatch.message.id);
-          if (last) last.embeds = dispatch.message.embeds.map(this.cleanupEmbed);
+          if (dispatch.message.embeds) {
+            let last = this.getCachedMessage(dispatch.message.id);
+            if (last) last.embeds = dispatch.message.embeds.map(this.cleanupEmbed);
+          }
           return callDefault(...args);
         }
 
@@ -2871,7 +2855,7 @@ module.exports = class MessageLoggerV2 {
         }
         this.saveData();
         return callDefault(...args);
-      } else if (dispatch.type == 'MESSAGE_CREATE' && dispatch.message && (dispatch.message.content.length || (dispatch.attachments && dispatch.attachments.length) || (dispatch.embeds && dispatch.embeds.length)) && dispatch.message.state != 'SENDING' && !dispatch.optimistic && !dispatch.message.type) {
+      } else if (dispatch.type == 'MESSAGE_CREATE' && dispatch.message && (dispatch.message.content.length || (dispatch.attachments && dispatch.attachments.length) || (dispatch.embeds && dispatch.embeds.length)) && !global.ohgodohfuck && dispatch.message.state != 'SENDING' && !dispatch.optimistic && (dispatch.message.type === 0 || dispatch.message.type === 19)) {
         if (this.cachedMessageRecord.findIndex(m => m.id === dispatch.message.id) != -1) return callDefault(...args);
         this.cachedMessageRecord.push(dispatch.message);
 
@@ -3173,6 +3157,7 @@ module.exports = class MessageLoggerV2 {
 
     details += `at ${this.createTimeStamp(timestamp, true)}`;
 
+    details = details.replace(/[<>"&]/g, c => ({ "<": "&lt;", ">": "&gt;", "\"": "&quot;", "&": "&amp;" })[c]);
     const classes = this.createMessageGroup.classes;
     const getAvatarOf = user => {
       if (!user.avatar) return '/assets/322c936a8c8be1b803cd94861bdfa868.png';
@@ -3198,7 +3183,7 @@ module.exports = class MessageLoggerV2 {
     const element = isStart
       ? this.parseHTML(`<div class="${classes.extra[0]}">
                                       <div class="${classes.extra[12]}">
-                                        <img src="${getAvatarOf(message.author)}" class="${classes.extra[3]}" alt=" "><h2 class="${classes.extra[2]}"><span class="${classes.extra[4]}" role="button">${message.author.username}</span>${(isBot && `<span class="${classes.botTag}">BOT</span>`) || ''}<span class="${classes.extra[5]}"><span >${details}</span></span></h2>
+                                        <img src="${getAvatarOf(message.author)}" class="${classes.extra[3]}" alt=" "><h2 class="${classes.extra[2]}"><span class="${classes.extra[4]}" role="button">${message.author.username.replace(/[<>"]/g, c => ({ "<": "&lt;", ">": "&gt;", "\"": "&quot;" })[c])}</span>${(isBot && `<span class="${classes.botTag}">BOT</span>`) || ''}<span class="${classes.extra[5]}"><span >${details}</span></span></h2>
                                         <div class="${classes.extra[6]}"></div>
                                       </div>
                                       <div class="${classes.extra[7]}"></div>

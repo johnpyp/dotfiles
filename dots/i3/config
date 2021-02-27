@@ -22,12 +22,12 @@ bindsym $mod+Shift+bracketleft move workspace to output left
 
 mode "lock-exit-off-suspend-hibernate-reboot-Shutdown" {
     bindsym l exec --no-startup-id betterlockscreen -l dimblur, mode "default"
-    bindsym o exec --no-startup-id $HOME/dotfiles/scripts/i3exit screensoff, mode "default"
-    bindsym s exec --no-startup-id $HOME/dotfiles/scripts/i3exit suspend, mode "default"
-    bindsym e exec --no-startup-id $HOME/dotfiles/scripts/i3exit logout, mode "default"
-    bindsym h exec --no-startup-id $HOME/dotfiles/scripts/i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id $HOME/dotfiles/scripts/i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id $HOME/dotfiles/scripts/i3exit shutdown, mode "default"
+    bindsym o exec --no-startup-id $HOME/.scripts/i3exit screensoff, mode "default"
+    bindsym s exec --no-startup-id $HOME/.scripts/i3exit suspend, mode "default"
+    bindsym e exec --no-startup-id $HOME/.scripts/i3exit logout, mode "default"
+    bindsym h exec --no-startup-id $HOME/.scripts/i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id $HOME/.scripts/i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id $HOME/.scripts/i3exit shutdown, mode "default"
 
     # exit system mode: "Enter" or "Escape"
     bindsym Return mode "default"
@@ -82,12 +82,15 @@ font xft:FiraSans 11
 floating_modifier $mod
 
 exec "kitty"
-exec --no-startup-id "$HOME/.scripts/startup.sh"
+exec --no-startup-id "$HOME/.scripts/flat-mice"
+exec --no-startup-id "xset r rate 200 100"
+exec --no-startup-id "xmodmap ~/.Xmodmap"
+exec --no-startup-id "setxkbmap -option 'caps:escape, altwin:swap_alt_win' -layout us"
 exec --no-startup-id "$HOME/.config/polybar/launch.sh"
 exec --no-startup-id "feh --bg-fill $HOME/dotfiles/wallpapers/current.png"
+exec --no-startup-id "sxhkd &"
 exec --no-startup-id "nm-applet &"
-exec --no-startup-id "sxhkd c $HOME/.config/sxhkd/i3.sxhkdrc"
-exec --no-startup-id "redshift-gtk"
-exec --no-startup-id "/usr/lib/xfce4/notifyd/xfce4-notifyd &"
+exec --no-startup-id "redshift-gtk &"
 exec --no-startup-id "picom -b"
+exec --no-startup-id "/usr/lib/xfce4/notifyd/xfce4-notifyd &"
 # exec --no-startup-id "xautolock -time 30 -locker 'betterlockscreen -l dimblur'"

@@ -8,13 +8,16 @@ truncate_to_repo = false
 truncation_length = 8
 
 [git_branch]
-disabled = true
+disabled = false
 
 [git_commit]
-disabled = true
+disabled = false
 
 [git_state]
-disabled = true
+disabled = false
 
 [git_status]
+disabled = false
+
+[gcloud]
 disabled = true

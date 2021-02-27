@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 SEARCH="pointer"
 if [ "$SEARCH" = "" ]; then
     exit 1

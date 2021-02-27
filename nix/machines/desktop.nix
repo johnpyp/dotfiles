@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
+    <nix-ld/modules/nix-ld.nix>
     ../modules/boot-efi.nix
     ../modules/general.nix
     ../modules/gui.nix
@@ -10,43 +11,40 @@
     ../modules/ssh.nix
     ../modules/users.nix
     ../modules/system-monitoring.nix
+    ../modules/home-manager.nix
     # ../modules/wireguard.nix
   ];
   # Machine specific networking
   networking.hostName = "johnpyp-nixos-desktop";
-  networking.interfaces.enp7s0.useDHCP = true;
+  networking.interfaces.enp8s0.useDHCP = true;
 
   time.timeZone = "America/New_York";
 
   # Firewall, for plex
   networking.firewall.enable = false;
+  services.lorri.enable = true;
+  # hardware.nvidia.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = ["nvidia"];
+    xrandrHeads = [
+      { output = "DP-3"; }
+      { output = "DP-2"; primary = true; }
+      { output = "HDMI-0"; }
+    ];
     screenSection =
       ''
-        Option         "metamodes" "DVI-D-0: 1920x1080_144 +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, HDMI-0: nvidia-auto-select +3840+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, HDMI-1: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+    Option         "metamodes" "HDMI-0: nvidia-auto-select +3840+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-2: 1920x1080_144 +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, HDMI-1: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
       '';
-    xrandrHeads = [
-      { output = "HDMI-0"; }
-      { output = "DVI-D-0"; primary = true; }
-      { output = "HDMI-1"; }
-    ];
   };
-  # networking.wg-quick.interfaces.wg0 = {
-  #   preUp = "${pkgs.nettools}/bin/route add -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
-  #   postDown = "${pkgs.nettools}/bin/route del -host $(${pkgs.curl}/bin/curl -s https://ipecho.net/plain) gw 192.168.1.1";
-  # };
 
-  # nix = {
-  #   package = pkgs.nixFlakes;
-  #   extraOptions = pkgs.lib.optionalString
-  #     (config.nix.package == pkgs.nixFlakes)
-  #     "experimental-features = nix-command flakes";
-  # };
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
-  hardware.pulseaudio.support32Bit = true;
+
   hardware.openrazer.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+  # hardware.openrazer.enable = true;
   boot.kernelPackages = pkgs.linuxPackages;
+  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
   system.stateVersion = "20.09";
 }

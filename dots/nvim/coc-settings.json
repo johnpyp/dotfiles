@@ -22,40 +22,71 @@
     "vim",
     "vue",
     "xml",
-    "yaml"
+    "yaml",
+    "cpp",
+    "csharp",
+    "cs",
+    "c"
   ],
+
+  "omnisharp.path": "omnisharp",
+  "languageserver": {
+    "kotlin": {
+      "command": "~/lsp/kotlin-language-server/server/bin/kotlin-language-server",
+      "filetypes": ["kotlin"]
+    }
+  },
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextPrefix": "> ",
   "diagnostic.refreshOnInsertMode": true,
+  "coc.preferences.colorSupport": true,
   "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.rootPatterns": ["package.json"],
   "suggest.echodocSupport": false,
   "suggest.autoTrigger": "always",
   "codeLens.enable": false,
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets/user",
+
   // Rust
   "rust-analyzer.inlayHints.chainingHints": false,
   "rust-analyzer.cargo.allFeatures": true,
   "rust-analyzer.cargo.autoreload": true,
   "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+  "rust-analyzer.diagnostics.disabled": ["macro-error"],
   "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.rustfmt.extraArgs": [
+    "--config",
+    "group_imports=StdExternalCrate,merge_imports=true"
+  ],
   // Yaml
   "yaml.format.enable": true,
+  "yaml.schemas": {},
+  "yaml.schemaStore.enable": true,
   // Metals
   "metals.statusBarEnabled": true,
   // Eslint
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
-  "eslint.filetypes": ["javascript", "typescript", "vue", "javascriptreact"],
+  "workspace.bottomUpFiletypes": ["javascript", "typescript"],
+  "workspace.workspaceFolderCheckCwd": false,
   // Vetur
   "vetur.validation.style": false,
-  "vetur.format.enable": false,
+  "vetur.format.enable": true,
   // CSS
   "css.validate": false,
   "scss.validate": false,
   // Typescript/Javascript
+  "javascript.preferences.importModuleSpecifier": "relative",
   "javascript.validate.enable": false,
+  "javascript.suggest.enabled": true,
+  "javascript.suggest.autoImports": true,
+  "javascript.suggestionActions.enabled": true,
+  "tsserver.log": "verbose",
+  "tsserver.maxTsServerMemory": 2048,
+  "tsserver.disableAutomaticTypeAcquisition": false,
+  "tsserver.useBatchedBufferSync": true,
   "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.workspaceSymbols.scope": "currentProject",
   // Emmet
   "emmet.includeLanguages": {
     "vue-html": "html",
@@ -79,26 +110,26 @@
     "completeUnimported": true,
     "usePlaceholders": true
   },
-  "go.goplsPath": "gopls",
+  // "go.goplsPath": "gopls",
   // Java
   "java.errors.incompleteClasspath.severity": "ignore",
 
-  "java.home": "/usr/lib/jvm/default/",
-  "java.configuration.runtimes": [
-    {
-      "name": "JavaSE-14",
-      "path": "/usr/lib/jvm/java-14-openjdk/",
-      "default": true
-    },
-    {
-      "name": "JavaSE-11",
-      "path": "/usr/lib/jvm/java-11-openjdk/"
-    },
-    {
-      "name": "JavaSE-1.8",
-      "path": "/usr/lib/jvm/java-8-openjdk/"
-    }
-  ],
+  /* "java.home": "/nix/store/37dqgym5zbs52xnh6i2yyh3fkvi9vlb4-openjdk-11.0.9+11/lib/openjdk/bin", */
+  /* "java.configuration.runtimes": [ */
+  /*   { */
+  /*     "name": "JavaSE-14", */
+  /*     "path": "/usr/lib/jvm/java-14-openjdk/", */
+  /*     "default": true */
+  /*   }, */
+  /*   { */
+  /*     "name": "JavaSE-11", */
+  /*     "path": "/usr/lib/jvm/java-11-openjdk/" */
+  /*   }, */
+  /*   { */
+  /*     "name": "JavaSE-1.8", */
+  /*     "path": "/usr/lib/jvm/java-8-openjdk/" */
+  /*   } */
+  /* ], */
   // TailwindCSS
   "tailwindCSS.htmlLanguages": [
     "HTML (EEx)",
@@ -146,9 +177,8 @@
     "<tab>": "actionMenu",
 
     "h": "collapse",
-    "l": ["expandable?", "expand", "open"],
-    "J": ["toggleSelection", "nodeNext"],
-    "K": ["toggleSelection", "nodePrev"],
+    "J": ["wait", "toggleSelection", "normal:j"],
+    "K": ["wait", "toggleSelection", "normal:k"],
     "O": "expand:recursive",
     "X": "collapse:recursive",
     "<2-LeftMouse>": [
@@ -156,8 +186,15 @@
       ["expanded?", "collapse", "expand"],
       "open"
     ],
-    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
-    "o": ["expanded?", "collapse", "expand"],
+
+    "o": ["wait", "expanded?", "collapse", "expand"],
+    "<cr>": [
+      "wait",
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ],
+    "l": ["wait", "expandable?", ["expanded?", "collapse", "expand"], "open"],
     "e": "open",
     "s": "open:split",
     "S": "open:split:plain",
@@ -166,13 +203,12 @@
     "u": "gotoParent",
     "gp": "preview:labeling",
 
-    "y": "copyFilepath",
-    "Y": "copyFilename",
-    "c": "copyFile",
-    "x": "cutFile",
+    "yp": "copyFilepath",
+    "yn": "copyFilename",
+    "yy": "copyFile",
+    "dd": "cutFile",
     "p": "pasteFile",
-    // Change this back to `delete` when trash is working
-    "d": "deleteForever",
+
     "D": "deleteForever",
 
     "a": "addFile",

@@ -4,7 +4,6 @@
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
             \  "coc-css",
-            \  "coc-cssmodules",
             \  "coc-emmet",
             \  "coc-eslint",
             \  "coc-go",
@@ -23,7 +22,6 @@ let g:coc_global_extensions = [
             \  "coc-texlab",
             \  "coc-tsserver",
             \  "coc-vetur",
-            \  "coc-vimlsp",
             \  "coc-xml",
             \  "coc-yaml",
             \  "coc-explorer"

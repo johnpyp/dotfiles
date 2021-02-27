@@ -36,7 +36,10 @@
     };
   };
 
-  services.grafana.enable = true;
-  services.grafana.addr = "127.0.0.1";
-  services.grafana.dataDir = "/var/lib/grafana";
+  services.grafana = {
+    enable = true;
+    port = 3240;
+    addr = "127.0.0.1";
+    dataDir = "/var/lib/grafana";
+  };
 }

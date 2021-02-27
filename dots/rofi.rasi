@@ -8,17 +8,16 @@
  */
 
 configuration {
-    drun-display-format: "{icon} {name}";
-    display-drun: "Apps";
+  drun-display-format: "{icon} {name}";
+  display-drun: "Apps";
 	show-icons: true;
-	icon-theme: "Papirus-Dark";
 	location: 2;
 	fake-transparency: false;
 	hide-scrollbar: true;
 	bw: 0;
-    fullscreen: true;
-    show-icons: true;
-	terminal: "termite";
+  fullscreen: true;
+  show-icons: true;
+	terminal: "kitty";
 	sidebar-mode: false;
 }
 

@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+
   services = {
     picom = {
       enable = true;
@@ -12,7 +13,7 @@
       layout = "us";
       libinput = {
         enable = true;
-        accelProfile = "flat";
+        touchpad.accelProfile = "flat";
       };
       windowManager.i3 = {
         enable = true;
@@ -26,10 +27,29 @@
       # };
       # desktopManager.gnome3.enable = true;
       displayManager = {
-
+        # startx.enable = true;
         # gdm.enable = true;
         lightdm.enable = true;
       };
     };
   };
+
+  # xdg.portal.enable = true;
+  # xdg.portal.gtkUsePortal = true;
+  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  #
+  # environment.variables = {
+  #
+  #   XDG_CURRENT_DESKTOP = "KDE";
+  #   KDE_SESSION_VERSION = "5";
+  #   ELECTRON_TRASH = "gio";
+  # };
+  # environment.loginShellInit = ''
+  #   export XDG_CURRENT_DESKTOP="KDE"
+  #   export KDE_SESSION_VERSION="5"
+  #   if [ -e $HOME/.profile ]
+  #   then
+  #     . $HOME/.profile
+  #   fi
+  # '';
 }
