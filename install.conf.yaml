@@ -17,7 +17,6 @@
     ~/.fonts: dots/.fonts
     ~/.npmrc: dots/.npmrc
     ~/.config/kwalletrc: dots/kwalletrc
-    ~/.config/rofi: dots/rofi
     ~/.config/picom/picom.conf: dots/picom/picom.conf
     ~/.config/autorandr/postswitch: dots/autorandr/postswitch
     ~/.config/i3/config: dots/i3/config

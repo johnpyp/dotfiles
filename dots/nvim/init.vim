@@ -57,11 +57,10 @@ Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern-git-status.vim'
-Plug 'zeis/vim-kolor'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'chriskempson/base16-vim'
 " Plug 'vim-airline/vim-airline-themes'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
+" Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 call plug#end()
@@ -105,6 +104,23 @@ autocmd InsertLeave * set nocul
 autocmd FileType json syntax match Comment +\/\/.\+$+
 command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
+" }}}
+" Platform: {{{
+if has("mac")
+  let g:python3_host_prog = '/usr/bin/python3'
+  let g:clipboard = {
+    \ 'name': 'pbcopy',
+    \ 'copy': {
+    \    '+': 'pbcopy',
+    \    '*': 'pbcopy',
+    \  },
+    \ 'paste': {
+    \    '+': 'pbpaste',
+    \    '*': 'pbpaste',
+    \ },
+    \ 'cache_enabled': 0,
+    \ }
+endif
 " }}}
 " Keybinds: {{{
 " copy/paste
@@ -748,3 +764,4 @@ set runtimepath^=/home/johnpyp/code/coc-prisma
 " source $HOME/.config/nvim/coc.vim
 " source $HOME/.config/nvim/luamode.vim
 " }}}
+
