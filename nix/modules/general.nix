@@ -29,4 +29,15 @@
     };
     fonts = with pkgs; [ nerdfonts cascadia-code fira font-awesome powerline-fonts ];
   };
+
+  programs.dconf.enable = true;
+
+  programs.adb.enable = true;
+
+  nix.package = pkgs.nixUnstable;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+    keep-outputs = true
+    keep-derivations = true
+  '';
 }

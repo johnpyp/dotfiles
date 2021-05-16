@@ -1,6 +1,10 @@
 {
   // Coc
   "coc.preferences.formatOnSaveFiletypes": [
+    "c",
+    "cpp",
+    "cs",
+    "csharp",
     "css",
     "go",
     "html",
@@ -10,23 +14,23 @@
     "json",
     "jsonc",
     "latex",
+    "lua",
     "markdown",
+    "nix",
     "prisma",
     "python",
     "rust",
     "scala",
     "scss",
     "svg",
+    "toml",
     "typescript",
     "typescriptreact",
     "vim",
+    "vim",
     "vue",
     "xml",
-    "yaml",
-    "cpp",
-    "csharp",
-    "cs",
-    "c"
+    "yaml"
   ],
 
   "omnisharp.path": "omnisharp",
@@ -34,6 +38,10 @@
     "kotlin": {
       "command": "~/lsp/kotlin-language-server/server/bin/kotlin-language-server",
       "filetypes": ["kotlin"]
+    },
+    "nix": {
+      "command": "rnix-lsp",
+      "filetypes": ["nix"]
     }
   },
   "diagnostic.virtualText": true,
@@ -51,7 +59,6 @@
   "rust-analyzer.inlayHints.chainingHints": false,
   "rust-analyzer.cargo.allFeatures": true,
   "rust-analyzer.cargo.autoreload": true,
-  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
   "rust-analyzer.diagnostics.disabled": ["macro-error"],
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.rustfmt.extraArgs": [
@@ -77,7 +84,7 @@
   "scss.validate": false,
   // Typescript/Javascript
   "javascript.preferences.importModuleSpecifier": "relative",
-  "javascript.validate.enable": false,
+  "javascript.validate.enable": true,
   "javascript.suggest.enabled": true,
   "javascript.suggest.autoImports": true,
   "javascript.suggestionActions.enabled": true,
@@ -103,33 +110,27 @@
   // Python
   // "python.pythonPath": "~/dotfiles/python-picker",
   "python.formatting.provider": "black",
-  "python.jediEnabled": false,
-  "python.linting.pylintEnabled": false,
+  "python.linting.pylintEnabled": true,
+
+  "pyright.organizeimports.provider": "pyright",
+  "pyright.completion.snippetSupport": true,
+  "python.analysis.autoImportCompletions": true,
   // Go
   "go.goplsOptions": {
     "completeUnimported": true,
     "usePlaceholders": true
   },
-  // "go.goplsPath": "gopls",
+  "go.goplsPath": "gopls",
   // Java
   "java.errors.incompleteClasspath.severity": "ignore",
 
-  /* "java.home": "/nix/store/37dqgym5zbs52xnh6i2yyh3fkvi9vlb4-openjdk-11.0.9+11/lib/openjdk/bin", */
-  /* "java.configuration.runtimes": [ */
-  /*   { */
-  /*     "name": "JavaSE-14", */
-  /*     "path": "/usr/lib/jvm/java-14-openjdk/", */
-  /*     "default": true */
-  /*   }, */
-  /*   { */
-  /*     "name": "JavaSE-11", */
-  /*     "path": "/usr/lib/jvm/java-11-openjdk/" */
-  /*   }, */
-  /*   { */
-  /*     "name": "JavaSE-1.8", */
-  /*     "path": "/usr/lib/jvm/java-8-openjdk/" */
-  /*   } */
-  /* ], */
+  // Lua
+  "Lua.workspace.library": {
+    "/usr/share/nvim/runtime/lua": true,
+    "/usr/share/nvim/runtime/lua/vim": true,
+    "/usr/share/nvim/runtime/lua/vim/lsp": true
+  },
+  "Lua.diagnostics.globals": ["vim"],
   // TailwindCSS
   "tailwindCSS.htmlLanguages": [
     "HTML (EEx)",

@@ -1,13 +1,13 @@
 set ideajoin
 
 let mapleader = " "
-noremap <Leader>y  "+y
-noremap <Leader>p  "+p
-noremap <Leader>n  :action ActivateProjectToolWindow<CR>
-noremap <Leader>N  :action HideSideWindows<CR>
-noremap <Leader>r  :action Run<CR>
-noremap <Leader>ve :e ~/.ideavimrc<CR>
-noremap <Leader>vs :source ~/.ideavimrc<CR>
+nnoremap <Leader>y  "+y
+nnoremap <Leader>p  "+p
+nnoremap <Leader>n  :action ActivateProjectToolWindow<CR>
+nnoremap <Leader>N  :action HideSideWindows<CR>
+nnoremap <Leader>r  :action Run<CR>
+nnoremap <Leader>ve :e ~/.ideavimrc<CR>
+nnoremap <Leader>vs :source ~/.ideavimrc<CR>
 nnoremap H :action PreviousTab<CR>
 nnoremap L :action NextTab<CR>
 nnoremap <C-n> :action ActivateProjectToolWindow<CR>
@@ -24,7 +24,19 @@ nnoremap <leader>co :action OptimizeImports<CR>
 nnoremap <leader>cr :action RenameElement<CR>
 nnoremap <leader>ce :action ShowErrorDescription<CR>
 nnoremap <leader>e :nohl<CR>
+nnoremap <leader>o :action ParameterInfo<CR>
 
 nnoremap F :action ReformatCode<CR>
 nnoremap K :action QuickJavaDoc<CR>
+
+inoremap <C-space> <C-o>:action CodeCompletion<CR>
+
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "<TAB>"
+
+inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 

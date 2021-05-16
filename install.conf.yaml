@@ -31,11 +31,13 @@
     ~/.config/pscripts: dots/pscripts
     ~/.config/qutebrowser/config.py: dots/qutebrowser/config.py
     ~/.config/nvim: dots/nvim
+    ~/.config/nvcode: dots/nvcode
+    ~/.config/efm-langserver: dots/efm-langserver
     ~/.pandoc/templates/eisvogel.latex: dots/pandoc/templates/eisvogel.tex
-    # ~/.config/BetterDiscord/plugins:
-    #   glob: true
-    #   path: dots/BetterDiscord/plugins/*
     ~/.config/dunst: dots/dunst
+
+    # Modules
+    ~/.tmux/plugins/tpm: modules/tpm
 
 - create:
     - ~/code

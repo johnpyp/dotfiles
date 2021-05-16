@@ -8,18 +8,19 @@
     xserver = {
       enable = true;
       xkbOptions = "caps:escape, compose:ralt, altwin:swap_alt_win";
-      autoRepeatDelay = 200;
+      autoRepeatDelay = 150;
       autoRepeatInterval = 10;
       layout = "us";
       libinput = {
         enable = true;
         touchpad.accelProfile = "flat";
       };
-      windowManager.i3 = {
-        enable = true;
-        package = pkgs.i3-gaps;
-        extraPackages = with pkgs; [ rofi polybarFull betterlockscreen ];
-      };
+      windowManager.i3.enable = true;
+      windowManager.i3.package = pkgs.i3-gaps;
+
+      # windowManager.bspwm.enable = true;
+
+      desktopManager.xterm.enable = false;
       # desktopManager = {
       #   default = "xfce";
       #   xterm.enable = false;
@@ -30,6 +31,10 @@
         # startx.enable = true;
         # gdm.enable = true;
         lightdm.enable = true;
+        defaultSession = "none+i3";
+        sessionCommands = ''
+          ${pkgs.xfce.xfce4-notifyd}/lib/xfce4/notifyd/xfce4-notifyd &
+        '';
       };
     };
   };

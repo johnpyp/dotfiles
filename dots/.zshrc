@@ -39,9 +39,9 @@ zinit light-mode for \
 
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-zinit as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
-    atpull'%atclone' pick"direnv" src"zhook.zsh" for \
-        direnv/direnv
+# zinit as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+#     atpull'%atclone' pick"direnv" src"zhook.zsh" for \
+#         direnv/direnv
 
 zinit wait lucid for \
         hlissner/zsh-autopair \
@@ -97,6 +97,8 @@ checkip() {
  curl https://ipapi.co/json/
 }
 
+alias p="pnpm"
+alias u="ultra --raw --rebuild"
 alias sudo="sudo -E"
 alias cp="cp -i"         # Confirm before overwriting something
 alias free='free -h'                                            # Show sizes in MB
@@ -191,7 +193,7 @@ export CONDA_AUTO_ACTIVATE_BASE=false
 
 # export RUSTC_WRAPPER=sccache
 
-# eval "$(direnv hook zsh)"
+eval "$(direnv hook zsh)"
 export DIRENV_LOG_FORMAT=""
 # export TERM="kitty"
 
@@ -212,3 +214,5 @@ function zsh_directory_name() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval $(thefuck --alias)
+

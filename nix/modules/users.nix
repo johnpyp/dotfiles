@@ -4,7 +4,7 @@
     name = "johnpyp";
     uid = 1000;
     home = "/home/johnpyp";
-    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" "user-with-access-to-virtualbox" "plugdev" "wireshark"];
+    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" "user-with-access-to-virtualbox" "plugdev" "wireshark" "adbusers" ];
     isNormalUser = true;
     initialPassword = "johnpyp";
     shell = pkgs.zsh;

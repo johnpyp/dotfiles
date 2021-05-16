@@ -2,3 +2,12 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
+[submodule "dots/nvim/ls/lua-language-server"]
+	path = dots/nvim/ls/lua-language-server
+	url = git@github.com:sumneko/lua-language-server.git
+[submodule "dots/nvcode"]
+	path = dots/nvcode
+	url = git@github.com:ChristianChiarulli/nvcode.git
+[submodule "modules/tpm"]
+	path = modules/tpm
+	url = git@github.com:tmux-plugins/tpm

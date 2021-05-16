@@ -1,83 +1,47 @@
 { config, pkgs, ... }:
 {
-  imports = [
-    ../packages
-    ../overlays
-  ];
-  # environment.systemPackages = (import ../home/packages.nix {pkgs = pkgs;}).packages;
   environment.systemPackages = with pkgs; [
-    # brave
-    # ghstack
-    # i3
-    # image_optim
-    # jetbrains.rider
-    # jetbrains.webstorm
-    # plex-media-player
     acpi
     age
     alacritty
     alsaLib
-    androidStudioPackages.canary
-    appimage-run
     archiver
     atool
     awscli2
     bat
-    betterdiscordctl
-    betterlockscreen
     bind
     binutils
-    bitwarden
     bottom
     caddy
-    cairo
     cargo
     chromedriver
-    chromium
     clang
     clangStdenv
     clojure
     cmake
     colordiff
-    compton
     conda
     coursier
     curl
-    darktable
-    dbeaver
-    deluge
     deno
     di
     direnv
-    discord
     docker
     docker-compose
     docui
-    dolphin
     dotnet-sdk_3
     dotnetPackages.Nuget
     dpkg
-    eclipses.eclipse-java
     efibootmgr
-    emacs
-    emacs-all-the-icons-fonts
-    etcher
     exa
-    exodus
     fd
     feh
     ffmpeg-full
     file
-    filezilla
     fira
-    firefox
-    flameshot
-    fondo
     fzf
     gallery-dl
     gcc
-    gdlauncher
-    gimp
     git
     git-lfs
     gitAndTools.hub
@@ -86,14 +50,8 @@
     glibc
     glxinfo
     gn
-    gnome3.adwaita-icon-theme
-    gnome3.gnome-disk-utility
-    gnome3.networkmanagerapplet
-    gnome3.pomodoro
     gnumake
     go
-    google-chrome-beta
-    google-chrome-dev
     gparted
     gradle
     gtop
@@ -102,21 +60,16 @@
     htop
     httpie
     imagemagick
-    insomnia
     inxi
     iptables
     jdk11
-    jetbrains.datagrip
-    jetbrains.idea-ultimate
     jpegoptim
     jq
     just
-    keybase-gui
     keychain
     kind
     kitty
     kotlin
-    krita
     ktlint
     kubectl
     lazydocker
@@ -134,17 +87,14 @@
     lsof
     luarocks
     lutris
-    lxappearance
     magic-wormhole
     mediainfo
     mergerfs
     mergerfs-tools
-    minecraft
     mono
     mosh
     mozjpeg
     mpv
-    multimc
     mypy
     ncdu
     neofetch
@@ -153,43 +103,30 @@
     nixfmt
     nixpkgs-fmt
     nodejs-14_x
-    nordic
     ntfsprogs
-    obs-studio
-    okular
     omnisharp-roslyn
     openssl
     optipng
     osslsigncode
     p7zip
-    pandoc
-    pantheon.elementary-gtk-theme
-    papirus-icon-theme
     parted
     pass
     patchelf
     pavucontrol
     peek
-    pinta
     pipenv
     piper
     pkg-config
-    plex-media-player
     pngquant
     poetry
-    polybarFull
-    pop-gtk-theme
     postgresql
-    postman
     protontricks
     psensor
     pwgen
     pypi2nix
     qbittorrent
-    qutebrowser
     ranger
     redis
-    redshift
     ripgrep
     rnix-lsp
     rofi
@@ -199,7 +136,6 @@
     sbt
     sccache
     signal-cli
-    signal-desktop
     skim
     snapraid
     sops
@@ -207,10 +143,8 @@
     spotify-tui
     spotifyd
     sshfs
-    starship
     steam
     steam-run
-    sublime
     sumneko-lua-language-server
     sxhkd
     sysstat
@@ -219,33 +153,21 @@
     tmux
     trash-cli
     tree-sitter
-    trilium-desktop
     unrar
     unzip
-    via
     vim
-    vimix-gtk-themes
-    vlc
-    vscode
-    wally-cli
     watchexec
     watchman
     wget
     wineStaging
     wireguard-tools
-    xautolock
     xdg_utils
-    xfce.thunar
-    xfce.xfce4-notifyd
-    xorg.xev
-    xorg.xmodmap
     yarn
     yarn2nix
     youtube-dl
     zafiro-icons
     zip
     zlib
-    zoom-us
     zsh
     zstd
 
@@ -275,6 +197,4 @@
       )
     )
   ];
-
-  nixpkgs.config.allowUnfree = true;
 }

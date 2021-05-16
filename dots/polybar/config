@@ -46,7 +46,7 @@ fixed-center = true
 font-0 = "DroidSansMono Nerd Font:size=12"
 font-1 = "DroidSansMono Nerd Font:size=12:bold"
 
-modules-left = i3 music
+modules-left = bspwm i3 music
 modules-center = date time
 modules-right = audio battery brightness updates-arch-combined wired-network wireless-network
 
@@ -64,6 +64,48 @@ type = internal/i3
 pin-workspaces = false
 ;strip-wsnumbers = true
 index-sort = true
+enable-click = true
+enable-scroll = false
+wrapping-scroll = true
+fuzzy-match = true
+ws-icon-0 = "Desktop;0"
+ws-icon-1 = "1;1"
+ws-icon-2 = "2;2"
+ws-icon-3 = "3;3"
+ws-icon-4 = "4;4"
+ws-icon-5 = "5;5"
+ws-icon-6 = "6;6"
+
+format = <label-state> <label-mode>
+
+label-active-font = 2
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = #407055
+
+label-focused = %icon%
+label-focused-Foreground = #F3E5DA
+label-focused-background = #3f3f3f
+label-focused-underline = ${colors.Light}
+label-focused-padding = 2
+
+label-unfocused = %icon%
+label-unfocused-padding = 2
+
+label-visible = %icon%
+label-visible-underline = #555555
+label-visible-padding = 2
+
+label-urgent = %icon%
+label-urgent-Foreground = #B7A439
+label-urgent-background =  ${colors.Red}
+label-urgent-padding = 2
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = false
+;strip-wsnumbers = true
+;index-sort = true
 enable-click = true
 enable-scroll = false
 wrapping-scroll = true

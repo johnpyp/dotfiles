@@ -10,9 +10,10 @@ let g:polyglot_disabled = ['latex', 'markdown', 'pandoc', 'go', 'vue']
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'AndrewRadev/tagalong.vim'
+" Plug 'AndrewRadev/tagalong.vim'
 Plug 'airblade/vim-rooter'
-Plug 'fatih/vim-go'
+Plug 'airblade/vim-gitgutter'
+" Plug 'fatih/vim-go'
 Plug 'ferrine/md-img-paste.vim'
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -166,7 +167,7 @@ nnoremap <silent> <C-p> :Files<CR>
 " nnoremap <silent> <leader>l :Buffers<CR>
 
 " Fugitive:
-nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gs :Git<CR>
 nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gb :Gblame<CR>
 
@@ -188,26 +189,32 @@ map <leader>w <C-w>
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
             \  "coc-css",
+            \  "coc-cssmodules",
             \  "coc-emmet",
             \  "coc-eslint",
             \  "coc-explorer",
             \  "coc-go",
             \  "coc-html",
             \  "coc-java",
-            \  "coc-kotlin",
             \  "coc-json",
+            \  "coc-kotlin",
             \  "coc-lists",
+            \  "coc-lua",
             \  "coc-metals",
             \  "coc-pairs",
             \  "coc-prettier",
-            \  "coc-python",
+            \  "coc-pyright",
             \  "coc-rust-analyzer",
             \  "coc-snippets",
+            \  "coc-styled-components",
+            \  "coc-stylelint",
             \  "coc-svg",
             \  "coc-tailwindcss",
             \  "coc-texlab",
+            \  "coc-toml",
             \  "coc-tsserver",
             \  "coc-vetur",
+            \  "coc-vimlsp",
             \  "coc-xml",
             \  "coc-yaml"
             \]
@@ -397,6 +404,8 @@ let g:fern#renderer = "nerdfont"
 " }}}
 " Other Plugin Config: {{{
 " lua require'colorizer'.setup({ "*", }, { mode = 'foreground' })
+
+set viminfo='100,n$HOME/.vim/files/info/viminfo
 
 let loaded_netrwPlugin = 1
 
