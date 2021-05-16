@@ -2,25 +2,26 @@
 {
   # Docker
   virtualisation.docker.enable = true;
+  virtualisation.docker.liveRestore = false;
   # Shell
   environment.shells = [ pkgs.bashInteractive pkgs.zsh ];
   # Keybase
   services = {
-    keybase.enable = true;
-    kbfs.enable = true;
-    kbfs.mountPoint = "/home/johnpyp/keybase";
+    # keybase.enable = true;
+    # kbfs.enable = true;
+    # kbfs.mountPoint = "/home/johnpyp/keybase";
     gnome3.gnome-keyring.enable = true;
     printing.enable = true;
   };
   # Fonts
-  fonts = {
-    enableFontDir = true;
-    fontconfig = {
-      enable = true;
-      defaultFonts.monospace = [ "Cascadia Code" ];
-      defaultFonts.sansSerif = [ "roboto" ];
-      defaultFonts.serif = [ "roboto-slab" ];
-    };
-    fonts = with pkgs; [ nerdfonts cascadia-code ];
-  };
+  # fonts = {
+  #   enableFontDir = true;
+  #   fontconfig = {
+  #     enable = true;
+  #     defaultFonts.monospace = [ "Cascadia Code" ];
+  #     defaultFonts.sansSerif = [ "roboto" ];
+  #     defaultFonts.serif = [ "roboto-slab" ];
+  #   };
+  #   fonts = with pkgs; [ nerdfonts cascadia-code ];
+  # };
 }

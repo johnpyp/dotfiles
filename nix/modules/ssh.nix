@@ -6,4 +6,6 @@
   };
   services.openssh.enable = true;
   programs.ssh.askPassword = "";
+  programs.ssh.forwardX11 = true;
+  services.openssh.forwardX11 = true;
 }

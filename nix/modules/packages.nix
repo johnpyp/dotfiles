@@ -2,8 +2,6 @@
 {
   # environment.systemPackages = (import ../home/packages.nix {pkgs = pkgs;}).packages;
   environment.systemPackages = with pkgs; [
-    # jdk12
-    # openjdk8
     acpi
     alacritty
     alsaLib
@@ -12,6 +10,7 @@
     bind
     binutils
     bitwarden
+    bottom
     brave
     chromium
     clang
@@ -22,10 +21,8 @@
     crystal
     curl
     di
-    discord
     docker
     docker-compose
-    eclipses.eclipse-java
     etcher
     exa
     exodus
@@ -53,7 +50,6 @@
     imagemagick
     insomnia
     iptables
-    jetbrains.idea-ultimate
     jpegoptim
     jq
     just
@@ -69,33 +65,28 @@
     libnotify
     libpqxx
     libratbag
-    libreoffice
     libudev
     libwebp
     llvmPackages.libclang
     lm_sensors
     lutris
-    lxappearance-gtk3
+    lxappearance
     mergerfs
-    mergerfs-tools
     minecraft
     mozjpeg
     mpv
-    multibootusb
-    multimc
     mypy
     ncdu
     neofetch
     neovim
     nix-index
     nixpkgs-fmt
-    nodejs-13_x
+    nodejs-14_x
     ntfsprogs
     obs-studio
     okular
     openjdk
     optipng
-    p7zip
     papirus-icon-theme
     parted
     patchelf
@@ -103,7 +94,6 @@
     peek
     piper
     pkg-config
-    plex-media-player
     pngquant
     postgresql
     psensor
@@ -117,23 +107,20 @@
     rofi
     rustup
     rxvt
-    scry
     shards
     skim
-    spotify
+    sops
     starship
     sxhkd
     tldr
     tmux
-    unrar
-    unzip
     vim
     wget
     xautolock
     xfce.thunar
     xfce4-14.xfce4-notifyd
+    xorg.xauth
     youtube-dl
-    ytop
     zafiro-icons
     zlib
     zsh
@@ -141,17 +128,18 @@
 
 
     (
-      python3.withPackages (
+      python37.withPackages (
         ps:
           with ps; [
             beautifulsoup4
             black
-            dbus-python
+            # dbus-python
+            tldextract
             flask
             jedi
             matplotlib
             numpy
-            pandas
+            #pandas
             pygobject3
             pylint
             requests
@@ -161,6 +149,39 @@
       )
     )
   ];
-  nixpkgs.overlays = [];
+  nixpkgs.overlays = [
+    (
+      self: super: {
+        my-mergerfs = super.mergerfs.overrideAttrs (old: rec {
+          pname = "mergerfs";
+          version = "master";
+          src = super.fetchFromGitHub {
+            owner = "trapexit";
+            rev = version;
+            repo = pname;
+            sha256 = "0p2fk5d3ywq2qxpkz7ry7s6hpyh9k4pnaxkykfiqv6l8vgkm4ycn";
+          };
+        });
+      }
+    )
+
+    (
+      self: super: {
+        my-minecraft-server = super.minecraft-server.overrideAttrs (old: rec {
+          version = "1.16.1";
+
+          src = super.fetchurl {
+            url = "https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar";
+            sha256 = "0nwkdig6yw4cnm2ld78z4j4xzhbm1rwv55vfxz0gzhsbf93xb0i7";
+          };
+
+        });
+      }
+    )
+
+  ];
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "p7zip-16.02"
+  ];
 }
