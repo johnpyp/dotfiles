@@ -37,7 +37,7 @@
     ~/.config/dunst: dots/dunst
 
     # Modules
-    ~/.tmux/plugins/tpm: modules/tpm
+    ~/.tmux/plugins/tpm: gmodules/tpm
 
 - create:
     - ~/code

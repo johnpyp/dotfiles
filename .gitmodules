@@ -8,6 +8,6 @@
 [submodule "dots/nvcode"]
 	path = dots/nvcode
 	url = git@github.com:ChristianChiarulli/nvcode.git
-[submodule "modules/tpm"]
-	path = modules/tpm
+[submodule "gmodules/tpm"]
+	path = gmodules/tpm
 	url = git@github.com:tmux-plugins/tpm
