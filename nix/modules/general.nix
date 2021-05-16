@@ -13,7 +13,7 @@
     keybase.enable = true;
     kbfs.enable = true;
     kbfs.mountPoint = "/home/johnpyp/keybase";
-    gnome3.gnome-keyring.enable = true;
+    gnome.gnome-keyring.enable = true;
     printing.enable = true;
     spotifyd.enable = true;
     cron.enable = true;
