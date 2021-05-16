@@ -6,9 +6,14 @@
     ../modules/general.nix
     ../modules/gui.nix
     ../modules/networking.nix
-    ../modules/packages.nix
     ../modules/ssh.nix
     ../modules/users.nix
+    ../modules/system-monitoring.nix
+    ../modules/home-manager.nix
+
+    ../modules/packages/base.nix
+    ../modules/packages/core.nix
+    # ../modules/packages/desktop.nix
   ];
   # Machine specific networking
   networking.hostName = "johnpyp-nixos-server";
