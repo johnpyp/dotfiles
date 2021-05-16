@@ -49,6 +49,7 @@
     polybarFull
     pop-gtk-theme
     postman
+    protontricks
     qutebrowser
     redshift
     signal-desktop

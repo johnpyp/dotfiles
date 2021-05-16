@@ -121,7 +121,6 @@
     pngquant
     poetry
     postgresql
-    protontricks
     psensor
     pwgen
     pypi2nix
