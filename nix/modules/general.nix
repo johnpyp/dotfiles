@@ -16,6 +16,7 @@
     gnome3.gnome-keyring.enable = true;
     printing.enable = true;
     spotifyd.enable = true;
+    cron.enable = true;
   };
   # Fonts
   fonts = {
