@@ -123,7 +123,7 @@
     postgresql
     psensor
     pwgen
-    pypi2nix
+    # pypi2nix
     qbittorrent
     ranger
     redis
