@@ -44,6 +44,7 @@
     gcc
     git
     git-lfs
+    git-quick-stats
     gitAndTools.hub
     github-cli
     glib
@@ -151,6 +152,7 @@
     thefuck
     tldr
     tmux
+    tokei
     trash-cli
     tree-sitter
     unrar

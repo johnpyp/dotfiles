@@ -4,6 +4,7 @@
   nixpkgs.config.packageOverrides = pkgs: rec {
     via = pkgs.callPackage ./via {};
     gdlauncher = pkgs.callPackage ./gdlauncher {};
-    ghstack = pkgs.callPackage ./ghstack {};
+    # ghstack = pkgs.callPackage ./ghstack {};
+    # importlib-metadata = pkgs.callPackage ./ghstack {};
   };
 }
