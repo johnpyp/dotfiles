@@ -35,6 +35,7 @@
     ~/.config/efm-langserver: dots/efm-langserver
     ~/.pandoc/templates/eisvogel.latex: dots/pandoc/templates/eisvogel.tex
     ~/.config/dunst: dots/dunst
+    ~/.imwheelrc: dots/.imwheelrc
 
     # Modules
     ~/.tmux/plugins/tpm: gmodules/tpm
