@@ -50,6 +50,7 @@
   "coc.preferences.colorSupport": true,
   "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.rootPatterns": ["package.json"],
+  "coc.source.emoji.filetypes": ["markdown", "javascript", "typescript"],
   "suggest.echodocSupport": false,
   "suggest.autoTrigger": "always",
   "codeLens.enable": false,

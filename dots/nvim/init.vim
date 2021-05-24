@@ -191,6 +191,7 @@ let g:coc_global_extensions = [
             \  "coc-css",
             \  "coc-cssmodules",
             \  "coc-emmet",
+            \  "coc-emoji",
             \  "coc-eslint",
             \  "coc-explorer",
             \  "coc-go",

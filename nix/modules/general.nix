@@ -31,8 +31,11 @@
     fonts = with pkgs; [ nerdfonts cascadia-code fira font-awesome powerline-fonts ];
   };
 
+  programs.java = {
+    enable = true;
+    package = pkgs.adoptopenjdk-hotspot-bin-11;
+  };
   programs.dconf.enable = true;
-
   programs.adb.enable = true;
 
   nix.package = pkgs.nixUnstable;

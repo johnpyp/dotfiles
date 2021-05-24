@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    # pypi2nix
     acpi
     age
     alacritty
@@ -63,7 +64,6 @@
     imagemagick
     inxi
     iptables
-    jdk11
     jpegoptim
     jq
     just
@@ -123,7 +123,6 @@
     postgresql
     psensor
     pwgen
-    # pypi2nix
     qbittorrent
     ranger
     redis
