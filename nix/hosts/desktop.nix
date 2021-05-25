@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    <nix-ld/modules/nix-ld.nix>
+    ../hardware/desktop.nix
     ../modules/boot-efi.nix
     ../modules/general.nix
     ../modules/gui.nix
@@ -69,5 +69,5 @@
       SUBSYSTEM=="usb", ATTR{idVendor}=="feed", ATTR{idProduct}=="6060", GROUP="plugdev"
     '';
   boot.kernelParams = [ "systemd.unified_cgroup_hierarchy=false" ];
-  system.stateVersion = "20.09";
+  # system.stateVersion = "20.09";
 }
