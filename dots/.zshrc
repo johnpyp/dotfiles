@@ -105,7 +105,6 @@ alias free='free -h'                                            # Show sizes in 
 # alias git=hub
 alias gs="git status"
 alias gc="git commit"
-alias copyghssh="curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys"
 alias font-list="sort <(fc-list : family) | vim -"
 alias dc="docker-compose"
 alias vim="nvim"

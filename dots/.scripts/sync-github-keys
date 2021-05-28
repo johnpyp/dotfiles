@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+curl https://github.com/johnpyp.keys > ~/.ssh/authorized_keys

@@ -131,7 +131,6 @@
     rofi
     runc
     rustup
-    rxvt
     sbt
     sccache
     signal-cli
