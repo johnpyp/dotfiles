@@ -30,10 +30,9 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    # screenSection =
-    #   ''
-    #     Option         "metamodes" "DP-4: 2560x1440_144 +1920+0, HDMI-0: nvidia-auto-select +0+0"
-    #   '';
+    screenSection = ''
+      Option         "metamodes" "DP-4: 2560x1440_144 +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, HDMI-0: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+    '';
   };
 
   hardware.opengl.driSupport32Bit = true;
