@@ -31,7 +31,7 @@
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     screenSection = ''
-      Option         "metamodes" "DP-4: 2560x1440_144 +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, HDMI-0: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+      Option         "metamodes" "DP-4: 2560x1440_144 +1920+0 {ForceCompositionPipeline=On}, HDMI-0: nvidia-auto-select +0+0 {ForceCompositionPipeline=On}"
     '';
   };
 
