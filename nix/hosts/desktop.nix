@@ -19,7 +19,7 @@
   ];
   # Machine specific networking
   networking.hostName = "johnpyp-nixos-desktop";
-  networking.interfaces.enp8s0.useDHCP = true;
+  networking.interfaces.enp6s0.useDHCP = true;
 
   time.timeZone = "America/New_York";
 
@@ -30,23 +30,16 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    xrandrHeads = [
-      { output = "DP-3"; }
-      { output = "DP-2"; primary = true; }
-      { output = "HDMI-0"; }
-    ];
-    screenSection =
-      ''
-        Option         "metamodes" "DP-4: 2560x1440_144 +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, HDMI-0: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
-      '';
+    # screenSection =
+    #   ''
+    #     Option         "metamodes" "DP-4: 2560x1440_144 +1920+0, HDMI-0: nvidia-auto-select +0+0"
+    #   '';
   };
 
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
 
-  hardware.openrazer.enable = true;
   hardware.pulseaudio.support32Bit = true;
-  # hardware.openrazer.enable = true;
   boot.kernelPackages = pkgs.linuxPackages;
   boot.extraModulePackages = with config.boot.kernelPackages; [];
 
