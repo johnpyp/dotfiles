@@ -12,7 +12,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Plug 'AndrewRadev/tagalong.vim'
 Plug 'airblade/vim-rooter'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 " Plug 'fatih/vim-go'
 Plug 'ferrine/md-img-paste.vim'
 Plug 'honza/vim-snippets'

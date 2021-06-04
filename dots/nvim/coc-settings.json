@@ -13,6 +13,7 @@
     "javascriptreact",
     "json",
     "jsonc",
+    "kotlin",
     "latex",
     "lua",
     "markdown",
@@ -35,10 +36,6 @@
 
   "omnisharp.path": "omnisharp",
   "languageserver": {
-    "kotlin": {
-      "command": "~/lsp/kotlin-language-server/server/bin/kotlin-language-server",
-      "filetypes": ["kotlin"]
-    },
     "nix": {
       "command": "rnix-lsp",
       "filetypes": ["nix"]
@@ -47,10 +44,20 @@
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextPrefix": "> ",
   "diagnostic.refreshOnInsertMode": true,
+  "suggest.floatEnable": true,
+  "suggest.enablePreview": true,
+  "suggest.localityBonus": true,
+  "suggest.fixInsertedWord": true,
+  "suggest.snippetsSupport": true,
   "coc.preferences.colorSupport": true,
   "coc.preferences.bracketEnterImprove": true,
   "coc.preferences.rootPatterns": ["package.json"],
-  "coc.source.emoji.filetypes": ["markdown", "javascript", "typescript"],
+  "coc.source.emoji.filetypes": [
+    "markdown",
+    "javascript",
+    "typescript",
+    "gitcommit"
+  ],
   "suggest.echodocSupport": false,
   "suggest.autoTrigger": "always",
   "codeLens.enable": false,
