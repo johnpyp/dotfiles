@@ -1,9 +1,10 @@
 { config, pkgs, ... }:
 {
 
+  programs.steam.enable = true;
   services = {
     picom = {
-      enable = true;
+      enable = false;
     };
     xserver = {
       enable = true;
@@ -34,6 +35,7 @@
         defaultSession = "none+i3";
         sessionCommands = ''
           ${pkgs.xfce.xfce4-notifyd}/lib/xfce4/notifyd/xfce4-notifyd &
+          ${pkgs.autorandr}/bin/autorandr --change &
         '';
       };
     };
