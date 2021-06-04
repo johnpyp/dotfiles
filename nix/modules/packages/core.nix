@@ -141,7 +141,6 @@
     spotify-tui
     spotifyd
     sshfs
-    steam
     steam-run
     sumneko-lua-language-server
     sxhkd
