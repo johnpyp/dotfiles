@@ -30,7 +30,7 @@ mod4 + {w,e,a}
   i3-msg layout {tabbed,default,stacked}
 
 mod4 + {grave,Tab}
-  rofi -theme $HOME/dotfiles/dots/rofi.rasi -no-disable-history -no-lazy-grab -show drun
+  rofi -show drun -show-icons -theme Arc-Dark
 
 mod4 + d
   rofi -show run -show-icons -theme Arc-Dark
