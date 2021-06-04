@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    autorandr
     androidStudioPackages.canary
     appimage-run
     betterdiscordctl
@@ -8,7 +9,6 @@
     bitwarden
     cairo
     chromium
-    compton
     darktable
     dbeaver
     deluge
@@ -30,6 +30,7 @@
     gnome3.networkmanagerapplet
     gnome3.pomodoro
     google-chrome-beta
+    imwheel
     insomnia
     jetbrains.datagrip
     jetbrains.idea-ultimate
@@ -44,6 +45,7 @@
     pandoc
     pantheon.elementary-gtk-theme
     papirus-icon-theme
+    picom
     pinta
     plex-media-player
     polybarFull
