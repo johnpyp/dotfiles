@@ -1,0 +1,5 @@
+- To make icons work in dolphin, make sure to use the qt5 line in .profile https://wiki.archlinux.org/title/Dolphin#Icons_not_showing
+- When using zsh as user shell, .zprofile is sourced instead of .profile
+- Nvidia should be added to pacman hook
+- Enable `ILoveCandy` and `Color` in /etc/pacman.conf for pretty colors yay
+- Dolphin in chrome requires xdg-desktop-portal, xdg-desktop-portal-kde, **kdialog**, and the fake KDE env variables in ~/.profile
