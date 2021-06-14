@@ -192,7 +192,8 @@ export CONDA_AUTO_ACTIVATE_BASE=false
 
 # export RUSTC_WRAPPER=sccache
 
-eval "$(direnv hook zsh)"
+[[ "$(command -v direnv)" ]] && eval "$(direnv hook zsh)"
+
 export DIRENV_LOG_FORMAT=""
 # export TERM="kitty"
 
@@ -215,3 +216,22 @@ function zsh_directory_name() {
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 eval $(thefuck --alias)
 
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE="/usr/bin/micromamba";
+export MAMBA_ROOT_PREFIX="/home/johnpyp/micromamba";
+__mamba_setup="$('/usr/bin/micromamba' shell hook --shell zsh --prefix '/home/johnpyp/micromamba' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    if [ -f "/home/johnpyp/micromamba/etc/profile.d/mamba.sh" ]; then
+        . "/home/johnpyp/micromamba/etc/profile.d/mamba.sh"
+    else
+        export PATH="/home/johnpyp/micromamba/bin:$PATH"
+    fi
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
+
+alias m="micromamba"
