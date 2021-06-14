@@ -34,3 +34,5 @@
 	side-by-side = true
 [init]
 	defaultBranch = main
+[commit]
+	gpgsign = true
