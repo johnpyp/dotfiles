@@ -6,36 +6,39 @@
 - clean: ["~", "~/.config"]
 
 - link:
-    ~/.zshrc: dots/.zshrc
-    ~/.p10k.zsh: dots/.p10k.zsh
-    ~/.gitconfig: dots/.gitconfig
     ~/.Xresources: dots/.Xresources
-    ~/.ripgreprc: dots/.ripgreprc
-    ~/.ideavimrc: dots/.ideavimrc
-    ~/.tmux.conf: dots/.tmux.conf
-    ~/.scripts: dots/.scripts
-    ~/.fonts: dots/.fonts
-    ~/.npmrc: dots/.npmrc
-    ~/.config/kwalletrc: dots/kwalletrc
-    ~/.config/picom/picom.conf: dots/picom/picom.conf
+    ~/.config/alacritty/alacritty.yml: dots/alacritty/alacritty.yml
     ~/.config/autorandr/postswitch: dots/autorandr/postswitch
+    ~/.config/dunst: dots/dunst
+    ~/.config/efm-langserver: dots/efm-langserver
     ~/.config/i3/config: dots/i3/config
-    ~/.config/sxhkd: dots/sxhkd
-    ~/.config/polybar: dots/polybar
-    ~/.config/kitty/themes: dots/kitty/themes
     ~/.config/kitty/kitty.conf: dots/kitty/kitty.conf
+    ~/.config/kitty/themes: dots/kitty/themes
+    ~/.config/kwalletrc: dots/kwalletrc
+    ~/.config/nvcode: dots/nvcode
+    ~/.config/nvim: dots/nvim
+    ~/.config/paru: dots/paru
+    ~/.config/picom/picom.conf: dots/picom/picom.conf
+    ~/.config/polybar: dots/polybar
+    ~/.config/pscripts: dots/pscripts
+    ~/.config/pulse/default.pa: dots/pulse/default.pa
+    ~/.config/qutebrowser/config.py: dots/qutebrowser/config.py
     ~/.config/redshift.conf: dots/redshift.conf
     ~/.config/starship.toml: dots/starship.toml
-    ~/.config/alacritty/alacritty.yml: dots/alacritty/alacritty.yml
-    ~/.config/pulse/default.pa: dots/pulse/default.pa
-    ~/.config/pscripts: dots/pscripts
-    ~/.config/qutebrowser/config.py: dots/qutebrowser/config.py
-    ~/.config/nvim: dots/nvim
-    ~/.config/nvcode: dots/nvcode
-    ~/.config/efm-langserver: dots/efm-langserver
-    ~/.pandoc/templates/eisvogel.latex: dots/pandoc/templates/eisvogel.tex
-    ~/.config/dunst: dots/dunst
+    ~/.config/sxhkd: dots/sxhkd
+    ~/.fonts: dots/.fonts
+    ~/.gitconfig: dots/.gitconfig
+    ~/.ideavimrc: dots/.ideavimrc
     ~/.imwheelrc: dots/.imwheelrc
+    ~/.npmrc: dots/.npmrc
+    ~/.p10k.zsh: dots/.p10k.zsh
+    ~/.pandoc/templates/eisvogel.latex: dots/pandoc/templates/eisvogel.tex
+    ~/.profile: dots/.profile
+    ~/.ripgreprc: dots/.ripgreprc
+    ~/.scripts: dots/.scripts
+    ~/.tmux.conf: dots/.tmux.conf
+    ~/.zprofile: dots/.zprofile
+    ~/.zshrc: dots/.zshrc
 
     # Modules
     ~/.tmux/plugins/tpm: gmodules/tpm
