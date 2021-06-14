@@ -100,7 +100,7 @@
   "tsserver.maxTsServerMemory": 2048,
   "tsserver.disableAutomaticTypeAcquisition": false,
   "tsserver.useBatchedBufferSync": true,
-  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "project-relative",
   "typescript.workspaceSymbols.scope": "currentProject",
   // Emmet
   "emmet.includeLanguages": {

@@ -41,6 +41,15 @@
     };
   };
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
   # xdg.portal.enable = true;
   # xdg.portal.gtkUsePortal = true;
   # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

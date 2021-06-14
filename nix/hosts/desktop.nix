@@ -27,7 +27,7 @@
   networking.firewall.enable = false;
   services.lorri.enable = true;
   # hardware.nvidia.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     screenSection = ''

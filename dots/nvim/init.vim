@@ -63,6 +63,7 @@ Plug 'chriskempson/base16-vim'
 " Plug 'vim-airline/vim-airline-themes'
 " Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'mattn/emmet-vim'
 
 call plug#end()
 " }}}
@@ -178,6 +179,9 @@ nnoremap <silent> <leader>mp :call mkdp#util#toggle_preview()<CR>
 
 
 map <leader>w <C-w>
+
+let g:user_emmet_mode='n'    "only enable normal mode functions.
+let g:user_emmet_leader_key=','
 
 "let delimitMate_quotes = "\" ' `"
 "au FileType markdown let b:delimitMate_quotes = "\" ' ` $"
