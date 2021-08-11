@@ -11,3 +11,6 @@
 [submodule "gmodules/tpm"]
 	path = gmodules/tpm
 	url = git@github.com:tmux-plugins/tpm
+[submodule "gmodules/polybar-scripts"]
+	path = gmodules/polybar-scripts
+	url = git@github.com:polybar/polybar-scripts.git

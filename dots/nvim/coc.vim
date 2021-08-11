@@ -1,36 +1,47 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Extensions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
             \  "coc-css",
+            \  "coc-cssmodules",
             \  "coc-emmet",
+            \  "coc-emoji",
             \  "coc-eslint",
+            \  "coc-explorer",
             \  "coc-go",
             \  "coc-html",
             \  "coc-java",
             \  "coc-json",
+            \  "coc-kotlin",
             \  "coc-lists",
+            \  "coc-lua",
             \  "coc-metals",
             \  "coc-pairs",
             \  "coc-prettier",
-            \  "coc-python",
+            \  "coc-pyright",
             \  "coc-rust-analyzer",
             \  "coc-snippets",
+            \  "coc-styled-components",
+            \  "coc-stylelint",
             \  "coc-svg",
-            \  "coc-tailwindcss",
+            \  "https://github.com/rodrigore/coc-tailwind-intellisense",
             \  "coc-texlab",
+            \  "coc-toml",
             \  "coc-tsserver",
             \  "coc-vetur",
+            \  "coc-vimlsp",
             \  "coc-xml",
-            \  "coc-yaml",
-            \  "coc-explorer"
+            \  "coc-yaml"
             \]
+
+
+" augroup ReactFiletypes
+"   autocmd!
+"   autocmd BufRead,BufNewFile *.jsx set filetype=javascript.jsx
+"   autocmd BufRead,BufNewFile *.tsx set filetype=typescript.tsx
+" augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Keybinds
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -44,29 +55,35 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 
 inoremap <silent><expr> <c-space> coc#refresh()
 
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gD :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gD :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+nmap <silent> gD <Plug>(coc-declaration)
+nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gs :call CocActionAsync('showSignatureHelp')<CR>
 
 nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
 nmap <silent> <leader>cr <Plug>(coc-rename)
 nmap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
-nmap <silent> <leader>cs :call CocActionAsync('showSignatureHelp')<CR>
-nmap <silent> <leader>ca :CocAction<CR>
-xmap <silent> <leader>ca :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>ca <Plug>(coc-codeaction-cursor)
+xmap <silent> <leader>ca <Plug>(coc-codeaction-cursor)
 nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-nnoremap <nowait> <leader>cl  :<C-u>CocList diagnostics<cr>
+nnoremap <nowait> <leader>l  :<C-u>CocList diagnostics<cr>
 
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-nnoremap <silent> F :call CocAction('format')<CR>
+nnoremap <silent> <leader>f :call CocAction('format')<CR>
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
+
 nnoremap <silent> <leader>n :execute "CocCommand explorer" getcwd()<CR>
-"nnoremap <silent> <leader>s :CocRg<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autocommands

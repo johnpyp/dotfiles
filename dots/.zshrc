@@ -64,6 +64,9 @@ zinit wait'0c' lucid for \
          blockf atpull'zinit creinstall -q .' \
              zsh-users/zsh-completions
 
+zt_completion(){zinit ice lucid ${1/#[0-9][a-c]/wait"${1}"} as"completion" "${@:2}";  }
+zt_completion 0a blockf
+
 if [ -z "$_zsh_custom_scripts_loaded" ]; then
     _zsh_custom_scripts_loaded=1
 
@@ -112,10 +115,7 @@ alias vimdiff="nvim -d"
 alias clr="printf '\033[2J\033[3J\033[1;1H'"
 alias synctime="timedatectl set-ntp true"
 alias em="emacs -nw"
-# alias extract="aunpack"
-# alias ex="aunpack"
-alias ex="arc unarchive"
-alias ex="arc unarchive"
+alias ex="aunpack"
 alias archive="apack -e -F .zip"
 # ls memes
 alias ls='exa --icons --classify --group-directories-first --time-style=long-iso --group --color-scale'
@@ -130,6 +130,7 @@ alias cod="conda deactivate"
 alias coc="conda create --name"
 alias s="source ~/.zshrc"
 alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
 
 sshforward() {
   ssh $1 -L $2\:localhost\:$2 -N
@@ -159,7 +160,7 @@ export LESS_TERMCAP_us=$(printf "\e[1;32m") \
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
+export PATH=~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
 export XDG_DATA_HOME=$HOME/.local/share
 
 eval $(keychain --eval --quiet id_rsa)
@@ -211,6 +212,7 @@ function zsh_directory_name() {
   done
   return 1
 }
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

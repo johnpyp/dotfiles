@@ -15,9 +15,12 @@ for m in $outputs; do
   fi
 done
 
+network_interface=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)')
+
 for m in $outputs; do
   export MONITOR=$m
   export TRAY_POSITION=none
+  export NETWORK_INTERFACE=$network_interface
   if [[ $m == $tray_output ]]; then
     export TRAY_POSITION=right
   fi

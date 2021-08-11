@@ -3,3 +3,6 @@
 - Nvidia should be added to pacman hook
 - Enable `ILoveCandy` and `Color` in /etc/pacman.conf for pretty colors yay
 - Dolphin in chrome requires xdg-desktop-portal, xdg-desktop-portal-kde, **kdialog**, and the fake KDE env variables in ~/.profile
+- When pulseaudio annoyingly switches devices, change /etc/pulse/default.pa and uncomment `load-module module-switch-on-port-available` https://askubuntu.com/a/1061578
+- `code --disable-gpu-vsync --disable-frame-rate-limit` to make vscode go fast
+- `code --ignore-gpu-blacklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers` for gpu acceleration

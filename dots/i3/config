@@ -10,9 +10,9 @@ workspace_auto_back_and_forth yes
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
 for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="feh"] floating enable sticky enable border normal resize set 1600 1200
 for_window [class="Pavucontrol"] floating enable
-for_window [class="Redacted"] floating enable
-for_window [class="KDialog"] floating enable resize set 800 600
+for_window [class="kdialog"] floating enable resize set 1200 720 move position center
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -91,7 +91,7 @@ exec --no-startup-id "feh --bg-fill $HOME/dotfiles/wallpapers/current.png &"
 exec --no-startup-id "sxhkd &"
 exec --no-startup-id "nm-applet &"
 exec --no-startup-id "redshift-gtk &"
-# exec --no-startup-id "picom -b &"
+exec --no-startup-id "picom --experimental-backends -b &"
 exec --no-startup-id "/usr/lib/xfce4/notifyd/xfce4-notifyd &"
 exec --no-startup-id "imwheel -k -b 45 &"
 # exec --no-startup-id "xautolock -time 30 -locker 'betterlockscreen -l dimblur'"

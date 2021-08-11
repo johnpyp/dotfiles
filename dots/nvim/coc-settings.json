@@ -33,7 +33,6 @@
     "xml",
     "yaml"
   ],
-
   "omnisharp.path": "omnisharp",
   "languageserver": {
     "nix": {
@@ -58,21 +57,17 @@
     "typescript",
     "gitcommit"
   ],
+  "coc.preferences.watchmanPath": "asdfa",
+  "coc.source.file.enable": true,
   "suggest.echodocSupport": false,
   "suggest.autoTrigger": "always",
   "codeLens.enable": false,
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets/user",
-
   // Rust
   "rust-analyzer.inlayHints.chainingHints": false,
   "rust-analyzer.cargo.allFeatures": true,
   "rust-analyzer.cargo.autoreload": true,
-  "rust-analyzer.diagnostics.disabled": ["macro-error"],
   "rust-analyzer.procMacro.enable": true,
-  "rust-analyzer.rustfmt.extraArgs": [
-    "--config",
-    "group_imports=StdExternalCrate,merge_imports=true"
-  ],
   // Yaml
   "yaml.format.enable": true,
   "yaml.schemas": {},
@@ -82,8 +77,6 @@
   // Eslint
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
-  "workspace.bottomUpFiletypes": ["javascript", "typescript"],
-  "workspace.workspaceFolderCheckCwd": false,
   // Vetur
   "vetur.validation.style": false,
   "vetur.format.enable": true,
@@ -92,34 +85,42 @@
   "scss.validate": false,
   // Typescript/Javascript
   "javascript.preferences.importModuleSpecifier": "relative",
-  "javascript.validate.enable": true,
-  "javascript.suggest.enabled": true,
-  "javascript.suggest.autoImports": true,
-  "javascript.suggestionActions.enabled": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
   "tsserver.log": "verbose",
-  "tsserver.maxTsServerMemory": 2048,
+  "tsserver.maxTsServerMemory": 4096,
+  "tsserver.watchOptions": {
+    "watchFile": "fixedPollingInterval",
+    "watchDirectory": "fixedPollingInterval",
+    "fallbackPolling": "priorityPollingInterval",
+    "synchronousWatchDirectory": true
+  },
+  "typescript.suggest.importStatements": true,
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.includeCompletionsForImportStatements": true,
   "tsserver.disableAutomaticTypeAcquisition": false,
-  "tsserver.useBatchedBufferSync": true,
-  "typescript.preferences.importModuleSpecifier": "project-relative",
-  "typescript.workspaceSymbols.scope": "currentProject",
+  "tsserver.implicitProjectConfig.checkJs": false,
+  "javascript.updateImportsOnFileMove.enable": false,
+  "typescript.updateImportsOnFileMove.enable": false,
   // Emmet
   "emmet.includeLanguages": {
     "vue-html": "html",
     "javascript": "javascriptreact",
     "jsx": "javascriptreact",
-    "javascriptreact": "javascriptreact"
+    "tsx": "typescriptreact",
+    "javascriptreact": "javascriptreact",
+    "typescriptreact": "typescriptreact"
   },
   // Snippets
   "snippets.extends": {
     "cpp": ["c"],
     "javascriptreact": ["javascript"],
-    "typescript": ["javascript", "javascript-jsdoc"]
+    "typescript": ["javascript", "javascript-jsdoc"],
+    "typescriptreact": ["typescript", "javascript", "javascript-jsdoc"]
   },
   // Python
   // "python.pythonPath": "~/dotfiles/python-picker",
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": true,
-
   "pyright.organizeimports.provider": "pyright",
   "pyright.completion.snippetSupport": true,
   "python.analysis.autoImportCompletions": true,
@@ -131,7 +132,6 @@
   "go.goplsPath": "gopls",
   // Java
   "java.errors.incompleteClasspath.severity": "ignore",
-
   // Lua
   "Lua.workspace.library": {
     "/usr/share/nvim/runtime/lua": true,
@@ -158,6 +158,8 @@
     "jade",
     "javascriptreact",
     "jsx",
+    "typescriptreact",
+    "tsx",
     "leaf",
     "markdown",
     "njk",
@@ -170,7 +172,11 @@
     "vue",
     "pug"
   ],
-
+  "tailwindCSS.experimental.classRegex": [
+    "tw`([^`]*)", // tw`...`
+    "tw\\..+`([^`]*)", // tw.xxx<xxx>`...`
+    "tw\\(.*?\\).*?`([^`]*)" // tw(Component)<xxx>`...`
+  ],
   // "explorer.icon.enableVimDevicons": true,
   "explorer.icon.enableNerdfont": true,
   "explorer.quitOnOpen": true,
@@ -178,13 +184,10 @@
   "explorer.previewAction.onHover": false,
   "explorer.keyMappings.global": {
     "i": "cd",
-
     "gk": "expandablePrev",
     "gj": "expandableNext",
-
     "*": "toggleSelection",
     "<tab>": "actionMenu",
-
     "h": "collapse",
     "J": ["wait", "toggleSelection", "normal:j"],
     "K": ["wait", "toggleSelection", "normal:k"],
@@ -195,7 +198,6 @@
       ["expanded?", "collapse", "expand"],
       "open"
     ],
-
     "o": ["wait", "expanded?", "collapse", "expand"],
     "<cr>": [
       "wait",
@@ -211,40 +213,30 @@
     "t": "open:tab",
     "u": "gotoParent",
     "gp": "preview:labeling",
-
     "yp": "copyFilepath",
     "yn": "copyFilename",
     "yy": "copyFile",
     "dd": "cutFile",
     "p": "pasteFile",
-
     "D": "deleteForever",
-
     "a": "addFile",
     "A": "addDirectory",
     "r": "rename",
-
     ".": "toggleHidden",
     "R": "refresh",
-
     "?": "help",
     "q": "quit",
     "<esc>": "esc",
     // "X": "systemExecute",
     "gd": "listDrive",
-
     "f": "search",
     "F": "searchRecursive",
-
     "gf": "gotoSource:file",
     "gb": "gotoSource:buffer",
-
     "[[": "sourcePrev",
     "]]": "sourceNext",
-
     "[d": "diagnosticPrev",
     "]d": "diagnosticNext",
-
     "[c": "gitPrev",
     "]c": "gitNext",
     "<<": "gitStage",

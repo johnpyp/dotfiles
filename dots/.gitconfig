@@ -20,6 +20,7 @@
 [difftool]
   prompt = false
 [pull]
+  default = current
   rebase = true
 [core]
   editor = nvim

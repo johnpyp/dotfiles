@@ -6,7 +6,7 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-let g:polyglot_disabled = ['latex', 'markdown', 'pandoc', 'go', 'vue']
+let g:polyglot_disabled = ['latex', 'markdown', 'pandoc', 'go', 'vue', 'vim']
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -20,6 +20,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'leafOfTree/vim-vue-plugin'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'norcalli/nvim-colorizer.lua'
@@ -30,8 +31,8 @@ Plug 'plasticboy/vim-markdown'
 " Plug 'romgrk/doom-one.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
-Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-fugitive'
+" Plug 'tomtom/tcomment_vim'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
@@ -64,6 +65,34 @@ Plug 'chriskempson/base16-vim'
 " Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'mattn/emmet-vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'windwp/nvim-ts-autotag'
+
+Plug 'b3nj5m1n/kommentary'
+
+" Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+" Plug 'TimUntersberger/neogit'
+Plug 'kdheepak/lazygit.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" Plug 'windwp/nvim-autopairs'
+" 
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+" Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+" 
+" Plug 'onsails/lspkind-nvim'
+" 
+" Plug 'hrsh7th/nvim-compe'
+" Plug 'kabouzeid/nvim-lspinstall'
+" 
+" Plug 'RishabhRD/popfix'
+" Plug 'RishabhRD/nvim-lsputils'
+" 
+" Plug 'tamago324/nlsp-settings.nvim'
 
 call plug#end()
 " }}}
@@ -101,6 +130,7 @@ set mouse=a
 highlight Comment cterm=italic gui=italic
 set guicursor=
 set guicursor=a:blinkon0-blinkoff0,n-v-c-sm:block,i-ci-ve:hor100-Cursor,r-cr-o:ver100
+set completeopt=menuone,noselect
 autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -168,9 +198,10 @@ nnoremap <silent> <C-p> :Files<CR>
 " nnoremap <silent> <leader>l :Buffers<CR>
 
 " Fugitive:
-nnoremap <leader>gs :Git<CR>
-nnoremap <leader>gp :Git push<CR>
-nnoremap <leader>gb :Gblame<CR>
+" nnoremap <leader>gs :Git<CR>
+" nnoremap <leader>gp :Git push<CR>
+" nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gs :LazyGit<CR>
 
 " Markdown:
 nnoremap <silent> <leader>mc :call CompileMarkdownTerm()<CR>
@@ -179,6 +210,9 @@ nnoremap <silent> <leader>mp :call mkdp#util#toggle_preview()<CR>
 
 
 map <leader>w <C-w>
+
+" nnoremap <silent> <leader>n :NvimTreeToggle<CR>
+" inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
 
 let g:user_emmet_mode='n'    "only enable normal mode functions.
 let g:user_emmet_leader_key=','
@@ -190,152 +224,6 @@ let g:user_emmet_leader_key=','
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extensions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:coc_node_path = 'node'
-let g:coc_global_extensions = [
-            \  "coc-css",
-            \  "coc-cssmodules",
-            \  "coc-emmet",
-            \  "coc-emoji",
-            \  "coc-eslint",
-            \  "coc-explorer",
-            \  "coc-go",
-            \  "coc-html",
-            \  "coc-java",
-            \  "coc-json",
-            \  "coc-kotlin",
-            \  "coc-lists",
-            \  "coc-lua",
-            \  "coc-metals",
-            \  "coc-pairs",
-            \  "coc-prettier",
-            \  "coc-pyright",
-            \  "coc-rust-analyzer",
-            \  "coc-snippets",
-            \  "coc-styled-components",
-            \  "coc-stylelint",
-            \  "coc-svg",
-            \  "coc-tailwindcss",
-            \  "coc-texlab",
-            \  "coc-toml",
-            \  "coc-tsserver",
-            \  "coc-vetur",
-            \  "coc-vimlsp",
-            \  "coc-xml",
-            \  "coc-yaml"
-            \]
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Keybinds
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-let g:coc_snippet_next = '<TAB>'
-let g:coc_snippet_prev = '<S-TAB>'
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gD :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-" nmap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> gr <Plug>(coc-references)
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD <Plug>(coc-declaration)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gs :call CocActionAsync('showSignatureHelp')<CR>
-
-nmap <silent> <leader>ct <Plug>(coc-diagnostic-info)
-nmap <silent> <leader>cr <Plug>(coc-rename)
-nmap <silent> <leader>co :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
-nmap <silent> <leader>ca v<Plug>(coc-codeaction-selected)<C-C>
-xmap <silent> <leader>ca :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nnoremap <silent> <Leader>cf :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-nnoremap <nowait> <leader>l  :<C-u>CocList diagnostics<cr>
-
-vmap <C-j> <Plug>(coc-snippets-select)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-nnoremap <silent> <leader>f :call CocAction('format')<CR>
-nnoremap <silent> K :call ShowDocumentation()<CR>
-
-
-nnoremap <silent> <leader>n :execute "CocCommand explorer" getcwd()<CR>
-
-" nnoremap <silent> <leader>n :Fern . -drawer -toggle -reveal=%<CR>
-
-
-augroup CocExplorerCustom
-  autocmd!
-augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Autocommands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-if $CONDA_PREFIX == ""
-  let s:current_python_path="/usr/bin/python"
-else
-  let s:current_python_path=$CONDA_PREFIX.'/bin/python'
-endif
-call coc#config('python', {'pythonPath': s:current_python_path})
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-augroup cocgroup
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType json setlocal formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder.
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
-    autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
-    autocmd FileType markdown,pandoc,tex,latex let b:coc_pairs = [["$", "$"]]
-
-    " autocmd StdinReadPre * let s:std_in=1
-    " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-augroup end
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold   :call CocAction('fold', <f-args>)
-command! -nargs=* -complete=custom,s:GrepArgs CocRg exe 'CocList -I grep -i '.<q-args>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper Functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! ShowDocumentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-function! s:GrepArgs(...)
-  let list = ['-S', '--smart-case', '-w', '--word-regexp', '-e', '--regexp', '--ignore-files']
-  return join(list, "\n")
-endfunction
 """ }}}"""
 " Fern: {{{
 function! s:init_fern() abort
@@ -435,6 +323,7 @@ let g:floaterm_autoclose = 1
 let g:sleuth_automatic = 1
 
 " let g:fugitive_git_executable = 'hub'
+let g:fugitive_pty = 0
 
 let g:tagalong_additional_filetypes = ['vue']
 
@@ -777,5 +666,9 @@ let g:lightline.colorscheme = 'onedark'
 set runtimepath^=/home/johnpyp/code/coc-prisma
 " source $HOME/.config/nvim/coc.vim
 " source $HOME/.config/nvim/luamode.vim
+source $HOME/.config/nvim/coc.vim
+" lua require("entrypoint")
+lua require("plugins.treesitter")
+lua require("plugins.kommentary")
+" lua require("plugins.neogit")
 " }}}
-

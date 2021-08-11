@@ -182,7 +182,7 @@ format-disconnected-underline = ${colors.Purple}
 
 [module/wired-network]
 type = internal/network
-interface = enp8s0
+interface = ${env:NETWORK_INTERFACE}
 interval = 3.0
 label-connected =  Wired
 format-connected = <label-connected>
@@ -192,7 +192,7 @@ format-disconnected-underline = ${colors.Purple}
 
 [module/updates-arch-combined]
 type = custom/script
-exec = ~/.config/pscripts/updates-arch-combined.sh
+exec = ~/.config/pscripts/updates-pacman-aurhelper.sh
 interval = 200
 format =  <label> Updates
 format-underline = ${colors.Red}
@@ -211,6 +211,7 @@ exec = ~/.config/pscripts/player-mpris-tail.py -f ' %{A1:~/.config/pscripts/p
 tail = true
 label = %output%
 label-underline = ${colors.Cyan}
+
 [module/battery]
 type = internal/battery
 

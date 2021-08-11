@@ -3,7 +3,7 @@
       force: true
       create: true
 
-- clean: ["~", "~/.config"]
+- clean: ["~", "~/.config", "~/.config/pscripts"]
 
 - link:
     ~/.Xresources: dots/.Xresources
@@ -20,7 +20,8 @@
     ~/.config/paru: dots/paru
     ~/.config/picom/picom.conf: dots/picom/picom.conf
     ~/.config/polybar: dots/polybar
-    ~/.config/pscripts: dots/pscripts
+    ~/.config/pscripts/player-mpris-tail.py: gmodules/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py
+    ~/.config/pscripts/updates-pacman-aurhelper.sh: gmodules/polybar-scripts/polybar-scripts/updates-pacman-aurhelper/updates-pacman-aurhelper.sh
     ~/.config/pulse/default.pa: dots/pulse/default.pa
     ~/.config/qutebrowser/config.py: dots/qutebrowser/config.py
     ~/.config/redshift.conf: dots/redshift.conf
@@ -37,11 +38,13 @@
     ~/.ripgreprc: dots/.ripgreprc
     ~/.scripts: dots/.scripts
     ~/.tmux.conf: dots/.tmux.conf
+    ~/.tmux/plugins/tpm: gmodules/tpm
+    ~/.xinitrc: dots/.xinitrc
     ~/.zprofile: dots/.zprofile
     ~/.zshrc: dots/.zshrc
-
-    # Modules
-    ~/.tmux/plugins/tpm: gmodules/tpm
+    ~/.local/share/applications/:
+      glob: true
+      path: dots/desktop-entries/*
 
 - create:
     - ~/code
