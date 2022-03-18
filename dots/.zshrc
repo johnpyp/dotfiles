@@ -47,6 +47,7 @@ fi
 
 source "$HOME/.zi/bin/zi.zsh"
 
+
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
 DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 
@@ -109,13 +110,11 @@ autoload -Uz _zi
 
 ### End of zi's installer chunk
 
-
 # export CONDA_DEFAULT_ENV=""
 KEYTIMEOUT=1
 bindkey '^H' backward-kill-word
 # Enable vim mode
-bindkey -v
-bindkey -v '^?' backward-delete-char
+# bindkey -v '^?' backward-delete-char
 # bindkey -s '\e[1;2Q' ''
 removelink() {
   [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
@@ -152,7 +151,7 @@ alias l='ls --git-ignore'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
-alias goodsync="rsync -auvxHAWXP --numeric-ids --info=progress2"
+alias goodsync="rsync -rlptoD -uvxHWXP --numeric-ids --info=progress2"
 
 alias coa="conda deactivate && conda activate"
 alias cod="conda deactivate"
@@ -190,7 +189,7 @@ export LESS_TERMCAP_us=$(printf "\e[1;32m") \
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:$PATH
+export PATH=~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
 export XDG_DATA_HOME=$HOME/.local/share
 
 eval $(keychain --eval --quiet id_rsa)
@@ -246,7 +245,7 @@ function zsh_directory_name() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 
 # >>> mamba initialize >>>

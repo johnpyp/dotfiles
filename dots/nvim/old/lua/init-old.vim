@@ -337,7 +337,7 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_resolve_links = 1
 let g:rooter_patterns = [".git", "_darcs", ".hg", ".bzr", ".svn", ".project", ".projectkeep"]
 
-let g:airline_extensions = ["tabline", "coc", "branch"]
+let g:airline_extensions = ["tabline", "branch"]
 
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
@@ -518,9 +518,6 @@ let g:go_doc_keywordprg_enabled = 0
 " EOF
 " }}}
 " Lightline: {{{
-function! CocCurrentFunction()"{{{
-  return get(b:, 'coc_current_function', '')
-endfunction"}}}
 function! Devicons_Filetype()"{{{
   " return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
@@ -593,7 +590,7 @@ let g:lightline.active = {
     \           [ 'gitbranch', 'readonly', 'filename', 'modified', 'fileformat', 'devicons_filetype' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'pomodoro' ],
-    \            [ 'asyncrun_status', 'coc_status' ] ]
+    \            [ 'asyncrun_status' ] ]
     \ }
 let g:lightline.inactive = {
     \ 'left': [ ['mode', 'paste'], [ 'gitbranch', 'filename' , 'modified', 'fileformat', 'devicons_filetype' ]],
@@ -651,7 +648,6 @@ let g:lightline.component_function = {
       \ 'gitbranch': 'Gitbranch',
       \ 'devicons_filetype': 'Devicons_Filetype',
       \ 'devicons_fileformat': 'Devicons_Fileformat',
-      \ 'coc_status': 'coc#status'
       \ }
 let g:lightline.component_expand = {
       \ 'linter_checking': 'lightline#ale#checking',
@@ -659,7 +655,6 @@ let g:lightline.component_expand = {
       \ 'linter_errors': 'lightline#ale#errors',
       \ 'linter_ok': 'lightline#ale#ok',
       \ 'asyncrun_status': 'lightline#asyncrun#status',
-      \ 'coc_currentfunction': 'CocCurrentFunction',
       \ 'buffers': 'lightline#bufferline#buffers'
       \ }
 let g:lightline.component_type = {

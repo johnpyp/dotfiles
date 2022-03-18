@@ -1,3 +1,4 @@
+let g:coc_force_debug = 1
 let g:coc_node_path = 'node'
 let g:coc_global_extensions = [
             \  "coc-css",
