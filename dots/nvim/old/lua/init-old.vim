@@ -75,7 +75,10 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'nvim-lua/plenary.nvim'
 " Plug 'TimUntersberger/neogit'
 Plug 'kdheepak/lazygit.nvim'
+Plug 'pantharshit00/vim-prisma'
+Plug 'nathom/filetype.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
+
 " Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " Plug 'windwp/nvim-autopairs'
@@ -127,6 +130,9 @@ set foldmethod=marker
 set showtabline=2
 set inccommand=split
 set mouse=a
+set ambiwidth=single
+set pyx=3
+
 highlight Comment cterm=italic gui=italic
 set guicursor=
 set guicursor=a:blinkon0-blinkoff0,n-v-c-sm:block,i-ci-ve:hor100-Cursor,r-cr-o:ver100
@@ -469,7 +475,7 @@ let g:mkdp_browserfunc = 'g:Open_browser'
 let $FZF_DEFAULT_COMMAND = 'fd -t f""'
 
 function! RipgrepFzf(query, fullscreen)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --ignore-case --line-buffered -- %s || true'
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --ignore-case --line-buffered -g ''!yarn.lock'' -- %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
     let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--no-preview']}
@@ -477,6 +483,10 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
+
+" Empty value to disable preview window altogether
+let g:fzf_preview_window = []
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Go
@@ -663,12 +673,11 @@ let g:lightline.component_visible_condition = {
 let g:lightline.colorscheme = 'onedark'
 " }}}
 " Imports: {{{
-set runtimepath^=/home/johnpyp/code/coc-prisma
 " source $HOME/.config/nvim/coc.vim
 " source $HOME/.config/nvim/luamode.vim
 source $HOME/.config/nvim/coc.vim
-" lua require("entrypoint")
-lua require("plugins.treesitter")
-lua require("plugins.kommentary")
+lua require("entrypoint")
+" lua require("plugins.treesitter")
+" lua require("plugins.kommentary")
 " lua require("plugins.neogit")
 " }}}

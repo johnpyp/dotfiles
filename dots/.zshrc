@@ -8,79 +8,108 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
-setopt HIST_IGNORE_SPACE
-setopt EXTENDED_HISTORY
-setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
+# # Remove older duplicate entries from history.
+# setopt hist_ignore_all_dups
+# # Expire A Duplicate Event First When Trimming History.
+# setopt hist_expire_dups_first
+# # Do Not Record An Event That Was Just Recorded Again.
+# setopt hist_ignore_dups  
+# # Remove superfluous blanks from history items.       
+# setopt hist_reduce_blanks
+# # Do Not Display A Previously Found Event.
+# setopt hist_find_no_dups
+# # Do Not Record An Event Starting With A Space.
+# setopt hist_ignore_space
+# # Do Not Write A Duplicate Event To The History File.
+# setopt hist_save_no_dups
+# # Do Not Execute Immediately Upon History Expansion.        
+# setopt hist_verify
+
+# Allow multiple sessions append to one zsh command history.           
+setopt append_history
+# Show Timestamp In History.
+setopt extended_history
+# Write to history file immediately, not after shell exit.
+setopt inc_append_history
+# Share history between different instances of the shell.
+setopt share_history    
 
 typeset -g HISTSIZE=290000 SAVEHIST=290000 HISTFILE=~/.zhistory
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+### Added by Zi's installer
+if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}z-shell/zi%F{220})…%f"
+    command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
+    command git clone https://github.com/z-shell/zi.git "$HOME/.zi/bin" && \
         print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
-source "$HOME/.zinit/bin/zinit.zsh"
+source "$HOME/.zi/bin/zi.zsh"
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
 DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
-zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node
+zi ice lucid
+zi light-mode for \
+  z-shell/z-a-meta-plugins \
+  @annexes+rec
 
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+zi ice depth=1; zi light romkatv/powerlevel10k
 
-# zinit as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+zi light-mode for \
+  @fuzzy \
+  @sharkdp
+
+zi wait lucid light-mode for \
+  atinit"zicompinit; zicdreplay" \
+    z-shell/F-Sy-H \
+  atload"_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+  blockf atpull'zi creinstall -q .' \
+    zsh-users/zsh-completions
+
+# zi as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
 #     atpull'%atclone' pick"direnv" src"zhook.zsh" for \
 #         direnv/direnv
+#
+zi ice as"completion"
+zi snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-zinit wait lucid for \
+zi ice as"completion"
+zi snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
+
+zi wait lucid for \
         hlissner/zsh-autopair \
+        z-shell/H-S-MW \
         wfxr/forgit \
-        zdharma/history-search-multi-word \
         agkozak/zsh-z \
         as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX" \
             tj/git-extras
 
-zinit wait lucid as"null" for \
-       node"!fx" zdharma/null
+# zi wait lucid as"null" for \
+#        node"!fx" zdharma/null
 
-zinit wait lucid pack for ls_colors
+zi wait lucid pack for ls_colors
 
-zinit wait'0c' lucid for \
-         atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-             zdharma/fast-syntax-highlighting \
-         atload"_zsh_autosuggest_start" \
-             zsh-users/zsh-autosuggestions \
-         blockf atpull'zinit creinstall -q .' \
-             zsh-users/zsh-completions
 
-zt_completion(){zinit ice lucid ${1/#[0-9][a-c]/wait"${1}"} as"completion" "${@:2}";  }
-zt_completion 0a blockf
+# zt_completion(){zi ice lucid ${1/#[0-9][a-c]/wait"${1}"} as"completion" "${@:2}";  }
+# zt_completion 0a blockf
 
 if [ -z "$_zsh_custom_scripts_loaded" ]; then
     _zsh_custom_scripts_loaded=1
 
-    zinit lucid for wait'1' autoload'#manydots-magic' knu/zsh-manydots-magic
+    zi lucid for wait'1' autoload'#manydots-magic' knu/zsh-manydots-magic
 fi
+# Next two lines must be below the above two
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
 
-# autoload -Uz compinit
-# compinit
-# zinit cdreplay -q
-
-### End of Zinit's installer chunk
+### End of zi's installer chunk
 
 
-command -v lsd > /dev/null && alias ls='lsd --group-dirs first'
 # export CONDA_DEFAULT_ENV=""
 KEYTIMEOUT=1
 bindkey '^H' backward-kill-word
@@ -131,6 +160,7 @@ alias coc="conda create --name"
 alias s="source ~/.zshrc"
 alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
 alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
+alias ssh="TERM=\"xterm-256color\" ssh"
 
 sshforward() {
   ssh $1 -L $2\:localhost\:$2 -N
@@ -237,3 +267,7 @@ unset __mamba_setup
 # <<< mamba initialize <<<
 
 alias m="micromamba"
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"

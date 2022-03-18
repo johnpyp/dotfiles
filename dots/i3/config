@@ -14,6 +14,10 @@ for_window [class="feh"] floating enable sticky enable border normal resize set 
 for_window [class="Pavucontrol"] floating enable
 for_window [class="kdialog"] floating enable resize set 1200 720 move position center
 
+for_window [class="xdg-desktop-portal-kde"] resize set 1500 1000
+for_window [class="xdg-desktop-portal-kde"] move position center
+
+
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 

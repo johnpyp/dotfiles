@@ -6,24 +6,11 @@
 - clean: ["~", "~/.config", "~/.config/pscripts"]
 
 - link:
-    ~/.Xresources: dots/.Xresources
     ~/.config/alacritty/alacritty.yml: dots/alacritty/alacritty.yml
-    ~/.config/autorandr/postswitch: dots/autorandr/postswitch
-    ~/.config/dunst: dots/dunst
-    ~/.config/i3/config: dots/i3/config
+    ~/.config/efm-langserver: dots/efm-langserver
     ~/.config/kitty/kitty.conf: dots/kitty/kitty.conf
     ~/.config/kitty/themes: dots/kitty/themes
-    ~/.config/kwalletrc: dots/kwalletrc
     ~/.config/nvim: dots/nvim
-    ~/.config/paru: dots/paru
-    ~/.config/picom/picom.conf: dots/picom/picom.conf
-    ~/.config/polybar: dots/polybar
-    ~/.config/pscripts/player-mpris-tail.py: gmodules/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py
-    ~/.config/pscripts/updates-pacman-aurhelper.sh: gmodules/polybar-scripts/polybar-scripts/updates-pacman-aurhelper/updates-pacman-aurhelper.sh
-    ~/.config/pulse/default.pa: dots/pulse/default.pa
-    ~/.config/redshift.conf: dots/redshift.conf
-    ~/.config/sxhkd: dots/sxhkd
-    ~/.fonts: dots/.fonts
     ~/.gitconfig: dots/.gitconfig
     ~/.ideavimrc: dots/.ideavimrc
     ~/.imwheelrc: dots/.imwheelrc
@@ -35,12 +22,8 @@
     ~/.scripts: dots/.scripts
     ~/.tmux.conf: dots/.tmux.conf
     ~/.tmux/plugins/tpm: gmodules/tpm
-    ~/.xinitrc: dots/.xinitrc
     ~/.zprofile: dots/.zprofile
     ~/.zshrc: dots/.zshrc
-    ~/.local/share/applications/:
-      glob: true
-      path: dots/desktop-entries/*
 
 - create:
     - ~/code

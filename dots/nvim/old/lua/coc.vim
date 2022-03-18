@@ -16,20 +16,21 @@ let g:coc_global_extensions = [
             \  "coc-metals",
             \  "coc-pairs",
             \  "coc-prettier",
+            \  "coc-prisma",
             \  "coc-pyright",
             \  "coc-rust-analyzer",
             \  "coc-snippets",
             \  "coc-styled-components",
             \  "coc-stylelint",
             \  "coc-svg",
-            \  "https://github.com/rodrigore/coc-tailwind-intellisense",
             \  "coc-texlab",
             \  "coc-toml",
             \  "coc-tsserver",
             \  "coc-vetur",
             \  "coc-vimlsp",
             \  "coc-xml",
-            \  "coc-yaml"
+            \  "coc-yaml",
+            \  "https://github.com/rodrigore/coc-tailwind-intellisense"
             \]
 
 

@@ -40,6 +40,7 @@
       "filetypes": ["nix"]
     }
   },
+  "workspace.bottomUpFiletypes": ["go"],
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextPrefix": "> ",
   "diagnostic.refreshOnInsertMode": true,
@@ -64,10 +65,16 @@
   "codeLens.enable": false,
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets/user",
   // Rust
-  "rust-analyzer.inlayHints.chainingHints": false,
-  "rust-analyzer.cargo.allFeatures": true,
+  "rust-analyzer.inlayHints.chainingHints": true,
+  "rust-analyzer.updates.channel": "nightly",
+  "rust-analyzer.cargo.allFeatures": false,
   "rust-analyzer.cargo.autoreload": true,
-  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.procMacro.enable": false,
+  "rust-analyzer.experimental.procAttrMacros": true,
+  "rust-analyzer.diagnostics.enableExperimental": true,
+
+  "rust-analyzer.callInfo.full": true,
+  "rust-analyzer.assist.importGroup": true,
   // Yaml
   "yaml.format.enable": true,
   "yaml.schemas": {},
@@ -87,7 +94,7 @@
   "javascript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifier": "relative",
   "tsserver.log": "verbose",
-  "tsserver.maxTsServerMemory": 4096,
+  "tsserver.maxTsServerMemory": 2048,
   "tsserver.watchOptions": {
     "watchFile": "fixedPollingInterval",
     "watchDirectory": "fixedPollingInterval",
@@ -101,6 +108,12 @@
   "tsserver.implicitProjectConfig.checkJs": false,
   "javascript.updateImportsOnFileMove.enable": false,
   "typescript.updateImportsOnFileMove.enable": false,
+
+  "hover.target": "float",
+  "signature.enable": true,
+  "signature.hideOnTextChange": false,
+  "signature.preferShownAbove": true,
+
   // Emmet
   "emmet.includeLanguages": {
     "vue-html": "html",
@@ -178,6 +191,7 @@
     "tw\\(.*?\\).*?`([^`]*)" // tw(Component)<xxx>`...`
   ],
   // "explorer.icon.enableVimDevicons": true,
+  "explorer.width": 50,
   "explorer.icon.enableNerdfont": true,
   "explorer.quitOnOpen": true,
   "explorer.position": "right",
