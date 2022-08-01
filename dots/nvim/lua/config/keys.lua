@@ -30,7 +30,7 @@ util.nnoremap("<Leader>e", ":nohl<CR>")
 
 -- Files/grep
 util.nnoremap("<C-p>", ":FzfLua files<CR>")
-util.nnoremap("<C-i>", ":FzfLua live_grep_native<CR>")
+util.nnoremap("<TAB>", ":FzfLua live_grep_native<CR>")
 
 -- Better indent
 util.vnoremap("<", "<gv")
@@ -49,10 +49,10 @@ util.nnoremap("<Leader>l", "<cmd>TroubleToggle document_diagnostics<CR>")
 _G.show_documentation = function()
 	local filetype = vim.bo.filetype
 	if vim.tbl_contains({ "vim", "help" }, filetype) then
-		vim.cmd("h " .. vim.fn.expand("<cword>"))
+		vim.cmd("h " .. vim.fn.expand("<cword>", nil, nil))
 	elseif vim.tbl_contains({ "man" }, filetype) then
-		vim.cmd("Man " .. vim.fn.expand("<cword>"))
-	elseif vim.fn.expand("%:t") == "Cargo.toml" then
+		vim.cmd("Man " .. vim.fn.expand("<cword>", nil, nil))
+	elseif vim.fn.expand("%:t", nil, nil) == "Cargo.toml" then
 		require("crates").show_popup()
 	else
 		vim.lsp.buf.hover()
