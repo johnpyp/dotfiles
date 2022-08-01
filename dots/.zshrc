@@ -72,6 +72,11 @@ zi wait lucid light-mode for \
   blockf atpull'zi creinstall -q .' \
     zsh-users/zsh-completions
 
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
+
+
 # zi as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
 #     atpull'%atclone' pick"direnv" src"zhook.zsh" for \
 #         direnv/direnv
@@ -111,7 +116,6 @@ autoload -Uz _zi
 ### End of zi's installer chunk
 
 # export CONDA_DEFAULT_ENV=""
-KEYTIMEOUT=1
 bindkey '^H' backward-kill-word
 # Enable vim mode
 # bindkey -v '^?' backward-delete-char
@@ -269,4 +273,12 @@ alias m="micromamba"
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+if [ "$(command -v pyenv)" ]; then
+  eval "$(pyenv init --path)"
+fi
+
+ZVM_CURSOR_STYLE_ENABLED=false
+ZVM_KEYTIMEOUT=0
+ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
+ZVM_ESCAPE_KEYTIMEOUT=0
+
