@@ -57,13 +57,16 @@ cmp.setup({
 	formatting = {
 		format = require("config.lsp.kind").cmp_format(),
 	},
+	window = {
+		documentation = cmp.config.window.bordered(),
+	},
 	-- experimental = {
 	-- 	native_menu = true,
 	-- },
-	documentation = {
-		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-		winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
-	},
+	-- documentation = {
+	-- 	border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+	--	winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
+	-- },
 	-- experimental = {
 	--   ghost_text = {
 	--     hl_group = "LspCodeLens",
