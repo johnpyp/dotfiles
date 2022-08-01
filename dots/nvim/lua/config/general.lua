@@ -23,7 +23,7 @@ vim.o.showbreak = "﬌" -- Add visual indent to wrapped lines
 vim.o.linebreak = true
 
 --Save undo history
-vim.cmd([[set undofile]])
+vim.cmd [[set undofile]]
 
 vim.o.ignorecase = true -- Ignore case generally for searches (overridden by smartcase)
 vim.o.smartcase = true -- Don't ignore case if uppercase chars are used in a search

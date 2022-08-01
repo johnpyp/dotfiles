@@ -1,4 +1,4 @@
-local util = require("util")
+local util = require "util"
 -- Manage config
 util.nnoremap("<Leader>ve", ":e ~/.config/nvim/init.lua<CR>")
 util.nnoremap("<leader>vs", ":source ~/.config/nvim/init.lua<CR>")
@@ -47,14 +47,14 @@ util.nnoremap("K", ":lua _G.show_documentation()<CR>")
 util.nnoremap("<Leader>l", "<cmd>TroubleToggle document_diagnostics<CR>")
 
 _G.show_documentation = function()
-	local filetype = vim.bo.filetype
-	if vim.tbl_contains({ "vim", "help" }, filetype) then
-		vim.cmd("h " .. vim.fn.expand("<cword>", nil, nil))
-	elseif vim.tbl_contains({ "man" }, filetype) then
-		vim.cmd("Man " .. vim.fn.expand("<cword>", nil, nil))
-	elseif vim.fn.expand("%:t", nil, nil) == "Cargo.toml" then
-		require("crates").show_popup()
-	else
-		vim.lsp.buf.hover()
-	end
+  local filetype = vim.bo.filetype
+  if vim.tbl_contains({ "vim", "help" }, filetype) then
+    vim.cmd("h " .. vim.fn.expand("<cword>", nil, nil))
+  elseif vim.tbl_contains({ "man" }, filetype) then
+    vim.cmd("Man " .. vim.fn.expand("<cword>", nil, nil))
+  elseif vim.fn.expand("%:t", nil, nil) == "Cargo.toml" then
+    require("crates").show_popup()
+  else
+    vim.lsp.buf.hover()
+  end
 end

@@ -1,7 +1,5 @@
 -- selene: allow(global_usage)
-_G.dump = function(...)
-  print(vim.inspect(...))
-end
+_G.dump = function(...) print(vim.inspect(...)) end
 
 -- selene: allow(global_usage)
 _G.profile = function(cmd, times)
@@ -14,9 +12,7 @@ _G.profile = function(cmd, times)
   local start = vim.loop.hrtime()
   for _ = 1, times, 1 do
     local ok = pcall(cmd, unpack(args))
-    if not ok then
-      error("Command failed: " .. tostring(ok) .. " " .. vim.inspect({ cmd = cmd, args = args }))
-    end
+    if not ok then error("Command failed: " .. tostring(ok) .. " " .. vim.inspect { cmd = cmd, args = args }) end
   end
   print(((vim.loop.hrtime() - start) / 1000000 / times) .. "ms")
 end
@@ -27,9 +23,7 @@ M.functions = {}
 
 function M.execute(id)
   local func = M.functions[id]
-  if not func then
-    error("Function doest not exist: " .. id)
-  end
+  if not func then error("Function doest not exist: " .. id) end
   return func()
 end
 
@@ -53,51 +47,23 @@ local map = function(mode, key, cmd, opts, defaults)
   end
 end
 
-function M.map(mode, key, cmd, opt, defaults)
-  return map(mode, key, cmd, opt, defaults)
-end
+function M.map(mode, key, cmd, opt, defaults) return map(mode, key, cmd, opt, defaults) end
 
-function M.nmap(key, cmd, opts)
-  return map("n", key, cmd, opts)
-end
-function M.vmap(key, cmd, opts)
-  return map("v", key, cmd, opts)
-end
-function M.xmap(key, cmd, opts)
-  return map("x", key, cmd, opts)
-end
-function M.imap(key, cmd, opts)
-  return map("i", key, cmd, opts)
-end
-function M.omap(key, cmd, opts)
-  return map("o", key, cmd, opts)
-end
-function M.smap(key, cmd, opts)
-  return map("s", key, cmd, opts)
-end
+function M.nmap(key, cmd, opts) return map("n", key, cmd, opts) end
+function M.vmap(key, cmd, opts) return map("v", key, cmd, opts) end
+function M.xmap(key, cmd, opts) return map("x", key, cmd, opts) end
+function M.imap(key, cmd, opts) return map("i", key, cmd, opts) end
+function M.omap(key, cmd, opts) return map("o", key, cmd, opts) end
+function M.smap(key, cmd, opts) return map("s", key, cmd, opts) end
 
-function M.nnoremap(key, cmd, opts)
-  return map("n", key, cmd, opts, { noremap = true })
-end
-function M.vnoremap(key, cmd, opts)
-  return map("v", key, cmd, opts, { noremap = true })
-end
-function M.xnoremap(key, cmd, opts)
-  return map("x", key, cmd, opts, { noremap = true })
-end
-function M.inoremap(key, cmd, opts)
-  return map("i", key, cmd, opts, { noremap = true })
-end
-function M.onoremap(key, cmd, opts)
-  return map("o", key, cmd, opts, { noremap = true })
-end
-function M.snoremap(key, cmd, opts)
-  return map("s", key, cmd, opts, { noremap = true })
-end
+function M.nnoremap(key, cmd, opts) return map("n", key, cmd, opts, { noremap = true }) end
+function M.vnoremap(key, cmd, opts) return map("v", key, cmd, opts, { noremap = true }) end
+function M.xnoremap(key, cmd, opts) return map("x", key, cmd, opts, { noremap = true }) end
+function M.inoremap(key, cmd, opts) return map("i", key, cmd, opts, { noremap = true }) end
+function M.onoremap(key, cmd, opts) return map("o", key, cmd, opts, { noremap = true }) end
+function M.snoremap(key, cmd, opts) return map("s", key, cmd, opts, { noremap = true }) end
 
-function M.t(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+function M.t(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
 
 function M.log(msg, hl, name)
   name = name or "Neovim"
@@ -105,17 +71,11 @@ function M.log(msg, hl, name)
   vim.api.nvim_echo({ { name .. ": ", hl }, { msg } }, true, {})
 end
 
-function M.warn(msg, name)
-  vim.notify(msg, vim.log.levels.WARN, { title = name })
-end
+function M.warn(msg, name) vim.notify(msg, vim.log.levels.WARN, { title = name }) end
 
-function M.error(msg, name)
-  vim.notify(msg, vim.log.levels.ERROR, { title = name })
-end
+function M.error(msg, name) vim.notify(msg, vim.log.levels.ERROR, { title = name }) end
 
-function M.info(msg, name)
-  vim.notify(msg, vim.log.levels.INFO, { title = name })
-end
+function M.info(msg, name) vim.notify(msg, vim.log.levels.INFO, { title = name }) end
 
 function M.toggle(option, silent)
   local info = vim.api.nvim_get_option_info(option)
@@ -152,12 +112,12 @@ function M.float_terminal(cmd)
     string.format("vim.api.nvim_buf_delete(%d, {force = true});", buf),
   }
   vim.cmd(table.concat(autocmd, " "))
-  vim.cmd([[startinsert]])
+  vim.cmd [[startinsert]]
 end
 
 function M.docs()
   local name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-  local docgen = require("babelfish")
+  local docgen = require "babelfish"
   vim.fn.mkdir("./doc", "p")
   local metadata = {
     input_file = "./README.md",
@@ -180,19 +140,15 @@ function M.colors(filter)
   for hl_name, hl in pairs(vim.api.nvim__get_hl_defs(0)) do
     if hl_name:find(filter) then
       local def = {}
-      if hl.link then
-        def.link = hl.link
-      end
-      for key, def_key in pairs({ foreground = "fg", background = "bg", special = "sp" }) do
+      if hl.link then def.link = hl.link end
+      for key, def_key in pairs { foreground = "fg", background = "bg", special = "sp" } do
         if type(hl[key]) == "number" then
           local hex = string.format("#%06x", hl[key])
           def[def_key] = hex
         end
       end
-      for _, style in pairs({ "bold", "italic", "underline", "undercurl", "reverse" }) do
-        if hl[style] then
-          def.style = (def.style and (def.style .. ",") or "") .. style
-        end
+      for _, style in pairs { "bold", "italic", "underline", "undercurl", "reverse" } do
+        if hl[style] then def.style = (def.style and (def.style .. ",") or "") .. style end
       end
       defs[hl_name] = def
     end
