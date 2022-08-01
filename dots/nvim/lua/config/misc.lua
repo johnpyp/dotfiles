@@ -1,5 +1,5 @@
 require("nvim-treesitter.configs").setup({
-	ensure_installed = "maintained",
+	ensure_installed = "all",
 	highlight = { enable = true, use_languagetree = true },
 	indent = { enable = false },
 	context_commentstring = { enable = true, enable_autocmd = false },
@@ -110,7 +110,7 @@ require("mini.surround").setup({
 
 	-- Pattern to match function name in 'function call' surrounding
 	-- By default it is a string of letters, '_' or '.'
-	funname_pattern = "[%w_%.]+",
+	-- funname_pattern = "[%w_%.]+",
 
 	-- Module mappings. Use `''` (empty string) to disable one.
 	mappings = {
