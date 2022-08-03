@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 local util = require "util"
+=======
+local lspconfig = require("lspconfig")
+local util = require("util")
+>>>>>>> e8bf327 (Installer fixes)
 
 local M = {}
 
@@ -15,21 +20,19 @@ function M.install_missing(servers)
 end
 
 function M.setup(servers, options)
-  local lspi = require "nvim-lsp-installer"
-  lspi.on_server_ready(function(server)
-    local opts = vim.tbl_deep_extend("force", options, servers[server.name] or {})
+	M.install_missing(servers)
+	for server_name, server_opts in pairs(servers) do
+		local opts = vim.tbl_deep_extend("force", options, server_opts or {})
 
-    if server.name == "rust_analyzer" then
-      opts = vim.tbl_deep_extend("force", server:get_default_options(), opts)
-      require("config.lsp.rust").setup(opts)
-      server:attach_buffers()
-    else
-      server:setup(opts)
-    end
-    vim.cmd [[ do User LspAttachBuffers ]]
-  end)
-
-  M.install_missing(servers)
+		if server_name == "rust_analyzer" then
+			-- opts = vim.tbl_deep_extend("force", server:get_default_options(), opts)
+			require("config.lsp.rust").setup(opts)
+		end
+		lspconfig[server_name].setup(opts)
+	end
+	vim.cmd([[ do User LspAttachBuffers ]])
+	-- lspi.on_server_ready(function(server)
+	-- end)
 end
 
 return M
