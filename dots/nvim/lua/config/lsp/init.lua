@@ -20,9 +20,9 @@ require("lsp_signature").setup {
   },
 }
 
-require("nvim-lsp-installer").setup({
-	automatic_installation = false,
-})
+require("nvim-lsp-installer").setup {
+  automatic_installation = false,
+}
 
 local function on_attach(client, bufnr)
   require("config.lsp.formatting").setup(client, bufnr)
