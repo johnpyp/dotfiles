@@ -1,4 +1,10 @@
-local util = require "util"
+local util = require("util")
+
+if vim.env.TERM == "xterm-kitty" then
+	vim.cmd([[autocmd UIEnter * if v:event.chan ==# 0 | call chansend(v:stderr, "\x1b[>1u") | endif]])
+	vim.cmd([[autocmd UILeave * if v:event.chan ==# 0 | call chansend(v:stderr, "\x1b[<1u") | endif]])
+end
+
 -- Manage config
 util.nnoremap("<Leader>ve", ":e ~/.config/nvim/init.lua<CR>")
 util.nnoremap("<leader>vs", ":source ~/.config/nvim/init.lua<CR>")
