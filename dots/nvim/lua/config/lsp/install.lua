@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-local util = require "util"
-=======
 local lspconfig = require("lspconfig")
 local util = require("util")
->>>>>>> e8bf327 (Installer fixes)
 
 local M = {}
 
