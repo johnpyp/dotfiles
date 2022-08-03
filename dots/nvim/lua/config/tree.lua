@@ -1,38 +1,37 @@
-local tree_cb = require("nvim-tree.config").nvim_tree_callback
 -- default mappings
 local list = {
-  { key = { "<CR>", "l", "<2-LeftMouse>" }, cb = tree_cb "edit" },
-  { key = { "<2-RightMouse>", "<C-]>" }, cb = tree_cb "cd" },
-  { key = "<C-v>", cb = tree_cb "vsplit" },
-  { key = "<C-x>", cb = tree_cb "split" },
-  { key = "<C-t>", cb = tree_cb "tabnew" },
-  { key = "<", cb = tree_cb "prev_sibling" },
-  { key = ">", cb = tree_cb "next_sibling" },
-  { key = "u", cb = tree_cb "parent_node" },
-  { key = { "<BS>", "h" }, cb = tree_cb "close_node" },
-  { key = "<Tab>", cb = tree_cb "preview" },
-  { key = "K", cb = tree_cb "first_sibling" },
-  { key = "J", cb = tree_cb "last_sibling" },
-  { key = "I", cb = tree_cb "toggle_ignored" },
-  { key = { "H", "." }, cb = tree_cb "toggle_dotfiles" },
-  { key = "R", cb = tree_cb "refresh" },
-  { key = "a", cb = tree_cb "create" },
-  { key = "D", cb = tree_cb "remove" },
-  -- { key = "D", cb = tree_cb("trash") },
-  { key = "r", cb = tree_cb "rename" },
-  { key = "<C-r>", cb = tree_cb "full_rename" },
-  { key = "x", cb = tree_cb "cut" },
-  { key = "yy", cb = tree_cb "copy" },
-  { key = "p", cb = tree_cb "paste" },
-  { key = "yn", cb = tree_cb "copy_name" },
-  { key = "yp", cb = tree_cb "copy_path" },
-  { key = "gy", cb = tree_cb "copy_absolute_path" },
-  { key = "[c", cb = tree_cb "prev_git_item" },
-  { key = "]c", cb = tree_cb "next_git_item" },
-  { key = "-", cb = tree_cb "dir_up" },
-  { key = "s", cb = tree_cb "system_open" },
-  { key = "q", cb = tree_cb "close" },
-  { key = "g?", cb = tree_cb "toggle_help" },
+  { key = { "<CR>", "l", "<2-LeftMouse>" }, action = "edit" },
+  { key = { "<2-RightMouse>", "<C-]>" }, action = "cd" },
+  { key = "<C-v>", action = "vsplit" },
+  { key = "<C-x>", action = "split" },
+  { key = "<C-t>", action = "tabnew" },
+  { key = "<", action = "prev_sibling" },
+  { key = ">", action = "next_sibling" },
+  { key = "u", action = "parent_node" },
+  { key = { "<BS>", "h" }, action = "close_node" },
+  { key = "<Tab>", action = "preview" },
+  { key = "K", action = "first_sibling" },
+  { key = "J", action = "last_sibling" },
+  { key = "H", action = "toggle_git_ignored" },
+  { key = ".", action = "toggle_dotfiles" },
+  { key = "R", action = "refresh" },
+  { key = "a", action = "create" },
+  { key = "D", action = "remove" },
+  -- { key = "D", action = "trash" },
+  { key = "r", action = "rename" },
+  { key = "<C-r>", action = "full_rename" },
+  { key = "x", action = "cut" },
+  { key = "yy", action = "copy" },
+  { key = "p", action = "paste" },
+  { key = "yn", action = "copy_name" },
+  { key = "yp", action = "copy_path" },
+  { key = "gy", action = "copy_absolute_path" },
+  { key = "[c", action = "prev_git_item" },
+  { key = "]c", action = "next_git_item" },
+  { key = "-", action = "dir_up" },
+  { key = "s", action = "system_open" },
+  { key = "q", action = "close" },
+  { key = "g?", action = "toggle_help" },
 }
 
 require("nvim-tree").setup {
@@ -64,7 +63,7 @@ require("nvim-tree").setup {
 -- nvim-tree is also there in modified buffers so this function filter it out
 local modifiedBufs = function(bufs)
   local t = 0
-  for k, v in pairs(bufs) do
+  for _, v in pairs(bufs) do
     if v.name:match "NvimTree_" == nil then t = t + 1 end
   end
   return t
