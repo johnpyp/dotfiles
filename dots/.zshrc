@@ -164,6 +164,7 @@ alias s="source ~/.zshrc"
 alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
 alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
 alias ssh="TERM=\"xterm-256color\" ssh"
+alias lazydocker="TERM=\"xterm-256color\" lazydocker"
 
 sshforward() {
   ssh $1 -L $2\:localhost\:$2 -N
