@@ -1,0 +1,23 @@
+jeffreytse/zsh-vi-mode # Better vim mode
+
+romkatv/powerlevel10k # prompt
+
+zsh-users/zsh-completions # collection of a zsh completions
+
+# zephyr/other plugin selections
+mattmc3/zephyr path:plugins/colors # colors (LS_COLORS, dirs, man, etc.)
+mattmc3/zephyr path:plugins/history # history
+mattmc3/zephyr path:plugins/completions # ??? completion plugin I guess? ?
+
+tj/git-extras path:etc/git-extras-completion.zsh
+
+hlissner/zsh-autopair # autopairs for brackets, quotes, etc.
+
+# needs defer else conflict with zsh-vi-mode
+robobenklein/zdharma-history-search-multi-word kind:defer # better history search multi word
+# z-shell/H-S-MW kind:defer
+agkozak/zsh-z kind:defer # `z` command for fast cd
+
+# final
+z-shell/F-Sy-H # Fast-Syntax-Highlighting
+zsh-users/zsh-autosuggestions # autosuggestions from history

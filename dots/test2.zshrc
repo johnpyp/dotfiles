@@ -1,4 +1,4 @@
-setopt promptsubst
+setopt PROMPT_SUBST
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -7,122 +7,61 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# configure histfile target for zephyr history plugin
+HISTFILE=~/.zhistory
+# save big history yay
+HISTSIZE=290000
+SAVEHIST=290000
 
-# # Remove older duplicate entries from history.
-# setopt hist_ignore_all_dups
-# # Expire A Duplicate Event First When Trimming History.
-# setopt hist_expire_dups_first
-# # Do Not Record An Event That Was Just Recorded Again.
-# setopt hist_ignore_dups  
-# # Remove superfluous blanks from history items.       
-# setopt hist_reduce_blanks
-# # Do Not Display A Previously Found Event.
-# setopt hist_find_no_dups
-# # Do Not Record An Event Starting With A Space.
-# setopt hist_ignore_space
-# # Do Not Write A Duplicate Event To The History File.
-# setopt hist_save_no_dups
-# # Do Not Execute Immediately Upon History Expansion.        
-# setopt hist_verify
+# use friendlier antidote save names
+zstyle ':antidote:bundle' use-friendly-names 'yes'
 
-# Allow multiple sessions append to one zsh command history.           
-setopt append_history
-# Show Timestamp In History.
-setopt extended_history
-# Write to history file immediately, not after shell exit.
-setopt inc_append_history
-# Share history between different instances of the shell.
-setopt share_history    
-
-typeset -g HISTSIZE=290000 SAVEHIST=290000 HISTFILE=~/.zhistory
-
-### Added by Zi's installer
-if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}z-shell/zi%F{220})…%f"
-    command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
-    command git clone https://github.com/z-shell/zi.git "$HOME/.zi/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+if ! [[ -e ~/.antidote ]]
+then
+  git clone https://github.com/mattmc3/antidote.git ~/.antidote
 fi
+source ~/.antidote/antidote.zsh
+antidote load
 
-source "$HOME/.zi/bin/zi.zsh"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# autoload -Uz promptinit && promptinit
+# prompt powerlevel10k
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
 DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-# zi ice lucid
 # zi light-mode for \
-#   z-shell/z-a-meta-plugins \
-#   @annexes+rec
+#   @fuzzy \
+#   @sharkdp
 
-zi light z-shell/z-a-meta-plugins
-zi light @annexes
+# zi ice as"completion"
+# zi snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-zi ice depth=1; zi light romkatv/powerlevel10k
+# zi ice as"completion"
+# zi snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
-zi light-mode for \
-  @fuzzy \
-  @sharkdp
+# zi wait lucid for \
+        # z-shell/H-S-MW \
+        # wfxr/forgit \
+        # as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX" \
+        #     tj/git-extras
 
-zi wait lucid light-mode for \
-  atinit"zicompinit; zicdreplay" \
-    z-shell/F-Sy-H \
-  atload"_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
-  blockf atpull'zi creinstall -q .' \
-    zsh-users/zsh-completions
-
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
-
-
-
-# zi as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
-#     atpull'%atclone' pick"direnv" src"zhook.zsh" for \
-#         direnv/direnv
-#
-zi ice as"completion"
-zi snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
-
-zi ice as"completion"
-zi snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
-
-zi wait lucid for \
-        hlissner/zsh-autopair \
-        z-shell/H-S-MW \
-        wfxr/forgit \
-        agkozak/zsh-z \
-        as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX" \
-            tj/git-extras
-
-# zi wait lucid as"null" for \
-#        node"!fx" zdharma/null
-
-zi wait lucid pack for ls_colors
+# zi wait lucid pack for ls_colors
 
 
 # zt_completion(){zi ice lucid ${1/#[0-9][a-c]/wait"${1}"} as"completion" "${@:2}";  }
 # zt_completion 0a blockf
 
-if [ -z "$_zsh_custom_scripts_loaded" ]; then
-    _zsh_custom_scripts_loaded=1
+# if [ -z "$_zsh_custom_scripts_loaded" ]; then
+#     _zsh_custom_scripts_loaded=1
 
-    zi lucid for wait'1' autoload'#manydots-magic' knu/zsh-manydots-magic
-fi
-# Next two lines must be below the above two
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
+#     zi lucid for wait'1' autoload'#manydots-magic' knu/zsh-manydots-magic
+# fi
 
-### End of zi's installer chunk
-
-# export CONDA_DEFAULT_ENV=""
 bindkey '^H' backward-kill-word
-# Enable vim mode
-# bindkey -v '^?' backward-delete-char
-# bindkey -s '\e[1;2Q' ''
+
 removelink() {
   [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
 }
@@ -185,14 +124,15 @@ sshforget() {
 
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 
-export LESS="-RFX"
-export LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-export LESS_TERMCAP_md=$(printf "\e[1;31m") \
-export LESS_TERMCAP_me=$(printf "\e[0m") \
-export LESS_TERMCAP_se=$(printf "\e[0m") \
-export LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-export LESS_TERMCAP_ue=$(printf "\e[0m") \
-export LESS_TERMCAP_us=$(printf "\e[1;32m") \
+# Handles pager colors
+# export LESS="-RFX"
+# export LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+# export LESS_TERMCAP_md=$(printf "\e[1;31m") \
+# export LESS_TERMCAP_me=$(printf "\e[0m") \
+# export LESS_TERMCAP_se=$(printf "\e[0m") \
+# export LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+# export LESS_TERMCAP_ue=$(printf "\e[0m") \
+# export LESS_TERMCAP_us=$(printf "\e[1;32m") \
 
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--ansi"
@@ -233,26 +173,7 @@ export CONDA_AUTO_ACTIVATE_BASE=false
 [[ "$(command -v direnv)" ]] && eval "$(direnv hook zsh)"
 
 export DIRENV_LOG_FORMAT=""
-# export TERM="kitty"
 
-# eval "$(starship init zsh)"
-
-function zsh_directory_name() {
-  emulate -L zsh
-  [[ $1 == d ]] || return
-  while [[ $2 != / ]]; do
-    if [[ -e $2/.git ]]; then
-      typeset -ga reply=(${2:t} $#2)
-      return
-    fi
-    2=${2:h}
-  done
-  return 1
-}
-
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # eval $(thefuck --alias)
 
 
@@ -286,10 +207,10 @@ ZVM_KEYTIMEOUT=0
 ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
 ZVM_ESCAPE_KEYTIMEOUT=0
 
-function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
-    RPS2=$RPS1
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
+# function zle-line-init zle-keymap-select {
+#     RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+#     RPS2=$RPS1
+#     zle reset-prompt
+# }
+# zle -N zle-line-init
+# zle -N zle-keymap-select

@@ -23,7 +23,8 @@
     ~/.tmux.conf: dots/.tmux.conf
     ~/.tmux/plugins/tpm: gmodules/tpm
     ~/.zprofile: dots/.zprofile
-    ~/.zshrc: dots/.zshrc
+    ~/.zshrc: dots/test2.zshrc
+    ~/.zsh_plugins.txt: dots/.zsh_plugins.txt
 
 - create:
     - ~/code

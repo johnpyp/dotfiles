@@ -37,7 +37,9 @@
     ~/.tmux/plugins/tpm: gmodules/tpm
     ~/.xinitrc: dots/.xinitrc
     ~/.zprofile: dots/.zprofile
-    ~/.zshrc: dots/.zshrc
+    # ~/.zshrc: dots/.zshrc
+    ~/.zshrc: dots/test2.zshrc
+    ~/.zsh_plugins.txt: dots/.zsh_plugins.txt
     ~/.local/share/applications/:
       glob: true
       path: dots/desktop-entries/*
