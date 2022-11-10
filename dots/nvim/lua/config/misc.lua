@@ -1,6 +1,6 @@
 require("nvim-treesitter.configs").setup {
   ensure_installed = "all",
-  highlight = { enable = true, use_languagetree = true },
+  highlight = { enable = true, use_languagetree = true, additional_vim_regex_highlighting = { "kotlin" } },
   indent = { enable = false },
   context_commentstring = { enable = true, enable_autocmd = false },
 }

@@ -27,6 +27,9 @@ local plugins = {
   ["nvim-lua/popup.nvim"] = {},
   ["nvim-lua/plenary.nvim"] = {},
 
+  -- Kotlin syntax highlighting
+  ["udalov/kotlin-vim"] = {},
+
   -- Icons
   ["kyazdani42/nvim-web-devicons"] = {
     -- event = "VimEnter",
@@ -48,14 +51,7 @@ local plugins = {
   },
 
   -- LSP manager
-  ["williamboman/nvim-lsp-installer"] = {
-    -- after = "nvim-lspconfig",
-    -- config = function()
-    --   require "configs.nvim-lsp-installer"
-    --   require "configs.lsp"
-    -- end,
-  },
-  ["folke/lua-dev.nvim"] = {},
+  ["folke/neodev.nvim"] = {},
   ["simrat39/rust-tools.nvim"] = {},
   ["jose-elias-alvarez/null-ls.nvim"] = {},
   ["jose-elias-alvarez/nvim-lsp-ts-utils"] = {},
@@ -93,6 +89,15 @@ local plugins = {
   ["Th3Whit3Wolf/one-nvim"] = {},
   ["b0o/schemastore.nvim"] = {},
   ["tami5/lspsaga.nvim"] = {},
+
+  -- Mason: LSP/Linter/Formatter Installer
+  ["williamboman/mason.nvim"] = {},
+  ["williamboman/mason-lspconfig.nvim"] = {},
+  ["jayp0521/mason-null-ls.nvim"] = {},
+
+  -- Better rename plugin with live preview
+  ["smjonas/inc-rename.nvim"] = {},
+
 
   -- ---------------
   -- ---------------

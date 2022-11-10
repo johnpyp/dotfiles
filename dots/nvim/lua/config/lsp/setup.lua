@@ -1,22 +1,9 @@
 local lspconfig = require "lspconfig"
-local util = require "util"
 
 local M = {}
 
-function M.install_missing(servers)
-  local lspi_servers = require "nvim-lsp-installer.servers"
-  for server, _ in pairs(servers) do
-    local ok, s = lspi_servers.get_server(server)
-    if ok then
-      if not s:is_installed() then s:install() end
-    else
-      util.error("Server " .. server .. " not found")
-    end
-  end
-end
-
-function M.setup(servers, options)
-  M.install_missing(servers)
+function M.setup_servers(servers, options)
+  -- M.install_missing(servers)
   for server_name, server_opts in pairs(servers) do
     local opts = vim.tbl_deep_extend("force", options, server_opts or {})
 

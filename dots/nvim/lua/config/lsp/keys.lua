@@ -10,7 +10,7 @@ function M.setup(client, bufnr)
   local keymap = {
     c = {
       name = "+code",
-      r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
+      r = { "<cmd>:IncRename<CR>", "Rename" },
       -- c = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename (Change)" },
       a = { "<cmd>CodeActionMenu<CR>", "Code Action" },
       d = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Line Diagnostics" },
@@ -58,8 +58,8 @@ function M.setup(client, bufnr)
   util.nnoremap("[e", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
   util.nnoremap("]e", "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
 
-  local trigger_chars = client.resolved_capabilities.signature_help_trigger_characters
-  trigger_chars = { "," }
+  -- local trigger_chars = client.server_capabilities.completionProvider.triggerCharacters
+  local trigger_chars = { "," }
   for _, c in ipairs(trigger_chars) do
     util.inoremap(c, function()
       vim.defer_fn(function() pcall(vim.lsp.buf.signature_help) end, 0)
@@ -73,9 +73,9 @@ function M.setup(client, bufnr)
   end
 
   -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.docuemntFormattingProvider then
     keymap.f = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format Document" }
-  elseif client.resolved_capabilities.document_range_formatting then
+  elseif client.server_capabilities.documentRangeFormattingProvider then
     keymap_visual.f = { "<cmd>lua vim.lsp.buf.range_formatting()<CR>", "Format Range" }
   end
 

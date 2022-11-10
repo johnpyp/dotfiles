@@ -20,9 +20,7 @@ require("lsp_signature").setup {
   },
 }
 
-require("nvim-lsp-installer").setup {
-  automatic_installation = false,
-}
+require "config.lsp.mason"
 
 local function on_attach(client, bufnr)
   require("config.lsp.formatting").setup(client, bufnr)
@@ -40,7 +38,7 @@ local function on_attach(client, bufnr)
   if client.name == "typescript" or client.name == "tsserver" then require("config.lsp.ts-utils").setup(client) end
 end
 
-local luadev = require("lua-dev").setup {
+local neodev = require("neodev").setup {
   library = {
     vimruntime = true,
     types = true,
@@ -88,7 +86,7 @@ local servers = {
       },
     },
   },
-  sumneko_lua = luadev,
+  sumneko_lua = neodev,
   tsserver = {
     init_options = {
       preferences = {
@@ -98,10 +96,11 @@ local servers = {
   },
   vimls = {},
   gopls = {},
+  kotlin_language_server = {},
   tailwindcss = {},
 }
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local options = {
   on_attach = on_attach,
@@ -112,4 +111,4 @@ local options = {
 }
 
 require("config.lsp.null-ls").setup(options)
-require("config.lsp.install").setup(servers, options)
+require("config.lsp.setup").setup_servers(servers, options)
