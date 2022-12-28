@@ -5,63 +5,73 @@ if vim.env.TERM == "xterm-kitty" then
   vim.cmd([[autocmd UILeave * if v:event.chan ==# 0 | call chansend(v:stderr, "\x1b[<1u") | endif]])
 end
 
+local nnoremap = function(keys, func, desc, opts)
+  opts = vim.tbl_deep_extend("force", { noremap = true, desc = desc }, opts or {})
+
+  vim.keymap.set("n", keys, func, opts)
+end
+
+local vnoremap = function(keys, func, desc, opts)
+  opts = vim.tbl_deep_extend("force", { noremap = true, desc = desc }, opts or {})
+
+  vim.keymap.set("v", keys, func, opts)
+end
+
+local vmap = function(keys, func, desc, opts)
+  opts = vim.tbl_deep_extend("force", { desc = desc }, opts or {})
+
+  vim.keymap.set("v", keys, func, opts)
+end
+
 -- Manage config
 util.nnoremap("<Leader>ve", ":e ~/.config/nvim/init.lua<CR>")
 util.nnoremap("<leader>vs", ":source ~/.config/nvim/init.lua<CR>")
 
--- Close buffers
-util.nnoremap("<Leader>q", ":bd<CR>")
+nnoremap("<leader>ve", ":e ~/.config/nvim/init.lua<CR>", "Edit vim config")
+nnoremap("<leader>vs", ":source ~/.config/nvim/init.lua<CR>", "Source vim config")
+nnoremap("<leader>W", ":noa w<CR>", "Quiet save")
 
--- Save without triggering autocommands
-util.nnoremap("<Leader>W", ":noa w<CR>")
+nnoremap("<leader>w", "<C-w>", "Window (C-w)")
 
--- Easier window commands
-util.nmap("<Leader>w", "<C-w>")
+nnoremap("<leader>y", '"+y', "System Copy")
+vnoremap("<leader>y", '"+y', "System Copy")
+nnoremap("<leader>p", '"+p', "System Paste")
 
--- Better copy-paste
-util.nnoremap("<Leader>y", '"+y')
-util.vnoremap("<Leader>y", '"+y')
-util.nnoremap("<Leader>p", '"+p')
-util.vmap("y", "ygv<Esc>")
+vmap("y", "ygv<Esc>")
 
--- Easy switch buffer
-util.nnoremap("L", ":bnext<CR>")
-util.nnoremap("H", ":bprevious<CR>")
+nnoremap("L", ":bnext<CR>", "Next Buffer")
+nnoremap("H", ":bprevious<CR>", "Previous Buffer")
 
--- Toggle tree
-util.nnoremap("<Leader>n", ":NvimTreeToggle<CR>")
+nnoremap("<leader>n", ":NvimTreeToggle<CR>", "Toggle Tree")
 
--- Clear highlight
-util.nnoremap("<Leader>e", ":nohl<CR>")
+nnoremap("<leader>e", ":nohl<CR>", "Clear highlight")
 
--- Files/grep
-util.nnoremap("<C-p>", ":FzfLua files<CR>")
-util.nnoremap("<TAB>", ":FzfLua live_grep_native<CR>")
-util.nnoremap("<C-i>", ":FzfLua live_grep_native<CR>")
+nnoremap("<C-p>", ":FzfLua files<CR>", "Find Files")
+nnoremap("<TAB>", ":FzfLua live_grep_native<CR>", "Fzf Grep")
+nnoremap("<C-i>", ":FzfLua live_grep_native<CR>", "Fzf Grep")
 
--- Better indent
-util.vnoremap("<", "<gv")
-util.vnoremap(">", ">gv")
+vnoremap("<", "<gv", "Better indent left")
+vnoremap(">", ">gv", "Better indent right")
 
--- Remap k/j to account for word wrap
-util.nnoremap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
-util.nnoremap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+nnoremap("k", "v:count == 0 ? 'gk' : 'k'", "Move up in wrapped lines", { expr = true })
+nnoremap("j", "v:count == 0 ? 'gj' : 'j'", "Move down in wrapped lines", { expr = true })
 
--- Lazygit
-util.nnoremap("<Leader>gs", ":LazyGit<CR>")
+nnoremap("<leader>gs", ":LazyGit<CR>", "Lazy Git")
 
-util.nnoremap("K", ":lua _G.show_documentation()<CR>")
-util.nnoremap("<Leader>l", "<cmd>TroubleToggle document_diagnostics<CR>")
+nnoremap("<Leader>l", "<cmd>TroubleToggle document_diagnostics<CR>", "List Diagnostics")
+nnoremap("<Leader>q", ":bd<CR>", "Quit Buffer")
 
-_G.show_documentation = function()
+local function show_documentation()
   local filetype = vim.bo.filetype
   if vim.tbl_contains({ "vim", "help" }, filetype) then
-    vim.cmd("h " .. vim.fn.expand("<cword>", nil, nil))
+    vim.cmd("h " .. vim.fn.expand("<cword>"))
   elseif vim.tbl_contains({ "man" }, filetype) then
-    vim.cmd("Man " .. vim.fn.expand("<cword>", nil, nil))
-  elseif vim.fn.expand("%:t", nil, nil) == "Cargo.toml" then
+    vim.cmd("Man " .. vim.fn.expand("<cword>"))
+  elseif vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
     require("crates").show_popup()
   else
     vim.lsp.buf.hover()
   end
 end
+
+nnoremap("K", show_documentation, "Show Documentation", { silent = true })

@@ -9,18 +9,6 @@ require("Comment").setup({
   ignore = "^$",
 })
 
-local wk = require("which-key")
-
-vim.o.timeoutlen = 300
-local wk_presets = require("which-key.plugins.presets")
-wk_presets.objects["a("] = nil
-wk.setup({
-  show_help = false,
-  triggers = "auto",
-  plugins = { spelling = true },
-  key_labels = { ["<leader>"] = "SPC" },
-})
-
 require("fzf-lua").setup({
   global_resume = true,
   global_resume_query = true,

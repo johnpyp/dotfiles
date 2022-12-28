@@ -46,7 +46,7 @@ local config = {
       -- 	color = { fg = "#ff9e64" },
       -- },
     },
-    lualine_x = { lsp_progress },
+    -- lualine_x = { lsp_progress },
     lualine_y = { "location" },
   },
   inactive_sections = {

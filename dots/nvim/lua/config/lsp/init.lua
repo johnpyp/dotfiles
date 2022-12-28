@@ -86,7 +86,15 @@ local servers = {
       },
     },
   },
-  sumneko_lua = neodev,
+  sumneko_lua = {
+    settings = {
+      Lua = {
+        completion = {
+          callSnippet = "Replace",
+        },
+      },
+    },
+  },
   tsserver = {
     init_options = {
       preferences = {

@@ -31,19 +31,7 @@ local plugins = {
   ["udalov/kotlin-vim"] = {},
 
   -- Icons
-  ["kyazdani42/nvim-web-devicons"] = {
-    -- event = "VimEnter",
-  },
-
-  ["akinsho/bufferline.nvim"] = {
-    -- after = "nvim-web-devicons",
-    -- config = function() require "config.bufferline" end,
-  },
-
-  ["nvim-lualine/lualine.nvim"] = {
-    -- after = "nvim-web-devicons",
-    -- config = function() require "config.lualine" end,
-  },
+  ["kyazdani42/nvim-web-devicons"] = {},
 
   -- Built-in LSP
   ["neovim/nvim-lspconfig"] = {
@@ -97,6 +85,41 @@ local plugins = {
 
   -- Better rename plugin with live preview
   ["smjonas/inc-rename.nvim"] = {},
+
+  ["VonHeikemen/lsp-zero.nvim"] = {
+    requires = {
+      -- LSP Support
+      { "neovim/nvim-lspconfig" },
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
+
+      -- Autocompletion
+      { "hrsh7th/nvim-cmp" },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-path" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-nvim-lua" },
+
+      -- Snippets
+      { "L3MON4D3/LuaSnip" },
+      { "rafamadriz/friendly-snippets" },
+    },
+  },
+
+  ["onsails/lspkind.nvim"] = {},
+  ["j-hui/fidget.nvim"] = {},
+  ["folke/noice.nvim"] = {
+    requires = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      -- "rcarriga/nvim-notify",
+      }
+  }
+
 
   -- ---------------
   -- ---------------

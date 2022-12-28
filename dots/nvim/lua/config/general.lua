@@ -19,7 +19,7 @@ vim.wo.number = true -- Show absolute line number
 vim.o.hidden = true -- Do not save when switching buffers
 vim.o.mouse = "a" -- Enable mouse mode
 vim.o.breakindent = true -- Wrapped lines continue visually indented
-vim.o.showbreak = "﬌" -- Add visual indent to wrapped lines
+vim.o.showbreak = nil -- Add visual indent to wrapped lines
 vim.o.linebreak = true
 
 --Save undo history
@@ -32,6 +32,7 @@ vim.o.showmode = false -- Don't show mode since we have a status line
 -- vim.opt.splitbelow = true -- Put new windows below current
 -- vim.opt.splitright = true -- Put new windows right of current
 
+vim.o.timeoutlen = 300
 vim.o.updatetime = 150 -- Decrease the update time
 vim.o.signcolumn = "yes" -- Always show sign column
 
