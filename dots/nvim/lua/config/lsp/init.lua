@@ -1,5 +1,5 @@
 -- require("config.lsp.ui")
-require("lspsaga").setup {
+require("lspsaga").setup({
   code_action_keys = {
     quit = "<ESC>",
     exec = "<CR>",
@@ -8,19 +8,19 @@ require("lspsaga").setup {
     quit = "<ESC>",
     exec = "<CR>",
   },
-}
-require "config.lsp.ui"
+})
+require("config.lsp.ui")
 require("config.lsp.diagnostics").setup()
 require("config.lsp.kind").setup()
 
-require("lsp_signature").setup {
+require("lsp_signature").setup({
   bind = true, -- This is mandatory, otherwise border config won't get registered.
   handler_opts = {
     border = "rounded",
   },
-}
+})
 
-require "config.lsp.mason"
+require("config.lsp.mason")
 
 local function on_attach(client, bufnr)
   require("config.lsp.formatting").setup(client, bufnr)
@@ -38,14 +38,14 @@ local function on_attach(client, bufnr)
   if client.name == "typescript" or client.name == "tsserver" then require("config.lsp.ts-utils").setup(client) end
 end
 
-local neodev = require("neodev").setup {
+local neodev = require("neodev").setup({
   library = {
     vimruntime = true,
     types = true,
     plugins = true,
   },
   runtime_path = true,
-}
+})
 
 local servers = {
   -- ansiblels = {},

@@ -14,7 +14,7 @@ local severities = {
   -- "hint",
 }
 
-require("bufferline").setup {
+require("bufferline").setup({
   options = {
     show_close_icon = true,
     diagnostics = "nvim_lsp",
@@ -36,4 +36,4 @@ require("bufferline").setup {
       },
     },
   },
-}
+})

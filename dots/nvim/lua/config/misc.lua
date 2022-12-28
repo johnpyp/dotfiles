@@ -1,27 +1,27 @@
-require("nvim-treesitter.configs").setup {
+require("nvim-treesitter.configs").setup({
   ensure_installed = "all",
   highlight = { enable = true, use_languagetree = true, additional_vim_regex_highlighting = { "kotlin" } },
   indent = { enable = false },
   context_commentstring = { enable = true, enable_autocmd = false },
-}
+})
 
-require("Comment").setup {
+require("Comment").setup({
   ignore = "^$",
-}
+})
 
-local wk = require "which-key"
+local wk = require("which-key")
 
 vim.o.timeoutlen = 300
-local wk_presets = require "which-key.plugins.presets"
+local wk_presets = require("which-key.plugins.presets")
 wk_presets.objects["a("] = nil
-wk.setup {
+wk.setup({
   show_help = false,
   triggers = "auto",
   plugins = { spelling = true },
   key_labels = { ["<leader>"] = "SPC" },
-}
+})
 
-require("fzf-lua").setup {
+require("fzf-lua").setup({
   global_resume = true,
   global_resume_query = true,
   winopts = {
@@ -50,7 +50,7 @@ require("fzf-lua").setup {
     previewer = false,
     rg_opts = "--column --line-number --no-heading --color=always --ignore-case --max-columns=512 -g '!yarn.lock' ",
   },
-}
+})
 
 -- local actions = require('telescope.actions')
 -- -- Telescope
@@ -75,7 +75,7 @@ vim.g.rooter_change_directory_for_non_project_files = "current"
 vim.g.rooter_resolve_links = true
 vim.g.rooter_patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", ".project", ".projectkeep" }
 
-require("trouble").setup {
+require("trouble").setup({
   auto_open = false,
   auto_close = false,
   action_keys = {
@@ -99,9 +99,9 @@ require("trouble").setup {
     previous = "k", -- preview item
     next = "j", -- next item
   },
-}
+})
 
-require("mini.surround").setup {
+require("mini.surround").setup({
   -- Number of lines within which surrounding is searched
   n_lines = 20,
 
@@ -122,4 +122,6 @@ require("mini.surround").setup {
     replace = "cs", -- Replace surrounding
     update_n_lines = "", -- Update `n_lines`
   },
-}
+})
+
+require("inc_rename").setup()

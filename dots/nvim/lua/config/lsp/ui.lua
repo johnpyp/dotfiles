@@ -1,4 +1,4 @@
-local icons = require "util.icons"
+local icons = require("util.icons")
 -- vim.ui.select = require("lspactions").select
 -- vim.ui.input = require("lspactions").input
 
@@ -22,8 +22,8 @@ _G.LspDiagnosticsPopupHandler = function()
   end
 end
 
-vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+vim.cmd([[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]])
+vim.cmd([[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]])
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "single",
@@ -38,13 +38,13 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 -- 	border = "single",
 -- })
 
-require("dressing").setup {
+require("dressing").setup({
   input = {
     border = "rounded",
   },
-}
+})
 
-vim.diagnostic.config {
+vim.diagnostic.config({
   underline = true,
   signs = true,
   update_in_insert = false,
@@ -62,4 +62,4 @@ vim.diagnostic.config {
       min = vim.diagnostic.severity.HINT,
     },
   },
-}
+})

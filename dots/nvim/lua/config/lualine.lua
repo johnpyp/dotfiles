@@ -18,7 +18,7 @@ local function lsp_progress(_, is_active)
   return table.concat(status, "  ") .. " " .. spinners[frame + 1]
 end
 
-vim.cmd "au User LspProgressUpdate let &ro = &ro"
+vim.cmd("au User LspProgressUpdate let &ro = &ro")
 
 local config = {
   options = {

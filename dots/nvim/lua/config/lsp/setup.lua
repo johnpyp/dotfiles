@@ -1,4 +1,4 @@
-local lspconfig = require "lspconfig"
+local lspconfig = require("lspconfig")
 
 local M = {}
 
@@ -13,7 +13,7 @@ function M.setup_servers(servers, options)
     end
     lspconfig[server_name].setup(opts)
   end
-  vim.cmd [[ do User LspAttachBuffers ]]
+  vim.cmd([[ do User LspAttachBuffers ]])
   -- lspi.on_server_ready(function(server)
   -- end)
 end

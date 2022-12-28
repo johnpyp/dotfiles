@@ -98,7 +98,6 @@ local plugins = {
   -- Better rename plugin with live preview
   ["smjonas/inc-rename.nvim"] = {},
 
-
   -- ---------------
   -- ---------------
   -- ---------------
@@ -361,7 +360,7 @@ local plugins = {
 
 local execute = vim.api.nvim_command
 local function bootstrap_packer(namespace)
-  local packer_root = vim.fn.stdpath "data" .. "/packer/" .. namespace
+  local packer_root = vim.fn.stdpath("data") .. "/packer/" .. namespace
   local install_path = packer_root .. "/pack/packer/start/packer.nvim"
 
   -- Tell vim to look at the root
@@ -369,15 +368,15 @@ local function bootstrap_packer(namespace)
 
   -- Install
   if vim.fn.empty(vim.fn.glob(install_path, nil, nil)) > 0 then
-    vim.fn.system { "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path }
-    execute "packadd packer.nvim"
+    vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+    execute("packadd packer.nvim")
   end
 
   local conf = {
     package_root = packer_root .. "/pack",
     compile_path = packer_root .. "/packer_compiled.vim",
     display = {
-      open_fn = function() return require("packer.util").float { border = "rounded" } end,
+      open_fn = function() return require("packer.util").float({ border = "rounded" }) end,
     },
     profile = {
       enable = true,
@@ -396,10 +395,10 @@ local function bootstrap_packer(namespace)
   return conf
 end
 
-local packer_conf = bootstrap_packer "custom-lua"
-local packer = require "packer"
+local packer_conf = bootstrap_packer("custom-lua")
+local packer = require("packer")
 
-packer.startup {
+packer.startup({
   function(use)
     for key, plugin in pairs(plugins) do
       if type(key) == "string" and not plugin[1] then plugin[1] = key end
@@ -407,4 +406,4 @@ packer.startup {
     end
   end,
   config = packer_conf,
-}
+})

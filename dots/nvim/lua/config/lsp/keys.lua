@@ -1,5 +1,5 @@
-local wk = require "which-key"
-local util = require "util"
+local wk = require("which-key")
+local util = require("util")
 
 local M = {}
 
@@ -10,7 +10,7 @@ function M.setup(client, bufnr)
   local keymap = {
     c = {
       name = "+code",
-      r = { "<cmd>:IncRename<CR>", "Rename" },
+      r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
       -- c = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename (Change)" },
       a = { "<cmd>CodeActionMenu<CR>", "Code Action" },
       d = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Line Diagnostics" },

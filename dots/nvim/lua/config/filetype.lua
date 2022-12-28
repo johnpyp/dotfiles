@@ -1,4 +1,4 @@
-require("filetype").setup {
+require("filetype").setup({
   overrides = {
     extensions = {
       fish = "fish",
@@ -12,4 +12,4 @@ require("filetype").setup {
       [".*/tsconfig.*%.json"] = "jsonc",
     },
   },
-}
+})

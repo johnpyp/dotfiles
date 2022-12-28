@@ -12,7 +12,7 @@ _G.profile = function(cmd, times)
   local start = vim.loop.hrtime()
   for _ = 1, times, 1 do
     local ok = pcall(cmd, unpack(args))
-    if not ok then error("Command failed: " .. tostring(ok) .. " " .. vim.inspect { cmd = cmd, args = args }) end
+    if not ok then error("Command failed: " .. tostring(ok) .. " " .. vim.inspect({ cmd = cmd, args = args })) end
   end
   print(((vim.loop.hrtime() - start) / 1000000 / times) .. "ms")
 end
@@ -112,12 +112,12 @@ function M.float_terminal(cmd)
     string.format("vim.api.nvim_buf_delete(%d, {force = true});", buf),
   }
   vim.cmd(table.concat(autocmd, " "))
-  vim.cmd [[startinsert]]
+  vim.cmd([[startinsert]])
 end
 
 function M.docs()
   local name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-  local docgen = require "babelfish"
+  local docgen = require("babelfish")
   vim.fn.mkdir("./doc", "p")
   local metadata = {
     input_file = "./README.md",
@@ -141,13 +141,13 @@ function M.colors(filter)
     if hl_name:find(filter) then
       local def = {}
       if hl.link then def.link = hl.link end
-      for key, def_key in pairs { foreground = "fg", background = "bg", special = "sp" } do
+      for key, def_key in pairs({ foreground = "fg", background = "bg", special = "sp" }) do
         if type(hl[key]) == "number" then
           local hex = string.format("#%06x", hl[key])
           def[def_key] = hex
         end
       end
-      for _, style in pairs { "bold", "italic", "underline", "undercurl", "reverse" } do
+      for _, style in pairs({ "bold", "italic", "underline", "undercurl", "reverse" }) do
         if hl[style] then def.style = (def.style and (def.style .. ",") or "") .. style end
       end
       defs[hl_name] = def

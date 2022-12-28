@@ -1,4 +1,4 @@
-local util = require "util"
+local util = require("util")
 
 local M = {}
 
@@ -6,19 +6,19 @@ M.local_plugins = {}
 
 function M.bootstrap()
   local fn = vim.fn
-  local install_path = fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system { "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path }
-    vim.cmd "packadd packer.nvim"
+    fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.cmd("packadd packer.nvim")
   end
-  vim.cmd [[packadd packer.nvim]]
+  vim.cmd([[packadd packer.nvim]])
   -- vim.cmd("autocmd BufWritePost plugins.lua PackerCompile") -- Auto compile when there are changes in plugins.lua
-  vim.cmd [[
+  vim.cmd([[
     augroup packer_user_config
       autocmd!
       autocmd BufWritePost plugins.lua source <afile> | PackerCompile
     augroup end
-  ]]
+  ]])
 end
 
 function M.get_name(pkg)
@@ -63,15 +63,15 @@ function M.setup(config, fn)
   vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")
 
   M.bootstrap()
-  local packer = require "packer"
+  local packer = require("packer")
   packer.init(config)
   M.local_plugins = config.local_plugins or {}
-  return packer.startup {
+  return packer.startup({
     function(use)
       use = M.wrap(use)
       fn(use)
     end,
-  }
+  })
 end
 
 return M
