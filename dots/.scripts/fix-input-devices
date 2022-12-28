@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Flat mice
+SEARCH="pointer"
+if [ "$SEARCH" = "" ]; then
+    exit 1
+fi
+
+ids=$(xinput --list | awk -v search="$SEARCH" \
+    '$0 ~ search {match($0, /id=[0-9]+/);\
+                  if (RSTART) \
+                    print substr($0, RSTART+3, RLENGTH-3)\
+                 }'\
+     )
+
+for i in $ids
+do
+    xinput --set-prop $i 'libinput Accel Profile Enabled' 0, 1
+done
+
+# Switch escape and caps lock, and alt and alt_win
+setxkbmap -option 'caps:escape, altwin:swap_alt_win' -layout us &
+
+# Set key press rate
+xset r rate 150 100 &
+
+# Load xmodmap
+[[ -s "$HOME/.Xmodmap" ]] && xmodmap "$HOME/.Xmodmap"
