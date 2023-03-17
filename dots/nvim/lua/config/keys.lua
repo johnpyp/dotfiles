@@ -37,18 +37,26 @@ nnoremap("<leader>y", '"+y', "System Copy")
 vnoremap("<leader>y", '"+y', "System Copy")
 nnoremap("<leader>p", '"+p', "System Paste")
 
+nnoremap("<leader>fr", ":source %<CR>", "File Reload")
+
 vmap("y", "ygv<Esc>")
 
 nnoremap("L", ":bnext<CR>", "Next Buffer")
 nnoremap("H", ":bprevious<CR>", "Previous Buffer")
 
-nnoremap("<leader>n", ":NvimTreeToggle<CR>", "Toggle Tree")
+nnoremap("<leader>n", ":NvimTreeToggle<CR>", "Toggle Tree", { silent = true })
 
 nnoremap("<leader>e", ":nohl<CR>", "Clear highlight")
 
 nnoremap("<C-p>", ":FzfLua files<CR>", "Find Files")
 nnoremap("<TAB>", ":FzfLua live_grep_native<CR>", "Fzf Grep")
 nnoremap("<C-i>", ":FzfLua live_grep_native<CR>", "Fzf Grep")
+
+nnoremap("<leader>th", require("fzf-lua").help_tags, "Help Tags")
+nnoremap("<leader>tf", require("fzf-lua").files, "Find Files")
+nnoremap("<leader>tg", require("fzf-lua").live_grep_native, "Live Grep")
+nnoremap("<leader>tc", require("fzf-lua").colorschemes, "Colorscheme")
+nnoremap("<leader>tt", require("fzf-lua").filetypes, "Set Filetype")
 
 vnoremap("<", "<gv", "Better indent left")
 vnoremap(">", ">gv", "Better indent right")
