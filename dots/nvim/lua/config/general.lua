@@ -46,3 +46,6 @@ vim.o.joinspaces = false -- Don't use two spaces to join a line that ends with p
 vim.o.conceallevel = 0 -- Don't conceal characters (e.g in markdown)
 
 vim.g.cursorhold_updatetime = 100
+
+vim.opt.foldenable = false
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
