@@ -1,1 +1,1 @@
-vim.cmd([[colorscheme one-nvim]])
+vim.cmd.colorscheme("catppuccin")
