@@ -31,7 +31,7 @@ function M.setup_null_ls(nls_build_options)
       -- nls.builtins.formatting.fish_indent,
       -- nls.builtins.formatting.fixjson.with({ filetypes = { "jsonc" } }),
       nls.builtins.formatting.eslint_d,
-      -- nls.builtins.formatting.ktlint,
+      nls.builtins.formatting.ktlint,
       -- nls.builtins.diagnostics.shellcheck,
       -- nls.builtins.diagnostics.markdownlint,
       -- nls.builtins.diagnostics.selene,
