@@ -28,4 +28,18 @@ M.tsserver = {
   },
 }
 
+M.rust_analyzer = {
+  settings = {
+    ["rust-analyzer"] = {
+      cargo = { allFeatures = true },
+      -- enable clippy on save
+      checkOnSave = {
+        command = "clippy",
+        extraArgs = { "--no-deps" },
+      },
+      inlayHints = { locationLinks = false },
+    },
+  },
+}
+
 return M
