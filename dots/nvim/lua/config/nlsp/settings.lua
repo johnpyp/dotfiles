@@ -37,6 +37,11 @@ M.rust_analyzer = {
         command = "clippy",
         extraArgs = { "--no-deps" },
       },
+      imports = {
+        group = {
+          enable = false,
+        },
+      },
       inlayHints = { locationLinks = false },
     },
   },

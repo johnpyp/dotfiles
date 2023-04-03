@@ -19,4 +19,5 @@ wk.register({
   ["<leader>c"] = { name = "Code" },
   ["<leader>W"] = { name = "Quiet Save" },
   ["<leader>n"] = { name = "Nvim tree" },
+  ["<leader>t"] = { name = "Telescope" },
 })

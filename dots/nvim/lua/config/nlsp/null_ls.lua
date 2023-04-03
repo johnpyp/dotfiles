@@ -7,7 +7,7 @@ function M.setup_null_ls(nls_build_options)
   local lspformatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
   nls.setup({
     debounce = 150,
-    save_after_format = false,
+    -- save_after_format = false,
 
     on_attach = function(client, bufnr)
       nls_build_options.on_attach(client, bufnr)
@@ -19,8 +19,23 @@ function M.setup_null_ls(nls_build_options)
           group = lspformatting_augroup,
           buffer = bufnr,
           callback = function()
-            -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-            vim.lsp.buf.format({ bufnr = bufnr })
+            vim.lsp.buf.format({
+              bufnr = bufnr,
+              filter = function(c) return c.name == "null-ls" end,
+            })
+          end,
+        })
+      -- If null-ls doesn't support formatting, add an autoformat handler anyways and filter away null-ls
+      else
+        vim.api.nvim_clear_autocmds({ group = lspformatting_augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          group = lspformatting_augroup,
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.format({
+              bufnr = bufnr,
+              filter = function(c) return c.name ~= "null-ls" end,
+            })
           end,
         })
       end
@@ -28,10 +43,13 @@ function M.setup_null_ls(nls_build_options)
     sources = {
       nls.builtins.formatting.prettierd,
       nls.builtins.formatting.stylua,
+      -- nls.builtins.formatting.rustfmt,
+      nls.builtins.formatting.rustywind,
       -- nls.builtins.formatting.fish_indent,
       -- nls.builtins.formatting.fixjson.with({ filetypes = { "jsonc" } }),
       nls.builtins.formatting.eslint_d,
       nls.builtins.formatting.ktlint,
+      nls.builtins.formatting.nixfmt,
       -- nls.builtins.diagnostics.shellcheck,
       -- nls.builtins.diagnostics.markdownlint,
       -- nls.builtins.diagnostics.selene,

@@ -11,7 +11,7 @@ require("config.keys")
 -- require("config.lsp")
 --
 require("config.nlsp")
-require("config.noice")
+-- require("config.noice")
 
 require("config.tree")
 require("config.lualine")
