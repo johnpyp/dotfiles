@@ -1,38 +1,14 @@
 local lspkind = require("lspkind")
-local lsp = require("lsp-zero")
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
+---@class nlsp.Cmp
 local M = {}
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
-
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ["<C-Space>"] = cmp.mapping.complete(),
-  ["<Tab>"] = cmp.mapping(function(fallback)
-    if cmp.visible() then
-      cmp.select_next_item()
-    elseif luasnip.expand_or_jumpable() then
-      luasnip.expand_or_jump()
-    elseif has_words_before() then
-      cmp.complete()
-    else
-      fallback()
-    end
-  end, { "i", "s" }),
-  ["<S-Tab>"] = cmp.mapping(function(fallback)
-    if cmp.visible() then
-      cmp.select_prev_item()
-    elseif luasnip.jumpable(-1) then
-      luasnip.jump(-1)
-    else
-      fallback()
-    end
-  end, { "i", "s" }),
-})
 
 local kind_mapper = require("cmp.types").lsp.CompletionItemKind
 
@@ -45,8 +21,99 @@ local kind_score = {
   Keyword = 5,
 }
 
+---@param ok_luasnip boolean
+local get_mappings = function(ok_luasnip)
+  local select_opts = { behavior = cmp.SelectBehavior.Select }
+  local result = {
+    -- confirm selection
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+    ["<C-y>"] = cmp.mapping.confirm({ select = false }),
+
+    -- navigate items on the list
+    ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
+    ["<Down>"] = cmp.mapping.select_next_item(select_opts),
+    ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
+    ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
+
+    -- scroll up and down in the completion documentation
+    ["<C-f>"] = cmp.mapping.scroll_docs(5),
+    ["<C-u>"] = cmp.mapping.scroll_docs(-5),
+
+    -- toggle completion
+    ["<C-e>"] = cmp.mapping(function(_)
+      if cmp.visible() then
+        cmp.abort()
+      else
+        cmp.complete()
+      end
+    end),
+
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+  }
+
+  if ok_luasnip then
+    -- go to next placeholder in the snippet
+    result["<C-d>"] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(1) then
+        luasnip.jump(1)
+      else
+        fallback()
+      end
+    end, { "i", "s" })
+
+    -- go to previous placeholder in the snippet
+    result["<C-b>"] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" })
+  end
+
+  return result
+end
+
+---Setup nvim_cmp mappings, sources, window, etc.
 function M.setup_cmp()
-  local cmp_config = lsp.defaults.cmp_config({
+  cmp.setup({
+    mapping = get_mappings(true),
+    preselect = cmp.PreselectMode.Item,
+    completion = {
+      completeopt = "menu,menuone,noinsert",
+    },
+    window = {
+      -- bordered completion kinda ugly tho
+      -- completion = cmp.config.window.bordered({
+      --   border = "single",
+      --   side_padding = 0,
+      -- }),
+      documentation = cmp.config.window.bordered(),
+    },
+
+    snippet = {
+      expand = function(args) luasnip.lsp_expand(args.body) end,
+    },
     sources = cmp.config.sources({
       {
         name = "nvim_lsp",
@@ -73,7 +140,6 @@ function M.setup_cmp()
     }, {
       { name = "buffer", keyword_length = 3, max_item_count = 5 },
     }),
-    mapping = cmp_mappings,
     formatting = {
       fields = { "abbr", "kind", "menu" },
       -- format = require("config.lsp.kind").cmp_format(),
@@ -142,10 +208,9 @@ function M.setup_cmp()
       },
     },
   })
-
-  cmp.setup(cmp_config)
 end
 
+---Apply custom "highlights" (styling/colors) to cmp
 function M.setup_cmp_highlights()
   vim.cmd([[
   " gray

@@ -1,7 +1,9 @@
 local icons = require("util.icons")
 
+---@class nlsp.Diagnostics
 local M = {}
 
+---Sets the default global diagnostic config (mostly styling)
 function M.setup_config_diagnostics()
   vim.diagnostic.config({
     underline = true,

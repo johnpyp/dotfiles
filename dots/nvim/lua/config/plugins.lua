@@ -10,8 +10,6 @@ local plugins = {
   -- Theme
   ["catppuccin/nvim"] = { as = "catppuccin" },
 
-  ["folke/lsp-colors.nvim"] = {},
-
   -- Rooter
   ["airblade/vim-rooter"] = {},
 
@@ -33,21 +31,12 @@ local plugins = {
   -- Icons
   ["kyazdani42/nvim-web-devicons"] = {},
 
-  -- Built-in LSP
-  ["neovim/nvim-lspconfig"] = {
-    -- event = "VimEnter"
+  ["stevearc/dressing.nvim"] = {
+    requires = {
+      { "MunifTanjim/nui.nvim" },
+    },
   },
-
-  -- LSP manager
-  ["folke/neodev.nvim"] = {},
-  ["simrat39/rust-tools.nvim"] = {},
-  ["jose-elias-alvarez/null-ls.nvim"] = {},
-  ["jose-elias-alvarez/nvim-lsp-ts-utils"] = {},
-  ["stevearc/dressing.nvim"] = {},
-  ["weilbith/nvim-code-action-menu"] = {},
   ["saecki/crates.nvim"] = {},
-  ["ray-x/lsp_signature.nvim"] = {},
-  ["folke/trouble.nvim"] = {},
 
   ["hrsh7th/vim-vsnip"] = {},
   ["hrsh7th/vim-vsnip-integ"] = {},
@@ -62,11 +51,6 @@ local plugins = {
   ["ibhagwan/fzf-lua"] = {},
   ["JoosepAlviste/nvim-ts-context-commentstring"] = {},
 
-  ["hrsh7th/nvim-cmp"] = {},
-  ["hrsh7th/cmp-nvim-lsp"] = {},
-  ["hrsh7th/cmp-buffer"] = {},
-  ["hrsh7th/cmp-path"] = {},
-  ["saadparwaiz1/cmp_luasnip"] = {},
   ["L3MON4D3/LuaSnip"] = {},
   ["rafamadriz/friendly-snippets"] = {},
   ["windwp/nvim-autopairs"] = {},
@@ -76,39 +60,52 @@ local plugins = {
   ["kdheepak/lazygit.nvim"] = {},
   ["Th3Whit3Wolf/one-nvim"] = {},
   ["b0o/schemastore.nvim"] = {},
-  ["tami5/lspsaga.nvim"] = {},
 
   -- Mason: LSP/Linter/Formatter Installer
-  ["williamboman/mason.nvim"] = {},
-  ["williamboman/mason-lspconfig.nvim"] = {},
-  ["jayp0521/mason-null-ls.nvim"] = {},
 
   -- Better rename plugin with live preview
   ["smjonas/inc-rename.nvim"] = {},
 
-  ["VonHeikemen/lsp-zero.nvim"] = {
+  ["neovim/nvim-lspconfig"] = {
     requires = {
       -- LSP Support
-      { "neovim/nvim-lspconfig" },
       { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
+
+      -- Formatters / linters / etc.
+      { "jose-elias-alvarez/null-ls.nvim" },
+      { "jayp0521/mason-null-ls.nvim" },
 
       -- Autocompletion
       { "hrsh7th/nvim-cmp" },
       { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-path" },
-      { "saadparwaiz1/cmp_luasnip" },
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-nvim-lua" },
+      { "hrsh7th/cmp-path" },
+      { "saadparwaiz1/cmp_luasnip" },
 
       -- Snippets
       { "L3MON4D3/LuaSnip" },
       { "rafamadriz/friendly-snippets" },
+
+      -- LSP supplements
+      { "alaviss/nim.nvim" },
+      { "folke/neodev.nvim" },
+      { "jose-elias-alvarez/typescript.nvim" },
+      { "simrat39/rust-tools.nvim" },
+
+      -- LSP UI-related
+      { "folke/lsp-colors.nvim" },
+      { "folke/trouble.nvim" },
+      { "j-hui/fidget.nvim" }, -- LSP progressbars / loaders
+      { "onsails/lspkind.nvim" },
+      { "ray-x/lsp_signature.nvim" },
+      -- { "glepnir/lspsaga.nvim" },
+      { "glepnir/lspsaga.nvim" },
+      { "weilbith/nvim-code-action-menu" },
     },
   },
 
-  ["onsails/lspkind.nvim"] = {},
-  ["j-hui/fidget.nvim"] = {},
   ["folke/noice.nvim"] = {
     requires = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -125,9 +122,6 @@ local plugins = {
       { "nvim-lua/plenary.nvim" },
     },
   },
-
-  -- Nim support
-  ["alaviss/nim.nvim"] = {},
 
   -- ---------------
   -- ---------------

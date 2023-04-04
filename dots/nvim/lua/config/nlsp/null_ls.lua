@@ -1,3 +1,4 @@
+---@class nlsp.NullLs
 local M = {}
 
 function M.setup_null_ls(nls_build_options)
@@ -55,13 +56,19 @@ function M.setup_null_ls(nls_build_options)
       -- nls.builtins.diagnostics.selene,
       nls.builtins.code_actions.gitsigns,
     },
-    root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".nvim.settings.json", ".git"),
+    root_dir = require("null-ls.utils").root_pattern(
+      ".null-ls-root",
+      ".nvim.settings.json",
+      ".git",
+      ".project",
+      ".projectkeep"
+    ),
   })
 
   -- setup mason_nullls after lsp??
   -- see documentation of null-null-ls for more configuration options!
   mason_nls.setup({
-    ensure_installed = nil,
+    ensure_installed = {},
     automatic_installation = true,
     automatic_setup = false,
   })

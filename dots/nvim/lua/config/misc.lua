@@ -40,6 +40,37 @@ require("fzf-lua").setup({
   },
 })
 
+require("telescope").setup({})
+
+-- Dressing needs to be explicitly setup with configured backends
+-- Otherwise it will default to telescope which meses up code_action :(
+require("dressing").setup({
+  input = { enabled = false },
+  select = {
+    enabled = false,
+    backend = { "nui", "builtin" },
+    nui = {
+      win_options = {
+        winblend = 0,
+      },
+    },
+    get_config = function(opts)
+      if opts.kind == "codeaction" then
+        return {
+          backend = "nui",
+          -- If the position is not set to cursor, then this will be centered
+          -- row == 2 to set the window 1 below current line
+          nui = {
+            position = { row = 2, col = 0 },
+            relative = "cursor",
+            max_width = 40,
+          },
+        }
+      end
+    end,
+  },
+})
+
 -- local actions = require('telescope.actions')
 -- -- Telescope
 -- require('telescope').setup {
