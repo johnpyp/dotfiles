@@ -86,7 +86,6 @@ font xft:FiraSans 11
 floating_modifier $mod
 
 exec "kitty"
-exec --no-startup-id "$HOME/.scripts/fix-input-devices"
 exec --no-startup-id "$HOME/.config/polybar/launch.sh &"
 exec --no-startup-id "feh --bg-fill $HOME/dotfiles/wallpapers/current.png &"
 exec --no-startup-id "sxhkd &"
@@ -96,3 +95,5 @@ exec --no-startup-id "picom -b &"
 exec --no-startup-id "/usr/lib/xfce4/notifyd/xfce4-notifyd &"
 exec --no-startup-id "imwheel -k -b 45 &"
 # exec --no-startup-id "xautolock -time 30 -locker 'betterlockscreen -l dimblur'"
+
+# vim: filetype=i3config

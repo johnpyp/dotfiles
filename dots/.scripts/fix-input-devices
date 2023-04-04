@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#### THIS SCRIPT SHOULD NOT BE NECESSARY
+#### /etc/X11/xorg.conf.d/00-keyboard.conf and 50-mouse-acceleration.conf fill the role of what this does
+#### Edit those configs in dotfiles/dots/xorg-conf-d instead of here.
+
 # Flat mice
 SEARCH="pointer"
 if [ "$SEARCH" = "" ]; then
@@ -26,3 +30,5 @@ xset r rate 150 100 &
 
 # Load xmodmap
 [[ -s "$HOME/.Xmodmap" ]] && xmodmap "$HOME/.Xmodmap"
+
+exit 0

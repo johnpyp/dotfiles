@@ -6,9 +6,9 @@
 - clean: ["~", "~/.config", "~/.config/pscripts"]
 
 - link:
-    ~/.Xresources: dots/.Xresources
     ~/.config/alacritty/alacritty.yml: dots/alacritty/alacritty.yml
     ~/.config/autorandr/postswitch: dots/autorandr/postswitch
+    ~/.config/code-flags.conf: dots/code-flags.conf
     ~/.config/dunst: dots/dunst
     ~/.config/i3/config: dots/i3/config
     ~/.config/kitty/kitty.conf: dots/kitty/kitty.conf
@@ -32,17 +32,24 @@
     ~/.pandoc/templates/eisvogel.latex: dots/pandoc/templates/eisvogel.tex
     ~/.profile: dots/.profile
     ~/.ripgreprc: dots/.ripgreprc
+
     ~/.scripts: dots/.scripts
     ~/.tmux.conf: dots/.tmux.conf
+    # ~/.zshrc: dots/.zshrc
     ~/.tmux/plugins/tpm: gmodules/tpm
     ~/.xinitrc: dots/.xinitrc
+    ~/.Xresources: dots/.Xresources
     ~/.zprofile: dots/.zprofile
-    # ~/.zshrc: dots/.zshrc
-    ~/.zshrc: dots/test2.zshrc
     ~/.zsh_plugins.txt: dots/.zsh_plugins.txt
+    ~/.zshrc: dots/test2.zshrc
+
     ~/.local/share/applications/:
       glob: true
       path: dots/desktop-entries/*
+
+    # ~/.config/systemd/user/:
+    #   glob: true
+    #   path: dots/systemd/user/*
 
 - create:
     - ~/code

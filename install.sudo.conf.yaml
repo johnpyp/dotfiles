@@ -12,3 +12,6 @@
       path: dots/slim/custom
     /usr/share/slim/themes/custom/background.png:
       path: wallpapers/current.png
+    /etc/X11/xorg.conf.d/:
+      glob: true
+      path: dots/xorg-conf-d/*
