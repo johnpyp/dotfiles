@@ -2,7 +2,7 @@
 Name=Visual Studio Code
 Comment=Code Editing. Refined.
 GenericName=Text Editor
-Exec=/opt/visual-studio-code/code %F --no-sandbox --unity-launch --ignore-gpu-blacklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --disable-gpu-vsync --disable-frame-rate-limit
+Exec=/opt/visual-studio-code/code %F --unity-launch
 Icon=visual-studio-code
 Type=Application
 StartupNotify=false
@@ -14,5 +14,5 @@ Keywords=vscode;
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=/opt/visual-studio-code/code %F --no-sandbox --new-window --ignore-gpu-blacklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --disable-gpu-vsync --disable-frame-rate-limit
+Exec=/opt/visual-studio-code/code %F --new-window
 Icon=visual-studio-code

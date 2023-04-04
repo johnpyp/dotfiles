@@ -2,7 +2,7 @@
 Name=Visual Studio Code - URL Handler
 Comment=Code Editing. Redefined.
 GenericName=Text Editor
-Exec=/opt/visual-studio-code/code --open-url %U --no-sandbox --ignore-gpu-blacklist --enable-gpu-rasterization --enable-native-gpu-memory-buffers --disable-gpu-vsync --disable-frame-rate-limit
+Exec=/opt/visual-studio-code/code --open-url %U
 Icon=visual-studio-code
 Type=Application
 NoDisplay=true
