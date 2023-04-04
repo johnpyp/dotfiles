@@ -1,0 +1,11 @@
+#!/bin/bash
+
+TMPFILE="/tmp/__sqlite_size_tmp"
+DB=$1
+IFS=" " TABLES=`sqlite3 $DB .tables`
+for i in $TABLES; do
+  \rm -f "$TMPFILE"
+  sqlite3 $DB ".dump $i" | sqlite3 $TMPFILE
+  echo $i `cat $TMPFILE | wc -c`
+  \rm -f "$TMPFILE"
+done
