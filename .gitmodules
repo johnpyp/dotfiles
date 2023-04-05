@@ -1,6 +1,6 @@
 [submodule "dotbot"]
 	path = dotbot
-	url = https://github.com/anishathalye/dotbot
+	url = git@github.com:anishathalye/dotbot.git
 	ignore = dirty
 [submodule "dots/nvim/ls/lua-language-server"]
 	path = dots/nvim/ls/lua-language-server
@@ -14,3 +14,4 @@
 [submodule "gmodules/polybar-scripts"]
 	path = gmodules/polybar-scripts
 	url = git@github.com:polybar/polybar-scripts.git
+	ignore = dirty
