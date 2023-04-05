@@ -128,4 +128,7 @@ require("lspsaga").setup({
   rename = {
     quit = "<ESC>",
   },
+  symbol_in_winbar = {
+    enable = false,
+  },
 })
