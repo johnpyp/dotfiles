@@ -82,4 +82,5 @@ local function show_documentation()
   end
 end
 
-nnoremap("K", show_documentation, "Show Documentation", { silent = true })
+nnoremap("K", show_documentation, "Hover", { silent = true })
+-- nnoremap("gK", show_documentation, "Hover (select)", { silent = true })

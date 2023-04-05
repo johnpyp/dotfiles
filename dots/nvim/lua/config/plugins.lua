@@ -41,7 +41,11 @@ local plugins = {
   ["hrsh7th/vim-vsnip"] = {},
   ["hrsh7th/vim-vsnip-integ"] = {},
 
+  -- Tresitter related plugins
   ["nvim-treesitter/nvim-treesitter"] = {},
+  ["RRethy/nvim-treesitter-endwise"] = {}, -- Automatically add "end" in lua, ruby, etc.
+  ["windwp/nvim-autopairs"] = {}, -- Pairs plugin (e.g complete parens)
+  ["windwp/nvim-ts-autotag"] = {}, -- HTML tag completion (and in jsx/tsx)
 
   ["kyazdani42/nvim-tree.lua"] = {},
   ["lewis6991/gitsigns.nvim"] = {},
@@ -53,7 +57,6 @@ local plugins = {
 
   ["L3MON4D3/LuaSnip"] = {},
   ["rafamadriz/friendly-snippets"] = {},
-  ["windwp/nvim-autopairs"] = {},
   -- Statusline & Tabline
   ["akinsho/bufferline.nvim"] = {},
   ["nvim-lualine/lualine.nvim"] = {},
@@ -105,6 +108,8 @@ local plugins = {
       { "weilbith/nvim-code-action-menu" },
     },
   },
+
+  ["lewis6991/hover.nvim"] = {},
 
   ["folke/noice.nvim"] = {
     requires = {

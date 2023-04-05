@@ -1,10 +1,3 @@
-require("nvim-treesitter.configs").setup({
-  ensure_installed = "all",
-  highlight = { enable = true, use_languagetree = true, additional_vim_regex_highlighting = { "kotlin" } },
-  indent = { enable = false },
-  context_commentstring = { enable = true, enable_autocmd = false },
-})
-
 require("Comment").setup({
   ignore = "^$",
 })
@@ -144,3 +137,29 @@ require("mini.surround").setup({
 })
 
 require("inc_rename").setup()
+
+require("hover").setup({
+  init = function()
+    -- Require providers
+    require("hover.providers.lsp")
+    -- require("hover.providers.gh")
+    -- require('hover.providers.gh_user')
+    -- require('hover.providers.jira')
+    require("hover.providers.man")
+    -- require("hover.providers.dictionary")
+  end,
+  preview_opts = {
+    border = "rounded",
+  },
+  -- Whether the contents of a currently open hover window should be moved
+  -- to a :h preview-window when pressing the hover keymap.
+  preview_window = false,
+  title = false,
+})
+
+require("hover").register({
+  name = "Crates LSP",
+  enabled = function() return vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() end,
+  execute = function() require("crates").show_popup() end,
+  priority = 1200,
+})

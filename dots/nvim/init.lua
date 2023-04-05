@@ -1,5 +1,8 @@
-local impatient_ok, impatient = pcall(require, "impatient")
-if impatient_ok then impatient.enable_profile() end
+local impatient_ok, _impatient = pcall(require, "impatient")
+if impatient_ok then
+  local impatient = require("impatient")
+  impatient.enable_profile()
+end
 
 require("config.plugins")
 require("config.general")
@@ -10,8 +13,9 @@ require("config.keys")
 -- require("config.cmp")
 -- require("config.lsp")
 --
+require("config.treesitter")
 require("config.nlsp")
--- require("config.noice")
+require("config.noice")
 
 require("config.tree")
 require("config.lualine")
