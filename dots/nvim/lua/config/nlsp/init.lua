@@ -15,6 +15,8 @@ local get_custom_server_opts = function(server_name)
   local flags = {
     debounce_text_changes = 75,
   }
+  local cmd = nil
+  local trace = nil
 
   -- Overrides
   if server_name ~= nil and custom_settings[server_name] ~= nil then
@@ -23,6 +25,8 @@ local get_custom_server_opts = function(server_name)
     before_on_attach = lsps_settings["before_on_attach"] or nil
     after_on_attach = lsps_settings["after_on_attach"] or nil
     settings = lsps_settings["settings"] or {}
+    cmd = lsps_settings["cmd"] or nil
+    trace = lsps_settings["trace"] or nil
   end
 
   local combined_on_attach = function(client, bufnr)
@@ -37,6 +41,8 @@ local get_custom_server_opts = function(server_name)
     capabilities = capabilities,
     settings = settings,
     flags = flags,
+    cmd = cmd,
+    trace = trace,
   }
 end
 
@@ -69,21 +75,27 @@ require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
     "jsonls",
-    "pyright",
-    "tsserver",
-    "rust_analyzer",
     "lua_ls",
+    "pyright",
+    "rust_analyzer",
+    "tsserver",
   },
+  automatic_installation = true,
 })
 
+local disabled = { "rome" }
 require("mason-lspconfig").setup_handlers({
   function(server_name)
+    for _, v in pairs(disabled) do
+      if v == server_name then return end
+    end
+
     local opts = get_custom_server_opts(server_name)
     lspconfig[server_name].setup(opts)
   end,
   ["jsonls"] = custom_setup_wrapper("jsonls"),
-  ["pyright"] = custom_setup_wrapper("pyright"),
   ["lua_ls"] = custom_setup_wrapper("lua_ls"),
+  ["pyright"] = custom_setup_wrapper("pyright"),
   ["rust_analyzer"] = function()
     require("rust-tools").setup({
       server = get_custom_server_opts("rust_analyzer"),
