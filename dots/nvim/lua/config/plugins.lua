@@ -28,6 +28,9 @@ local plugins = {
   -- Kotlin syntax highlighting
   ["udalov/kotlin-vim"] = {},
 
+  -- Justfile syntax
+  ["NoahTheDuke/vim-just"] = {},
+
   -- Icons
   ["kyazdani42/nvim-web-devicons"] = {},
 
