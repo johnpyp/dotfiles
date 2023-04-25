@@ -3,32 +3,34 @@ local formatting = require("config.nlsp.formatting")
 ---@class nlsp.Keys
 local M = {}
 
----@class nlsp.ProxyLspCommands
----@field code_action string | function
----@field code_action_range string | function
----@field diagnostics_buf string | function
----@field diagnostics_line string | function
----@field diagnostics_workspace string | function
----@field format string | function
----@field goto_declaration string | function
----@field goto_definition string | function
----@field goto_implementation string | function
----@field goto_references string | function
----@field goto_type_definition string | function
----@field rename string | function
----@field signature_help string | function
+---@alias KeybindValue string | function
 
----@param type "default" | "saga"
+---@class nlsp.ProxyLspCommands
+---@field code_action KeybindValue
+---@field code_action_range KeybindValue
+---@field diagnostics_buf KeybindValue
+---@field diagnostics_line KeybindValue
+---@field diagnostics_workspace KeybindValue
+---@field format KeybindValue
+---@field goto_declaration KeybindValue
+---@field goto_definition KeybindValue
+---@field goto_implementation KeybindValue
+---@field goto_references KeybindValue
+---@field goto_type_definition KeybindValue
+---@field rename KeybindValue
+---@field signature_help KeybindValue
+
+---@param preset "default" | "saga"
+---@param ft "string"
 ---@return nlsp.ProxyLspCommands
-function M.get_lsp_commands(type)
-  ---@type nlsp.ProxyLspCommands
+function M.get_lsp_commands(preset, ft)
   local lsp_commands = {
-    code_action = vim.lsp.buf.code_action,
-    code_action_range = vim.lsp.buf.code_action,
+    code_action = { rust = "<cmd>RustCodeAction<CR>", any = vim.lsp.buf.code_action },
+    code_action_range = { rust = "<cmd>RustCodeAction<CR>", any = vim.lsp.buf.code_action },
     diagnostics_buf = vim.diagnostic.setqflist,
     diagnostics_line = vim.diagnostic.open_float,
     diagnostics_workspace = "<cmd>Telescope diagnostics<CR>",
-    format = formatting.format,
+    format = "<cmd>Format<CR>",
     goto_declaration = vim.lsp.buf.declaration,
     goto_definition = vim.lsp.buf.definition,
     goto_implementation = vim.lsp.buf.implementation,
@@ -38,23 +40,38 @@ function M.get_lsp_commands(type)
     signature_help = vim.lsp.buf.signature_help,
   }
 
-  if type == "saga" then
+  if preset == "saga" then
     lsp_commands.code_action = "<cmd>Lspsaga code_action<CR>"
     lsp_commands.code_action_range = "<cmd>Lspsaga code_action<CR>"
     lsp_commands.diagnostics_buf = "<cmd>Lspsaga show_buf_diagnostics<CR>"
     lsp_commands.diagnostics_line = "<cmd>Lspsaga show_line_diagnostics ++unfocus<CR>"
     lsp_commands.diagnostics_workspace = "<cmd>Lspsaga show_workspace_diagnostics<CR>"
     lsp_commands.rename = "<cmd>Lspsaga rename<CR>"
-    return lsp_commands
   end
 
-  return lsp_commands
+  local computed_commands = {}
+
+  for k, v in pairs(lsp_commands) do
+    if type(v) == "table" then
+      local fv = v[ft]
+      if fv ~= nil then
+        computed_commands[k] = fv
+      else
+        assert(v["any"], "Fallback value should not be nil")
+        computed_commands[k] = v["any"]
+      end
+    end
+    if computed_commands[k] == nil then computed_commands[k] = v end
+  end
+
+  return computed_commands
 end
 
-local lsp_commands = M.get_lsp_commands("default")
-
 ---@type nlsp.attach.AttachCtxFn
-function M.attach_keybinds(client, bufnr, ctx)
+function M.attach_keybinds(_client, bufnr, ctx)
+  local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+  local lsp_commands = M.get_lsp_commands("saga", ft)
+
   ctx.map("n", "F", lsp_commands.format, "Format")
 
   -- ctx.map("n", "K", vim.lsp.buf.hover, "Hover Documentation") ----------- Already defined in global keys
