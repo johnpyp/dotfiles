@@ -1,22 +1,43 @@
+local lsp_settings = require("config.nlsp.settings")
+
 ---@class nlsp.Format
 local M = {}
 
 ---Determines if null_ls has formatter support for a given filetype
 ---@param ft string
 ---@return boolean
-function M.null_ls_has_formatter(ft)
+function M.should_use_null_ls_format(bufnr, ft)
   local sources = require("null-ls.sources")
   local available = sources.get_available(ft, "NULL_LS_FORMATTING")
-  return #available > 0
+  local can_null_ls_format = #available > 0
+
+  local clients = vim.lsp.get_active_clients({ bufnr })
+
+  local lsp_wants_format = false
+  for _, client in pairs(clients) do
+    local settings_config = lsp_settings[client.name]
+    if settings_config ~= nil then
+      if settings_config.prefer_lsp_formatting and client.supports_method("textDocument/formatting") then
+        lsp_wants_format = true
+        break
+      end
+    end
+  end
+
+  local null_ls_should_format = can_null_ls_format and not lsp_wants_format
+  return null_ls_should_format
 end
 
-function M.format()
-  local ft = vim.api.nvim_buf_get_option(0, "filetype")
+---Format file
+---@param bufnr number
+---@param async boolean
+function M.super_format(bufnr, async)
+  local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
   vim.lsp.buf.format({
-    async = true,
+    async = async,
     timeout_ms = 2000,
     filter = function(client)
-      if M.null_ls_has_formatter(ft) then
+      if M.should_use_null_ls_format(bufnr, ft) then
         return client.name == "null-ls"
       else
         return client.name ~= "null-ls"
@@ -25,6 +46,12 @@ function M.format()
   })
 end
 
-vim.api.nvim_create_user_command("Format", function() M.format() end, {})
+vim.api.nvim_create_user_command("Format", function() M.super_format(0, true) end, {})
+
+local lspformatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = lspformatting_augroup,
+  callback = function(args) M.super_format(args.buf, false) end,
+})
 
 return M
