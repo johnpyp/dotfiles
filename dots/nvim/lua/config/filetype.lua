@@ -7,6 +7,7 @@ require("filetype").setup({
     literal = {
       [".eslintrc"] = "jsonc",
       ["yarn.lock"] = "",
+      ["justfile"] = "just",
     },
     complex = {
       [".*/tsconfig.*%.json"] = "jsonc",
