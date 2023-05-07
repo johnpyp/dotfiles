@@ -67,9 +67,9 @@ function M.setup_null_ls(nls_build_options)
       ----------------
       -- Typescript --
       ----------------
-      nls.builtins.formatting.eslint_d,
-      nls.builtins.code_actions.eslint_d,
-      nls.builtins.diagnostics.eslint_d,
+      -- nls.builtins.formatting.eslint_d,
+      -- nls.builtins.code_actions.eslint_d,
+      -- nls.builtins.diagnostics.eslint_d,
       nls.builtins.formatting.prettierd,
     },
     root_dir = require("null-ls.utils").root_pattern(
