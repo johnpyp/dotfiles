@@ -3,6 +3,8 @@ require("filetype").setup({
     extensions = {
       fish = "fish",
       wgsl = "wgsl",
+      sql = "sql",
+      sh = "bash",
     },
     literal = {
       [".eslintrc"] = "jsonc",
