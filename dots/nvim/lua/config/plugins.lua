@@ -90,6 +90,10 @@ local plugins = {
       { "hrsh7th/cmp-path" },
       { "saadparwaiz1/cmp_luasnip" },
 
+      -- Copilot
+      { "zbirenbaum/copilot.lua" },
+      { "zbirenbaum/copilot-cmp" },
+
       -- Snippets
       { "L3MON4D3/LuaSnip" },
       { "rafamadriz/friendly-snippets" },
@@ -99,6 +103,7 @@ local plugins = {
       { "folke/neodev.nvim" },
       { "jose-elias-alvarez/typescript.nvim" },
       { "simrat39/rust-tools.nvim" },
+      { "sigmasd/deno-nvim" },
 
       -- LSP UI-related
       { "folke/lsp-colors.nvim" },
@@ -130,6 +135,7 @@ local plugins = {
       { "nvim-lua/plenary.nvim" },
     },
   },
+  ["danymat/neogen"] = {},
 
   -- ---------------
   -- ---------------

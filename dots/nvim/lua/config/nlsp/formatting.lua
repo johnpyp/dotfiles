@@ -13,8 +13,10 @@ function M.should_use_null_ls_format(bufnr, ft)
 
   local clients = vim.lsp.get_active_clients({ bufnr })
 
+  local is_null_ls_active = false
   local lsp_wants_format = false
   for _, client in pairs(clients) do
+    if client.name == "null-ls" then is_null_ls_active = true end
     local settings_config = lsp_settings[client.name]
     if settings_config ~= nil then
       if settings_config.prefer_lsp_formatting and client.supports_method("textDocument/formatting") then
@@ -24,7 +26,7 @@ function M.should_use_null_ls_format(bufnr, ft)
     end
   end
 
-  local null_ls_should_format = can_null_ls_format and not lsp_wants_format
+  local null_ls_should_format = can_null_ls_format and is_null_ls_active and not lsp_wants_format
   return null_ls_should_format
 end
 

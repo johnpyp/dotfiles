@@ -1,0 +1,18 @@
+{
+  "neoconf": {
+    "import": {
+      "coc": false,
+      "nlsp": false,
+      "vscode": false
+    }
+  },
+  "lspconfig": {
+    "jsonls": {
+      "json.schemaDownload.enable": true
+    },
+    "tsserver": {
+      "javascript.preferences.importModuleSpecifier": "project-relative",
+      "typescript.preferences.importModuleSpecifier": "project-relative"
+    }
+  }
+}

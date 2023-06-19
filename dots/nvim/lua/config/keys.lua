@@ -33,9 +33,12 @@ nnoremap("<leader>W", ":noa w<CR>", "Quiet save")
 
 nnoremap("<leader>w", "<C-w>", "Window (C-w)")
 
+nnoremap("<leader>cc", ":Neoconf global<CR>", "Neoconf Global")
+
 nnoremap("<leader>y", '"+y', "System Copy")
 vnoremap("<leader>y", '"+y', "System Copy")
 nnoremap("<leader>p", '"+p', "System Paste")
+-- nnoremap("<leader>nf", ":Neogen", "Generate Annotations")
 
 nnoremap("<leader>fr", ":source %<CR>", "File Reload")
 

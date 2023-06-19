@@ -1,3 +1,4 @@
+require("neoconf").setup()
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local custom_settings = require("config.nlsp.settings")
@@ -17,6 +18,8 @@ local get_custom_server_opts = function(server_name)
   }
   local cmd = nil
   local trace = nil
+  local root_dir = nil
+  -- local single_file_support = false
 
   -- Overrides
   if server_name ~= nil and custom_settings[server_name] ~= nil then
@@ -27,6 +30,8 @@ local get_custom_server_opts = function(server_name)
     settings = lsps_settings["settings"] or {}
     cmd = lsps_settings["cmd"] or nil
     trace = lsps_settings["trace"] or nil
+    root_dir = lsps_settings["root_dir"] or nil
+    -- single_file_support = lsps_settings["single_file_support"] or false
   end
 
   local combined_on_attach = function(client, bufnr)
@@ -37,7 +42,9 @@ local get_custom_server_opts = function(server_name)
   end
 
   return {
+    root_dir = root_dir,
     on_attach = combined_on_attach,
+    -- single_file_support = single_file_support,
     capabilities = capabilities,
     settings = settings,
     flags = flags,
@@ -79,9 +86,23 @@ require("mason-lspconfig").setup({
     "pyright",
     "rust_analyzer",
     "tsserver",
+    "denols",
   },
   automatic_installation = true,
 })
+
+-- Hack to disable tsserver in deno project
+lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
+  local cwd = vim.loop.cwd()
+  if config.name == "tsserver" and vim.fn.filereadable(cwd .. "/deno.json") == 1 then
+    config.single_file_support = false
+  end
+end)
+
+-- Appropriately highlight code references returned from Deno
+vim.g.markdown_fenced_languages = {
+  "ts=typescript",
+}
 
 local disabled = { "rome" }
 require("mason-lspconfig").setup_handlers({
@@ -104,6 +125,11 @@ require("mason-lspconfig").setup_handlers({
   ["tsserver"] = function()
     require("typescript").setup({
       server = get_custom_server_opts("tsserver"),
+    })
+  end,
+  ["denols"] = function()
+    require("deno-nvim").setup({
+      server = get_custom_server_opts("denols"),
     })
   end,
 })
