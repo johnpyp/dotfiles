@@ -30,7 +30,7 @@
     docker
     docker-compose
     docui
-    dotnet-sdk_3
+    dotnet-sdk_7
     dotnetPackages.Nuget
     dpkg
     efibootmgr
@@ -69,7 +69,7 @@
     just
     keychain
     kind
-    kitty
+    # kitty
     kotlin
     ktlint
     kubectl
@@ -81,8 +81,8 @@
     libpqxx
     libratbag
     libreoffice-fresh
-    libudev
-    litecli
+    udev
+    # litecli
     llvmPackages.libclang
     lm_sensors
     lsof
@@ -93,17 +93,15 @@
     mergerfs
     mergerfs-tools
     mono
-    mosh
     mozjpeg
-    mpv
     mypy
     ncdu
     neofetch
-    neovim-remote
+    # neovim-remote
     nix-index
     nixfmt
     nixpkgs-fmt
-    nodejs-14_x
+    nodejs-18_x
     ntfsprogs
     omnisharp-roslyn
     openssl
@@ -114,7 +112,6 @@
     pass
     patchelf
     pavucontrol
-    peek
     pipenv
     piper
     pkg-config
@@ -123,7 +120,6 @@
     postgresql
     psensor
     pwgen
-    qbittorrent
     ranger
     redis
     ripgrep
@@ -137,16 +133,13 @@
     skim
     snapraid
     sops
-    spotify
-    spotify-tui
-    spotifyd
     sshfs
     steam-run
     sumneko-lua-language-server
     sxhkd
     sysstat
+    tealdeer
     thefuck
-    tldr
     tmux
     tokei
     trash-cli
@@ -157,13 +150,12 @@
     watchexec
     watchman
     wget
-    wineStaging
+    wine-staging
     wireguard-tools
     xdg_utils
     yarn
     yarn2nix
     youtube-dl
-    zafiro-icons
     zip
     zlib
     zsh
@@ -173,6 +165,7 @@
       python3.withPackages (
         ps:
           with ps; [
+            # python-language-server
             beautifulsoup4
             black
             dbus-python
@@ -184,11 +177,11 @@
             pandas
             pygobject3
             pylint
-            pynvim
-            python-language-server
+            pyright
             pytorch
             requests
             scipy
+            sh
             virtualenvwrapper
             yamllint
           ]

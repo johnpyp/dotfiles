@@ -9,23 +9,23 @@
   systemd.services.telegraf.path = [ pkgs.lm_sensors ];
 
   security.sudo.extraRules = [
-    { commands = [ { command = "${pkgs.smartmontools}/bin/smartctl"; options = [ "NOPASSWD" ]; } ]; users = [ "telegraf" ]; }
+    { commands = [{ command = "${pkgs.smartmontools}/bin/smartctl"; options = [ "NOPASSWD" ]; }]; users = [ "telegraf" ]; }
   ];
   services.telegraf.extraConfig = {
     inputs = {
       # zfs = { poolMetrics = true; };
       net = { interfaces = [ "enp*" ]; };
-      netstat = {};
+      netstat = { };
       cpu = { totalcpu = true; };
-      sensors = {};
-      kernel = {};
-      mem = {};
-      swap = {};
-      processes = {};
-      system = {};
-      disk = {};
-      diskio = {};
-      sysstat = {};
+      sensors = { };
+      kernel = { };
+      mem = { };
+      swap = { };
+      processes = { };
+      system = { };
+      disk = { };
+      diskio = { };
+      sysstat = { };
       smart = {
         path = "${pkgs.writeShellScriptBin "smartctl" "/run/wrappers/bin/sudo ${pkgs.smartmontools}/bin/smartctl $@"}/bin/smartctl";
       };
@@ -37,11 +37,17 @@
   };
 
   services.grafana = {
+
+    settings = {
+      server = {
+        http_port = 3240;
+        http_addr = "0.0.0.0";
+        domain = "grafana.johnpyp.com";
+      };
+      "auth.anonymous".enable = true;
+    };
     enable = true;
-    port = 3240;
-    addr = "127.0.0.1";
     dataDir = "/var/lib/grafana";
-    auth.anonymous.enable = true;
   };
 
   hardware.mcelog.enable = true;

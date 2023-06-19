@@ -4,6 +4,7 @@
     <nix-ld/modules/nix-ld.nix>
     ../modules/boot-efi.nix
     ../modules/general.nix
+    ../modules/keybase.nix
     ../modules/gui.nix
     ../modules/networking.nix
     ../modules/sound.nix
@@ -40,7 +41,7 @@
 
   hardware.pulseaudio.support32Bit = true;
   boot.kernelPackages = pkgs.linuxPackages;
-  boot.extraModulePackages = with config.boot.kernelPackages; [];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ ];
 
 
   services.flatpak.enable = true;

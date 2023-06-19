@@ -3,14 +3,15 @@
 {
   nixpkgs.overlays = [
     (import ./plex-media-player)
+    (import ./mergerfs-tools)
 
-    (
-      import (
-        builtins.fetchTarball {
-          url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-        }
-      )
-    )
+    # (
+    #   import (
+    #     builtins.fetchTarball {
+    #       url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    #     }
+    #   )
+    # )
     # (
     #
     #   (

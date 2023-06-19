@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     autorandr
     androidStudioPackages.canary
@@ -23,7 +22,6 @@
     firefox
     flameshot
     fondo
-    gdlauncher
     gimp
     gnome3.adwaita-icon-theme
     gnome3.gnome-disk-utility
@@ -46,6 +44,7 @@
     pantheon.elementary-gtk-theme
     papirus-icon-theme
     picom
+    peek
     pinta
     plex-media-player
     polybarFull
@@ -68,5 +67,13 @@
     xorg.xev
     xorg.xmodmap
     zoom-us
+
+    steam
+    qbittorrent
+    mpv
+    spotify
+    spotifyd
+    spotify-tui
+    zafiro-icons
   ];
 }

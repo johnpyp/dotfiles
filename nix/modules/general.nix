@@ -7,17 +7,8 @@
   virtualisation.docker.liveRestore = false;
   # Shell
   environment.shells = [ pkgs.bashInteractive pkgs.zsh ];
+  users.defaultUserShell = pkgs.zsh;
 
-  # Keybase
-  services = {
-    keybase.enable = true;
-    kbfs.enable = true;
-    kbfs.mountPoint = "/home/johnpyp/keybase";
-    gnome.gnome-keyring.enable = true;
-    printing.enable = true;
-    spotifyd.enable = true;
-    cron.enable = true;
-  };
   # Fonts
   fonts = {
     fontDir = { enable = true; };
@@ -37,6 +28,7 @@
   };
   programs.dconf.enable = true;
   programs.adb.enable = true;
+  programs.zsh.enable = true;
 
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
