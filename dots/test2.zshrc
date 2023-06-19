@@ -1,3 +1,5 @@
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
 setopt PROMPT_SUBST
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -22,6 +24,19 @@ then
 fi
 source ~/.antidote/antidote.zsh
 antidote load
+
+function zsh_directory_name() {
+  emulate -L zsh
+  [[ $1 == d ]] || return
+  while [[ $2 != / ]]; do
+    if [[ -e $2/.git ]]; then
+      typeset -ga reply=(${2:t} $#2)
+      return
+    fi
+    2=${2:h}
+  done
+  return 1
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -59,6 +74,8 @@ DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 
 #     zi lucid for wait'1' autoload'#manydots-magic' knu/zsh-manydots-magic
 # fi
+
+HISTFILE=~/.zhistory
 
 bindkey '^H' backward-kill-word
 
@@ -108,7 +125,7 @@ alias lla='ls -la'
 # --update             Skip files that are newer on the receiver (don't overwrite modifications)
 # --verbose            Increase verbosity (only one level)
 # --one-file-system    Don't cross filesystem boundaries
-# --hardlinks          Look for hard-linked files in the source and link together corresponding files in the destination
+# --hard-links         Look for hard-linked files in the source and link together corresponding files in the destination
 # --whole-file         Disables rsync's delta-transfer. May be faster when bandwidth between source and destination is higher than bandwidth to disk.
 # --xattrs             Update the destination extended attributes to be the same as the source ones
 # --partial            Keep partial files (maybe doesn't do anything with --whole-file)
@@ -121,8 +138,8 @@ alias lla='ls -la'
 # --specials           Copy extra files
 # --devices            Recreate devices files
 # --group              Set the group of the dest file to be source file group
-alias goodsync="rsync --recursive --links --perms --times --owner --update --verbose --one-file-system
-                      --hardlinks --whole-file --xattrs --partial
+alias goodsync="rsync --recursive --links --copy-unsafe-links --perms --times --owner --update --verbose --one-file-system \
+                      --hard-links --whole-file --xattrs --partial \
                       --progress --numeric-ids --human-readable --info=progress2"
 
 alias coa="conda deactivate && conda activate"
@@ -133,6 +150,8 @@ alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"
 alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
 alias ssh="TERM=\"xterm-256color\" ssh"
 alias lazydocker="TERM=\"xterm-256color\" lazydocker"
+
+alias icat="kitty +kitten icat" # https://sw.kovidgoyal.net/kitty/kittens/icat/
 
 sshforward() {
   ssh $1 -L $2\:localhost\:$2 -N
@@ -163,7 +182,12 @@ VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
+
+export BUN_INSTALL="$HOME/.bun"
+export VOLTA_HOME="$HOME/.volta"
+export DENO_INSTALL="/home/johnpyp/.deno"
+
+export PATH=/home/johnpyp/.turso:$DENO_INSTALL/bin:$VOLTA_HOME/bin:$BUN_INSTALL/bin:$PATH~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
 export XDG_DATA_HOME=$HOME/.local/share
 
 eval $(keychain --eval --quiet id_rsa)
@@ -215,7 +239,7 @@ else
     if [ -f "/home/johnpyp/micromamba/etc/profile.d/micromamba.sh" ]; then
         . "/home/johnpyp/micromamba/etc/profile.d/micromamba.sh"
     else
-        export  PATH="/home/johnpyp/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
+        export PATH="/home/johnpyp/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
     fi
 fi
 unset __mamba_setup
@@ -248,8 +272,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [ -s "/home/johnpyp/.bun/_bun" ] && source "/home/johnpyp/.bun/_bun"
 
 # bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -259,4 +281,4 @@ export LC_TYPE=en_US.UTF-8
 [ -f /opt/mambaforge/etc/profile.d/conda.sh ] && source /opt/mambaforge/etc/profile.d/conda.sh
 
 alias m="micromamba"
-
+alias google-chrome="google-chrome-stable"

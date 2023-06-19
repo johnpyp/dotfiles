@@ -5,9 +5,10 @@ romkatv/powerlevel10k # prompt
 zsh-users/zsh-completions # collection of a zsh completions
 
 # zephyr/other plugin selections
-mattmc3/zephyr path:plugins/colors # colors (LS_COLORS, dirs, man, etc.)
+mattmc3/zephyr path:plugins/color # colors (LS_COLORS, dirs, man, etc.)
 mattmc3/zephyr path:plugins/history # history
-mattmc3/zephyr path:plugins/completions # ??? completion plugin I guess? ?
+# mattmc3/zephyr path:plugins/directory # directory
+mattmc3/zephyr path:plugins/completion # ??? completion plugin I guess? ?
 
 tj/git-extras path:etc/git-extras-completion.zsh
 
