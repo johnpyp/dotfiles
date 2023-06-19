@@ -1,0 +1,11 @@
+#!/usr/bin/env bash 
+
+FULLPATH=$(readlink -f "$1")
+ZFILESYS=$(df "$FULLPATH" | tail -1 | awk '{print $1}')
+MOUNTPATH=$(df "$FULLPATH" | tail -1 | awk '{print $6}')
+
+echo $ZFILESYS
+echo "${FULLPATH#$MOUNTPATH/}"
+
+zdb -O -vv $ZFILESYS "${FULLPATH#$MOUNTPATH/}"
+echo "----------------------"

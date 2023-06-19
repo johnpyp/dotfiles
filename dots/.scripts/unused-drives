@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Create a temporary file to store zfs disk names
+temp_file=$(mktemp)
+
+# Get all devices used by zfs
+zpool status | awk '/wwn-/ {print $1}' > $temp_file
+
+# Loop through all disks
+lsblk -dpno NAME,MODEL,WWN | while IFS= read -r line; do
+    # Parse line into disk, remaining_part holds both model and wwn
+    disk=$(echo "$line" | awk '{print $1}')
+    remaining_part=$(echo "$line" | cut -d ' ' -f2-)
+    # Get the WWN by grabbing the last word of remaining_part
+    wwn=$(echo "$remaining_part" | awk '{print $NF}')
+    # Model is whatever's left in remaining_part after removing WWN
+    model=${remaining_part% $wwn}
+
+    # Check if disk is used by zfs
+    if ! grep -q "$wwn" $temp_file; then
+        echo "Unused: $disk ($model)"
+    fi
+done
+
+# Remove the temporary file
+rm $temp_file
+
