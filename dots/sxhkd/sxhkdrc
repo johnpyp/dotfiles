@@ -48,7 +48,7 @@ mod4 + Return
   kitty
 
 mod4 + Escape
-  pkill sxhkd; sleep 1; sxhkd &; $HOME/.config/polybar/launch.sh; pkill --signal USR1 -x sxhkd
+  pkill sxhkd; sleep 1; sxhkd &; $HOME/.config/polybar/launch.sh; feh --bg-fill $HOME/dotfiles/wallpapers/current.png; pkill --signal USR1 -x sxhkd
 
 mod4 + p
   flameshot gui
