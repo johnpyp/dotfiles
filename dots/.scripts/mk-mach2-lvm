@@ -1,18 +1,91 @@
 #!/usr/bin/env python
-import sh
 
-print(sh.lsblk("-o", "NAME"))
+import json
+import subprocess
+from collections import defaultdict
+from typing import Any, Dict, List
 
-# IFS=$'\n'
-# OFS=$'\n'
-#
-# # printf '%s' $(lsblk -nro NAME,SIZE,WWN,MODEL,SERIAL,PATH,PARTLABEL,FSTYPE)
-# disks="$(lsblk -ro NAME,SIZE,WWN,MODEL,SERIAL,PATH,PARTLABEL,FSTYPE | grep "ST14000NM0001" | awk '!seen[$5]++ { printf "%s # %s %s\n", $6, $5, $4 }')"
-#
-# printf $disks
-#
-# echo "Choose a drive (only the first drive of the pair is shown):"
-#
-# chosen_disk=$(echo $disks | gum choose --limit 1)
-#
-# echo $chosen_disk
+from plumbum import colors
+from plumbum.cmd import jq, lsblk
+
+colors: Any = colors
+
+c_prompt = colors.cyan & colors.bold
+
+
+# import sh
+# from sh import echo, jq, lsblk
+
+
+def gum(*args):
+    r = subprocess.run(["gum", *args], stdout=subprocess.PIPE, text=True)
+    return r.stdout.strip()
+
+
+def pp(v: Any):
+    j = json.dumps(v)
+    print((jq["-r"] << j)())
+
+
+# def gum(*args, **kwargs):
+#     return sh.gum(*args, _piped=True, **kwargs)
+
+
+disks = json.loads(
+    lsblk("-d", "-J", "-o", "NAME,SERIAL,SIZE,WWN,MODEL,VENDOR,PATH,HCTL,FSTYPE")
+)["blockdevices"]
+
+disks = [d for d in disks if "ST14000NM0001" in d["model"]]
+
+out = json.dumps(disks)
+
+drive_pairs: defaultdict[str, List[Dict[str, Any]]] = defaultdict(list)
+for d in disks:
+    drive_pairs[d["serial"]].append(d)
+
+# For a given serial there should only be 2 items
+for k, v in drive_pairs.items():
+    assert len(v) == 2
+
+pp(drive_pairs)
+
+choices = {}
+for sn, v in drive_pairs.items():
+    d = v[0]
+    vendor_model = d["vendor"]
+    if d["model"]:
+        vendor_model = d["vendor"] + " " + d["model"]
+
+    warning = None
+    if d["fstype"] == "LVM2_member":
+        warning = (
+            colors.warn
+            | (colors.bold | " ## Warning:") + " Drive already part of an LVM group"
+        )
+
+    choice = f"{colors.yellow | d['path']}\t # {d['size']} {vendor_model}, SN: {d['serial']}{warning}"
+    choices[choice] = sn
+
+print(c_prompt | "Choose a drive:")
+chosen: str = gum("choose", "--limit", "1", *choices.keys())
+
+drives = drive_pairs[choices[chosen]]
+
+pp(drives)
+
+d1, d2 = drives
+
+p1 = d1["path"]
+p2 = d2["path"]
+
+serial_suffix = d1["serial"][-6:]
+
+print(c_prompt | "Run these commands to format the drive:")
+print(f"sudo pvcreate {p1} {p2}")
+print(f"sudo vgcreate sgt_vg_{serial_suffix} {p1} {p2}")
+print(
+    f"sudo lvcreate -i 2 -n sgt_lv_{serial_suffix} -l 100%FREE --type striped -I 128k sgt_vg_{serial_suffix}"
+)
+
+
+# # vim: set ft=python:

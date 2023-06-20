@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [ <home-manager/nixos> ];
 
   home-manager.useGlobalPkgs = true;
@@ -16,23 +15,13 @@
       enable = true;
       withPython3 = true;
 
-
-      extraPackages = with pkgs; [
-        (python3.withPackages (ps: with ps; [
-          black
-          flake8
-          pyright
-          pylint
-          sh
-        ]))
-      ];
-      extraPython3Packages = (ps: with ps; [
-        jedi
-        black
-        flake8
-        pylint
-        sh
-      ]);
+      extraPackages = with pkgs;
+        [
+          (python3.withPackages
+            (ps: with ps; [ black flake8 pyright pylint sh plumbum ]))
+        ];
+      extraPython3Packages =
+        (ps: with ps; [ jedi black flake8 pylint sh plumbum ]);
     };
 
     programs.nix-index.enable = true;

@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     # pypi2nix
     acpi
@@ -161,31 +160,28 @@
     zsh
     zstd
 
-    (
-      python3.withPackages (
-        ps:
-          with ps; [
-            # python-language-server
-            beautifulsoup4
-            black
-            dbus-python
-            flask
-            jedi
-            matplotlib
-            mypy
-            numpy
-            pandas
-            pygobject3
-            pylint
-            pyright
-            pytorch
-            requests
-            scipy
-            sh
-            virtualenvwrapper
-            yamllint
-          ]
-      )
-    )
+    (python3.withPackages (ps:
+      with ps; [
+        # python-language-server
+        beautifulsoup4
+        plumbum
+        black
+        dbus-python
+        flask
+        jedi
+        matplotlib
+        mypy
+        numpy
+        pandas
+        pygobject3
+        pylint
+        pyright
+        pytorch
+        requests
+        scipy
+        sh
+        virtualenvwrapper
+        yamllint
+      ]))
   ];
 }
