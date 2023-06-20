@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [
     # ../modules/sound.nix
     ../modules/boot-efi.nix
@@ -64,9 +63,9 @@
   # https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/index.html#installation
   boot.supportedFilesystems = [ "zfs" "xfs" ];
   boot.zfs.extraPools = [ "tank" ];
-  boot.zfs.devNodes = "/dev/disk/by-id"; # /dev/disk/by-id is the default, but we want to make sure just in case it changes, as this is important so the pool doesn't get imported out of order
+  boot.zfs.devNodes =
+    "/dev/disk/by-id"; # /dev/disk/by-id is the default, but we want to make sure just in case it changes, as this is important so the pool doesn't get imported out of order
   services.nfs.server.enable = true;
-
 
   # boot.zfs.enabled = true; # Unnecessary, because `boot.supportedFilesystems` has "zfs" in it
   boot.zfs.forceImportRoot = false;
@@ -85,9 +84,7 @@
   # sshd for remote ssh
   services.sshd.enable = true;
 
-  services.eternal-terminal = {
-    enable = true;
-  };
+  services.eternal-terminal = { enable = true; };
 
   system.stateVersion = "22.05";
 
@@ -148,14 +145,13 @@
     };
   };
 
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      type = "soft";
-      item = "nofile";
-      value = "8096";
-    }
-  ];
+  security.pam.loginLimits = [{
+    domain = "*";
+    type = "soft";
+    item = "nofile";
+    value = "8096";
+  }];
 
   services.openssh.allowSFTP = true;
+  system.autoUpgrade.channel = "https://nixos.org/channels/nixos-unstable";
 }

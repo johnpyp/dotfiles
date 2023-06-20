@@ -1,9 +1,7 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   # Docker
   virtualisation.docker.enable = true;
   virtualisation.docker.enableNvidia = true;
-  virtualisation.virtualbox.host.enable = true;
   virtualisation.docker.liveRestore = false;
   # Shell
   environment.shells = [ pkgs.bashInteractive pkgs.zsh ];
@@ -19,7 +17,13 @@
       defaultFonts.serif = [ "roboto-slab" ];
       defaultFonts.emoji = [ "Noto Color Emoji" ];
     };
-    fonts = with pkgs; [ nerdfonts cascadia-code fira font-awesome powerline-fonts ];
+    fonts = with pkgs; [
+      nerdfonts
+      cascadia-code
+      fira
+      font-awesome
+      powerline-fonts
+    ];
   };
 
   programs.java = {

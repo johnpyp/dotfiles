@@ -17,25 +17,19 @@
     # ../modules/packages/desktop.nix
   ];
   # Machine specific networking
-  networking.hostName = "turtle";
-  networking.hostId = "5dd5a930"; # Zfs requires hostId
+  networking.hostName = "bubbles";
+  networking.hostId = "f7f2f8eb"; # Zfs requires hostId
 
   time.timeZone = "America/Los_Angeles";
 
   # Firewall, for plex
   networking.firewall.enable = false;
 
-  networking.interfaces.ens32.ipv4.addresses = [{
-    address = "192.168.1.65";
+  networking.interfaces.ens33.ipv4.addresses = [{
+    address = "192.168.1.54";
     prefixLength = 24;
   }];
   boot.kernel.sysctl."net.ipv6.conf.ens32.disable_ipv6" = true;
-
-  networking.interfaces.ens35.ipv4.addresses = [{
-    address = "192.168.1.64";
-    prefixLength = 24;
-  }];
-  boot.kernel.sysctl."net.ipv6.conf.ens35.disable_ipv6" = true;
 
   networking.defaultGateway = "192.168.1.1";
   # networking.nameservers = [ "192.168.1.1" ];
@@ -48,9 +42,11 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
-  hardware.nvidia.modesetting.enable = true;
 
-  hardware.nvidia.open = true;
+  system.autoUpgrade.channel = "https://nixos.org/channels/nixos-unstable";
+  # hardware.nvidia.modesetting.enable = true;
+
+  # hardware.nvidia.open = true;
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
 
@@ -70,7 +66,7 @@
   # # boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelParams = [
     "systemd.unified_cgroup_hierarchy=false"
-    "zfs.zfs_arc_max=51539607552" # Set max size of ARC to 48GiB
+    "zfs.zfs_arc_max=34359738368" # Set max size of ARC to 32GiB
   ];
 
   # l2arc_noprefetch=0 -> Allow prefetch
@@ -90,9 +86,9 @@
   # Support ZFS on nixos
   # https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/index.html#installation
   boot.supportedFilesystems = [ "zfs" "xfs" ];
-  boot.zfs.extraPools = [ "tank" ];
+  boot.zfs.extraPools = [ ];
   boot.zfs.devNodes =
-    "/dev/disk/by-partlabel"; # /dev/disk/by-id is the default, but we want to make sure just in case it changes, as this is important so the pool doesn't get imported out of order
+    "/dev/disk/by-id"; # /dev/disk/by-id is the default, but we want to make sure just in case it changes, as this is important so the pool doesn't get imported out of order
   services.nfs.server.enable = true;
 
   # boot.zfs.enabled = true; # Unnecessary, because `boot.supportedFilesystems` has "zfs" in it
@@ -104,10 +100,10 @@
   ### ZFS ###
   ###########
 
-  services.xserver = {
-    enable = true;
-    videoDrivers = [ "nvidia" ];
-  };
+  # services.xserver = {
+  #   enable = true;
+  #   videoDrivers = [ "nvidia" ];
+  # };
   # sshd for remote ssh
   services.sshd.enable = true;
 
@@ -122,56 +118,54 @@
 
   services.openssh.allowSFTP = true;
 
-  services.samba = {
-    enable = true;
-    securityType = "user";
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = smbnix
-      netbios name = smbnix
-      security = user 
-      #use sendfile = yes
-      #max protocol = smb2
-      # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.0. 192.168.1. 127.0.0.1 localhost
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
+  # services.samba = {
+  #   enable = true;
+  #   securityType = "user";
+  #   extraConfig = ''
+  #     workgroup = WORKGROUP
+  #     server string = smbnix
+  #     netbios name = smbnix
+  #     security = user 
+  #     #use sendfile = yes
+  #     #max protocol = smb2
+  #     # note: localhost is the ipv6 localhost ::1
+  #     hosts allow = 192.168.0. 192.168.1. 127.0.0.1 localhost
+  #     hosts deny = 0.0.0.0/0
+  #     guest account = nobody
+  #     map to guest = bad user
 
-      usershare allow guests = no
-      usershare owner only = yes
-      usershare path = /usr/local/samba/lib/usershares
-      usershare max shares = 100
-    '';
-    # shares = {
-    #   tank = {
-    #     "path" = "/tank";
-    #     "browseable" = "yes";
-    #     "guest ok" = "yes";
-    #     "read only" = "no";
-    #     # "usershare path" = "/var/lib/samba/usershares";
-    #     # "usershare max shares" = "100";
-    #     # "usershare allow guests" = "yes";
-    #     # "usershare owner only" = "no";
-    #   };
-    # };
-  };
+  #     usershare allow guests = no
+  #     usershare owner only = yes
+  #     usershare path = /usr/local/samba/lib/usershares
+  #     usershare max shares = 100
+  #   '';
+  # shares = {
+  #   tank = {
+  #     "path" = "/tank";
+  #     "browseable" = "yes";
+  #     "guest ok" = "yes";
+  #     "read only" = "no";
+  #     # "usershare path" = "/var/lib/samba/usershares";
+  #     # "usershare max shares" = "100";
+  #     # "usershare allow guests" = "yes";
+  #     # "usershare owner only" = "no";
+  #   };
+  # };
+  # };
 
-  networking.hostFiles = [ /etc/nixos/hosts.txt ];
-  services.dnsmasq = {
-    enable = true;
-    alwaysKeepRunning = true;
-    resolveLocalQueries = true;
-    settings = {
-      "cache-size" = 500;
-      local = "/local/";
-      "expand-hosts" = true;
-      domain = "local";
-      server = [ "8.8.8.8" "8.8.4.4" ];
-    };
-  };
-
-  system.autoUpgrade.channel = "https://nixos.org/channels/nixos-unstable";
+  # networking.hostFiles = [ /etc/nixos/hosts.txt ];
+  # services.dnsmasq = {
+  #   enable = true;
+  #   alwaysKeepRunning = true;
+  #   resolveLocalQueries = true;
+  #   settings = {
+  #     "cache-size" = 500;
+  #     local = "/local/";
+  #     "expand-hosts" = true;
+  #     domain = "local";
+  #     server = [ "8.8.8.8" "8.8.4.4" ];
+  #   };
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

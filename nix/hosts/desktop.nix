@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [
     <nix-ld/modules/nix-ld.nix>
     ../modules/boot-efi.nix
@@ -24,6 +23,8 @@
 
   time.timeZone = "America/New_York";
 
+  virtualisation.virtualbox.host.enable = true;
+
   # Firewall, for plex
   networking.firewall.enable = false;
   services.lorri.enable = true;
@@ -43,24 +44,21 @@
   boot.kernelPackages = pkgs.linuxPackages;
   boot.extraModulePackages = with config.boot.kernelPackages; [ ];
 
-
   services.flatpak.enable = true;
   xdg.portal.enable = true;
 
+  services.udev.extraRules = ''
+    echo 'KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess", TAG+="udev-acl"'
 
-  services.udev.extraRules =
-    ''
-      echo 'KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess", TAG+="udev-acl"'
-
-      # Rule for all ZSA keyboards
-      SUBSYSTEM=="usb", ATTR{idVendor}=="3297", GROUP="plugdev"
-      # Rule for the Moonlander
-      SUBSYSTEM=="usb", ATTR{idVendor}=="3297", ATTR{idProduct}=="1969", GROUP="plugdev"
-      # Rule for the Ergodox EZ
-      SUBSYSTEM=="usb", ATTR{idVendor}=="feed", ATTR{idProduct}=="1307", GROUP="plugdev"
-      # Rule for the Planck EZ
-      SUBSYSTEM=="usb", ATTR{idVendor}=="feed", ATTR{idProduct}=="6060", GROUP="plugdev"
-    '';
+    # Rule for all ZSA keyboards
+    SUBSYSTEM=="usb", ATTR{idVendor}=="3297", GROUP="plugdev"
+    # Rule for the Moonlander
+    SUBSYSTEM=="usb", ATTR{idVendor}=="3297", ATTR{idProduct}=="1969", GROUP="plugdev"
+    # Rule for the Ergodox EZ
+    SUBSYSTEM=="usb", ATTR{idVendor}=="feed", ATTR{idProduct}=="1307", GROUP="plugdev"
+    # Rule for the Planck EZ
+    SUBSYSTEM=="usb", ATTR{idVendor}=="feed", ATTR{idProduct}=="6060", GROUP="plugdev"
+  '';
   boot.kernelParams = [ "systemd.unified_cgroup_hierarchy=false" ];
   system.stateVersion = "20.09";
 }
