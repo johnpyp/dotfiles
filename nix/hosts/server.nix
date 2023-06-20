@@ -12,6 +12,7 @@
 
     ../modules/packages/base.nix
     ../modules/packages/core.nix
+    ../modules/packages/server.nix
     # ../modules/elastic-monitoring.nix
     # ../modules/packages/desktop.nix
   ];

@@ -11,6 +11,7 @@
     bat
     bind
     binutils
+    btop
     bottom
     caddy
     cargo
@@ -142,6 +143,7 @@
     tmux
     tokei
     trash-cli
+    tree
     tree-sitter
     unrar
     unzip
