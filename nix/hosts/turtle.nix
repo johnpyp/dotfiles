@@ -92,7 +92,7 @@
   boot.supportedFilesystems = [ "zfs" "xfs" ];
   boot.zfs.extraPools = [ "tank" ];
   boot.zfs.devNodes =
-    "/dev/disk/by-partlabel"; # /dev/disk/by-id is the default, but we want to make sure just in case it changes, as this is important so the pool doesn't get imported out of order
+    "/dev/disk/by-id"; # /dev/disk/by-id is the default, but we want to make sure just in case it changes, as this is important so the pool doesn't get imported out of order
   services.nfs.server.enable = true;
 
   # boot.zfs.enabled = true; # Unnecessary, because `boot.supportedFilesystems` has "zfs" in it
