@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+
+import gzip
+import logging
+import os
+import re
+import shutil
+import signal
+import sys
+from glob import glob
+from multiprocessing import Pool, cpu_count
+
+raw_dir = sys.argv[1]
+
+dir = os.path.normpath(os.path.join(os.getcwd(), raw_dir))
+
+if not dir or not os.path.exists(dir):
+    logging.error(f"Path {dir} doesn't exist")
+    exit(1)
+
+
+def gunzip(gz_path: str):
+    if not gz_path.endswith(".gz"):
+        logging.error(f"Gunzip path {gz_path} doesn't end with .gz")
+        exit(1)
+
+    txt_path = re.sub(r"\.gz$", "", gz_path)
+    if os.path.exists(txt_path):
+        logging.debug(f"Extract target {txt_path} already exists")
+        return 0
+
+    try:
+        with gzip.open(gz_path, "rb") as f_in:
+            with open(txt_path, "wb") as f_out:
+                shutil.copyfileobj(f_in, f_out)
+    except Exception:
+        logging.error(f"Error processing {gz_path}, skipping")
+        return 0
+    print(f"Extracted: {gz_path} -> {txt_path}")
+
+    return 1
+
+
+# unzip a large number of files
+def main(path="."):
+    files = glob("**/*.txt.gz", recursive=True, root_dir=path)
+    files = [os.path.join(path, f) for f in files]
+
+    original_sigint_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
+    pool = Pool(cpu_count() - 1)
+    signal.signal(signal.SIGINT, original_sigint_handler)
+    try:
+        not_done = 0
+        done = 0
+        for p in pool.imap_unordered(gunzip, files, 16):
+            if p == 0:
+                not_done += 1
+            else:
+                done += 1
+        print(f"Not processed (already done / errored): {not_done}")
+        print(f"Done: {done}")
+    except KeyboardInterrupt:
+        print("Caught KeyboardInterrupt, terminating workers")
+        pool.terminate()
+        print("Finished termination, exiting!")
+    else:
+        print("Normal termination")
+        pool.close()
+    pool.join()
+
+
+# entry point
+if __name__ == "__main__":
+    main(path=dir)
