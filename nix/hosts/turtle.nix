@@ -71,7 +71,7 @@
   # # boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelParams = [
     "systemd.unified_cgroup_hierarchy=false"
-    "zfs.zfs_arc_max=51539607552" # Set max size of ARC to 48GiB
+    "zfs.zfs_arc_max=103079215104" # Set max size of ARC to 96GiB
   ];
 
   # l2arc_noprefetch=0 -> Allow prefetch

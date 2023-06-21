@@ -29,7 +29,5 @@
     tree
     units
     zpool-iostat-viz
-
-    (python3.withPackages (ps: with ps; [ ]))
   ];
 }
