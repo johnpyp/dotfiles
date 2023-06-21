@@ -15,7 +15,7 @@ def pp(v: Any):
 zfs_list: str = zpool["list", "-v", "-H", "-L", "-P"]()
 
 drives = json.loads(
-    lsblk["-J", "-o", "NAME,PATH,SIZE,VENDOR,MODEL,WWN,SERIAL,HCTL,KNAME"]()
+    lsblk["-J", "-o", "NAME,PATH,SIZE,VENDOR,MODEL,WWN,SERIAL,HCTL,KNAME,TRAN"]()
 )["blockdevices"]
 
 
