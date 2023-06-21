@@ -29,8 +29,8 @@ require("lazy").setup({
     -- init is called during startup. Configuration for vim plugins typically should be set in an init function
     init = function() vim.g.startuptime_tries = 10 end,
   },
-  { "nathom/filetype.nvim", config = function() require("config.filetype") end },
-  "airblade/vim-rooter",
+  { "nathom/filetype.nvim", lazy = false, config = function() require("config.filetype") end },
+  { "airblade/vim-rooter", lazy = false },
   "numToStr/Comment.nvim",
   "svermeulen/vimpeccable",
   { "echasnovski/mini.nvim", branch = "stable" },
@@ -56,7 +56,7 @@ require("lazy").setup({
 
   { "junegunn/fzf", run = "./install --bin" },
   "ibhagwan/fzf-lua",
-  "JoosepAlviste/nvim-ts-context-commentstring",
+  { "JoosepAlviste/nvim-ts-context-commentstring", lazy = false },
   {
     "L3MON4D3/LuaSnip",
     event = "VeryLazy",
@@ -116,7 +116,7 @@ require("lazy").setup({
       { "glepnir/lspsaga.nvim" },
       { "weilbith/nvim-code-action-menu" },
     },
-    event = "VeryLazy",
+    lazy = false,
     config = function() require("config.nlsp") end,
   },
   "lewis6991/hover.nvim",
