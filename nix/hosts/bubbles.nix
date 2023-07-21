@@ -30,7 +30,7 @@
     address = "192.168.1.54";
     prefixLength = 24;
   }];
-  boot.kernel.sysctl."net.ipv6.conf.ens32.disable_ipv6" = true;
+  boot.kernel.sysctl."net.ipv6.conf.ens33.disable_ipv6" = true;
 
   networking.defaultGateway = "192.168.1.1";
   # networking.nameservers = [ "192.168.1.1" ];
