@@ -2,18 +2,15 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 setopt PROMPT_SUBST
 
+
+# zstyle ':prezto:module:history' histfile "<file_name>"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# configure histfile target for zephyr history plugin
-HISTFILE=~/.zhistory
-# save big history yay
-HISTSIZE=290000
-SAVEHIST=290000
 
 # use friendlier antidote save names
 zstyle ':antidote:bundle' use-friendly-names 'yes'
@@ -22,8 +19,30 @@ if ! [[ -e ~/.antidote ]]
 then
   git clone https://github.com/mattmc3/antidote.git ~/.antidote
 fi
+
 source ~/.antidote/antidote.zsh
 antidote load
+
+setopt BANG_HIST              # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format.
+setopt SHARE_HISTORY          # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS   # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS      # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE      # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS      # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY            # Do not execute immediately upon history expansion.
+setopt HIST_BEEP              # Beep when accessing non-existent history.
+
+HISTFILE=~/.zsh_history
+# save big history yay
+HISTSIZE=290000
+SAVEHIST=290000
+
+# knu/zsh-manydots-magic
+autoload -Uz manydots-magic
+manydots-magic
 
 function zsh_directory_name() {
   emulate -L zsh
@@ -75,7 +94,7 @@ DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 #     zi lucid for wait'1' autoload'#manydots-magic' knu/zsh-manydots-magic
 # fi
 
-HISTFILE=~/.zhistory
+# HISTFILE=~/.zhistory
 
 bindkey '^H' backward-kill-word
 
@@ -93,7 +112,8 @@ checkip() {
 
 alias p="pnpm"
 alias u="ultra --raw --rebuild"
-alias sudo="sudo -E"
+alias sudo="sudo -E "
+alias nixos-rebuild="sudo -H nixos-rebuild "
 alias cp="cp -i"         # Confirm before overwriting something
 alias free='free -h'                                            # Show sizes in MB
 # alias git=hub
@@ -108,6 +128,7 @@ alias synctime="timedatectl set-ntp true"
 alias em="emacs -nw"
 alias ex="aunpack"
 alias archive="apack -e -F .zip"
+alias nix-env=$'nix-env -f \'<nixpkgs>\''
 # ls memes
 alias ls='exa --icons --classify --group-directories-first --time-style=long-iso --group --color-scale'
 alias l='ls --git-ignore'
@@ -138,14 +159,14 @@ alias lla='ls -la'
 # --specials           Copy extra files
 # --devices            Recreate devices files
 # --group              Set the group of the dest file to be source file group
-alias goodsync="rsync --recursive --links --copy-unsafe-links --perms --times --owner --update --verbose --one-file-system \
+alias goodsync="rsync --recursive --links --perms --times --owner --update --verbose --one-file-system \
                       --hard-links --whole-file --xattrs --partial \
                       --progress --numeric-ids --human-readable --info=progress2"
 
 alias coa="conda deactivate && conda activate"
 alias cod="conda deactivate"
 alias coc="conda create --name"
-alias s="source ~/.zshrc"
+alias s="source $HOME/.zshrc"
 alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
 alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
 alias ssh="TERM=\"xterm-256color\" ssh"
@@ -227,7 +248,7 @@ export DIRENV_LOG_FORMAT=""
 # eval $(thefuck --alias)
 
 
-# 
+#
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE="/usr/bin/micromamba";
