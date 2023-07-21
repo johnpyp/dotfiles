@@ -26,20 +26,30 @@
   # Firewall, for plex
   networking.firewall.enable = false;
 
-  networking.interfaces.ens32.ipv4.addresses = [{
-    address = "192.168.1.65";
-    prefixLength = 24;
-  }];
+  # networking.interfaces.ens32.ipv4.addresses = [{
+  #   address = "192.168.1.64";
+  #   prefixLength = 24;
+  # }];
   boot.kernel.sysctl."net.ipv6.conf.ens32.disable_ipv6" = true;
 
-  networking.interfaces.ens35.ipv4.addresses = [{
+  networking.interfaces.ens33u1.ipv4.addresses = [{
     address = "192.168.1.64";
     prefixLength = 24;
   }];
-  boot.kernel.sysctl."net.ipv6.conf.ens35.disable_ipv6" = true;
+  boot.kernel.sysctl."net.ipv6.conf.ens33u1.disable_ipv6" = true;
+
+  # networking.interfaces.ens35.ipv4.addresses = [{
+  #   address = "192.168.1.64";
+  #   prefixLength = 24;
+  # }];
+  # boot.kernel.sysctl."net.ipv6.conf.ens35.disable_ipv6" = true;
 
   networking.defaultGateway = "192.168.1.1";
   # networking.nameservers = [ "192.168.1.1" ];
+
+  systemd.extraConfig = ''
+    DefaultTimeout=60s
+  '';
 
   # Turtle is on ESXI!
   virtualisation.vmware.guest.enable = true;
@@ -49,16 +59,17 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.nvidia.nvidiaPersistenced = true;
   hardware.nvidia.modesetting.enable = true;
 
-  hardware.nvidia.open = true;
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  # hardware.nvidia.open = true;
+  hardware.nvidia.package =
+    config.boot.kernelPackages.nvidiaPackages.legacy_470;
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
 
-  # hardware.nvidia.package = pkgs.arc.packages.nvidia-patch.override
-  #   {
-  #     nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.stable;
-  #   };
+  # hardware.nvidia.package = pkgs.arc.packages.nvidia-patch.override {
+  #   nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.stable;
+  # };
   # pkgs.arc.packages.nvidia-patch.override {
   #   nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   # };
@@ -71,7 +82,9 @@
   # # boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelParams = [
     "systemd.unified_cgroup_hierarchy=false"
-    "zfs.zfs_arc_max=103079215104" # Set max size of ARC to 96GiB
+    "pcie_aspm=off"
+    "zfs.zfs_arc_max=68719476736" # Set max size of ARC to 64GiB
+    "initcall_blacklist=sysfb_init"
   ];
 
   # l2arc_noprefetch=0 -> Allow prefetch
@@ -86,6 +99,8 @@
   # l2arc_exclude_special=1 -> Make it so that l2arc will not cache special-vdev content, as the nvmes are plenty fast
   boot.extraModprobeConfig = ''
     options zfs l2arc_noprefetch=0 l2arc_rebuild_enabled=1 l2arc_headroom=0 zfs_arc_meta_min=10737418240 zfetch_array_rd_sz=1073741824 zfetch_max_distance=2516582400 l2arc_write_max=67108864 l2arc_write_boost=67108864 zfs_special_class_metadata_reserve_pct=20 l2arc_exclude_special=1
+
+    options nvidia NVreg_OpenRmEnableUnsupportedGpus=1
   '';
 
   # Support ZFS on nixos
@@ -101,6 +116,43 @@
 
   # Enable ZFS autoscrub, defaults to once a week
   services.zfs.autoScrub.enable = true;
+  services.zfs.autoScrub.interval = "monthly";
+
+  services.sanoid = {
+    enable = true;
+    interval = "*:0/15";
+
+    # datasets."tank" = {
+    #   useTemplate = [ "storage" ];
+    #   recursive = "zfs"; # Default to using storage for all datasets
+    # };
+
+    datasets."tank/media".useTemplate = [ "storage" ];
+    datasets."tank/archives".useTemplate = [ "data" ];
+
+    templates.storage = {
+      autosnap = true;
+      autoprune = true;
+
+      frequently = 0;
+      hourly = 23;
+      daily = 6;
+      weekly = 3;
+      monthly = 2;
+    };
+
+    templates.data = {
+      autosnap = true;
+      autoprune = true;
+
+      frequently = 3;
+      hourly = 23;
+      daily = 6;
+      weekly = 3;
+      monthly = 2;
+    };
+
+  };
 
   ### ZFS ###
   ###########
