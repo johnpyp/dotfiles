@@ -37,8 +37,8 @@ for d in drives:
     if d["serial"] not in used_drives_sn and d["serial"] not in seen_sn:
         if "children" in d:
             del d["children"]
-        vendor_model = d["vendor"]
-        if d["model"]:
+        vendor_model = d["vendor"] or ""
+        if d["model"] and d["vendor"]:
             vendor_model = d["vendor"] + " " + d["model"]
         d["model"] = vendor_model
         del d["vendor"]

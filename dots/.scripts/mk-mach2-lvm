@@ -13,10 +13,6 @@ colors: Any = colors
 c_prompt = colors.cyan & colors.bold
 
 
-# import sh
-# from sh import echo, jq, lsblk
-
-
 def gum(*args):
     r = subprocess.run(["gum", *args], stdout=subprocess.PIPE, text=True)
     return r.stdout.strip()
@@ -27,15 +23,22 @@ def pp(v: Any):
     print((jq["-r"] << j)())
 
 
-# def gum(*args, **kwargs):
-#     return sh.gum(*args, _piped=True, **kwargs)
-
-
 disks = json.loads(
     lsblk("-d", "-J", "-o", "NAME,SERIAL,SIZE,WWN,MODEL,VENDOR,PATH,HCTL,FSTYPE")
 )["blockdevices"]
 
-disks = [d for d in disks if "ST14000NM0001" in d["model"]]
+valid_models = [
+    "ST14000NM0001",  # Exos 2X14 14TB SAS  (4Kn only)
+    "ST14000NM0081",  # Exos 2X14 14TB SAS  (512e/4Kn)
+    "ST18000NM0272",  # Exos 2X18 18TB SAS  (Standard Model FastFormat 512e/4Kn)
+    "ST18000NM0012",  # Exos 2X18 18TB SAS  (SED Model FastFormat 512e/4Kn)
+    "ST18000NM0092",  # Exos 2X18 18TB SATA (Standard Model FastFormat 512e/4Kn)
+    "ST16000NM0002",  # Exos 2X18 16TB SAS  (Standard Model FastFormat 512e/4Kn)
+    "ST16000NM0012",  # Exos 2X18 16TB SAS  (SED Model FastFormat 512e/4Kn)
+    "ST16000NM0092",  # Exos 2X18 16TB SATA (Standard Model FastFormat 512e/4Kn)
+]
+
+disks = [d for d in disks if d["model"] in valid_models]
 
 out = json.dumps(disks)
 
@@ -56,7 +59,7 @@ for sn, v in drive_pairs.items():
     if d["model"]:
         vendor_model = d["vendor"] + " " + d["model"]
 
-    warning = None
+    warning = ""
     if d["fstype"] == "LVM2_member":
         warning = (
             colors.warn
@@ -78,7 +81,7 @@ d1, d2 = drives
 p1 = d1["path"]
 p2 = d2["path"]
 
-serial_suffix = d1["serial"][-6:]
+serial_suffix = d1["serial"][:8]
 
 print(c_prompt | "Run these commands to format the drive:")
 print(f"sudo pvcreate {p1} {p2}")

@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+
+import json
+from typing import Any
+
+import pandas as pd
+from plumbum.cmd import jq, lsblk, zfs, zpool
+
+
+def pp(v: Any):
+    j = json.dumps(v)
+    print((jq["-r"] << j)())
+
+
+zfs_list: str = zpool["list", "-v", "-H", "-L", "-P"]()
+
+drives = json.loads(
+    lsblk["-J", "-o", "NAME,PATH,SIZE,VENDOR,MODEL,WWN,SERIAL,HCTL,KNAME,TRAN,TYPE"]()
+)["blockdevices"]
+
+
+mach2_lvms = {}
+
+# print(zfs_list)
+used_drives_sn = set()
+
+for d in drives:
+    # pp(d["children"])
+    if "children" in d:
+        for child in d["children"]:
+            if d["serial"] not in mach2_lvms:
+                if child["type"] == "lvm":
+                    is_zfs = child["kname"] in zfs_list
+
+                    vendor_model = d["vendor"] or ""
+                    if d["model"] and d["vendor"]:
+                        vendor_model = d["vendor"].strip() + " " + d["model"].strip()
+                    obj = {
+                        "path": [d["path"]],
+                        "model": vendor_model,
+                        "short_sn": d["serial"][:8],
+                        "sn": d["serial"],
+                        "lvm_kname": child["kname"],
+                        "lvm_path": child["path"],
+                        "hctl": d["hctl"],
+                        "wwn": d["wwn"],
+                        "tran": d["tran"],
+                        "is_used_zfs": is_zfs,
+                    }
+                    mach2_lvms[d["serial"]] = obj
+                    break
+            else:
+                mach2_lvms[d["serial"]]["path"].append(d["path"])
+
+
+# print_drive_list = []
+# for payload in mach2_lvms.values():
+#     d = payload["disk"]
+#     d["is_used_zfs"] = payload["is_used_zfs"]
+#     if "children" in d:
+#         del d["children"]
+#     vendor_model = d["vendor"] or ""
+#     if d["model"] and d["vendor"]:
+#         vendor_model = d["vendor"] + " " + d["model"]
+#     d["model"] = vendor_model
+#     print_drive_list.append(d)
+
+
+# seen_sn = set()
+# unused_drives = []
+# for d in drives:
+#     if d["serial"] not in used_drives_sn and d["serial"] not in seen_sn:
+#         if "children" in d:
+#             del d["children"]
+#         vendor_model = d["vendor"] or ""
+#         if d["model"] and d["vendor"]:
+#             vendor_model = d["vendor"] + " " + d["model"]
+#         d["model"] = vendor_model
+#         del d["vendor"]
+#         unused_drives.append(d)
+#         seen_sn.add(d["serial"])
+
+print_drive_list = list(mach2_lvms.values())
+print_drive_list.sort(key=lambda d: int(d["lvm_kname"].replace("dm-", "")))
+print(pd.DataFrame(print_drive_list))
+
+# vim: set ft=python:
