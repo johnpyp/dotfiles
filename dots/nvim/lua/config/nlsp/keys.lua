@@ -68,13 +68,20 @@ function M.get_lsp_commands(preset, ft)
 end
 
 ---@type nlsp.attach.AttachCtxFn
-function M.attach_keybinds(_client, bufnr, ctx)
+function M.attach_keybinds(client, bufnr, ctx)
   local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
   local lsp_commands = M.get_lsp_commands("saga", ft)
 
+  local has_typescript_tools = ft == "typescript"
+    or ft == "javascript"
+    or ft == "jsx"
+    or ft == "tsx"
+    or ft == "typescriptreact"
+    or ft == "javascriptreact"
+
   ctx.map("n", "F", lsp_commands.format, "Format")
 
-  -- ctx.map("n", "K", vim.lsp.buf.hover, "Hover Documentation") ----------- Already defined in global keys
+  ctx.map("n", "<leader>cK", vim.lsp.buf.hover, "Hover Documentation") ----------- Already defined in global keys
   ctx.map("n", "<C-k>", lsp_commands.signature_help, "Signature Documentation")
   ctx.map("i", "<C-k>", lsp_commands.signature_help, "Signature Documentation")
 
@@ -86,13 +93,18 @@ function M.attach_keybinds(_client, bufnr, ctx)
   ctx.map("n", "<leader>cW", lsp_commands.diagnostics_workspace, "Workspace Diagnostics")
   ctx.map("n", "<leader>cr", lsp_commands.rename, "Rename")
 
+  if has_typescript_tools then
+    ctx.map("n", "<leader>co", "<cmd>TSToolsOrganizeImports<CR>", "Organize Imports (TS)")
+    ctx.map("n", "gD", "<cmd>TSToolsGoToSourceDefinition<CR>", "Goto Source Definition (TS)")
+  else
+    ctx.map("n", "gD", lsp_commands.goto_declaration, "Goto Declaration")
+  end
+
   -- Gotos
   ctx.map("n", "gd", lsp_commands.goto_definition, "Goto Definition")
   ctx.map("n", "gr", lsp_commands.goto_references, "Goto [R]eferences")
   ctx.map("n", "gi", lsp_commands.goto_implementation, "Goto Implementation")
   ctx.map("n", "gt", lsp_commands.goto_type_definition, "Goto Type Definition")
-
-  ctx.map("n", "gD", lsp_commands.goto_declaration, "Goto Declaration")
 end
 
 return M

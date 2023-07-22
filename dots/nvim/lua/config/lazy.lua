@@ -103,6 +103,7 @@ require("lazy").setup({
       { "alaviss/nim.nvim" },
       { "folke/neodev.nvim" },
       { "jose-elias-alvarez/typescript.nvim" },
+
       { "simrat39/rust-tools.nvim" },
       { "sigmasd/deno-nvim" },
 
@@ -118,6 +119,10 @@ require("lazy").setup({
     },
     lazy = false,
     config = function() require("config.nlsp") end,
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
   },
   "lewis6991/hover.nvim",
   {

@@ -83,7 +83,8 @@ local function show_documentation()
   elseif vim.tbl_contains({ "rust" }, filetype) then
     vim.cmd("RustHoverActions")
   else
-    vim.cmd("Lspsaga hover_doc")
+    -- vim.cmd("Lspsaga hover_doc")
+    vim.lsp.buf.hover()
   end
 end
 

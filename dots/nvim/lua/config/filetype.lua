@@ -5,6 +5,7 @@ require("filetype").setup({
       wgsl = "wgsl",
       sql = "sql",
       sh = "bash",
+      v = "vlang",
     },
 
     literal = {
