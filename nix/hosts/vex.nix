@@ -1,48 +1,39 @@
 { config, pkgs, ... }: {
   imports = [
-    # ../modules/sound.nix
     ../modules/boot-efi.nix
     ../modules/general.nix
     ../modules/xfce-gui.nix
     ../modules/networking.nix
     ../modules/ssh.nix
     ../modules/users.nix
-    # ../modules/system-monitoring.nix
     ../modules/home-manager.nix
     ../modules/locale.nix
 
     ../modules/packages/base.nix
     ../modules/packages/core.nix
     ../modules/packages/server.nix
-    # ../modules/elastic-monitoring.nix
-    # ../modules/packages/desktop.nix
   ];
   # Machine specific networking
-  networking.hostName = "bubbles";
-  networking.hostId = "f7f2f8eb"; # Zfs requires hostId
+  networking.hostName = "vex";
+  networking.hostId = "808fe478"; # Zfs requires hostId
 
   time.timeZone = "America/Los_Angeles";
 
   # Firewall, for plex
   networking.firewall.enable = false;
 
-  networking.interfaces.ens33.ipv4.addresses = [
-    {
-      address = "192.168.1.54";
-      prefixLength = 24;
-    }
-    {
-      address = "192.168.1.203";
-      prefixLength = 24;
-    }
-  ];
-  boot.kernel.sysctl."net.ipv6.conf.ens33.disable_ipv6" = true;
+  networking.interfaces.enp6s18.ipv4.addresses = [{
+    address = "192.168.1.90";
+    prefixLength = 24;
+  }];
+  boot.kernel.sysctl."net.ipv6.conf.enp6s18.disable_ipv6" = true;
 
   networking.defaultGateway = "192.168.1.1";
   # networking.nameservers = [ "192.168.1.1" ];
 
-  # Bubbles is on ESXI!
-  virtualisation.vmware.guest.enable = true;
+  # virtualisation.vmware.guest.enable = true;
+  # Vex is on Proxmox (QEMU)!
+  virtualisation.qemu.guestAgent.enable = true;
 
   services.lorri.enable = true;
 
@@ -83,7 +74,7 @@
   # # boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelParams = [
     "systemd.unified_cgroup_hierarchy=false"
-    "zfs.zfs_arc_max=34359738368" # Set max size of ARC to 32GiB
+    # "zfs.zfs_arc_max=34359738368" # Set max size of ARC to 32GiB
   ];
 
   # l2arc_noprefetch=0 -> Allow prefetch
@@ -96,9 +87,9 @@
   # l2arc_write_boost=67108864 = 64MiB -> ^^
   # zfs_special_class_metadata_reserve_pct=10 = 20% -> 20% of special vdev reserved for metadata always (default 25%)
   # l2arc_exclude_special=1 -> Make it so that l2arc will not cache special-vdev content, as the nvmes are plenty fast
-  boot.extraModprobeConfig = ''
-    options zfs l2arc_noprefetch=0 l2arc_rebuild_enabled=1 l2arc_headroom=0 zfs_arc_meta_min=10737418240 zfetch_array_rd_sz=1073741824 zfetch_max_distance=2516582400 l2arc_write_max=67108864 l2arc_write_boost=67108864 zfs_special_class_metadata_reserve_pct=20 l2arc_exclude_special=1
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options zfs l2arc_noprefetch=0 l2arc_rebuild_enabled=1 l2arc_headroom=0 zfs_arc_meta_min=10737418240 zfetch_array_rd_sz=1073741824 zfetch_max_distance=2516582400 l2arc_write_max=67108864 l2arc_write_boost=67108864 zfs_special_class_metadata_reserve_pct=20 l2arc_exclude_special=1
+  # '';
 
   # Support ZFS on nixos
   # https://openzfs.github.io/openzfs-docs/Getting%20Started/NixOS/index.html#installation
@@ -112,7 +103,7 @@
   boot.zfs.forceImportRoot = false;
 
   # Enable ZFS autoscrub, defaults to once a week
-  services.zfs.autoScrub.enable = true;
+  # services.zfs.autoScrub.enable = true;
 
   ### ZFS ###
   ###########
@@ -134,55 +125,6 @@
   }];
 
   services.openssh.allowSFTP = true;
-
-  # services.samba = {
-  #   enable = true;
-  #   securityType = "user";
-  #   extraConfig = ''
-  #     workgroup = WORKGROUP
-  #     server string = smbnix
-  #     netbios name = smbnix
-  #     security = user 
-  #     #use sendfile = yes
-  #     #max protocol = smb2
-  #     # note: localhost is the ipv6 localhost ::1
-  #     hosts allow = 192.168.0. 192.168.1. 127.0.0.1 localhost
-  #     hosts deny = 0.0.0.0/0
-  #     guest account = nobody
-  #     map to guest = bad user
-
-  #     usershare allow guests = no
-  #     usershare owner only = yes
-  #     usershare path = /usr/local/samba/lib/usershares
-  #     usershare max shares = 100
-  #   '';
-  # shares = {
-  #   tank = {
-  #     "path" = "/tank";
-  #     "browseable" = "yes";
-  #     "guest ok" = "yes";
-  #     "read only" = "no";
-  #     # "usershare path" = "/var/lib/samba/usershares";
-  #     # "usershare max shares" = "100";
-  #     # "usershare allow guests" = "yes";
-  #     # "usershare owner only" = "no";
-  #   };
-  # };
-  # };
-
-  # networking.hostFiles = [ /etc/nixos/hosts.txt ];
-  # services.dnsmasq = {
-  #   enable = true;
-  #   alwaysKeepRunning = true;
-  #   resolveLocalQueries = true;
-  #   settings = {
-  #     "cache-size" = 500;
-  #     local = "/local/";
-  #     "expand-hosts" = true;
-  #     domain = "local";
-  #     server = [ "8.8.8.8" "8.8.4.4" ];
-  #   };
-  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
