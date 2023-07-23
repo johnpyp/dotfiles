@@ -32,10 +32,16 @@
   # }];
   boot.kernel.sysctl."net.ipv6.conf.ens32.disable_ipv6" = true;
 
-  networking.interfaces.ens33u1.ipv4.addresses = [{
-    address = "192.168.1.64";
-    prefixLength = 24;
-  }];
+  networking.interfaces.ens33u1.ipv4.addresses = [
+    {
+      address = "192.168.1.64";
+      prefixLength = 24;
+    }
+    {
+      address = "192.168.2.64";
+      prefixLength = 16;
+    }
+  ];
   boot.kernel.sysctl."net.ipv6.conf.ens33u1.disable_ipv6" = true;
 
   # networking.interfaces.ens35.ipv4.addresses = [{
