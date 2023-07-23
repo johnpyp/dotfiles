@@ -26,10 +26,16 @@
   # Firewall, for plex
   networking.firewall.enable = false;
 
-  networking.interfaces.ens33.ipv4.addresses = [{
-    address = "192.168.1.54";
-    prefixLength = 24;
-  }];
+  networking.interfaces.ens33.ipv4.addresses = [
+    {
+      address = "192.168.1.54";
+      prefixLength = 24;
+    }
+    {
+      address = "192.168.1.203";
+      prefixLength = 24;
+    }
+  ];
   boot.kernel.sysctl."net.ipv6.conf.ens33.disable_ipv6" = true;
 
   networking.defaultGateway = "192.168.1.1";
@@ -58,6 +64,16 @@
   # pkgs.arc.packages.nvidia-patch.override {
   #   nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   # };
+
+  services.k3s = {
+    enable = true;
+    role = "server";
+  };
+
+  # services.k3s.extraFlags = toString [
+  #   "--kube-apiserver-arg="
+  #   # "--kubelet-arg=v=4" # Optionally add additional args to k3s
+  # ];
 
   ###########
   ### ZFS ###

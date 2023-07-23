@@ -29,5 +29,6 @@
     tree
     units
     zpool-iostat-viz
+    k3s
   ];
 }
