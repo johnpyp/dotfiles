@@ -40,9 +40,14 @@ HISTFILE=~/.zsh_history
 HISTSIZE=290000
 SAVEHIST=290000
 
-# knu/zsh-manydots-magic
-autoload -Uz manydots-magic
-manydots-magic
+
+if [ -z "$_zsh_custom_scripts_loaded" ]; then
+    _zsh_custom_scripts_loaded=1
+
+    # knu/zsh-manydots-magic
+    autoload -Uz manydots-magic
+    manydots-magic
+fi
 
 function zsh_directory_name() {
   emulate -L zsh
