@@ -65,6 +65,7 @@ require("lazy").setup({
       "hrsh7th/vim-vsnip-integ",
       "rafamadriz/friendly-snippets",
     },
+    build = "make install_jsregexp",
     config = function() require("config.snippets") end,
   },
   "kdheepak/lazygit.nvim",
