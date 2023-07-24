@@ -33,7 +33,8 @@
 
   # virtualisation.vmware.guest.enable = true;
   # Vex is on Proxmox (QEMU)!
-  virtualisation.qemu.guestAgent.enable = true;
+  # virtualisation.qemu.guestAgent.enable = true;
+  services.qemuGuest.enable = true;
 
   services.lorri.enable = true;
 
@@ -45,19 +46,18 @@
   # hardware.nvidia.modesetting.enable = true;
 
   # hardware.nvidia.open = true;
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
 
-  # hardware.nvidia.package = pkgs.arc.packages.nvidia-patch.override
-  #   {
-  #     nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.stable;
-  #   };
+  # hardware.nvidia.package = pkgs.arc.packages.nvidia-patch.override {
+  #   nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.beta;
+  # };
   # pkgs.arc.packages.nvidia-patch.override {
   #   nvidia_x11 = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   # };
 
   services.k3s = {
-    enable = true;
+    enable = false;
     role = "server";
   };
 
@@ -73,7 +73,7 @@
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # # boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelParams = [
-    "systemd.unified_cgroup_hierarchy=false"
+    # "systemd.unified_cgroup_hierarchy=false"
     # "zfs.zfs_arc_max=34359738368" # Set max size of ARC to 32GiB
   ];
 
@@ -108,10 +108,10 @@
   ### ZFS ###
   ###########
 
-  # services.xserver = {
-  #   enable = true;
-  #   videoDrivers = [ "nvidia" ];
-  # };
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+  };
   # sshd for remote ssh
   services.sshd.enable = true;
 
