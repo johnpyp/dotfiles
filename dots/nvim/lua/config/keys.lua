@@ -52,7 +52,7 @@ nnoremap("<leader>n", ":NvimTreeToggle<CR>", "Toggle Tree", { silent = true })
 nnoremap("<leader>e", ":nohl<CR>", "Clear highlight")
 
 nnoremap("<C-p>", ":FzfLua files<CR>", "Find Files")
-nnoremap("<TAB>", ":FzfLua live_grep_native<CR>", "Fzf Grep")
+-- nnoremap("<TAB>", ":FzfLua live_grep_native<CR>", "Fzf Grep")
 nnoremap("<C-i>", ":FzfLua live_grep_native<CR>", "Fzf Grep")
 
 nnoremap("<leader>th", require("fzf-lua").help_tags, "Help Tags")

@@ -1,9 +1,10 @@
 require("neoconf").setup()
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local custom_settings = require("config.nlsp.settings")
-
 local lspconfig = require("lspconfig")
+require("config.nlsp.lspconfig-edits")
+
+local custom_settings = require("config.nlsp.settings")
 
 local my_on_attach = require("config.nlsp.on_attach")
 
@@ -116,6 +117,7 @@ require("mason-lspconfig").setup_handlers({
   end,
   ["jsonls"] = custom_setup_wrapper("jsonls"),
   ["lua_ls"] = custom_setup_wrapper("lua_ls"),
+  -- ["v-analyzer"] = custom_setup_wrapper("v-analyzer"),
   ["pyright"] = custom_setup_wrapper("pyright"),
   ["rust_analyzer"] = function()
     require("rust-tools").setup({
@@ -134,8 +136,21 @@ require("mason-lspconfig").setup_handlers({
   end,
 })
 
+require("config.nlsp.lspconfig-edits")
+-- lspconfig["v-analyzer"].setup({})
+
 require("typescript-tools").setup({
   on_attach = get_custom_server_opts("tsserver").on_attach,
+
+  settings = {
+    tsserver_file_preferences = {
+      importModuleSpecifierPreference = "project-relative",
+    },
+
+    tsserver_plugins = {
+      "@styled/typescript-styled-plugin",
+    },
+  },
   -- handlers = { ... },
   -- ...
   -- DEFAULTS

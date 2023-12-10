@@ -8,11 +8,45 @@
   },
   "lspconfig": {
     "jsonls": {
-      "json.schemaDownload.enable": true
+      "json.schemaDownload.enable": true,
+      "json.schemas": [
+        {
+          "fileMatch": [
+            "*tsconfig*.json"
+          ],
+          "url": "https://json.schemastore.org/tsconfig.json"
+        },
+        {
+          "fileMatch": [
+            ".prettierrc",
+            ".prettierrc.json",
+            "prettier.config.json"
+          ],
+          "url": "https://json.schemastore.org/prettierrc.json"
+        },
+        {
+          "fileMatch": [
+            ".eslintrc",
+            ".eslintrc.json"
+          ],
+          "url": "https://json.schemastore.org/eslintrc.json"
+        },
+        {
+          "fileMatch": [
+            ".babelrc",
+            ".babelrc.json",
+            "babel.config.json"
+          ],
+          "url": "https://json.schemastore.org/babelrc.json"
+        }
+      ]
     },
     "tsserver": {
       "javascript.preferences.importModuleSpecifier": "project-relative",
       "typescript.preferences.importModuleSpecifier": "project-relative"
+    },
+    "lua_ls": {
+      "Lua.diagnostics.enable": false
     }
   }
 }

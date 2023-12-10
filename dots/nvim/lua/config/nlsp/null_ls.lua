@@ -60,9 +60,10 @@ function M.setup_null_ls(nls_build_options)
       --   Python   --
       ----------------
       nls.builtins.formatting.black,
-      nls.builtins.formatting.isort,
+      nls.builtins.formatting.ruff,
+      -- nls.builtins.formatting.isort,
       -- nls.builtins.diagnostics.pylint,
-      nls.builtins.diagnostics.pylama,
+      -- nls.builtins.diagnostics.pylama,
 
       ----------------
       -- Typescript --

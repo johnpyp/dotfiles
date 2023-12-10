@@ -2,10 +2,12 @@ local luasnip = require("luasnip")
 
 -- Snippets:
 
-luasnip.config.set_config({
+luasnip.config.setup({
   history = false,
   -- Update more often, :h events for more info.
-  updateevents = "TextChanged,TextChangedI",
+  -- update_events = "TextChanged,TextChangedI",
+  -- region_check_events = "InsertEnter",
+  -- delete_check_events = "TextChanged,InsertLeave",
 })
 
 vim.tbl_map(function(type) require("luasnip.loaders.from_" .. type).lazy_load() end, { "vscode", "snipmate", "lua" })

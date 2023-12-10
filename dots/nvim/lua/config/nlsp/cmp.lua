@@ -1,3 +1,4 @@
+local custom_luasnip_jumpable = require("util.luasnip-jumpable").jumpable
 local lspkind = require("lspkind")
 local cmp = require("cmp")
 local luasnip = require("luasnip")
@@ -16,10 +17,23 @@ local M = {}
 --   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 --   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 -- end
+-- local has_words_before = function()
+--   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+--   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+-- end
+--
+
+local check_backspace = function()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+end
+
 local has_words_before = function()
+  local unpack = unpack or table.unpack
   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local kind_mapper = require("cmp.types").lsp.CompletionItemKind
@@ -33,12 +47,34 @@ local kind_score = {
   Keyword = 5,
 }
 
+local global_confirm_opts = {
+  behavior = cmp.ConfirmBehavior.Replace,
+  select = false,
+}
 ---@param ok_luasnip boolean
 local get_mappings = function(ok_luasnip)
   local select_opts = { behavior = cmp.SelectBehavior.Select }
   local result = {
     -- confirm selection
-    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+    ["<CR>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        local confirm_opts = vim.deepcopy(global_confirm_opts) -- avoid mutating the original opts below
+        local is_insert_mode = function() return vim.api.nvim_get_mode().mode:sub(1, 1) == "i" end
+        if is_insert_mode() then -- prevent overwriting brackets
+          confirm_opts.behavior = cmp.ConfirmBehavior.Insert
+        end
+        local entry = cmp.get_selected_entry()
+        local is_copilot = entry and entry.source.name == "copilot"
+        if is_copilot then
+          confirm_opts.behavior = cmp.ConfirmBehavior.Replace
+          confirm_opts.select = true
+        end
+        if cmp.confirm(confirm_opts) then
+          return -- success, exit early
+        end
+      end
+      fallback() -- if not exited early, always fallback
+    end),
     ["<C-y>"] = cmp.mapping.confirm({ select = false }),
 
     -- navigate items on the list
@@ -61,20 +97,15 @@ local get_mappings = function(ok_luasnip)
     end),
 
     ["<C-Space>"] = cmp.mapping.complete(),
-    -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
-    --   if cmp.visible() and has_words_before() then
-    --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-    --   else
-    --     fallback()
-    --   end
-    -- end),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
+      elseif luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
+      elseif custom_luasnip_jumpable(1) then
+        luasnip.jump(1)
       elseif has_words_before() then
-        cmp.complete()
+        fallback()
       else
         fallback()
       end
@@ -116,10 +147,17 @@ end
 ---Setup nvim_cmp mappings, sources, window, etc.
 function M.setup_cmp()
   cmp.setup({
+    enabled = true,
     mapping = get_mappings(true),
     preselect = cmp.PreselectMode.Item,
-    completion = {
-      completeopt = "menu,menuone,noinsert",
+    -- completion = {
+    --   completeopt = "menu,menuone,noinsert",
+    -- },
+    performance = {
+      debounce = 30,
+      throttle = 15,
+
+      max_view_entries = 100,
     },
     window = {
       -- bordered completion kinda ugly tho
@@ -133,34 +171,43 @@ function M.setup_cmp()
     snippet = {
       expand = function(args) luasnip.lsp_expand(args.body) end,
     },
-    sources = cmp.config.sources({
-      -- Copilot Source
-      { name = "copilot", group_index = 2 },
+    sources = cmp.config.sources(
       {
-        name = "nvim_lsp",
-        entry_filter = function(entry, context)
-          local kind = entry:get_kind()
-          local line = context.cursor_line
-          local col = context.cursor.col
+        -- Copilot Source
+        -- { name = "copilot", max_item_count = 3 },
+        {
+          name = "nvim_lsp",
+          max_item_count = 100,
+          entry_filter = function(entry, context)
+            local kind = entry:get_kind()
+            local line = context.cursor_line
+            local col = context.cursor.col
 
-          local char_before_cursor = string.sub(line, col - 1, col - 1)
+            local char_before_cursor = string.sub(line, col - 1, col - 1)
+            local char_after_dot = string.sub(line, col, col)
 
-          if char_before_cursor == "." then
-            if kind == kind_mapper["Method"] or kind == kind_mapper["Field"] or kind == kind_mapper["Property"] then
-              return true
-            else
-              return false
+            if char_before_cursor == "." and char_after_dot:match("[a-zA-Z]") then
+              if kind == kind_mapper["Method"] or kind == kind_mapper["Field"] or kind == kind_mapper["Property"] then
+                return true
+              else
+                return false
+              end
             end
-          end
 
-          return true
-        end,
-      },
-      { name = "luasnip", keyword_length = 1, max_item_count = 5 },
-      { name = "path" },
-    }, {
-      { name = "buffer", keyword_length = 3, max_item_count = 5 },
-    }),
+            return true
+          end,
+        },
+        { name = "luasnip", max_item_count = 5, keyword_length = 1 },
+        { name = "path" },
+        { name = "buffer", max_item_count = 5, keyword_length = 1 },
+        { name = "nvim_lua" },
+        -- { name = "treesitter", max_item_count = 3, keyword_length = 1 },
+        { name = "crates" },
+      }
+      -- {
+      --   { name = "buffer", keyword_length = 3, max_item_count = 5 },
+      -- }
+    ),
     formatting = {
       fields = { "abbr", "kind", "menu" },
       -- format = require("config.lsp.kind").cmp_format(),
@@ -173,12 +220,15 @@ function M.setup_cmp()
             return vim_item
           end
         end
+
+        -- if vim.tbl.contains({ "tree"})
         local menu_text = {
           nvim_lsp = "LSP",
           luasnip = "SNIPPET",
           buffer = "BUFFER",
           path = "PATH",
           nvim_lua = "LUA",
+          treesitter = "TREE",
         }
 
         return lspkind.cmp_format({
@@ -193,11 +243,12 @@ function M.setup_cmp()
     sorting = {
       priority_weight = 2,
       comparators = {
-        require("copilot_cmp.comparators").prioritize,
+        -- require("copilot_cmp.comparators").prioritize,
 
         cmp.config.compare.exact,
         cmp.config.compare.offset,
         cmp.config.compare.score,
+        cmp.config.compare.locality,
 
         function(entry1, entry2)
           local kind1 = kind_mapper[entry1:get_kind()]
@@ -223,7 +274,6 @@ function M.setup_cmp()
         --   end
         -- end,
         cmp.config.compare.recently_used,
-        cmp.config.compare.locality,
         cmp.config.compare.kind,
         cmp.config.compare.sort_text,
         cmp.config.compare.length,

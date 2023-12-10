@@ -30,7 +30,7 @@ require("fzf-lua").setup({
   },
   grep = {
     previewer = false,
-    rg_opts = "--column --line-number --no-heading --color=always --ignore-case --max-columns=512 -g '!yarn.lock' ",
+    rg_opts = "--column --line-number --no-heading --color=always --ignore-case --max-columns=512 -g '!yarn.lock' -g '!pnpm-lock.yaml' -g '!vendor/' ",
   },
 })
 
@@ -114,28 +114,28 @@ require("trouble").setup({
   },
 })
 
-require("mini.surround").setup({
-  -- Number of lines within which surrounding is searched
-  n_lines = 20,
+-- require("mini.surround").setup({
+--   -- Number of lines within which surrounding is searched
+--   n_lines = 20,
 
-  -- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
-  highlight_duration = 500,
+--   -- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
+--   highlight_duration = 500,
 
-  -- Pattern to match function name in 'function call' surrounding
-  -- By default it is a string of letters, '_' or '.'
-  -- funname_pattern = "[%w_%.]+",
+--   -- Pattern to match function name in 'function call' surrounding
+--   -- By default it is a string of letters, '_' or '.'
+--   -- funname_pattern = "[%w_%.]+",
 
-  -- Module mappings. Use `''` (empty string) to disable one.
-  mappings = {
-    add = "", -- Add surrounding
-    delete = "ds", -- Delete surrounding
-    find = "", -- Find surrounding (to the right)
-    find_left = "", -- Find surrounding (to the left)
-    highlight = "", -- Highlight surrounding
-    replace = "cs", -- Replace surrounding
-    update_n_lines = "", -- Update `n_lines`
-  },
-})
+--   -- Module mappings. Use `''` (empty string) to disable one.
+--   mappings = {
+--     add = "", -- Add surrounding
+--     delete = "ds", -- Delete surrounding
+--     find = "", -- Find surrounding (to the right)
+--     find_left = "", -- Find surrounding (to the left)
+--     highlight = "", -- Highlight surrounding
+--     replace = "cs", -- Replace surrounding
+--     update_n_lines = "", -- Update `n_lines`
+--   },
+-- })
 
 require("inc_rename").setup()
 

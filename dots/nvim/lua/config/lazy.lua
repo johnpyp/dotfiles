@@ -16,11 +16,18 @@ require("lazy").setup({
     "catppuccin/nvim",
     lazy = false,
     priority = 1000,
-    config = function() vim.cmd.colorscheme("catppuccin") end,
+    config = function() require("config.theme") end,
   },
   { "mhinz/vim-startify", lazy = false },
-  { "akinsho/bufferline.nvim", lazy = false },
-  { "nvim-lualine/lualine.nvim", lazy = false },
+  {
+    "akinsho/bufferline.nvim",
+    lazy = false,
+    dependencies = {
+      "catppuccin/nvim",
+    },
+    config = function() require("config.bufferline") end,
+  },
+  { "nvim-lualine/lualine.nvim", lazy = false, config = function() require("config.lualine") end },
   "lewis6991/impatient.nvim",
   {
     "dstein64/vim-startuptime",
@@ -47,6 +54,7 @@ require("lazy").setup({
   },
   "saecki/crates.nvim",
   "nvim-treesitter/nvim-treesitter",
+  "yioneko/vim-tmindent",
   "RRethy/nvim-treesitter-endwise",
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
@@ -68,6 +76,17 @@ require("lazy").setup({
     build = "make install_jsregexp",
     config = function() require("config.snippets") end,
   },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+        move_cursor = false,
+      })
+    end,
+  },
   "kdheepak/lazygit.nvim",
   "Th3Whit3Wolf/one-nvim",
   "b0o/schemastore.nvim",
@@ -84,6 +103,10 @@ require("lazy").setup({
       { "jose-elias-alvarez/null-ls.nvim" },
       { "jayp0521/mason-null-ls.nvim" },
 
+      -- Coq autocompletion (testing it out)
+      --
+      { "ms-jpq/coq_nvim", branch = "coq" },
+
       -- Autocompletion
       { "hrsh7th/nvim-cmp" },
       { "hrsh7th/cmp-buffer" },
@@ -91,6 +114,7 @@ require("lazy").setup({
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-path" },
       { "saadparwaiz1/cmp_luasnip" },
+      { "ray-x/cmp-treesitter" },
 
       -- Copilot
       { "zbirenbaum/copilot.lua" },

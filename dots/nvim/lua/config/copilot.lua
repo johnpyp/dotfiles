@@ -1,5 +1,6 @@
--- Disable copilot...
+-- Suggestions can interfere with cmp
 -- require("copilot").setup({
+--   enabled = false,
 --   suggestion = { enabled = false },
 --   panel = { enabled = false },
 -- })

@@ -93,6 +93,9 @@ function M.attach_keybinds(client, bufnr, ctx)
   ctx.map("n", "<leader>cW", lsp_commands.diagnostics_workspace, "Workspace Diagnostics")
   ctx.map("n", "<leader>cr", lsp_commands.rename, "Rename")
 
+  ctx.map("n", "<leader>cP", ":Copilot panel<CR>", nil, { desc = "Copilot Panel" })
+  ctx.map("n", "<leader>cA", require("copilot.panel").accept, nil, { desc = "Accept Suggestion" })
+
   if has_typescript_tools then
     ctx.map("n", "<leader>co", "<cmd>TSToolsOrganizeImports<CR>", "Organize Imports (TS)")
     ctx.map("n", "gD", "<cmd>TSToolsGoToSourceDefinition<CR>", "Goto Source Definition (TS)")

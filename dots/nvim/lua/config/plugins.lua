@@ -79,7 +79,7 @@ local plugins = {
       { "williamboman/mason-lspconfig.nvim" },
 
       -- Formatters / linters / etc.
-      { "jose-elias-alvarez/null-ls.nvim" },
+      { "nvimtools/none-ls.nvim" },
       { "jayp0521/mason-null-ls.nvim" },
 
       -- Autocompletion
@@ -88,6 +88,7 @@ local plugins = {
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-path" },
+      { "ray-x/cmp-treesitter" },
       { "saadparwaiz1/cmp_luasnip" },
 
       -- Copilot
