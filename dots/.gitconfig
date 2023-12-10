@@ -29,11 +29,11 @@
 	side-by-side = true
 [init]
 	defaultBranch = main
-[commit]
-	gpgsign = true
 [pager]
 	diff = riff
 	show = riff
 	log = riff
 [interactive]
 	diffFilter = riff
+[commit]
+	gpgsign = true
