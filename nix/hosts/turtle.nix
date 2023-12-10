@@ -32,13 +32,14 @@
   # }];
   boot.kernel.sysctl."net.ipv6.conf.ens32.disable_ipv6" = true;
 
+  networking.interfaces.ens33u1.useDHCP = false;
   networking.interfaces.ens33u1.ipv4.addresses = [
     {
       address = "192.168.1.64";
       prefixLength = 24;
     }
     {
-      address = "192.168.2.64";
+      address = "192.168.20.64";
       prefixLength = 16;
     }
   ];
@@ -185,6 +186,7 @@
     enable = true;
     securityType = "user";
     extraConfig = ''
+
       workgroup = WORKGROUP
       server string = smbnix
       netbios name = smbnix
@@ -201,6 +203,9 @@
       usershare owner only = yes
       usershare path = /usr/local/samba/lib/usershares
       usershare max shares = 100
+
+      socket options = IPTOS_LOWDELAY TCP_NODELAY
+      max xmit = 65536
     '';
     # shares = {
     #   tank = {
@@ -216,19 +221,19 @@
     # };
   };
 
-  networking.hostFiles = [ /etc/nixos/hosts.txt ];
-  services.dnsmasq = {
-    enable = true;
-    alwaysKeepRunning = true;
-    resolveLocalQueries = true;
-    settings = {
-      "cache-size" = 500;
-      local = "/local/";
-      "expand-hosts" = true;
-      domain = "local";
-      server = [ "8.8.8.8" "8.8.4.4" ];
-    };
-  };
+  # networking.hostFiles = [ /etc/nixos/hosts.txt ];
+  # services.dnsmasq = {
+  #   enable = true;
+  #   alwaysKeepRunning = true;
+  #   resolveLocalQueries = true;
+  #   settings = {
+  #     "cache-size" = 500;
+  #     local = "/local/";
+  #     "expand-hosts" = true;
+  #     domain = "local";
+  #     server = [ "8.8.8.8" "8.8.4.4" ];
+  #   };
+  # };
 
   system.autoUpgrade.channel = "https://nixos.org/channels/nixos-unstable";
 
