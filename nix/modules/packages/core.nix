@@ -34,7 +34,7 @@
     dotnetPackages.Nuget
     dpkg
     efibootmgr
-    exa
+    eza
     fd
     feh
     ffmpeg-full
