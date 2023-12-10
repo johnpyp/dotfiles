@@ -116,6 +116,7 @@ checkip() {
 }
 
 alias p="pnpm"
+alias k="kubectl"
 alias u="ultra --raw --rebuild"
 alias sudo="sudo -E "
 alias nixos-rebuild="sudo -H nixos-rebuild "
@@ -135,7 +136,7 @@ alias ex="aunpack"
 alias archive="apack -e -F .zip"
 alias nix-env=$'nix-env -f \'<nixpkgs>\''
 # ls memes
-alias ls='exa --icons --classify --group-directories-first --time-style=long-iso --group --color-scale'
+alias ls='eza --icons --classify --group-directories-first --time-style=long-iso --group --color-scale all'
 alias l='ls --git-ignore'
 alias ll='ls -l'
 alias la='ls -a'
@@ -205,15 +206,29 @@ VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 # export LESS_TERMCAP_ue=$(printf "\e[0m") \
 # export LESS_TERMCAP_us=$(printf "\e[1;32m") \
 
+# Automatic refresh of powerlevel10k git status
+# https://github.com/romkatv/gitstatus/issues/368#issuecomment-1387269889
+# maybe causes a bug with completions?
+TRAPALRM() {
+  local f
+  for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
+    [[ "${+functions[$f]}" == 0 ]] || "$f" &>/dev/null || true
+  done
+  p10k display -r
+}
+
+# Invoke TRAPALRM every 30 seconds.
+TMOUT=30
+
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 export BUN_INSTALL="$HOME/.bun"
-export VOLTA_HOME="$HOME/.volta"
+# export VOLTA_HOME="$HOME/.volta"
 export DENO_INSTALL="/home/johnpyp/.deno"
 
-export PATH=/home/johnpyp/.turso:$DENO_INSTALL/bin:$VOLTA_HOME/bin:$BUN_INSTALL/bin:$PATH~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
+export PATH=/home/johnpyp/.turso:$DENO_INSTALL/bin:$BUN_INSTALL/bin:$PATH~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
 export XDG_DATA_HOME=$HOME/.local/share
 
 eval $(keychain --eval --quiet id_rsa)
@@ -308,3 +323,27 @@ export LC_TYPE=en_US.UTF-8
 
 alias m="micromamba"
 alias google-chrome="google-chrome-stable"
+alias b="bun"
+
+export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
+# eval "$(rtx activate zsh)"
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+# proto
+export PROTO_HOME="$HOME/.proto"
+export PATH="$PROTO_HOME/tools/node/globals/bin:$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/home/johnpyp/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"
