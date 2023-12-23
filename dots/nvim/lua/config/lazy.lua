@@ -45,6 +45,7 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   "udalov/kotlin-vim",
   "NoahTheDuke/vim-just",
+  "edgedb/edgedb-vim",
   { "kyazdani42/nvim-web-devicons", lazy = true },
   {
     "stevearc/dressing.nvim",

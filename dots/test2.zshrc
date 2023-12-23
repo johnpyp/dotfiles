@@ -101,6 +101,8 @@ DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 
 # HISTFILE=~/.zhistory
 
+fpath+=~/.zfunc
+
 bindkey '^H' backward-kill-word
 
 removelink() {
@@ -228,7 +230,8 @@ export BUN_INSTALL="$HOME/.bun"
 # export VOLTA_HOME="$HOME/.volta"
 export DENO_INSTALL="/home/johnpyp/.deno"
 
-export PATH=/home/johnpyp/.turso:$DENO_INSTALL/bin:$BUN_INSTALL/bin:$PATH~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
+export FLYCTL_INSTALL="/home/johnpyp/.fly"
+export PATH=$FLYCTL_INSTALL/bin:/home/johnpyp/.turso:$DENO_INSTALL/bin:$BUN_INSTALL/bin:$PATH~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
 export XDG_DATA_HOME=$HOME/.local/share
 
 eval $(keychain --eval --quiet id_rsa)
