@@ -65,41 +65,8 @@ function zsh_directory_name() {
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# autoload -Uz promptinit && promptinit
-# prompt powerlevel10k
-
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
 DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
-
-# zi light-mode for \
-#   @fuzzy \
-#   @sharkdp
-
-# zi ice as"completion"
-# zi snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
-
-# zi ice as"completion"
-# zi snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
-
-# zi wait lucid for \
-        # z-shell/H-S-MW \
-        # wfxr/forgit \
-        # as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX" \
-        #     tj/git-extras
-
-# zi wait lucid pack for ls_colors
-
-
-# zt_completion(){zi ice lucid ${1/#[0-9][a-c]/wait"${1}"} as"completion" "${@:2}";  }
-# zt_completion 0a blockf
-
-# if [ -z "$_zsh_custom_scripts_loaded" ]; then
-#     _zsh_custom_scripts_loaded=1
-
-#     zi lucid for wait'1' autoload'#manydots-magic' knu/zsh-manydots-magic
-# fi
-
-# HISTFILE=~/.zhistory
 
 fpath+=~/.zfunc
 
@@ -124,7 +91,6 @@ alias sudo="sudo -E "
 alias nixos-rebuild="sudo -H nixos-rebuild "
 alias cp="cp -i"         # Confirm before overwriting something
 alias free='free -h'                                            # Show sizes in MB
-# alias git=hub
 alias gs="git status"
 alias gc="git commit"
 alias font-list="sort <(fc-list : family) | vim -"
@@ -143,6 +109,7 @@ alias l='ls --git-ignore'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
+
 
 # Included options
 #
@@ -171,16 +138,18 @@ alias goodsync="rsync --recursive --links --perms --times --owner --update --ver
                       --hard-links --whole-file --xattrs --partial \
                       --progress --numeric-ids --human-readable --info=progress2"
 
-alias coa="conda deactivate && conda activate"
-alias cod="conda deactivate"
-alias coc="conda create --name"
+# alias coa="conda deactivate && conda activate"
+# alias cod="conda deactivate"
+# alias coc="conda create --name"
 alias s="source $HOME/.zshrc"
 alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
 alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
 alias ssh="TERM=\"xterm-256color\" ssh"
-alias lazydocker="TERM=\"xterm-256color\" lazydocker"
+# alias lazydocker="TERM=\"xterm-256color\" lazydocker"
 
 alias icat="kitty +kitten icat" # https://sw.kovidgoyal.net/kitty/kittens/icat/
+
+function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
 
 sshforward() {
   ssh $1 -L $2\:localhost\:$2 -N
@@ -197,16 +166,6 @@ sshforget() {
 }
 
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
-
-# Handles pager colors
-# export LESS="-RFX"
-# export LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-# export LESS_TERMCAP_md=$(printf "\e[1;31m") \
-# export LESS_TERMCAP_me=$(printf "\e[0m") \
-# export LESS_TERMCAP_se=$(printf "\e[0m") \
-# export LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-# export LESS_TERMCAP_ue=$(printf "\e[0m") \
-# export LESS_TERMCAP_us=$(printf "\e[1;32m") \
 
 # Automatic refresh of powerlevel10k git status
 # https://github.com/romkatv/gitstatus/issues/368#issuecomment-1387269889
@@ -227,11 +186,11 @@ export FZF_DEFAULT_OPTS="--ansi"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 export BUN_INSTALL="$HOME/.bun"
-# export VOLTA_HOME="$HOME/.volta"
-export DENO_INSTALL="/home/johnpyp/.deno"
+export DENO_INSTALL="$HOME/.deno"
+export FLYCTL_INSTALL="$HOME/.fly"
+export WASMTIME_HOME="$HOME/.wasmtime"
 
-export FLYCTL_INSTALL="/home/johnpyp/.fly"
-export PATH=$FLYCTL_INSTALL/bin:/home/johnpyp/.turso:$DENO_INSTALL/bin:$BUN_INSTALL/bin:$PATH~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
+export PATH=$WASMTIME_HOME/bin:$FLYCTL_INSTALL/bin:/home/johnpyp/.turso:$DENO_INSTALL/bin:$BUN_INSTALL/bin:~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
 export XDG_DATA_HOME=$HOME/.local/share
 
 eval $(keychain --eval --quiet id_rsa)
@@ -246,76 +205,14 @@ if [ "$(command -v bat)" ]; then
 fi
 if [ -e /home/johnpyp/.nix-profile/etc/profile.d/nix.sh ]; then . /home/johnpyp/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/johnpyp/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/johnpyp/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/johnpyp/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/johnpyp/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-export CONDA_AUTO_ACTIVATE_BASE=false
-
-# export RUSTC_WRAPPER=sccache
-
-[[ "$(command -v direnv)" ]] && eval "$(direnv hook zsh)"
-
-export DIRENV_LOG_FORMAT=""
-
-# eval $(thefuck --alias)
-
-
-#
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/usr/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/home/johnpyp/micromamba";
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    if [ -f "/home/johnpyp/micromamba/etc/profile.d/micromamba.sh" ]; then
-        . "/home/johnpyp/micromamba/etc/profile.d/micromamba.sh"
-    else
-        export PATH="/home/johnpyp/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
-    fi
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if [ "$(command -v pyenv)" ]; then
-  eval "$(pyenv init --path)"
-fi
 
 ZVM_CURSOR_STYLE_ENABLED=false
 ZVM_KEYTIMEOUT=0
 ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
 ZVM_ESCAPE_KEYTIMEOUT=0
 
-# function zle-line-init zle-keymap-select {
-#     RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
-#     RPS2=$RPS1
-#     zle reset-prompt
-# }
-# zle -N zle-line-init
-# zle -N zle-keymap-select
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 # bun completions
 [ -s "/home/johnpyp/.bun/_bun" ] && source "/home/johnpyp/.bun/_bun"
-
-# bun
 
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -325,19 +222,13 @@ export LC_TYPE=en_US.UTF-8
 [ -f /opt/mambaforge/etc/profile.d/conda.sh ] && source /opt/mambaforge/etc/profile.d/conda.sh
 
 alias m="micromamba"
-alias google-chrome="google-chrome-stable"
 alias b="bun"
 
 export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
-# eval "$(rtx activate zsh)"
 
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
-# proto
-export PROTO_HOME="$HOME/.proto"
-export PATH="$PROTO_HOME/tools/node/globals/bin:$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="/home/johnpyp/.local/share/pnpm"
@@ -347,6 +238,4 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-export WASMTIME_HOME="$HOME/.wasmtime"
-
-export PATH="$WASMTIME_HOME/bin:$PATH"
+eval "$(/home/johnpyp/.local/bin/mise activate zsh)"

@@ -1,14 +1,12 @@
-jeffreytse/zsh-vi-mode # Better vim mode
+johnpyp/zsh-vi-mode # Better vim mode
 
 romkatv/powerlevel10k # prompt
 
-zsh-users/zsh-completions # collection of a zsh completions
-
-# sorin-ionescu/prezto path:modules/history # history
+# zsh-users/zsh-completions # collection of a zsh completions
 
 # zephyr/other plugin selections
 mattmc3/zephyr path:plugins/color # colors (LS_COLORS, dirs, man, etc.)
-mattmc3/zephyr path:plugins/completion # completions
+# mattmc3/zephyr path:plugins/completion # completions
 # mattmc3/zephyr path:plugins/history # history DON'T USE - just use static zsh config :)
 
 tj/git-extras path:etc/git-extras-completion.zsh
@@ -17,10 +15,11 @@ hlissner/zsh-autopair # autopairs for brackets, quotes, etc.
 
 # final
 z-shell/F-Sy-H # Fast-Syntax-Highlighting
-zsh-users/zsh-autosuggestions # autosuggestions from history
 
 knu/zsh-manydots-magic kind:fpath # Requires accompanying configuration
 
 agkozak/zsh-z kind:defer # `z` command for fast cd
 robobenklein/zdharma-history-search-multi-word kind:defer # better history search multi word, needs defer else conflict with zsh-vi-mode
-# sorin-ionescu/prezto path:modules/completions kind:defer # completions
+
+sorin-ionescu/prezto path:modules/completion kind:defer # completion. Make sure this is `deferred` and comes *before* autosuggestions. Should also be basically at the end of the list, to capture any completions that come earlier.
+zsh-users/zsh-autosuggestions kind:defer # autosuggestions from history. Make sure this is `deferred` and comes *after* completion
