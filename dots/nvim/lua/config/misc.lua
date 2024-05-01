@@ -3,6 +3,12 @@ require("Comment").setup({
   pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 })
 
+require("ts_context_commentstring").setup({
+  -- This should stay as FALSE, otherwise it adds performance overhead. This is taken care of instead by the `Comment` hook
+  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
+  enable_autocmd = false,
+})
+
 require("fzf-lua").setup({
   global_resume = true,
   global_resume_query = true,

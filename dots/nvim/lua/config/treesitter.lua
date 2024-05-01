@@ -18,12 +18,6 @@ require("nvim-treesitter.configs").setup({
   },
   -- Disabled in favor of tmindent
   indent = { enable = false },
-  context_commentstring = {
-    enable = true,
-    -- This should stay as FALSE, otherwise it adds performance overhead. This is taken care of instead by the `Comment` hook
-    -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
-    enable_autocmd = false,
-  },
 })
 
 require("tmindent").setup({
