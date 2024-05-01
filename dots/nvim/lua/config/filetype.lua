@@ -10,6 +10,8 @@ require("filetype").setup({
 
     literal = {
       [".eslintrc"] = "jsonc",
+      [".parcelrc"] = "jsonc",
+      [".prettierrc"] = "jsonc",
       ["yarn.lock"] = "",
       ["justfile"] = "just",
     },
