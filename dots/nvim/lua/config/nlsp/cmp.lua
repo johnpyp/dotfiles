@@ -41,10 +41,12 @@ local kind_mapper = require("cmp.types").lsp.CompletionItemKind
 local kind_score = {
   Variable = 1,
   Class = 2,
-  Property = 3,
-  Field = 3,
-  Method = 4,
-  Keyword = 5,
+  Enum = 3,
+  Property = 4,
+  Field = 5,
+  Method = 6,
+  Struct = 7,
+  Keyword = 8,
 }
 
 local global_confirm_opts = {
@@ -60,7 +62,7 @@ local get_mappings = function(ok_luasnip)
       if cmp.visible() then
         local confirm_opts = vim.deepcopy(global_confirm_opts) -- avoid mutating the original opts below
         local is_insert_mode = function() return vim.api.nvim_get_mode().mode:sub(1, 1) == "i" end
-        if is_insert_mode() then -- prevent overwriting brackets
+        if is_insert_mode() then                               -- prevent overwriting brackets
           confirm_opts.behavior = cmp.ConfirmBehavior.Insert
         end
         local entry = cmp.get_selected_entry()
@@ -199,14 +201,14 @@ function M.setup_cmp()
         },
         { name = "luasnip", max_item_count = 5, keyword_length = 1 },
         { name = "path" },
-        { name = "buffer", max_item_count = 5, keyword_length = 1 },
+        { name = "buffer",  max_item_count = 5, keyword_length = 1 },
         { name = "nvim_lua" },
         -- { name = "treesitter", max_item_count = 3, keyword_length = 1 },
         { name = "crates" },
       }
-      -- {
-      --   { name = "buffer", keyword_length = 3, max_item_count = 5 },
-      -- }
+    -- {
+    --   { name = "buffer", keyword_length = 3, max_item_count = 5 },
+    -- }
     ),
     formatting = {
       fields = { "abbr", "kind", "menu" },
