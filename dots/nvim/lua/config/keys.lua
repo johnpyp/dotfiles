@@ -81,7 +81,7 @@ local function show_documentation()
   elseif vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
     require("crates").show_popup()
   elseif vim.tbl_contains({ "rust" }, filetype) then
-    vim.cmd("RustHoverActions")
+    vim.cmd("RustLsp hover actions")
   else
     -- vim.cmd("Lspsaga hover_doc")
     vim.lsp.buf.hover()

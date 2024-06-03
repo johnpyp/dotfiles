@@ -1,6 +1,6 @@
-vim.o.termguicolors = true -- True color (comes first)
-
 vim.api.nvim_set_keymap("n", "<Space>", "<NOP>", { noremap = true, silent = true }) -- Map space to a no-op to prevent conflicts
+
+vim.o.termguicolors = true -- True color (comes first)
 vim.g.mapleader = " " -- Set global leader key
 vim.g.maplocalleader = " " -- Set buffer-local leader key
 
@@ -28,6 +28,7 @@ vim.cmd([[set undofile]])
 vim.o.ignorecase = true -- Ignore case generally for searches (overridden by smartcase)
 vim.o.smartcase = true -- Don't ignore case if uppercase chars are used in a search
 vim.o.showmode = false -- Don't show mode since we have a status line
+vim.o.termsync = false
 
 -- vim.opt.splitbelow = true -- Put new windows below current
 -- vim.opt.splitright = true -- Put new windows right of current

@@ -20,7 +20,7 @@ local M = {}
 ---@field rename KeybindValue
 ---@field signature_help KeybindValue
 
----@param preset "default" | "saga"
+---@param preset "default" | "saga" | "LspUI"
 ---@param ft "string"
 ---@return nlsp.ProxyLspCommands
 function M.get_lsp_commands(preset, ft)
@@ -47,6 +47,16 @@ function M.get_lsp_commands(preset, ft)
     lsp_commands.diagnostics_line = "<cmd>Lspsaga show_line_diagnostics ++unfocus<CR>"
     lsp_commands.diagnostics_workspace = "<cmd>Lspsaga show_workspace_diagnostics<CR>"
     lsp_commands.rename = "<cmd>Lspsaga rename<CR>"
+    lsp_commands.goto_references = "<cmd>Lspsaga finder<CR>"
+  end
+
+  if preset == "LspUI" then
+    lsp_commands.code_action = "<cmd>LspUI code_action<CR>"
+    lsp_commands.code_action_range = "<cmd>LspUI code_action<CR>"
+    lsp_commands.diagnostics_buf = "<cmd>LspUI diagnostic<CR>"
+    lsp_commands.diagnostics_line = "<cmd>LspUI diagnostic<CR>"
+    lsp_commands.diagnostics_workspace = "<cmd>Lspsaga show_line_diagnostics ++unfocus<CR>"
+    lsp_commands.rename = "<cmd>LspUI rename<CR>"
   end
 
   local computed_commands = {}
@@ -73,11 +83,11 @@ function M.attach_keybinds(client, bufnr, ctx)
   local lsp_commands = M.get_lsp_commands("saga", ft)
 
   local has_typescript_tools = ft == "typescript"
-    or ft == "javascript"
-    or ft == "jsx"
-    or ft == "tsx"
-    or ft == "typescriptreact"
-    or ft == "javascriptreact"
+      or ft == "javascript"
+      or ft == "jsx"
+      or ft == "tsx"
+      or ft == "typescriptreact"
+      or ft == "javascriptreact"
 
   ctx.map("n", "F", lsp_commands.format, "Format")
 

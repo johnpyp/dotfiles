@@ -43,7 +43,8 @@ function M.setup_null_ls(nls_build_options)
       -- end
     end,
     sources = {
-      nls.builtins.formatting.prettierd,
+      -- nls.builtins.formatting.biome,
+      -- nls.builtins.formatting.prettierd,
       nls.builtins.formatting.stylua,
       -- nls.builtins.formatting.rustfmt,
       nls.builtins.formatting.rustywind,
@@ -55,6 +56,8 @@ function M.setup_null_ls(nls_build_options)
       -- nls.builtins.diagnostics.markdownlint,
       -- nls.builtins.diagnostics.selene,
       nls.builtins.code_actions.gitsigns,
+
+      nls.builtins.formatting.pint,
 
       ----------------
       --   Python   --
@@ -71,7 +74,7 @@ function M.setup_null_ls(nls_build_options)
       -- nls.builtins.formatting.eslint_d,
       -- nls.builtins.code_actions.eslint_d,
       -- nls.builtins.diagnostics.eslint_d,
-      nls.builtins.formatting.prettierd,
+      -- nls.builtins.formatting.prettierd,
     },
     root_dir = require("null-ls.utils").root_pattern(
       ".null-ls-root",

@@ -2,7 +2,7 @@ require("neoconf").setup()
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require("lspconfig")
-require("config.nlsp.lspconfig-edits")
+-- require("config.nlsp.lspconfig-edits")
 
 local custom_settings = require("config.nlsp.settings")
 
@@ -20,6 +20,8 @@ local get_custom_server_opts = function(server_name)
   local cmd = nil
   local trace = nil
   local root_dir = nil
+  local filetypes = nil
+  local init_options = nil
   -- local single_file_support = false
 
   -- Overrides
@@ -29,9 +31,11 @@ local get_custom_server_opts = function(server_name)
     before_on_attach = lsps_settings["before_on_attach"] or nil
     after_on_attach = lsps_settings["after_on_attach"] or nil
     settings = lsps_settings["settings"] or {}
+    init_options = lsps_settings["init_options"] or {}
     cmd = lsps_settings["cmd"] or nil
     trace = lsps_settings["trace"] or nil
     root_dir = lsps_settings["root_dir"] or nil
+    filetypes = lsps_settings["filetypes"] or nil
     -- single_file_support = lsps_settings["single_file_support"] or false
   end
 
@@ -51,6 +55,8 @@ local get_custom_server_opts = function(server_name)
     flags = flags,
     cmd = cmd,
     trace = trace,
+    filetypes = filetypes,
+    init_options = init_options,
   }
 end
 
@@ -73,9 +79,19 @@ require("lspconfig.ui.windows").default_options.border = "rounded" -- Applies ro
 vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
 
 -- Setup Language server plugins that should be setup before generic lsp setup
-require("neodev").setup({
-  pathStrict = true,
+-- require("neodev").setup({
+--   pathStrict = true,
+-- })
+
+local roslyn_opts = get_custom_server_opts("roslyn")
+require("roslyn").setup({
+  dotnet_cmd = "dotnet",
+  on_attach = roslyn_opts.on_attach,
+  capabilities = roslyn_opts.capabilities,
 })
+
+custom_setup_wrapper("sourcekit")()
+custom_setup_wrapper("volar")()
 
 -- ## LSP setup
 
@@ -105,7 +121,7 @@ end)
 --   "ts=typescript",
 -- }
 
-local disabled = { "rome", "tsserver" }
+local disabled = { "rome", "tsserver", "volar", "rust_analyzer" }
 require("mason-lspconfig").setup_handlers({
   function(server_name)
     for _, v in pairs(disabled) do
@@ -115,15 +131,16 @@ require("mason-lspconfig").setup_handlers({
     local opts = get_custom_server_opts(server_name)
     lspconfig[server_name].setup(opts)
   end,
-  ["jsonls"] = custom_setup_wrapper("jsonls"),
+  -- ["jsonls"] = custom_setup_wrapper("jsonls"),
+  -- ["json-lsp"] = custom_setup_wrapper("json-lsp"),
   ["lua_ls"] = custom_setup_wrapper("lua_ls"),
-  -- ["v-analyzer"] = custom_setup_wrapper("v-analyzer"),
+  -- ["v_analyzer"] = custom_setup_wrapper("v_analyzer"),
   ["pyright"] = custom_setup_wrapper("pyright"),
-  ["rust_analyzer"] = function()
-    require("rust-tools").setup({
-      server = get_custom_server_opts("rust_analyzer"),
-    })
-  end,
+  -- ["rust_analyzer"] = function()
+  --   require("rust-tools").setup({
+  --     server = get_custom_server_opts("rust_analyzer"),
+  --   })
+  -- end,
   -- ["tsserver"] = function()
   --   require("typescript").setup({
   --     server = get_custom_server_opts("tsserver"),
@@ -137,45 +154,49 @@ require("mason-lspconfig").setup_handlers({
 })
 
 require("config.nlsp.lspconfig-edits")
--- lspconfig["v-analyzer"].setup({})
-
-require("typescript-tools").setup({
-  on_attach = get_custom_server_opts("tsserver").on_attach,
-
-  settings = {
-    tsserver_file_preferences = {
-      importModuleSpecifierPreference = "project-relative",
-    },
-
-    tsserver_plugins = {
-      "@styled/typescript-styled-plugin",
-    },
-  },
-  -- handlers = { ... },
-  -- ...
-  -- DEFAULTS
-  -- settings = {
-  --   -- spawn additional tsserver instance to calculate diagnostics on it
-  --   separate_diagnostic_server = true,
-  --   -- "change"|"insert_leave" determine when the client asks the server about diagnostic
-  --   publish_diagnostic_on = "insert_leave",
-  --   -- array of strings("fix_all"|"add_missing_imports"|"remove_unused")
-  --   -- specify commands exposed as code_actions
-  --   expose_as_code_action = {},
-  --   -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
-  --   -- not exists then standard path resolution strategy is applied
-  --   tsserver_path = nil,
-  --   -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
-  --   -- (see 💅 `styled-components` support section)
-  --   tsserver_plugins = {},
-  --   -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-  --   -- memory limit in megabytes or "auto"(basically no limit)
-  --   tsserver_max_memory = "auto",
-  --   -- described below
-  --   tsserver_format_options = {},
-  --   tsserver_file_preferences = {},
-  -- },
+lspconfig["v_analyzer"].setup({
+  cmd = { "/home/johnpyp/.config/v-analyzer/bin/v-analyzer" },
+  root_dir = lspconfig.util.root_pattern(".git", ".v-analyzer", "v.mod"),
+  filetypes = { "v", "vlang", "vv", "vsh" },
 })
+
+-- require("typescript-tools").setup({
+--   on_attach = get_custom_server_opts("tsserver").on_attach,
+
+--   settings = {
+--     tsserver_file_preferences = {
+--       importModuleSpecifierPreference = "project-relative",
+--     },
+
+--     tsserver_plugins = {
+--       "@styled/typescript-styled-plugin",
+--     },
+--   },
+--   -- handlers = { ... },
+--   -- ...
+--   -- DEFAULTS
+--   -- settings = {
+--   --   -- spawn additional tsserver instance to calculate diagnostics on it
+--   --   separate_diagnostic_server = true,
+--   --   -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+--   --   publish_diagnostic_on = "insert_leave",
+--   --   -- array of strings("fix_all"|"add_missing_imports"|"remove_unused")
+--   --   -- specify commands exposed as code_actions
+--   --   expose_as_code_action = {},
+--   --   -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
+--   --   -- not exists then standard path resolution strategy is applied
+--   --   tsserver_path = nil,
+--   --   -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+--   --   -- (see 💅 `styled-components` support section)
+--   --   tsserver_plugins = {},
+--   --   -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+--   --   -- memory limit in megabytes or "auto"(basically no limit)
+--   --   tsserver_max_memory = "auto",
+--   --   -- described below
+--   --   tsserver_format_options = {},
+--   --   tsserver_file_preferences = {},
+--   -- },
+-- })
 
 -- ## Post-LSP setup
 
@@ -193,6 +214,17 @@ require("config.nlsp.diagnostics").setup_config_diagnostics()
 require("config.nlsp.autopairs").setup_autopairs()
 
 require("fidget").setup()
+
+-- require("LspUI").setup({
+--   code_action = {
+--     key_binding = {
+--       quit = { "q", "<ESC>" },
+--     },
+--   },
+--   lightbulb = {
+--     enable = false,
+--   },
+-- })
 
 require("lspsaga").setup({
   ui = {

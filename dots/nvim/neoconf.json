@@ -7,11 +7,21 @@
     }
   },
   "lspconfig": {
+    "intelephense": {},
     "jsonls": {
+      "json.format.enable": false,
       "json.schemaDownload.enable": true,
       "json.schemas": [
         {
-          "fileMatch": ["*tsconfig*.json"],
+          "fileMatch": [
+            "package.json"
+          ],
+          "url": "https://json.schemastore.org/package.json"
+        },
+        {
+          "fileMatch": [
+            "*tsconfig*.json"
+          ],
           "url": "https://json.schemastore.org/tsconfig.json"
         },
         {
@@ -23,11 +33,18 @@
           "url": "https://json.schemastore.org/prettierrc.json"
         },
         {
-          "fileMatch": [".eslintrc", ".eslintrc.json"],
+          "fileMatch": [
+            ".eslintrc",
+            ".eslintrc.json"
+          ],
           "url": "https://json.schemastore.org/eslintrc.json"
         },
         {
-          "fileMatch": [".babelrc", ".babelrc.json", "babel.config.json"],
+          "fileMatch": [
+            ".babelrc",
+            ".babelrc.json",
+            "babel.config.json"
+          ],
           "url": "https://json.schemastore.org/babelrc.json"
         }
       ]
@@ -36,12 +53,31 @@
       "javascript.preferences.importModuleSpecifier": "project-relative",
       "typescript.preferences.importModuleSpecifier": "project-relative"
     },
+    "vtsls": {
+      "javascript.format.enable": false,
+      "typescript.format.enable": false,
+      "javascript.preferences.importModuleSpecifier": "project-relative",
+      "typescript.preferences.importModuleSpecifier": "project-relative",
+      "typescript.tsserver.pluginPaths": ["/home/johnpyp/.local/share/nvim/mason/packages/vue-language-server/node_modules"],
+      "vtsls.tsserver.globalPlugins": [
+        {
+          "name": "@vue/typescript-plugin",
+          "location": "/home/johnpyp/.local/share/nvim/mason/packages/vue-language-server/node_modules",
+          "languages": ["vue"],
+          "configNamespace": "typescript",
+          "enableForWorkspaceTypeScriptVersions": true
+        }
+      ]
+    },
     "lua_ls": {
       "Lua.diagnostics.enable": false
     },
     "tailwindcss": {
       "tailwindCSS.experimental.classRegex": [
-        ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+        [
+          "tv\\((([^()]*|\\([^()]*\\))*)\\)",
+          "[\"'`]([^\"'`]*).*?[\"'`]"
+        ],
         [
           "((?:w)(?:[\\.a-zA-Z0-9]*)?\\((?:[^)(]|\\((?:[^)(]|\\((?:[^)(]|\\([^)(]*\\))*\\))*\\))*\\))",
           "(?:')([^']*)(?:')"

@@ -5,6 +5,7 @@ local lspconfig_util = require("lspconfig.util")
 ---@field capabilities? table
 ---@field flags? table
 ---@field cmd? table
+---@field filetypes? table
 ---@field trace? "off" | "messages" | "verbose" | nil
 ---@field after_on_attach? nlsp.attach.AttachCtxFn
 ---@field before_on_attach? nlsp.attach.AttachCtxFn
@@ -31,6 +32,18 @@ M.pyright = {
         diagnosticMode = "workspace",
         useLibraryCodeForTypes = true,
       },
+    },
+  },
+}
+
+M.vtsls = {
+  filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+}
+
+M.volar = {
+  init_options = {
+    vue = {
+      hybridMode = false,
     },
   },
 }
@@ -136,8 +149,8 @@ M.tailwindcss = {
       },
       experimental = {
         classRegex = {
-          "tw`([^`]*)", -- tw`...`
-          "tw\\.[^`]+`([^`]*)`", -- tw.xxx<xxx>`...`
+          "tw`([^`]*)",             -- tw`...`
+          "tw\\.[^`]+`([^`]*)`",    -- tw.xxx<xxx>`...`
           "tw\\(.*?\\).*?`([^`]*)", -- tw(Component)<xxx>`...`
           -- "tw`([^`]*)",
           -- 'tw="([^"]*)',

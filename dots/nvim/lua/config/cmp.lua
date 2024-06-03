@@ -9,9 +9,9 @@ local luasnip = require("luasnip")
 local cmp = require("cmp")
 
 cmp.setup({
-  completion = {
-    completeopt = "menu,menuone,noinsert",
-  },
+  -- completion = {
+  --   completeopt = "menu,menuone,noinsert",
+  -- },
   snippet = {
     expand = function(args)
       -- For `luasnip` user.

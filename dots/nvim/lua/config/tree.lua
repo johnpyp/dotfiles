@@ -107,6 +107,14 @@ require("nvim-tree").setup({
     side = "right",
     width = 40,
   },
+  diagnostics = {
+    enable = true,
+  },
+  -- renderer = {
+  --   diagnostics = {
+  --     enable = true,
+  --   },
+  -- },
   actions = {
     open_file = {
       quit_on_open = true,

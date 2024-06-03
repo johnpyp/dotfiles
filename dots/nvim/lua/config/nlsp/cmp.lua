@@ -24,6 +24,11 @@ local M = {}
 -- end
 --
 
+local truncate = function(str, len)
+  if not str or #str <= len then return str end
+
+  return str:sub(1, len - 1) .. "…"
+end
 local check_backspace = function()
   local col = vim.fn.col(".") - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
@@ -62,7 +67,7 @@ local get_mappings = function(ok_luasnip)
       if cmp.visible() then
         local confirm_opts = vim.deepcopy(global_confirm_opts) -- avoid mutating the original opts below
         local is_insert_mode = function() return vim.api.nvim_get_mode().mode:sub(1, 1) == "i" end
-        if is_insert_mode() then                               -- prevent overwriting brackets
+        if is_insert_mode() then -- prevent overwriting brackets
           confirm_opts.behavior = cmp.ConfirmBehavior.Insert
         end
         local entry = cmp.get_selected_entry()
@@ -175,6 +180,12 @@ function M.setup_cmp()
     },
     sources = cmp.config.sources(
       {
+        {
+          name = "lazydev",
+          group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+        },
+      },
+      {
         -- Copilot Source
         -- { name = "copilot", max_item_count = 3 },
         {
@@ -201,17 +212,18 @@ function M.setup_cmp()
         },
         { name = "luasnip", max_item_count = 5, keyword_length = 1 },
         { name = "path" },
-        { name = "buffer",  max_item_count = 5, keyword_length = 1 },
-        { name = "nvim_lua" },
+        { name = "buffer", max_item_count = 5, keyword_length = 1 },
+        -- { name = "nvim_lua" },
         -- { name = "treesitter", max_item_count = 3, keyword_length = 1 },
         { name = "crates" },
       }
-    -- {
-    --   { name = "buffer", keyword_length = 3, max_item_count = 5 },
-    -- }
+      -- {
+      --   { name = "buffer", keyword_length = 3, max_item_count = 5 },
+      -- }
     ),
     formatting = {
       fields = { "abbr", "kind", "menu" },
+      expandable_indicator = true,
       -- format = require("config.lsp.kind").cmp_format(),
       format = function(entry, vim_item)
         if vim.tbl_contains({ "path" }, entry.source.name) then
@@ -222,6 +234,10 @@ function M.setup_cmp()
             return vim_item
           end
         end
+
+        local max_width = 50
+        vim_item.abbr = truncate(vim_item.abbr, 50)
+        vim_item.menu = truncate(vim_item.menu, 50)
 
         -- if vim.tbl.contains({ "tree"})
         local menu_text = {
@@ -237,7 +253,7 @@ function M.setup_cmp()
           -- symbol_map = require("config.lsp.kind").icons,
           preset = "codicons",
           mode = "symbol_text",
-          menu = menu_text,
+          -- menu = menu_text,
         })(entry, vim_item)
       end,
     },

@@ -6,6 +6,7 @@ require("filetype").setup({
       sql = "sql",
       sh = "bash",
       v = "vlang",
+      d = "d",
     },
 
     literal = {

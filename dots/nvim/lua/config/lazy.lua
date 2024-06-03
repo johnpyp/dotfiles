@@ -21,6 +21,8 @@ require("lazy").setup({
   { "mhinz/vim-startify", lazy = false },
   {
     "akinsho/bufferline.nvim",
+    branch = "main",
+    -- commit = "f6f00d9ac1a51483ac78418f9e63126119a70709",
     lazy = false,
     dependencies = {
       "catppuccin/nvim",
@@ -114,7 +116,7 @@ require("lazy").setup({
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-path" },
-      { "saadparwaiz1/cmp_luasnip" },
+      -- { "saadparwaiz1/cmp_luasnip" },
       { "ray-x/cmp-treesitter" },
 
       -- Copilot
@@ -122,15 +124,44 @@ require("lazy").setup({
       { "zbirenbaum/copilot-cmp" },
 
       -- Snippets
-      { "L3MON4D3/LuaSnip" },
+      -- { "L3MON4D3/LuaSnip" },
       { "rafamadriz/friendly-snippets" },
+      {
+        "garymjr/nvim-snippets",
+        config = function()
+          require("nvim-snippets").setup({
+            create_cmp_source = true,
+            friendly_snippets = true,
+          })
+        end,
+      },
 
       -- LSP supplements
       { "alaviss/nim.nvim" },
-      { "folke/neodev.nvim" },
-      { "jose-elias-alvarez/typescript.nvim" },
+      -- { "folke/neodev.nvim" },
+      {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- Library items can be absolute paths
+            -- "~/projects/my-awesome-lib",
+            -- Or relative, which means they will be resolved as a plugin
+            -- "LazyVim",
+            -- When relative, you can also provide a path to the library in the plugin dir
+            "luvit-meta/library", -- see below
+          },
+        },
+      },
+      { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+      { "jmederosalvarado/roslyn.nvim" },
 
-      { "simrat39/rust-tools.nvim" },
+      {
+        "mrcjkb/rustaceanvim",
+        version = "^4", -- Recommended
+        lazy = false, -- This plugin is already lazy
+      },
+      -- { "simrat39/rust-tools.nvim" },
       { "sigmasd/deno-nvim" },
 
       -- LSP UI-related
@@ -139,8 +170,8 @@ require("lazy").setup({
       { "j-hui/fidget.nvim", tag = "legacy" }, -- LSP progressbars / loaders
       { "onsails/lspkind.nvim" },
       { "ray-x/lsp_signature.nvim" },
-      -- { "glepnir/lspsaga.nvim" },
       { "glepnir/lspsaga.nvim" },
+      { "jinzhongjia/LspUI.nvim" },
       { "weilbith/nvim-code-action-menu" },
     },
     lazy = false,

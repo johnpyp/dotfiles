@@ -30,6 +30,8 @@ function M.should_use_null_ls_format(bufnr, ft)
   return null_ls_should_format
 end
 
+local banned_lsps = { "jsonls" }
+
 ---Format file
 ---@param bufnr number
 ---@param async boolean
@@ -39,11 +41,17 @@ function M.super_format(bufnr, async)
     async = async,
     timeout_ms = 2000,
     filter = function(client)
-      if M.should_use_null_ls_format(bufnr, ft) then
-        return client.name == "null-ls"
-      else
-        return client.name ~= "null-ls"
+      for _, v in pairs(banned_lsps) do
+        if v == client.name then return false end
       end
+
+      return true
+
+      -- if M.should_use_null_ls_format(bufnr, ft) then
+      --   return client.name == "null-ls"
+      -- else
+      --   return client.name ~= "null-ls"
+      -- end
     end,
   })
 end
