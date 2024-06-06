@@ -30,6 +30,16 @@ local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
+----Helper functions
+--- Truncate component to `len` characters
+--- @param str string
+--- @param len number
+--- @return string
+M.truncate = function(str, len)
+  if #str <= len then return str end
+
+  return str:sub(1, len - 1) .. "…"
+end
 
 local kind_mapper = require("cmp.types").lsp.CompletionItemKind
 
@@ -223,11 +233,25 @@ function M.setup_cmp()
           end
         end
 
-        local max_width = 50
-        vim_item.abbr = truncate(vim_item.abbr, 50)
-        vim_item.menu = truncate(vim_item.menu, 50)
+        -- local max_width = 50
+        -- vim_item.abbr = string.sub(vim_item.abbr, 1, max_width)
+        -- vim_item.menu = string.sub(vim_item.menu, 1, max_width)
+        local max_width
+        local cols = vim.o.columns
 
-        -- if vim.tbl.contains({ "tree"})
+        if cols > 90 then
+          max_width = math.floor(cols * 0.6)
+        else
+          max_width = math.floor(cols * 0.4)
+        end
+
+        if vim_item.menu then
+          max_width = max_width / 2
+          vim_item.menu = M.truncate(vim_item.menu, max_width)
+        end
+
+        vim_item.abbr = M.truncate(vim_item.abbr, max_width)
+
         local menu_text = {
           nvim_lsp = "LSP",
           luasnip = "SNIPPET",
