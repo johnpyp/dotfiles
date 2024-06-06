@@ -22,6 +22,9 @@ vim.o.breakindent = true -- Wrapped lines continue visually indented
 vim.o.showbreak = nil -- Add visual indent to wrapped lines
 vim.o.linebreak = true
 
+vim.o.ttyfast = true
+vim.o.termsync = false
+
 --Save undo history
 vim.cmd([[set undofile]])
 
