@@ -44,14 +44,16 @@ end
 local kind_mapper = require("cmp.types").lsp.CompletionItemKind
 
 local kind_score = {
-  Variable = 1,
-  Class = 2,
-  Enum = 3,
-  Property = 4,
-  Field = 5,
-  Method = 6,
-  Struct = 7,
-  Keyword = 8,
+  EnumMember = 10,
+  Variable = 20,
+  Class = 30,
+  Enum = 40,
+  Property = 50,
+  Field = 60,
+  Method = 70,
+  Struct = 80,
+  Function = 90,
+  Keyword = 100,
 }
 
 local global_confirm_opts = {
@@ -188,24 +190,24 @@ function M.setup_cmp()
         {
           name = "nvim_lsp",
           max_item_count = 100,
-          entry_filter = function(entry, context)
-            local kind = entry:get_kind()
-            local line = context.cursor_line
-            local col = context.cursor.col
+          -- entry_filter = function(entry, context)
+          --   local kind = entry:get_kind()
+          --   local line = context.cursor_line
+          --   local col = context.cursor.col
 
-            local char_before_cursor = string.sub(line, col - 1, col - 1)
-            local char_after_dot = string.sub(line, col, col)
+          --   local char_before_cursor = string.sub(line, col - 1, col - 1)
+          --   local char_after_dot = string.sub(line, col, col)
 
-            if char_before_cursor == "." and char_after_dot:match("[a-zA-Z]") then
-              if kind == kind_mapper["Method"] or kind == kind_mapper["Field"] or kind == kind_mapper["Property"] then
-                return true
-              else
-                return false
-              end
-            end
+          --   if char_before_cursor == "." and char_after_dot:match("[a-zA-Z]") then
+          --     if kind == kind_mapper["Method"] or kind == kind_mapper["Field"] or kind == kind_mapper["Property"] then
+          --       return true
+          --     else
+          --       return false
+          --     end
+          --   end
 
-            return true
-          end,
+          --   return true
+          -- end,
         },
         { name = "snippets", max_item_count = 5, keyword_length = 1 },
         -- { name = "luasnip", max_item_count = 5, keyword_length = 1 },
@@ -293,8 +295,8 @@ function M.setup_cmp()
           local kind1 = kind_mapper[entry1:get_kind()]
           local kind2 = kind_mapper[entry2:get_kind()]
 
-          local kind_score1 = kind_score[kind1] or 100
-          local kind_score2 = kind_score[kind2] or 100
+          local kind_score1 = kind_score[kind1] or 1000
+          local kind_score2 = kind_score[kind2] or 1000
 
           if kind_score1 < kind_score2 then return true end
           if kind_score1 > kind_score2 then return false end
