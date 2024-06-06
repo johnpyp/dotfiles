@@ -63,9 +63,11 @@ require("lazy").setup({
   "windwp/nvim-ts-autotag",
   "kyazdani42/nvim-tree.lua",
   "lewis6991/gitsigns.nvim",
+  { "fei6409/log-highlight.nvim", config = function() require("log-highlight").setup({}) end },
   { "folke/which-key.nvim", lazy = true },
 
   { "junegunn/fzf", run = "./install --bin" },
+  { "stsewd/sphinx.nvim", run = ":UpdateRemotePlugins" },
   "ibhagwan/fzf-lua",
   { "JoosepAlviste/nvim-ts-context-commentstring", lazy = false },
   -- {

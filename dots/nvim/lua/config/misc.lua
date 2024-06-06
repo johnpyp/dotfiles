@@ -1,6 +1,6 @@
 require("Comment").setup({
   ignore = "^$",
-  pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+  -- pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 })
 
 require("ts_context_commentstring").setup({
@@ -169,4 +169,20 @@ require("hover").register({
   enabled = function() return vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() end,
   execute = function() require("crates").show_popup() end,
   priority = 1200,
+})
+
+-- Certain filetypes I don't want wrap
+local group = vim.api.nvim_create_augroup("Nowrap filetypes", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = { "*.log" },
+  group = group,
+  command = "setlocal nowrap",
+})
+
+-- auto-reload files when modified externally
+-- https://unix.stackexchange.com/a/383044
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "FocusGained" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
 })

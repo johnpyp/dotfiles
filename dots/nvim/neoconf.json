@@ -49,6 +49,11 @@
         }
       ]
     },
+    "eslint": {
+      "eslint.quiet": false,
+      "eslint.run": "onType",
+      "eslint.debug": true
+    },
     "tsserver": {
       "javascript.preferences.importModuleSpecifier": "project-relative",
       "typescript.preferences.importModuleSpecifier": "project-relative"
