@@ -43,8 +43,6 @@ function M.setup_null_ls(nls_build_options)
       -- end
     end,
     sources = {
-      -- nls.builtins.formatting.biome,
-      -- nls.builtins.formatting.prettierd,
       nls.builtins.formatting.stylua,
       -- nls.builtins.formatting.rustfmt,
       nls.builtins.formatting.rustywind,
@@ -62,11 +60,6 @@ function M.setup_null_ls(nls_build_options)
       ----------------
       --   Python   --
       ----------------
-      nls.builtins.formatting.black,
-      nls.builtins.formatting.ruff,
-      -- nls.builtins.formatting.isort,
-      -- nls.builtins.diagnostics.pylint,
-      -- nls.builtins.diagnostics.pylama,
 
       ----------------
       -- Typescript --
@@ -74,7 +67,7 @@ function M.setup_null_ls(nls_build_options)
       -- nls.builtins.formatting.eslint_d,
       -- nls.builtins.code_actions.eslint_d,
       -- nls.builtins.diagnostics.eslint_d,
-      -- nls.builtins.formatting.prettierd,
+      nls.builtins.formatting.prettier,
     },
     root_dir = require("null-ls.utils").root_pattern(
       ".null-ls-root",
