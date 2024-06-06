@@ -68,17 +68,17 @@ require("lazy").setup({
   { "junegunn/fzf", run = "./install --bin" },
   "ibhagwan/fzf-lua",
   { "JoosepAlviste/nvim-ts-context-commentstring", lazy = false },
-  {
-    "L3MON4D3/LuaSnip",
-    event = "VeryLazy",
-    dependencies = {
-      "hrsh7th/vim-vsnip",
-      "hrsh7th/vim-vsnip-integ",
-      "rafamadriz/friendly-snippets",
-    },
-    build = "make install_jsregexp",
-    config = function() require("config.snippets") end,
-  },
+  -- {
+  --   "L3MON4D3/LuaSnip",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "hrsh7th/vim-vsnip",
+  --     "hrsh7th/vim-vsnip-integ",
+  --     "rafamadriz/friendly-snippets",
+  --   },
+  --   build = "make install_jsregexp",
+  --   config = function() require("config.snippets") end,
+  -- },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -129,9 +129,16 @@ require("lazy").setup({
       {
         "garymjr/nvim-snippets",
         config = function()
-          require("nvim-snippets").setup({
+          require("snippets").setup({
             create_cmp_source = true,
             friendly_snippets = true,
+            extended_filetypes = {
+              typescript = { "tsdoc" },
+              javascript = { "jsdoc" },
+              lua = { "luadoc" },
+              rust = { "rustdoc" },
+              kotlin = { "kdoc" },
+            },
           })
         end,
       },

@@ -2,7 +2,7 @@
 
 sxhkd -c $HOME/.config/sxhkd/sxhkdrc.bspwm &
 nm-applet &
-redshift-gtk &
+# redshift-gtk &
 picom -b &
 feh --bg-fill $HOME/dotfiles/wallpapers/current.png &
 

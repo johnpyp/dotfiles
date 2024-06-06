@@ -1,7 +1,7 @@
-local custom_luasnip_jumpable = require("util.luasnip-jumpable").jumpable
+-- local custom_luasnip_jumpable = require("util.luasnip-jumpable").jumpable
 local lspkind = require("lspkind")
 local cmp = require("cmp")
-local luasnip = require("luasnip")
+-- local luasnip = require("luasnip")
 
 -- Copilot icon
 lspkind.init({
@@ -13,22 +13,12 @@ lspkind.init({
 ---@class nlsp.Cmp
 local M = {}
 
--- local has_words_before = function()
---   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
---   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
--- end
--- local has_words_before = function()
---   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
---   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
---   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
--- end
---
-
 local truncate = function(str, len)
   if not str or #str <= len then return str end
 
   return str:sub(1, len - 1) .. "…"
 end
+
 local check_backspace = function()
   local col = vim.fn.col(".") - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
@@ -107,12 +97,8 @@ local get_mappings = function(ok_luasnip)
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      elseif custom_luasnip_jumpable(1) then
-        luasnip.jump(1)
-      elseif has_words_before() then
-        fallback()
+      elseif vim.snippet.active({ direction = 1 }) then
+        vim.schedule(function() vim.snippet.jump(1) end)
       else
         fallback()
       end
@@ -120,33 +106,35 @@ local get_mappings = function(ok_luasnip)
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+        -- elseif luasnip.jumpable(-1) then
+        --   luasnip.jump(-1)
+      elseif vim.snippet.active({ direction = -1 }) then
+        vim.schedule(function() vim.snippet.jump(-1) end)
       else
         fallback()
       end
     end, { "i", "s" }),
   }
 
-  if ok_luasnip then
-    -- go to next placeholder in the snippet
-    result["<C-d>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(1) then
-        luasnip.jump(1)
-      else
-        fallback()
-      end
-    end, { "i", "s" })
+  -- if ok_luasnip then
+  --   -- go to next placeholder in the snippet
+  --   result["<C-d>"] = cmp.mapping(function(fallback)
+  --     if luasnip.jumpable(1) then
+  --       luasnip.jump(1)
+  --     else
+  --       fallback()
+  --     end
+  --   end, { "i", "s" })
 
-    -- go to previous placeholder in the snippet
-    result["<C-b>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" })
-  end
+  --   -- go to previous placeholder in the snippet
+  --   result["<C-b>"] = cmp.mapping(function(fallback)
+  --     if luasnip.jumpable(-1) then
+  --       luasnip.jump(-1)
+  --     else
+  --       fallback()
+  --     end
+  --   end, { "i", "s" })
+  -- end
 
   return result
 end
@@ -175,14 +163,13 @@ function M.setup_cmp()
       documentation = cmp.config.window.bordered(),
     },
 
-    snippet = {
-      expand = function(args) luasnip.lsp_expand(args.body) end,
-    },
+    -- snippet = {
+    --   expand = function(args) luasnip.lsp_expand(args.body) end,
+    -- },
     sources = cmp.config.sources(
       {
         {
           name = "lazydev",
-          group_index = 0, -- set group index to 0 to skip loading LuaLS completions
         },
       },
       {
@@ -210,7 +197,8 @@ function M.setup_cmp()
             return true
           end,
         },
-        { name = "luasnip", max_item_count = 5, keyword_length = 1 },
+        { name = "snippets", max_item_count = 5, keyword_length = 1 },
+        -- { name = "luasnip", max_item_count = 5, keyword_length = 1 },
         { name = "path" },
         { name = "buffer", max_item_count = 5, keyword_length = 1 },
         -- { name = "nvim_lua" },
@@ -261,8 +249,6 @@ function M.setup_cmp()
     sorting = {
       priority_weight = 2,
       comparators = {
-        -- require("copilot_cmp.comparators").prioritize,
-
         cmp.config.compare.exact,
         cmp.config.compare.offset,
         cmp.config.compare.score,
@@ -278,19 +264,6 @@ function M.setup_cmp()
           if kind_score1 < kind_score2 then return true end
           if kind_score1 > kind_score2 then return false end
         end,
-        -- copied from cmp-under, but I don't think I need the plugin for this.
-        -- Properly sorts underscore properties
-        -- function(entry1, entry2)
-        --   local _, entry1_under = entry1.completion_item.label:find("^_+")
-        --   local _, entry2_under = entry2.completion_item.label:find("^_+")
-        --   entry1_under = entry1_under or 0
-        --   entry2_under = entry2_under or 0
-        --   if entry1_under > entry2_under then
-        --     return false
-        --   elseif entry1_under < entry2_under then
-        --     return true
-        --   end
-        -- end,
         cmp.config.compare.recently_used,
         cmp.config.compare.kind,
         cmp.config.compare.sort_text,
