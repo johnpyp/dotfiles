@@ -67,6 +67,8 @@ local custom_setup_wrapper = function(server_name)
   end
 end
 
+custom_setup_wrapper("gopls")()
+
 -- ## Pre-LSP setup
 
 -- Setup nvim_cmp
@@ -136,11 +138,9 @@ require("mason-lspconfig").setup_handlers({
   ["lua_ls"] = custom_setup_wrapper("lua_ls"),
   -- ["v_analyzer"] = custom_setup_wrapper("v_analyzer"),
   ["pyright"] = custom_setup_wrapper("pyright"),
-  -- ["rust_analyzer"] = function()
-  --   require("rust-tools").setup({
-  --     server = get_custom_server_opts("rust_analyzer"),
-  --   })
-  -- end,
+  ["gopls"] = custom_setup_wrapper("gopls"),
+  ["eslint"] = custom_setup_wrapper("eslint"),
+  ["ruff_lsp"] = custom_setup_wrapper("ruff_lsp"),
   -- ["tsserver"] = function()
   --   require("typescript").setup({
   --     server = get_custom_server_opts("tsserver"),
