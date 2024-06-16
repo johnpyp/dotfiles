@@ -262,14 +262,14 @@ function M.setup_cmp()
         local max_width
         local cols = vim.o.columns
 
-        if cols > 90 then
-          max_width = math.floor(cols * 0.6)
+        if cols > 150 then
+          max_width = math.floor(cols * 0.5)
         else
-          max_width = math.floor(cols * 0.4)
+          max_width = math.floor(cols * 0.3)
         end
 
         if vim_item.menu then
-          max_width = max_width / 2
+          max_width = max_width
           vim_item.menu = M.truncate(vim_item.menu, max_width)
         end
 
