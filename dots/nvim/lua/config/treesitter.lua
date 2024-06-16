@@ -16,12 +16,36 @@ require("nvim-treesitter.configs").setup({
     end,
     additional_vim_regex_highlighting = { "kotlin" },
   },
-  -- Disabled in favor of tmindent
+  -- Disabled in favor of yati + tmindent
   indent = { enable = false },
+
+  yati = {
+    enable = true,
+    -- Disable by languages, see `Supported languages`
+    -- disable = { "python" },
+
+    -- Whether to enable lazy mode (recommend to enable this if bad indent happens frequently)
+    default_lazy = true,
+
+    -- Determine the fallback method used when we cannot calculate indent by tree-sitter
+    --   "auto": fallback to vim auto indent
+    --   "asis": use current indent as-is
+    --   "cindent": see `:h cindent()`
+    -- Or a custom function return the final indent result.
+    -- default_fallback = "auto"
+    default_fallback = function(lnum, computed, bufnr)
+      local tm_fts = { "lua", "javascript", "python" }
+      if vim.tbl_contains(tm_fts, vim.bo[bufnr].filetype) then
+        return require("tmindent").get_indent(lnum, bufnr) + computed
+      end
+      -- or any other fallback methods
+      return require("nvim-yati.fallback").vim_auto(lnum, computed, bufnr)
+    end,
+  },
 })
 
 require("tmindent").setup({
-  enabled = function() return true end,
+  enabled = function() return false end,
   use_treesitter = function() return true end, -- used to detect different langauge region and comments
   default_rule = {},
   rules = {

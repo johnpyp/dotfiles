@@ -97,6 +97,10 @@ require("lazy").setup({
   "b0o/schemastore.nvim",
   "smjonas/inc-rename.nvim",
   {
+    "yioneko/nvim-yati",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       { "folke/neoconf.nvim" },
