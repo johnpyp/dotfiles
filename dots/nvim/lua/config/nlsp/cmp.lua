@@ -13,6 +13,8 @@ lspkind.init({
 ---@class nlsp.Cmp
 local M = {}
 
+local string_contains = function(s, sub) return s:find(sub, 1, true) end
+
 local truncate = function(str, len)
   if not str or #str <= len then return str end
 
@@ -55,6 +57,23 @@ local kind_score = {
   Function = 90,
   Keyword = 100,
 }
+
+local types = require("cmp.types")
+local modified_priority = {
+  [types.lsp.CompletionItemKind.Field] = types.lsp.CompletionItemKind.Method,
+  [types.lsp.CompletionItemKind.Property] = types.lsp.CompletionItemKind.Method,
+  [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
+
+  [types.lsp.CompletionItemKind.Struct] = types.lsp.CompletionItemKind.Class,
+  [types.lsp.CompletionItemKind.Enum] = types.lsp.CompletionItemKind.Class,
+  [types.lsp.CompletionItemKind.EnumMember] = types.lsp.CompletionItemKind.Class,
+
+  [types.lsp.CompletionItemKind.Snippet] = 100, -- bottom
+  [types.lsp.CompletionItemKind.Keyword] = 100, -- bottom
+  [types.lsp.CompletionItemKind.Text] = 100, -- bottom
+}
+---@param kind integer: kind of completion entry
+local function modified_kind(kind) return modified_priority[kind] or kind end
 
 local global_confirm_opts = {
   behavior = cmp.ConfirmBehavior.Replace,
@@ -151,20 +170,22 @@ local get_mappings = function(ok_luasnip)
   return result
 end
 
+local sorters = require("config.cmp_utils.sorters")
+
 ---Setup nvim_cmp mappings, sources, window, etc.
 function M.setup_cmp()
   cmp.setup({
     enabled = true,
     mapping = get_mappings(true),
-    preselect = cmp.PreselectMode.Item,
-    -- completion = {
-    --   completeopt = "menu,menuone,noinsert",
-    -- },
+    preselect = cmp.PreselectMode.None, -- Set to none to avoid flickering pre-selected item
+    completion = {
+      completeopt = "menu,menuone", -- Remove `noinsert` to avoid flickering pre-selected item
+    },
     performance = {
       debounce = 30,
       throttle = 15,
 
-      max_view_entries = 100,
+      max_view_entries = 150,
     },
     window = {
       -- bordered completion kinda ugly tho
@@ -189,7 +210,7 @@ function M.setup_cmp()
         -- { name = "copilot", max_item_count = 3 },
         {
           name = "nvim_lsp",
-          max_item_count = 100,
+          max_item_count = 400,
           -- entry_filter = function(entry, context)
           --   local kind = entry:get_kind()
           --   local line = context.cursor_line
@@ -275,36 +296,46 @@ function M.setup_cmp()
     sorting = {
       priority_weight = 2,
       comparators = {
-        cmp.config.compare.exact,
         cmp.config.compare.offset,
-        cmp.config.compare.score,
-        cmp.config.compare.locality,
+        cmp.config.compare.exact,
+        -- cmp.config.compare.kind,
 
-        function(entry1, entry2)
-          local _, entry1_under = entry1.completion_item.label:find("^_+")
-          local _, entry2_under = entry2.completion_item.label:find("^_+")
-          entry1_under = entry1_under or 0
-          entry2_under = entry2_under or 0
-          if entry1_under > entry2_under then
-            return false
-          elseif entry1_under < entry2_under then
-            return true
-          end
+        ---@param e1 cmp.Entry
+        ---@param e2 cmp.Entry
+        function(e1, e2) -- sort by compare kind (Variable, Function etc)
+          local kind1 = modified_kind(e1:get_kind())
+          local kind2 = modified_kind(e2:get_kind())
+
+          return sorters.eval.smaller_number_better(kind1, kind2)
         end,
-        function(entry1, entry2)
-          local kind1 = kind_mapper[entry1:get_kind()]
-          local kind2 = kind_mapper[entry2:get_kind()]
 
-          local kind_score1 = kind_score[kind1] or 1000
-          local kind_score2 = kind_score[kind2] or 1000
+        ---@param e1 cmp.Entry
+        ---@param e2 cmp.Entry
+        function(e1, e2) -- (rust) deprioritize "owo_colors" from color_eyre
+          if not sorters.is_lang_lsp(e1, e2, "rust") then return nil end
 
-          if kind_score1 < kind_score2 then return true end
-          if kind_score1 > kind_score2 then return false end
+          local i1, i2 = sorters.get_infos(e1, e2)
+
+          local bad1 = string_contains(i1.deets, "owo_colors")
+          local bad2 = string_contains(i2.deets, "owo_colors")
+
+          return sorters.eval.bad_bools(bad1, bad2)
+        end,
+        ---@param e1 cmp.Entry
+        ---@param e2 cmp.Entry
+        function(e1, e2)
+          local _, e1_under = e1:get_completion_item().label:find("^_+")
+          local _, e2_under = e2:get_completion_item().label:find("^_+")
+
+          e1_under = e1_under or 0
+          e2_under = e2_under or 0
+
+          return sorters.eval.smaller_number_better(e1_under, e2_under)
         end,
         cmp.config.compare.recently_used,
-        cmp.config.compare.kind,
         cmp.config.compare.sort_text,
-        cmp.config.compare.length,
+        cmp.config.compare.locality,
+        cmp.config.compare.score,
         cmp.config.compare.order,
       },
     },
