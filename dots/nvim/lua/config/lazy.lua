@@ -18,7 +18,7 @@ require("lazy").setup({
     priority = 1000,
     config = function() require("config.theme") end,
   },
-  { "mhinz/vim-startify",        lazy = false },
+  { "mhinz/vim-startify", lazy = false },
   {
     "akinsho/bufferline.nvim",
     branch = "main",
@@ -39,10 +39,10 @@ require("lazy").setup({
     init = function() vim.g.startuptime_tries = 10 end,
   },
   { "nathom/filetype.nvim", lazy = false, config = function() require("config.filetype") end },
-  { "airblade/vim-rooter",  lazy = false },
+  { "airblade/vim-rooter", lazy = false },
   "numToStr/Comment.nvim",
   "svermeulen/vimpeccable",
-  { "echasnovski/mini.nvim",        branch = "stable" },
+  { "echasnovski/mini.nvim", branch = "stable" },
   "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
   "udalov/kotlin-vim",
@@ -64,10 +64,10 @@ require("lazy").setup({
   "kyazdani42/nvim-tree.lua",
   "lewis6991/gitsigns.nvim",
   { "fei6409/log-highlight.nvim", config = function() require("log-highlight").setup({}) end },
-  { "folke/which-key.nvim",       lazy = true },
+  { "folke/which-key.nvim", lazy = true },
 
-  { "junegunn/fzf",               run = "./install --bin" },
-  { "stsewd/sphinx.nvim",         run = ":UpdateRemotePlugins" },
+  { "junegunn/fzf", run = "./install --bin" },
+  { "stsewd/sphinx.nvim", run = ":UpdateRemotePlugins" },
   "ibhagwan/fzf-lua",
   { "JoosepAlviste/nvim-ts-context-commentstring", lazy = false },
   -- {
@@ -114,7 +114,7 @@ require("lazy").setup({
 
       -- Coq autocompletion (testing it out)
       --
-      { "ms-jpq/coq_nvim",                  branch = "coq" },
+      { "ms-jpq/coq_nvim", branch = "coq" },
 
       -- Autocompletion
       { "hrsh7th/nvim-cmp" },
@@ -166,13 +166,13 @@ require("lazy").setup({
           },
         },
       },
-      { "Bilal2453/luvit-meta",        lazy = true }, -- optional `vim.uv` typings
+      { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
       { "jmederosalvarado/roslyn.nvim" },
 
       {
         "mrcjkb/rustaceanvim",
         version = "^4", -- Recommended
-        lazy = false,   -- This plugin is already lazy
+        lazy = false, -- This plugin is already lazy
         config = function()
           vim.g.rustaceanvim = {
             tools = {
@@ -192,7 +192,7 @@ require("lazy").setup({
       -- LSP UI-related
       { "folke/lsp-colors.nvim" },
       { "folke/trouble.nvim" },
-      { "j-hui/fidget.nvim",             tag = "legacy" }, -- LSP progressbars / loaders
+      { "j-hui/fidget.nvim", tag = "legacy" }, -- LSP progressbars / loaders
       { "onsails/lspkind.nvim" },
       { "ray-x/lsp_signature.nvim" },
       { "glepnir/lspsaga.nvim" },
@@ -206,6 +206,7 @@ require("lazy").setup({
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
   },
+  { "AstroNvim/astrolsp" },
   "lewis6991/hover.nvim",
   {
     "folke/noice.nvim",

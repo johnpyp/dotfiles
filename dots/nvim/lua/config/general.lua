@@ -1,9 +1,9 @@
 vim.api.nvim_set_keymap("n", "<Space>", "<NOP>", { noremap = true, silent = true }) -- Map space to a no-op to prevent conflicts
 
-vim.o.termguicolors = true -- True color (comes first)
 vim.g.mapleader = " " -- Set global leader key
 vim.g.maplocalleader = " " -- Set buffer-local leader key
 
+vim.o.termguicolors = true -- True color (comes first)
 vim.o.hlsearch = true -- Highlight a completed search
 vim.o.incsearch = true -- Highlight a search incrementally as you type
 
