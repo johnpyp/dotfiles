@@ -262,8 +262,8 @@ function M.setup_cmp()
         local max_width
         local cols = vim.o.columns
 
-        if cols > 150 then
-          max_width = math.floor(cols * 0.5)
+        if cols > 200 then
+          max_width = math.floor(cols * 0.4)
         else
           max_width = math.floor(cols * 0.3)
         end
@@ -273,7 +273,7 @@ function M.setup_cmp()
           vim_item.menu = M.truncate(vim_item.menu, max_width)
         end
 
-        vim_item.abbr = M.truncate(vim_item.abbr, max_width)
+        vim_item.abbr = M.truncate(vim_item.abbr, math.max(max_width, 40))
 
         local menu_text = {
           nvim_lsp = "LSP",
