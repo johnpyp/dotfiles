@@ -1,8 +1,4 @@
-local impatient_ok, _impatient = pcall(require, "impatient")
-if impatient_ok then
-  local impatient = require("impatient")
-  impatient.enable_profile()
-end
+vim.loader.enable()
 
 require("config.lazy")
 -- require("config.plugins")
