@@ -55,7 +55,7 @@ function M.setup_null_ls(nls_build_options)
       nls.builtins.diagnostics.selene,
       nls.builtins.code_actions.gitsigns,
 
-      nls.builtins.formatting.pint,
+      -- nls.builtins.formatting.pint,
 
       -- nls.builtins.diagnostics.laucheck,
 
