@@ -9,6 +9,9 @@ return {
       ensure_installed = "all",
       -- Disabled in favor of yati + tmindent
       indent = { enable = false },
+      highlight = {
+        enable = true,
+      },
     },
     config = function(_, opts)
       -- if type(opts.ensure_installed) == "table" then

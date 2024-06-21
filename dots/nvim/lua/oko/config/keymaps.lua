@@ -6,6 +6,8 @@ vim.keymap.set("n", "<leader>y", '"+y', { desc = "System Copy", silent = true })
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "System Paste", silent = true }) -- System paste
 vim.keymap.set("n", "<leader>W", ":noa w<CR>", { desc = "Quiet save", silent = true }) -- Save without triggering events and stuff
 
+vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "Window (C-w)", silent = true })
+
 vim.keymap.set("v", "y", "ygv<Esc>", { silent = true }) -- Better `y` behavior in visual mode, I forget what it does
 
 -- Defined in oko.plugins.bufferline instead
@@ -31,3 +33,8 @@ vim.keymap.set(
 
 vim.keymap.set("n", "<leader>cc", ":Neoconf global<CR>", { desc = "Neoconf Global" }) -- Toggle neoconf
 -- nnoremap("<Leader>l", "<cmd>TroubleToggle document_diagnostics<CR>", "List Diagnostics")
+--
+vim.keymap.set("n", "<leader>oli", ":LspInfo<CR>", { desc = "Open LspInfo" })
+vim.keymap.set("n", "<leader>oll", ":LspLog<CR>", { desc = "Open LspLog" })
+vim.keymap.set("n", "<leader>om", ":Mason<CR>", { desc = "Open Mason" })
+vim.keymap.set("n", "<leader>of", ":ConformInfo<CR>", { desc = "Open ConformInfo (Format)" })

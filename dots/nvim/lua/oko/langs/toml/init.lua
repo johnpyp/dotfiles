@@ -1,3 +1,7 @@
+-- Ported & adjusted from:
+-- https://github.com/AstroNvim/astrocommunity/blob/c95fc1b58ffbff4381b7c546e8aa8f913cd33c98/lua/astrocommunity/pack/toml/init.lua
+
+---@type LazySpec
 return {
   {
     "nvim-treesitter/nvim-treesitter",

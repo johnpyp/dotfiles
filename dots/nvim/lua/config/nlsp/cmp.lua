@@ -15,12 +15,6 @@ local M = {}
 
 local string_contains = function(s, sub) return s:find(sub, 1, true) end
 
-local truncate = function(str, len)
-  if not str or #str <= len then return str end
-
-  return str:sub(1, len - 1) .. "…"
-end
-
 local check_backspace = function()
   local col = vim.fn.col(".") - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")

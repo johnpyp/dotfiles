@@ -10,19 +10,25 @@ M.severity = {
   hint = M.signs.Hint,
 }
 
--- function M.setup()
---   -- Automatically update diagnostics
---   -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
---   --   underline = true,
---   --   update_in_insert = false,
---   --   virtual_text = { spacing = 4, prefix = "●" },
---   --   severity_sort = true,
---   -- })
+function M.setup_signs_diagnostics()
+  -- Automatically update diagnostics
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = true,
+    update_in_insert = false,
+    virtual_text = { spacing = 4, prefix = "●" },
+    severity_sort = true,
+  })
 
---   for type, icon in pairs(M.signs) do
---     local hl = "DiagnosticSign" .. type
---     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
---   end
--- end
+  vim.diagnostic.config({
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = M.signs.Error,
+        [vim.diagnostic.severity.WARN] = M.signs.Warn,
+        [vim.diagnostic.severity.INFO] = M.signs.Info,
+        [vim.diagnostic.severity.HINT] = M.signs.Hint,
+      },
+    },
+  })
+end
 
 return M

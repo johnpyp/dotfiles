@@ -39,4 +39,5 @@ return {
       },
     },
   },
+  init = function() require("neo-tree").set_log_level("warn") end,
 }

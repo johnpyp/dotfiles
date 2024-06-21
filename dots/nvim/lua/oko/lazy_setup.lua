@@ -1,5 +1,6 @@
 require("lazy").setup({
   { import = "oko.plugins" },
+  { import = "oko.plugins.lsp" },
   { import = "oko.langs" },
   -- {
   --   "AstroNvim/AstroNvim",

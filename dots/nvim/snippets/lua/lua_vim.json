@@ -1,0 +1,7 @@
+{
+  "lazyspec": {
+    "prefix": "lazyspec",
+    "body": "---This Lazy plugin does this cool thing\n---\n---@type LazySpec\nreturn {\n\t{\n\t\n\t}\n}",
+    "description": "Snippet for a new lazyspec"
+  }
+}

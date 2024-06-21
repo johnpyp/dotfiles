@@ -104,30 +104,30 @@ function M.on_supports_method(method, fn)
   })
 end
 
-function M.rename_file()
-  local buf = vim.api.nvim_get_current_buf()
-  local old = assert(LazyVim.root.realpath(vim.api.nvim_buf_get_name(buf)))
-  local root = assert(LazyVim.root.realpath(LazyVim.root.get({ normalize = true })))
-  assert(old:find(root, 1, true) == 1, "File not in project root")
+-- function M.rename_file()
+--   local buf = vim.api.nvim_get_current_buf()
+--   local old = assert(LazyVim.root.realpath(vim.api.nvim_buf_get_name(buf)))
+--   local root = assert(LazyVim.root.realpath(LazyVim.root.get({ normalize = true })))
+--   assert(old:find(root, 1, true) == 1, "File not in project root")
 
-  local extra = old:sub(#root + 2)
+--   local extra = old:sub(#root + 2)
 
-  vim.ui.input({
-    prompt = "New File Name: ",
-    default = extra,
-    completion = "file",
-  }, function(new)
-    if not new or new == "" or new == extra then return end
-    new = LazyVim.norm(root .. "/" .. new)
-    vim.fn.mkdir(vim.fs.dirname(new), "p")
-    M.on_rename(old, new, function()
-      vim.fn.rename(old, new)
-      vim.cmd.edit(new)
-      vim.api.nvim_buf_delete(buf, { force = true })
-      vim.fn.delete(old)
-    end)
-  end)
-end
+--   vim.ui.input({
+--     prompt = "New File Name: ",
+--     default = extra,
+--     completion = "file",
+--   }, function(new)
+--     if not new or new == "" or new == extra then return end
+--     new = LazyVim.norm(root .. "/" .. new)
+--     vim.fn.mkdir(vim.fs.dirname(new), "p")
+--     M.on_rename(old, new, function()
+--       vim.fn.rename(old, new)
+--       vim.cmd.edit(new)
+--       vim.api.nvim_buf_delete(buf, { force = true })
+--       vim.fn.delete(old)
+--     end)
+--   end)
+-- end
 
 ---@param from string
 ---@param to string
@@ -177,56 +177,56 @@ function M.disable(server, cond)
   end)
 end
 
----@param opts? LazyFormatter| {filter?: (string|lsp.Client.filter)}
-function M.formatter(opts)
-  opts = opts or {}
-  local filter = opts.filter or {}
-  filter = type(filter) == "string" and { name = filter } or filter
-  ---@cast filter lsp.Client.filter
-  ---@type LazyFormatter
-  local ret = {
-    name = "LSP",
-    primary = true,
-    priority = 1,
-    format = function(buf) M.format(LazyVim.merge({}, filter, { bufnr = buf })) end,
-    sources = function(buf)
-      local clients = M.get_clients(LazyVim.merge({}, filter, { bufnr = buf }))
-      ---@param client vim.lsp.Client
-      local ret = vim.tbl_filter(
-        function(client)
-          return client.supports_method("textDocument/formatting")
-            or client.supports_method("textDocument/rangeFormatting")
-        end,
-        clients
-      )
-      ---@param client vim.lsp.Client
-      return vim.tbl_map(function(client) return client.name end, ret)
-    end,
-  }
-  return LazyVim.merge(ret, opts) --[[@as LazyFormatter]]
-end
+-- ---@param opts? LazyFormatter| {filter?: (string|lsp.Client.filter)}
+-- function M.formatter(opts)
+--   opts = opts or {}
+--   local filter = opts.filter or {}
+--   filter = type(filter) == "string" and { name = filter } or filter
+--   ---@cast filter lsp.Client.filter
+--   ---@type LazyFormatter
+--   local ret = {
+--     name = "LSP",
+--     primary = true,
+--     priority = 1,
+--     format = function(buf) M.format(LazyVim.merge({}, filter, { bufnr = buf })) end,
+--     sources = function(buf)
+--       local clients = M.get_clients(LazyVim.merge({}, filter, { bufnr = buf }))
+--       ---@param client vim.lsp.Client
+--       local ret = vim.tbl_filter(
+--         function(client)
+--           return client.supports_method("textDocument/formatting")
+--             or client.supports_method("textDocument/rangeFormatting")
+--         end,
+--         clients
+--       )
+--       ---@param client vim.lsp.Client
+--       return vim.tbl_map(function(client) return client.name end, ret)
+--     end,
+--   }
+--   return LazyVim.merge(ret, opts) --[[@as LazyFormatter]]
+-- end
 
----@alias lsp.Client.format {timeout_ms?: number, format_options?: table} | lsp.Client.filter
+-- ---@alias lsp.Client.format {timeout_ms?: number, format_options?: table} | lsp.Client.filter
 
----@param opts? lsp.Client.format
-function M.format(opts)
-  opts = vim.tbl_deep_extend(
-    "force",
-    {},
-    opts or {},
-    LazyVim.opts("nvim-lspconfig").format or {},
-    LazyVim.opts("conform.nvim").format or {}
-  )
-  local ok, conform = pcall(require, "conform")
-  -- use conform for formatting with LSP when available,
-  -- since it has better format diffing
-  if ok then
-    opts.formatters = {}
-    conform.format(opts)
-  else
-    vim.lsp.buf.format(opts)
-  end
-end
+-- ---@param opts? lsp.Client.format
+-- function M.format(opts)
+--   opts = vim.tbl_deep_extend(
+--     "force",
+--     {},
+--     opts or {},
+--     LazyVim.opts("nvim-lspconfig").format or {},
+--     LazyVim.opts("conform.nvim").format or {}
+--   )
+--   local ok, conform = pcall(require, "conform")
+--   -- use conform for formatting with LSP when available,
+--   -- since it has better format diffing
+--   if ok then
+--     opts.formatters = {}
+--     conform.format(opts)
+--   else
+--     vim.lsp.buf.format(opts)
+--   end
+-- end
 
 ---@alias LspWord {from:{[1]:number, [2]:number}, to:{[1]:number, [2]:number}} 1-0 indexed
 M.words = {}
