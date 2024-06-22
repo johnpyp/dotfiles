@@ -5,15 +5,6 @@
 return {
   { import = "oko.langs.toml" },
   {
-    "nvim-treesitter/nvim-treesitter",
-    optional = true,
-    opts = function(_, opts)
-      if opts.ensure_installed ~= "all" then
-        opts.ensure_installed = require("oko.utils").list_insert_unique(opts.ensure_installed, { "rust" })
-      end
-    end,
-  },
-  {
     "AstroNvim/astrolsp",
     optional = true,
     ---@param opts AstroLSPOpts
@@ -50,6 +41,11 @@ return {
         },
       },
     },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    optional = true,
+    opts = { ensure_installed = "rust" }
   },
   -- Remove codelldb, which I don't use
   -- {

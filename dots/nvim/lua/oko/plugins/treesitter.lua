@@ -1,3 +1,5 @@
+local SHOULD_INSTALL_ALL = true
+
 ---@type LazySpec
 return {
   {
@@ -6,7 +8,7 @@ return {
     build = ":TSUpdate",
     opts_extend = { "ensure_installed" },
     opts = {
-      ensure_installed = "all",
+      ensure_installed = {},
       -- Disabled in favor of yati + tmindent
       indent = { enable = false },
       highlight = {
@@ -14,9 +16,14 @@ return {
       },
     },
     config = function(_, opts)
-      -- if type(opts.ensure_installed) == "table" then
+      -- Override other options and set it to "all"
+      if type(opts.ensure_installed) == "table" and SHOULD_INSTALL_ALL then
+        opts.ensure_installed = "all"
+      else
+        opts.ensure_installed = require("oko.utils").dedup(opts.ensure_installed)
+      end
       --   opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
-      -- end
+
       require("nvim-treesitter.configs").setup(opts)
     end,
   },

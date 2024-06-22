@@ -30,11 +30,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
-    opts = function(_, opts)
-      if opts.ensure_installed ~= "all" then
-        opts.ensure_installed = require("oko.utils").list_insert_unique(opts.ensure_installed, { "json", "jsonc" })
-      end
-    end,
+    opts = { ensure_installed = { "json", "jsonc" } }
   },
   -- {
   --   "williamboman/mason-lspconfig.nvim",

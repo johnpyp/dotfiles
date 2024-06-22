@@ -36,69 +36,11 @@ function M.has_biome_config(ctx)
   local root = lsp_util.root_pattern("biome.json", "biome.jsonc")(ctx.filename)
   if root and root ~= vim.env.HOME then return true end
   return false
-  -- return lsp_utils.search_ancestors(startpath, function(path)
-  --   if M.path.is_file(M.path.join(path, 'package.json')) then
-  --     return path
-  --   end
-  -- end)
 end
 
 M.has_prettier_config = require("oko.utils").memoize(M.has_prettier_config)
 M.has_biome_config = require("oko.utils").memoize(M.has_biome_config)
 
--- local function check_json_key_exists(json, ...) return vim.tbl_get(json, ...) ~= nil end
--- local lsp_rooter, prettierrc_rooter
--- local has_prettier = function(bufnr)
---   if type(bufnr) ~= "number" then bufnr = vim.api.nvim_get_current_buf() end
---   local rooter = require("astrocore.rooter")
---   if not lsp_rooter then
---     lsp_rooter = rooter.resolve("lsp", {
---       ignore = {
---         servers = function(client)
---           return not vim.tbl_contains({ "vtsls", "typescript-tools", "volar", "eslint", "tsserver" }, client.name)
---         end,
---       },
---     })
---   end
---   if not prettierrc_rooter then
---     prettierrc_rooter = rooter.resolve({
---       ".prettierrc",
---       ".prettierrc.json",
---       ".prettierrc.yml",
---       ".prettierrc.yaml",
---       ".prettierrc.json5",
---       ".prettierrc.js",
---       ".prettierrc.cjs",
---       "prettier.config.js",
---       ".prettierrc.mjs",
---       "prettier.config.mjs",
---       "prettier.config.cjs",
---       ".prettierrc.toml",
---     })
---   end
---   local prettier_dependency = false
---   for _, root in ipairs(require("astrocore").list_insert_unique(lsp_rooter(bufnr), { vim.fn.getcwd() })) do
---     local package_json = decode_json(root .. "/package.json")
---     if
---       package_json
---       and (
---         check_json_key_exists(package_json, "dependencies", "prettier")
---         or check_json_key_exists(package_json, "devDependencies", "prettier")
---       )
---     then
---       prettier_dependency = true
---       break
---     end
---   end
---   return prettier_dependency or next(prettierrc_rooter(bufnr))
--- end
-
--- local null_ls_formatter = function(params)
---   if vim.tbl_contains(format_filetypes, params.filetype) then return has_prettier(params.bufnr) end
---   return true
--- end
-
--- local conform_formatter = function(bufnr) return has_prettier(bufnr) and { "prettierd" } or {} end
 
 ---@type LazySpec
 return {
@@ -107,12 +49,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     optional = true,
-    opts = function(_, opts)
-      if opts.ensure_installed ~= "all" then
-        opts.ensure_installed =
-          require("oko.utils").list_insert_unique(opts.ensure_installed, { "javascript", "typescript", "tsx", "jsdoc" })
-      end
-    end,
+    opts = { ensure_installed = { "javascript", "typescript", "tsx", "jsdoc" } }
   },
   {
     "AstroNvim/astrolsp",
@@ -162,33 +99,6 @@ return {
       },
     },
   },
-  -- {
-  --   "williamboman/mason.nvim",
-  --   opts = function(_, opts)
-  --     opts.ensure_installed = require("oko.utils").list_insert_unique(opts.ensure_installed, { "prettier" })
-  --   end,
-  -- },
-  -- {
-  --   "williamboman/mason-lspconfig.nvim",
-  --   opts = function(_, opts)
-  --     opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "vtsls", "eslint" })
-  --   end,
-  -- },
-  -- {
-  --   "jay-babu/mason-null-ls.nvim",
-  --   optional = true,
-  --   opts = function(_, opts)
-  --     opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "prettierd" })
-  --     if not opts.handlers then opts.handlers = {} end
-
-  --     opts.handlers.prettierd = function(source_name, methods)
-  --       local null_ls = require("null-ls")
-  --       for _, method in ipairs(methods) do
-  --         null_ls.register(null_ls.builtins[method][source_name].with({ runtime_condition = null_ls_formatter }))
-  --       end
-  --     end
-  --   end,
-  -- },
   {
     "stevearc/conform.nvim",
     optional = true,
@@ -223,12 +133,11 @@ return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     optional = true,
-    opts = function(_, opts)
-      opts.ensure_installed = require("oko.utils").list_insert_unique(
-        opts.ensure_installed,
-        { "vtsls", "eslint-lsp", "prettier", "prettierd", "js-debug-adapter", "biome", "eslint_d" }
-      )
-    end,
+    opts = {
+      ensure_installed = {
+        "vtsls", "eslint-lsp", "prettier", "prettierd", "js-debug-adapter", "biome", "eslint_d"
+      }
+    }
   },
   {
     "vuki656/package-info.nvim",
@@ -238,26 +147,7 @@ return {
   },
   {
     "yioneko/nvim-vtsls",
-    lazy = true,
-    dependencies = {
-      -- "AstroNvim/astrocore",
-      -- opts = {
-      --   autocmds = {
-      --     nvim_vtsls = {
-      --       {
-      --         event = "LspAttach",
-      --         desc = "Load nvim-vtsls with vtsls",
-      --         callback = function(args)
-      --           if assert(vim.lsp.get_client_by_id(args.data.client_id)).name == "vtsls" then
-      --             require("vtsls")._on_attach(args.data.client_id, args.buf)
-      --             vim.api.nvim_del_augroup_by_name("nvim_vtsls")
-      --           end
-      --         end,
-      --       },
-      --     },
-      --   },
-      -- },
-    },
+    opts = {},
     config = function(_, opts) require("vtsls").config(opts) end,
   },
   {
