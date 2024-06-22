@@ -1,24 +1,28 @@
-vim.loader.enable()
+local lazypath = vim.env.LAZY or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
+  -- stylua: ignore
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+    lazypath })
+end
+vim.opt.rtp:prepend(lazypath)
 
-require("config.lazy")
--- require("config.plugins")
-require("config.general")
-require("config.theme")
-require("config.keys")
+-- validate that lazy is available
+if not pcall(require, "lazy") then
+  -- stylua: ignore
+  vim.api.nvim_echo(
+    { { ("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg" }, { "Press any key to exit...", "MoreMsg" } },
+    true, {})
+  vim.fn.getchar()
+  vim.cmd.quit()
+end
 
--- require("config.snippets")
--- require("config.cmp")
--- require("config.lsp")
---
-require("config.treesitter")
--- require("config.nlsp")
-require("config.noice")
+require("oko.prelazy")
 
-require("config.tree")
--- require("config.lualine")
--- require("config.bufferline")
-require("config.misc")
-require("config.which-key")
--- require("config.filetype")
-require("config.copilot")
-require("config.neogen")
+require("oko.lazy_setup")
+
+require("oko.postlazy")
+
+--- TODO:
+---
+--- add filetype.nvim
+--- add LazyDev
