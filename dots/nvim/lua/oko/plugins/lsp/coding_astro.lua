@@ -1,23 +1,25 @@
 ---@type LazySpec
 return {
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "AstroNvim/astrolsp",
-        ---@type AstroLSPOpts
-        opts = {
-          formatting = {
-            format_on_save = {
-              enabled = true,
-            },
-          },
-          lsp_handlers = {
-            ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", silent = true }),
-            ["textDocument/signatureHelp"] = false, -- set to false to disable any custom handlers
-          },
+    "AstroNvim/astrolsp",
+    ---@type AstroLSPOpts
+    opts_extend = { "servers" },
+    opts = {
+      formatting = {
+        format_on_save = {
+          enabled = true,
         },
       },
+      lsp_handlers = {
+        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", silent = true }),
+        ["textDocument/signatureHelp"] = false,     -- set to false to disable any custom handlers
+      },
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "AstroNvim/astrolsp",
       { "folke/neoconf.nvim", lazy = true, opts = {} },
       "williamboman/mason-lspconfig.nvim", -- MUST be set up before `nvim-lspconfig`
     },
