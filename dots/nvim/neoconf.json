@@ -63,16 +63,20 @@
       "typescript.format.enable": false,
       "javascript.preferences.importModuleSpecifier": "project-relative",
       "typescript.preferences.importModuleSpecifier": "project-relative",
-      "typescript.tsserver.pluginPaths": ["/home/johnpyp/.local/share/nvim/mason/packages/vue-language-server/node_modules"],
-      "vtsls.tsserver.globalPlugins": [
-        {
-          "name": "@vue/typescript-plugin",
-          "location": "/home/johnpyp/.local/share/nvim/mason/packages/vue-language-server/node_modules",
-          "languages": ["vue"],
-          "configNamespace": "typescript",
-          "enableForWorkspaceTypeScriptVersions": true
-        }
-      ]
+      // "typescript.tsserver.pluginPaths": [
+      //   "/home/johnpyp/.local/share/nvim/mason/packages/vue-language-server/node_modules"
+      // ],
+      // "vtsls.tsserver.globalPlugins": [
+      //   {
+      //     "name": "@vue/typescript-plugin",
+      //     "location": "/home/johnpyp/.local/share/nvim/mason/packages/vue-language-server/node_modules",
+      //     "languages": [
+      //       "vue"
+      //     ],
+      //     "configNamespace": "typescript",
+      //     "enableForWorkspaceTypeScriptVersions": true
+      //   }
+      // ]
     },
     "lua_ls": {
       "Lua.diagnostics.enable": false
