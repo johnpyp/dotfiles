@@ -2,9 +2,9 @@
 -- Prefer plugin configuration over this file.
 --
 
-vim.keymap.set("n", "<leader>y", '"+y', { desc = "System Copy", silent = true }) -- System copy
-vim.keymap.set("n", "<leader>p", '"+p', { desc = "System Paste", silent = true }) -- System paste
-vim.keymap.set("n", "<leader>W", ":noa w<CR>", { desc = "Quiet save", silent = true }) -- Save without triggering events and stuff
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "System Copy", silent = true }) -- System copy
+vim.keymap.set("n", "<leader>p", '"+p', { desc = "System Paste", silent = true })         -- System paste
+vim.keymap.set("n", "<leader>W", ":noa w<CR>", { desc = "Quiet save", silent = true })    -- Save without triggering events and stuff
 
 vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "Window (C-w)", silent = true })
 
@@ -14,12 +14,12 @@ vim.keymap.set("v", "y", "ygv<Esc>", { silent = true }) -- Better `y` behavior i
 -- vim.keymap.set("n", "L", ":bnext<CR>", { desc = "Next Buffer", silent = true }) -- Easy buffer nav
 -- vim.keymap.set("n", "H", ":bprevious<CR>", { desc = "Previous Buffer", silent = true }) -- Easy buffer nav
 
-vim.keymap.set("n", "<leader>e", ":nohl<CR>", { desc = "Clear highlight", silent = true }) -- Clear highlights across the buffer
+vim.keymap.set("n", "<leader>e", ":nohl<CR>", { desc = "Clear highlight", silent = true })                               -- Clear highlights across the buffer
 
-vim.keymap.set("v", "<", "<gv", { desc = "Better indent left", silent = true }) -- Better indent left in visual mode
-vim.keymap.set("v", ">", ">gv", { desc = "Better indent right", silent = true }) -- Better indent right in visual mode
+vim.keymap.set("v", "<", "<gv", { desc = "Better indent left", silent = true })                                          -- Better indent left in visual mode
+vim.keymap.set("v", ">", ">gv", { desc = "Better indent right", silent = true })                                         -- Better indent right in visual mode
 
-vim.keymap.set("n", "<leader>q", ":bd<CR>", { desc = "Quit Buffer", silent = true }) -- Close just the buffer
+vim.keymap.set("n", "<leader>q", ":bd<CR>", { desc = "Quit Buffer", silent = true })                                     -- Close just the buffer
 
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Move up in wrapped lines", expr = true, silent = true }) -- Incantation to make moving up in wrapped lines better
 vim.keymap.set(
