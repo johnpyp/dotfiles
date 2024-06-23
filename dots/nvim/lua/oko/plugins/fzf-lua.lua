@@ -3,7 +3,7 @@ return {
   "ibhagwan/fzf-lua",
   keys = {
     { "<C-p>",      ":FzfLua files<CR>",            desc = "Find Files" }, -- Find files
-    { "<C-i>",      ":FzfLua live_grep_native<CR>", desc = "Fzf Grep" }, -- Find text in files
+    { "<C-i>",      ":FzfLua live_grep_native<CR>", desc = "Fzf Grep" },   -- Find text in files
 
     -- TODO: should rethink these
     { "<leader>th", ":FzfLua help_tags<CR>",        desc = "Help Tags" },
@@ -36,7 +36,13 @@ return {
     },
     files = {
       multiprocess = true,
-      fd_opts = "--color=never --type f --hidden --follow --exclude .git --exclude node_modules --exclude .yarn",
+      previewer = "bat",
+      git_icons = false, -- Git icons slows down each request on large repos, otherwise performance is fine!
+      file_icons = true,
+      color_icons = true,
+      -- cmd = "rg",
+      rg_opts = "--color=never --files --follow -g '!.git' -g '!node_modules/' -g '!yarn/'",
+      fd_opts = "--color=never --type f --hidden --follow --exclude '.git/' --exclude node_modules --exclude .yarn",
     },
     grep = {
       previewer = false,
