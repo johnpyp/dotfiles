@@ -238,4 +238,6 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || true
+
 eval "$(/home/johnpyp/.local/bin/mise activate zsh)"
