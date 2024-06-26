@@ -8,6 +8,26 @@ return {
     optional = true,
     opts = { ensure_installed = { "toml" } }
   },
+  {
+    "AstroNvim/astrolsp",
+    ---@type AstroLSPOpts
+    opts = {
+      config = {
+        taplo = {
+          settings = {
+            formatter = {
+              arrayAutoCollapse = true,
+              arrayAutoExpand = false,
+              columnWidth = 140,
+              -- reorderKeys = true
+            },
+          }
+
+        }
+      }
+
+    }
+  },
   -- {
   --   "williamboman/mason-lspconfig.nvim",
   --   optional = true,
