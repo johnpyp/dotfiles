@@ -1,7 +1,7 @@
 local format_opts = {
-  timeout_ms = 300,
-  async = false, -- not recommended to change
-  quiet = false, -- not recommended to change
+  timeout_ms = 800,
+  async = false,           -- not recommended to change
+  quiet = false,           -- not recommended to change
   lsp_format = "fallback", -- not recommended to change
 }
 
