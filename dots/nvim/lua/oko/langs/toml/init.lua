@@ -16,7 +16,7 @@ return {
         taplo = {
           settings = {
             formatter = {
-              arrayAutoCollapse = true,
+              arrayAutoCollapse = false,
               arrayAutoExpand = false,
               columnWidth = 140,
               -- reorderKeys = true
