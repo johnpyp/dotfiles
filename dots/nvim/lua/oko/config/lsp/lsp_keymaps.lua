@@ -9,7 +9,7 @@ function M.get()
     { "gr",         "<cmd>Trouble lsp_references toggle focus=true<CR>", desc = "References",            nowait = true },
     { "gi",         vim.lsp.buf.implementation,                          desc = "Goto Implementation" },
     { "gy",         vim.lsp.buf.type_definition,                         desc = "Goto T[y]pe Definition" },
-    { "gD",         vim.lsp.buf.declaration,                             desc = "Goto Declaration" },
+    { "gD",         vim.lsp.buf.declaration,                             desc = "Goto Declaration",      has = "declaration" },
     { "K",          vim.lsp.buf.hover,                                   desc = "Hover" },
     { "gK",         vim.lsp.buf.signature_help,                          desc = "Signature Help",        has = "signatureHelp" },
     { "<c-k>",      vim.lsp.buf.signature_help,                          mode = "i",                     desc = "Signature Help", has = "signatureHelp" },
