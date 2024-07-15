@@ -25,10 +25,31 @@ return {
                 importEnforceGranularity = true,
                 importPrefix = "crate",
               },
+              diagnostics = {
+                experimental = {
+                  enable = true
+                }
+              },
+              lens = { enable = false },
               completion = {
                 postfix = {
                   enable = false, -- Disables some of the more annoying snippets
                 },
+              },
+              cargo = {
+                extraEnv = { CARGO_TARGET_DIR = 'target/analyzer' },
+                features = "all",
+                buildScripts = {
+                  -- Use RUSTC_WRAPPER=rust-analyzer when running build scripts to avoid checking unnecessary things. (when true)
+                  useRustcWrapper = true, -- TEST performance implications
+                }
+              },
+              files = {
+                excludeDirs = {
+                  ".flatpak-builder",
+                  "build",
+                  "flatpak_app",
+                }
               },
               inlayHints = {
                 lifetimeElisionHints = {
