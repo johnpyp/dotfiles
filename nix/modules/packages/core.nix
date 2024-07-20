@@ -156,7 +156,7 @@
     xdg_utils
     yarn
     yarn2nix
-    youtube-dl
+    yt-dlp
     zip
     zlib
     zsh
