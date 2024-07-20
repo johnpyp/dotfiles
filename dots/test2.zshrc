@@ -212,7 +212,7 @@ ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
 ZVM_ESCAPE_KEYTIMEOUT=0
 
 # bun completions
-[ -s "/home/johnpyp/.bun/_bun" ] && source "/home/johnpyp/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -226,4 +226,5 @@ alias b="bun"
 
 [[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba') || true
 [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || true
-[[ command -v mise ]] && eval "$(mise activate zsh)" || true
+
+command -v mise && eval "$(mise activate zsh)" || true
