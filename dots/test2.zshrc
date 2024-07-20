@@ -224,20 +224,6 @@ export LC_TYPE=en_US.UTF-8
 alias m="micromamba"
 alias b="bun"
 
-export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
-# pnpm
-export PNPM_HOME="/home/johnpyp/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
+[[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba') || true
 [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || true
-
-eval "$(/home/johnpyp/.local/bin/mise activate zsh)"
+[[ command -v mise ]] && eval "$(mise activate zsh)" || true
