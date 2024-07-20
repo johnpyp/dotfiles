@@ -6,18 +6,16 @@ return {
     vim.o.timeout = true
     -- vim.o.timeoutlen = 300
     local wk = require("which-key")
-    local wk_presets = require("which-key.plugins.presets")
+    -- local wk_presets = require("which-key.plugins.presets")
 
-    wk_presets.objects["a("] = nil
-    wk.register({
-      ["<leader>c"] = { name = "code" },
-      -- ["<leader>W"] = { name = "Quiet Save" },
-      -- ["<leader>n"] = { name = "Nvim tree" },
-      ["<leader>t"] = { name = "fzf" },
+    -- wk_presets.objects["a("] = nil
+    wk.add({
+      { "<leader>c", group = "code" },
+      { "<leader>t", group = "fzf" }
     })
   end,
   opts = {
-    window = {
+    win = {
       border = "rounded",
     },
     -- your configuration comes here
