@@ -26,14 +26,10 @@
   # Firewall, for plex
   networking.firewall.enable = false;
 
-  # networking.interfaces.ens32.ipv4.addresses = [{
-  #   address = "192.168.1.64";
-  #   prefixLength = 24;
-  # }];
-  boot.kernel.sysctl."net.ipv6.conf.ens32.disable_ipv6" = true;
+  services.qemuGuest.enable = true;
 
-  networking.interfaces.ens33u1.useDHCP = false;
-  networking.interfaces.ens33u1.ipv4.addresses = [
+  networking.interfaces.ens18.useDHCP = false;
+  networking.interfaces.ens18.ipv4.addresses = [
     {
       address = "192.168.1.41";
       prefixLength = 24;
@@ -43,13 +39,7 @@
       prefixLength = 16;
     }
   ];
-  boot.kernel.sysctl."net.ipv6.conf.ens33u1.disable_ipv6" = true;
-
-  # networking.interfaces.ens35.ipv4.addresses = [{
-  #   address = "192.168.1.64";
-  #   prefixLength = 24;
-  # }];
-  # boot.kernel.sysctl."net.ipv6.conf.ens35.disable_ipv6" = true;
+  boot.kernel.sysctl."net.ipv6.conf.ens18.disable_ipv6" = true;
 
   networking.defaultGateway = "192.168.1.1";
   # networking.nameservers = [ "192.168.1.1" ];
