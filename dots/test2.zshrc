@@ -36,7 +36,7 @@ setopt HIST_VERIFY            # Do not execute immediately upon history expansio
 setopt HIST_BEEP              # Beep when accessing non-existent history.
 
 HISTFILE=~/.zsh_history
-# save big history yay
+# save a lot of history
 HISTSIZE=290000
 SAVEHIST=290000
 
@@ -68,8 +68,6 @@ function zsh_directory_name() {
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
 DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 
-fpath+=~/.zfunc
-
 bindkey '^H' backward-kill-word
 
 removelink() {
@@ -80,30 +78,23 @@ benchzsh() {
   repeat 20 { time zsh -i -c exit }
 }
 
-checkip() {
- curl https://ipapi.co/json/
-}
-
+alias b="bun"
 alias p="pnpm"
-alias k="kubectl"
-alias u="ultra --raw --rebuild"
-alias sudo="sudo -E "
-alias nixos-rebuild="sudo -H nixos-rebuild "
-alias cp="cp -i"         # Confirm before overwriting something
-alias free='free -h'                                            # Show sizes in MB
-alias gs="git status"
-alias gc="git commit"
-alias font-list="sort <(fc-list : family) | vim -"
 alias dc="docker-compose"
 alias vim="nvim"
+
+alias sudo="sudo -E "
+alias cp="cp -i"         # Confirm before overwriting something
+alias ex="ouch d -q"     # Extract an archive
+alias s="source $HOME/.zshrc"
+
+alias font-list="sort <(fc-list : family) | vim -"
 alias vimdiff="nvim -d"
+
 alias clr="printf '\033[2J\033[3J\033[1;1H'"
 alias synctime="timedatectl set-ntp true"
-alias em="emacs -nw"
-alias ex="aunpack"
-alias archive="apack -e -F .zip"
-alias nix-env=$'nix-env -f \'<nixpkgs>\''
-# ls memes
+
+# extra ls commands
 alias ls='eza --icons --classify --group-directories-first --time-style=long-iso --group --color-scale all'
 alias l='ls --git-ignore'
 alias ll='ls -l'
@@ -111,6 +102,7 @@ alias la='ls -a'
 alias lla='ls -la'
 
 
+#### A better rsync default
 # Included options
 #
 # --recursive          Recurse into directories
@@ -138,19 +130,18 @@ alias goodsync="rsync --recursive --links --perms --times --owner --update --ver
                       --hard-links --whole-file --xattrs --partial \
                       --progress --numeric-ids --human-readable --info=progress2"
 
-# alias coa="conda deactivate && conda activate"
-# alias cod="conda deactivate"
-# alias coc="conda create --name"
-alias s="source $HOME/.zshrc"
-alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+### A better chmod default, properly setting permission flags for the current user
 alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
-alias ssh="TERM=\"xterm-256color\" ssh"
-# alias lazydocker="TERM=\"xterm-256color\" lazydocker"
 
-alias icat="kitty +kitten icat" # https://sw.kovidgoyal.net/kitty/kittens/icat/
+if [ "$(command -v bat)" ]; then
+  unalias -m 'cat'
+  cat() { bat -pp --theme="Nord" $@ }
+fi
 
-function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+# turn on if you run into ssh display issues
+# alias ssh="TERM=\"xterm-256color\" ssh"
 
+# Forward a port from remote ssh to local
 sshforward() {
   ssh $1 -L $2\:localhost\:$2 -N
 }
@@ -165,7 +156,9 @@ sshforget() {
   ssh-keygen -R $(sship $1)
 }
 
-VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
+# Use neovim for editor stuff
+export VISUAL=nvim;
+export EDITOR=nvim;
 
 # Automatic refresh of powerlevel10k git status
 # https://github.com/romkatv/gitstatus/issues/368#issuecomment-1387269889
@@ -187,39 +180,27 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 export BUN_INSTALL="$HOME/.bun"
 export DENO_INSTALL="$HOME/.deno"
-export FLYCTL_INSTALL="$HOME/.fly"
-export WASMTIME_HOME="$HOME/.wasmtime"
 
-export PATH=$WASMTIME_HOME/bin:$FLYCTL_INSTALL/bin:/home/johnpyp/.turso:$DENO_INSTALL/bin:$BUN_INSTALL/bin:~/.local/share/pnpm:~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
-export XDG_DATA_HOME=$HOME/.local/share
+export PATH=$DENO_INSTALL/bin:$BUN_INSTALL/bin:~/.scripts:~/.luarocks/bin:~/go/bin:~/.local/bin:~/.cargo/bin:/opt/homebrew/bin:$PATH
+# export XDG_DATA_HOME=$HOME/.local/share
 
-eval $(keychain --eval --quiet id_rsa)
 export GO111MODULE="on"
 
-[ -f ~/.profile ] && source ~/.profile
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $HOME/.profile ] && source ~/.profile
+[ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ "$(command -v bat)" ]; then
-  unalias -m 'cat'
-  cat() { bat -pp --theme="Nord" $@ }
-fi
-if [ -e /home/johnpyp/.nix-profile/etc/profile.d/nix.sh ]; then . /home/johnpyp/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-
-ZVM_CURSOR_STYLE_ENABLED=false
-ZVM_KEYTIMEOUT=0
-ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
-ZVM_ESCAPE_KEYTIMEOUT=0
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
+# Use good en_US presets for LC stuff
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 
-[ -f /opt/mambaforge/etc/profile.d/conda.sh ] && source /opt/mambaforge/etc/profile.d/conda.sh
+[[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find $HOME/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba') || true
 
 alias m="micromamba"
 alias b="bun"
@@ -228,3 +209,12 @@ alias b="bun"
 [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || true
 
 command -v mise && eval "$(mise activate zsh)" || true
+command -v keychain && eval $(keychain --eval --quiet id_rsa) || true
+
+[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || true
+
+# ZSH VIM plugin (ZVM) configuration
+ZVM_CURSOR_STYLE_ENABLED=false
+ZVM_KEYTIMEOUT=0
+ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
+ZVM_ESCAPE_KEYTIMEOUT=0
