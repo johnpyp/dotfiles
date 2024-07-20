@@ -65,6 +65,10 @@ return {
           },
         },
       },
+      handlers = {
+        -- Disable tsserver in favor of vtsls
+        tsserver = false,
+      },
       ---@diagnostic disable: missing-fields
       config = {
         vtsls = {
