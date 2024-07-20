@@ -27,7 +27,7 @@ local function modified_kind(kind)
 
     [types.lsp.CompletionItemKind.Snippet] = 100, -- bottom
     [types.lsp.CompletionItemKind.Keyword] = 100, -- bottom
-    [types.lsp.CompletionItemKind.Text] = 100, -- bottom
+    [types.lsp.CompletionItemKind.Text] = 100,    -- bottom
   }
 
   return modified_priority[kind] or kind
@@ -62,9 +62,14 @@ return {
 
       ---@type cmp.ConfigSchema
       return {
+        snippet = {
+          expand = function(args)
+            vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+          end,
+        },
         preselect = cmp.PreselectMode.None, -- Set to none to avoid flickering pre-selected item
         completion = {
-          completeopt = "menu,menuone", -- Remove `noinsert` to avoid flickering pre-selected item
+          completeopt = "menu,menuone",     -- Remove `noinsert` to avoid flickering pre-selected item
         },
         mapping = {
           -- confirm selection
@@ -72,7 +77,7 @@ return {
             if cmp.visible() then
               local confirm_opts = vim.deepcopy(global_confirm_opts) -- avoid mutating the original opts below
               local is_insert_mode = function() return vim.api.nvim_get_mode().mode:sub(1, 1) == "i" end
-              if is_insert_mode() then -- prevent overwriting brackets
+              if is_insert_mode() then                               -- prevent overwriting brackets
                 confirm_opts.behavior = cmp.ConfirmBehavior.Insert
               end
               local entry = cmp.get_selected_entry()
@@ -144,11 +149,11 @@ return {
           { name = "nvim_lsp", group_index = 1 },
           { name = "snippets", max_item_count = 5, keyword_length = 1, group_index = 1 },
           -- { name = "luasnip", max_item_count = 5, keyword_length = 1 },
-          { name = "path", group_index = 1 },
-          { name = "buffer", max_item_count = 5, keyword_length = 1, group_index = 1 },
+          { name = "path",     group_index = 1 },
+          { name = "buffer",   max_item_count = 5, keyword_length = 1, group_index = 1 },
           -- { name = "nvim_lua" },
           -- { name = "treesitter", max_item_count = 3, keyword_length = 1 },
-          { name = "crates", group_index = 1 },
+          { name = "crates",   group_index = 1 },
         },
 
         formatting = {
