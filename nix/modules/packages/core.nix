@@ -99,7 +99,7 @@
     neofetch
     # neovim-remote
     nix-index
-    nixfmt
+    nixfmt-classic
     nixpkgs-fmt
     nodejs-18_x
     ntfsprogs
@@ -123,7 +123,7 @@
     ranger
     redis
     ripgrep
-    rnix-lsp
+    # rnix-lsp
     rofi
     runc
     rustup

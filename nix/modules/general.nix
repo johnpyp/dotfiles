@@ -17,7 +17,7 @@
       defaultFonts.serif = [ "roboto-slab" ];
       defaultFonts.emoji = [ "Noto Color Emoji" ];
     };
-    fonts = with pkgs; [
+    packages = with pkgs; [
       nerdfonts
       cascadia-code
       fira
@@ -34,7 +34,7 @@
   programs.adb.enable = true;
   programs.zsh.enable = true;
 
-  nix.package = pkgs.nixUnstable;
+  nix.package = pkgs.nixVersions.latest;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
     keep-outputs = true
