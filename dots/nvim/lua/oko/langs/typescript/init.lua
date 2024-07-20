@@ -115,9 +115,9 @@ return {
       for _, ft in ipairs(format_filetypes) do
         opts.formatters_by_ft[ft] = function(bufnr)
           if require("conform").get_formatter_info("biome", bufnr).available then
-            return { "biome", { "eslint_d", "eslint" } }
+            return { "biome" }
           else
-            return { { "prettierd", "prettier" }, { "eslint_d", "eslint" } }
+            return { { "prettierd", "prettier" } }
           end
         end
       end
