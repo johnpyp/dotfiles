@@ -58,6 +58,8 @@
     DefaultTimeout=60s
   '';
 
+  services.tailscale.enable = true;
+
   # Turtle is on ESXI!
   virtualisation.vmware.guest.enable = true;
 
