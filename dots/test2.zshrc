@@ -200,18 +200,18 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 
-[[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find $HOME/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba') || true
+[[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find $HOME/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
 
 alias m="micromamba"
 alias b="bun"
 
-[[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba') || true
-[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || true
+[[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
+[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-command -v mise && eval "$(mise activate zsh)" || true
-command -v keychain && eval $(keychain --eval --quiet id_rsa) || true
+command -v mise &>/dev/null && eval "$(mise activate zsh)"
+command -v keychain &>/dev/null && eval $(keychain --eval --quiet id_rsa)
 
-[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" || true
+[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # ZSH VIM plugin (ZVM) configuration
 ZVM_CURSOR_STYLE_ENABLED=false
