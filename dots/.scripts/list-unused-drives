@@ -15,7 +15,7 @@ def pp(v: Any):
 zfs_list: str = zpool["list", "-v", "-H", "-L", "-P"]()
 
 drives = json.loads(
-    lsblk["-J", "-o", "NAME,PATH,SIZE,VENDOR,MODEL,WWN,SERIAL,HCTL,KNAME,TRAN"]()
+    lsblk["-J", "-o", "NAME,PATH,SIZE,VENDOR,MODEL,WWN,SERIAL,HCTL,KNAME,TRAN,MOUNTPOINTS"]()
 )["blockdevices"]
 
 
@@ -46,6 +46,11 @@ for d in drives:
         seen_sn.add(d["serial"])
 
 unused_drives.sort(key=lambda d: d["model"])
-print(pd.DataFrame(unused_drives))
+with pd.option_context('display.max_rows', None,
+                       'display.max_columns', None,
+                       'display.precision', 3,
+                       'display.width', 240
+                       ):
+    print(pd.DataFrame(unused_drives))
 
 # vim: set ft=python:
