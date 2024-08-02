@@ -117,7 +117,7 @@ return {
           if require("conform").get_formatter_info("biome", bufnr).available then
             return { "biome" }
           else
-            return { { "prettierd", "prettier" } }
+            return { "prettierd", "prettier", stop_after_first = true }
           end
         end
       end
