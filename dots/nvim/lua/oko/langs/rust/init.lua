@@ -15,12 +15,12 @@ return {
         rust_analyzer = {
           settings = {
             ["rust-analyzer"] = {
-              check = {
-                command = "clippy",
-                extraArgs = {
-                  "--no-deps",
-                },
-              },
+              -- check = {
+              --   command = "clippy",
+              --   extraArgs = {
+              --     "--no-deps",
+              --   },
+              -- },
               assist = {
                 importEnforceGranularity = true,
                 importPrefix = "crate",
@@ -85,7 +85,7 @@ return {
   -- },
   {
     "mrcjkb/rustaceanvim",
-    version = "^4",
+    version = "^5",
     ft = "rust",
     opts = function()
       -- local adapter
@@ -138,6 +138,15 @@ return {
       }
     end,
     config = function(_, opts) vim.g.rustaceanvim = opts end,
+  },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        rust = { "rustfmt", lsp_format = "never", },
+      },
+    },
   },
   {
     "Saecki/crates.nvim",

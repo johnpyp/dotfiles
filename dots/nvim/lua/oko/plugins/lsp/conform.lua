@@ -15,7 +15,7 @@ return {
       local conform = require("conform")
       vim.api.nvim_create_autocmd("BufWritePre", {
         group = vim.api.nvim_create_augroup("ConformFormat", {}),
-        callback = function(event) conform.format({ bufnr = event.buf }) end,
+        callback = function(event) conform.format({ bufnr = event.buf, async = false }) end,
       })
 
       -- Manual format
