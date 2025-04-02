@@ -4,6 +4,7 @@
 return {
   {
     "luckasRanarison/tailwind-tools.nvim",
+    enabled = true,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {}, -- your configuration
   },
@@ -12,7 +13,7 @@ return {
     optional = true,
     opts = function(_, opts)
       opts.ensure_installed =
-        require("oko.utils").list_insert_unique(opts.ensure_installed, { "tailwindcss-language-server" })
+          require("oko.utils").list_insert_unique(opts.ensure_installed, {})
     end,
   },
 }

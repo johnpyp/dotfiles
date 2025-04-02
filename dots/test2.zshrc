@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/johnpyp/.zsh/completions:"* ]]; then export FPATH="/home/johnpyp/.zsh/completions:$FPATH"; fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 setopt PROMPT_SUBST
@@ -101,6 +103,8 @@ alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 
+alias copy="xsel -ib"
+
 
 #### A better rsync default
 # Included options
@@ -131,7 +135,7 @@ alias goodsync="rsync --recursive --links --perms --times --owner --update --ver
                       --progress --numeric-ids --human-readable --info=progress2"
 
 ### A better chmod default, properly setting permission flags for the current user
-alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
+alias goodmod="chmod -R a-x,u+rwX,go+rX,go-w $@"
 
 if [ "$(command -v bat)" ]; then
   unalias -m 'cat'
@@ -149,6 +153,13 @@ sshforward() {
 # Get the ip of an ssh destination
 sship() {
   ssh -G $1 | awk '/^hostname / { print $2 }'
+}
+
+checkip() {
+ curl https://ipapi.co/json/
+}
+checkipv4() {
+ curl -v4 https://ipapi.co/json/
 }
 
 # Forget (remove from known_hosts) an ssh destination
@@ -181,7 +192,9 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export BUN_INSTALL="$HOME/.bun"
 export DENO_INSTALL="$HOME/.deno"
 
-export PATH=$DENO_INSTALL/bin:$BUN_INSTALL/bin:~/.scripts:~/.luarocks/bin:~/go/bin:~/.local/bin:~/.cargo/bin:/opt/homebrew/bin:$PATH
+export DEPOT_INSTALL_DIR="/home/johnpyp/.depot/bin"
+
+export PATH=$DEPOT_INSTALL_DIR:$HOME/.dotnet/tools/:$DENO_INSTALL/bin:$BUN_INSTALL/bin:~/.scripts:~/.luarocks/bin:~/go/bin:~/.local/bin:$HOME/.npm-global/bin/:~/.cargo/bin:/opt/homebrew/bin:$PATH:$HOME/.modular/bin
 # export XDG_DATA_HOME=$HOME/.local/share
 
 export GO111MODULE="on"
@@ -195,17 +208,17 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Use good en_US presets for LC stuff
+[[ -f /usr/lib/locale/locale-archive ]] && export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive 
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 
-[[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find $HOME/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
+[[ -d $HOME/.kube/clusters ]] && export KUBECONFIG=$(find $HOME/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
 
 alias m="micromamba"
 alias b="bun"
 
-[[ -f $HOME/.kube/clusters ]] && export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
 [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 command -v mise &>/dev/null && eval "$(mise activate zsh)"
@@ -218,3 +231,10 @@ ZVM_CURSOR_STYLE_ENABLED=false
 ZVM_KEYTIMEOUT=0
 ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
 ZVM_ESCAPE_KEYTIMEOUT=0
+
+[[ -f $HOME/.deno ]] && . "/home/johnpyp/.deno/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/johnpyp/.lmstudio/bin"
+
+export PATH="$PATH:/home/johnpyp/.modular/bin"

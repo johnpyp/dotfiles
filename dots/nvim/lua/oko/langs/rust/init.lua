@@ -30,6 +30,7 @@ return {
                   enable = true
                 }
               },
+              numThreads = 8,
               lens = { enable = false },
               completion = {
                 postfix = {

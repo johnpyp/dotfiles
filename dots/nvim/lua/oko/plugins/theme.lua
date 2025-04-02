@@ -21,6 +21,7 @@ return {
         notify = true,
         treesitter = true,
         which_key = true,
+        blink_cmp = true
       },
     },
     init = function(_plugin) vim.cmd.colorscheme("catppuccin") end,

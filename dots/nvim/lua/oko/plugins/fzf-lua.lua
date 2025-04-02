@@ -3,7 +3,7 @@ return {
   "ibhagwan/fzf-lua",
   keys = {
     { "<C-p>",      ":FzfLua files<CR>",            desc = "Find Files" }, -- Find files
-    { "<C-i>",      ":FzfLua live_grep_native<CR>", desc = "Fzf Grep" },   -- Find text in files
+    { "<C-i>",      ":FzfLua live_grep_glob<CR>",   desc = "Fzf Grep" },   -- Find text in files
 
     -- TODO: should rethink these
     { "<leader>th", ":FzfLua help_tags<CR>",        desc = "Help Tags" },
@@ -45,9 +45,11 @@ return {
       fd_opts = "--color=never --type f --hidden --follow --exclude '.git/' --exclude node_modules --exclude .yarn",
     },
     grep = {
-      previewer = false,
-      rg_opts =
+      previewer      = false,
+      rg_opts        =
       "--column --line-number --no-heading --color=always --ignore-case --max-columns=512 -g '!yarn.lock' -g '!pnpm-lock.yaml' -g '!vendor/' ",
+      glob_flag      = "--iglob", -- for case sensitive globs use '--glob'
+      glob_separator = "%s%-%-"   -- query separator pattern (lua): ' --'
     },
   },
 

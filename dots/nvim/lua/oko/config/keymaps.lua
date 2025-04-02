@@ -19,7 +19,7 @@ vim.keymap.set("n", "<leader>e", ":nohl<CR>", { desc = "Clear highlight", silent
 vim.keymap.set("v", "<", "<gv", { desc = "Better indent left", silent = true })                                          -- Better indent left in visual mode
 vim.keymap.set("v", ">", ">gv", { desc = "Better indent right", silent = true })                                         -- Better indent right in visual mode
 
-vim.keymap.set("n", "<leader>q", ":bd<CR>", { desc = "Quit Buffer", silent = true })                                     -- Close just the buffer
+vim.keymap.set("n", "<leader>q", function() Snacks.bufdelete() end, { desc = "Quit Buffer", silent = true })             -- Close just the buffer
 
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Move up in wrapped lines", expr = true, silent = true }) -- Incantation to make moving up in wrapped lines better
 vim.keymap.set(

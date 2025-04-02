@@ -28,6 +28,7 @@ nnoremap <C-p> <Cmd>call VSCodeNotify("workbench.action.quickOpen")<CR>
 nnoremap <silent> ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
 
 nnoremap <silent> <leader>ca <Cmd>call VSCodeNotify('editor.action.quickFix')<CR>
+vnoremap <silent> <leader>ca <Cmd>call VSCodeNotify('editor.action.quickFix')<CR>
 nnoremap <silent> <leader>co <Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>
 nnoremap <silent> <leader>cr <Cmd>call VSCodeNotify('editor.action.rename')<CR>
 

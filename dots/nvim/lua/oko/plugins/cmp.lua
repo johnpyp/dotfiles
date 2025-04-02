@@ -40,12 +40,14 @@ return {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
     lazy = false,
+    enabled = true,
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "kyazdani42/nvim-web-devicons",
       "onsails/lspkind.nvim",
+      "garymjr/nvim-snippets",
     },
 
     opts = function()
@@ -209,7 +211,7 @@ return {
           end,
         },
         sorting = {
-          priority_weight = 2,
+          -- priority_weight = 2,
           comparators = {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
@@ -248,10 +250,11 @@ return {
               return sorters.eval.smaller_number_better(e1_under, e2_under)
             end,
             -- cmp.config.compare.recently_used,
-            cmp.config.compare.sort_text,
+            -- cmp.config.compare.sort_text,
             -- cmp.config.compare.locality,
             cmp.config.compare.score,
-            cmp.config.compare.order,
+            cmp.config.compare.length,
+            -- cmp.config.compare.order,
           },
         },
       }
@@ -259,6 +262,7 @@ return {
   },
   {
     "garymjr/nvim-snippets",
+    optional = true,
     opts = {
       create_cmp_source = true,
       friendly_snippets = true,

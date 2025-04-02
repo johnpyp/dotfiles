@@ -46,4 +46,14 @@ return {
       opts.ensure_installed = require("oko.utils").list_insert_unique(opts.ensure_installed, { "json-lsp" })
     end,
   },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        json = { "biome" },
+        jsonc = { "biome" },
+      },
+    },
+  },
 }

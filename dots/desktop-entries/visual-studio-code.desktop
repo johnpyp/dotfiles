@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Visual Studio Code
+Name=Visual Studio Code (Fast)
 Comment=Code Editing. Refined.
 GenericName=Text Editor
 Exec=/opt/visual-studio-code/code %F --unity-launch

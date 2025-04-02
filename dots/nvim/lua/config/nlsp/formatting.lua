@@ -11,7 +11,7 @@ function M.should_use_null_ls_format(bufnr, ft)
   local available = sources.get_available(ft, "NULL_LS_FORMATTING")
   local can_null_ls_format = #available > 0
 
-  local clients = vim.lsp.get_active_clients({ bufnr })
+  local clients = vim.lsp.get_clients({ bufnr })
 
   local is_null_ls_active = false
   local lsp_wants_format = false

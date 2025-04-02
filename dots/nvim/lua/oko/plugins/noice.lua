@@ -34,6 +34,12 @@ return {
         message = {
           enabled = false,
         },
+
+        signature = {
+          auto_open = {
+            enabled = false
+          }
+        }
       },
 
       messages = {
@@ -43,6 +49,8 @@ return {
       notify = {
         enabled = true,
       },
+
+
 
       -- you can enable a preset for easier configuration
       presets = {
