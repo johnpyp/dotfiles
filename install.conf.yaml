@@ -36,13 +36,12 @@
 
     ~/.scripts: dots/.scripts
     ~/.tmux.conf: dots/.tmux.conf
-    # ~/.zshrc: dots/.zshrc
     ~/.tmux/plugins/tpm: gmodules/tpm
-    ~/.xinitrc: dots/.xinitrc
+    # ~/.xinitrc: dots/.xinitrc
     ~/.Xresources: dots/.Xresources
     ~/.zprofile: dots/.zprofile
     ~/.zsh_plugins.txt: dots/.zsh_plugins.txt
-    ~/.zshrc: dots/test2.zshrc
+    ~/.zshrc: dots/.zshrc
 
     ~/.local/share/applications/:
       glob: true

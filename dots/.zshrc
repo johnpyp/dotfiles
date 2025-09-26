@@ -1,4 +1,11 @@
-setopt promptsubst
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/johnpyp/.zsh/completions:"* ]]; then export FPATH="/home/johnpyp/.zsh/completions:$FPATH"; fi
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+setopt PROMPT_SUBST
+
+
+# zstyle ':prezto:module:history' histfile "<file_name>"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -7,235 +14,42 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# use friendlier antidote save names
+zstyle ':antidote:bundle' use-friendly-names 'yes'
 
-# # Remove older duplicate entries from history.
-# setopt hist_ignore_all_dups
-# # Expire A Duplicate Event First When Trimming History.
-# setopt hist_expire_dups_first
-# # Do Not Record An Event That Was Just Recorded Again.
-# setopt hist_ignore_dups  
-# # Remove superfluous blanks from history items.       
-# setopt hist_reduce_blanks
-# # Do Not Display A Previously Found Event.
-# setopt hist_find_no_dups
-# # Do Not Record An Event Starting With A Space.
-# setopt hist_ignore_space
-# # Do Not Write A Duplicate Event To The History File.
-# setopt hist_save_no_dups
-# # Do Not Execute Immediately Upon History Expansion.        
-# setopt hist_verify
-
-# Allow multiple sessions append to one zsh command history.           
-setopt append_history
-# Show Timestamp In History.
-setopt extended_history
-# Write to history file immediately, not after shell exit.
-setopt inc_append_history
-# Share history between different instances of the shell.
-setopt share_history    
-
-typeset -g HISTSIZE=290000 SAVEHIST=290000 HISTFILE=~/.zhistory
-
-### Added by Zi's installer
-if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}z-shell/zi%F{220})…%f"
-    command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
-    command git clone https://github.com/z-shell/zi.git "$HOME/.zi/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+if ! [[ -e ~/.antidote ]]
+then
+  git clone https://github.com/mattmc3/antidote.git ~/.antidote
 fi
 
-source "$HOME/.zi/bin/zi.zsh"
+source ~/.antidote/antidote.zsh
+antidote load
 
+setopt BANG_HIST              # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format.
+setopt SHARE_HISTORY          # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS   # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS      # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE      # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS      # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY            # Do not execute immediately upon history expansion.
+setopt HIST_BEEP              # Beep when accessing non-existent history.
 
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
-DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
+HISTFILE=~/.zsh_history
+# save a lot of history
+HISTSIZE=290000
+SAVEHIST=290000
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-# zi ice lucid
-# zi light-mode for \
-#   z-shell/z-a-meta-plugins \
-#   @annexes+rec
-
-zi light z-shell/z-a-meta-plugins
-zi light @annexes
-
-zi ice depth=1; zi light romkatv/powerlevel10k
-
-zi light-mode for \
-  @fuzzy \
-  @sharkdp
-
-zi wait lucid light-mode for \
-  atinit"zicompinit; zicdreplay" \
-    z-shell/F-Sy-H \
-  atload"_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
-  blockf atpull'zi creinstall -q .' \
-    zsh-users/zsh-completions
-
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
-
-
-
-# zi as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
-#     atpull'%atclone' pick"direnv" src"zhook.zsh" for \
-#         direnv/direnv
-#
-zi ice as"completion"
-zi snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
-
-zi ice as"completion"
-zi snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
-
-zi wait lucid for \
-        hlissner/zsh-autopair \
-        z-shell/H-S-MW \
-        wfxr/forgit \
-        agkozak/zsh-z \
-        as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX" \
-            tj/git-extras
-
-# zi wait lucid as"null" for \
-#        node"!fx" zdharma/null
-
-zi wait lucid pack for ls_colors
-
-
-# zt_completion(){zi ice lucid ${1/#[0-9][a-c]/wait"${1}"} as"completion" "${@:2}";  }
-# zt_completion 0a blockf
 
 if [ -z "$_zsh_custom_scripts_loaded" ]; then
     _zsh_custom_scripts_loaded=1
 
-    zi lucid for wait'1' autoload'#manydots-magic' knu/zsh-manydots-magic
+    # knu/zsh-manydots-magic
+    autoload -Uz manydots-magic
+    manydots-magic
 fi
-# Next two lines must be below the above two
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
-
-### End of zi's installer chunk
-
-# export CONDA_DEFAULT_ENV=""
-bindkey '^H' backward-kill-word
-# Enable vim mode
-# bindkey -v '^?' backward-delete-char
-# bindkey -s '\e[1;2Q' ''
-removelink() {
-  [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
-}
-
-benchzsh() {
-  repeat 20 { time zsh -i -c exit }
-}
-
-checkip() {
- curl https://ipapi.co/json/
-}
-
-alias p="pnpm"
-alias u="ultra --raw --rebuild"
-alias sudo="sudo -E"
-alias cp="cp -i"         # Confirm before overwriting something
-alias free='free -h'                                            # Show sizes in MB
-# alias git=hub
-alias gs="git status"
-alias gc="git commit"
-alias font-list="sort <(fc-list : family) | vim -"
-alias dc="docker-compose"
-alias vim="nvim"
-alias vimdiff="nvim -d"
-alias clr="printf '\033[2J\033[3J\033[1;1H'"
-alias synctime="timedatectl set-ntp true"
-alias em="emacs -nw"
-alias ex="aunpack"
-alias archive="apack -e -F .zip"
-# ls memes
-alias ls='exa --icons --classify --group-directories-first --time-style=long-iso --group --color-scale'
-alias l='ls --git-ignore'
-alias ll='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-alias goodsync="rsync -rlptoD -uvxHWXP --numeric-ids --info=progress2"
-
-alias coa="conda deactivate && conda activate"
-alias cod="conda deactivate"
-alias coc="conda create --name"
-alias s="source ~/.zshrc"
-alias ys="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
-alias goodmod="chmod -R u+rwX,go+rX,go-w $@"
-alias ssh="TERM=\"xterm-256color\" ssh"
-alias lazydocker="TERM=\"xterm-256color\" lazydocker"
-
-sshforward() {
-  ssh $1 -L $2\:localhost\:$2 -N
-}
-
-# Get the ip of an ssh destination
-sship() {
-  ssh -G $1 | awk '/^hostname / { print $2 }'
-}
-
-# Forget (remove from known_hosts) an ssh destination
-sshforget() {
-  ssh-keygen -R $(sship $1)
-}
-
-VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
-
-export LESS="-RFX"
-export LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-export LESS_TERMCAP_md=$(printf "\e[1;31m") \
-export LESS_TERMCAP_me=$(printf "\e[0m") \
-export LESS_TERMCAP_se=$(printf "\e[0m") \
-export LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-export LESS_TERMCAP_ue=$(printf "\e[0m") \
-export LESS_TERMCAP_us=$(printf "\e[1;32m") \
-
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS="--ansi"
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export PATH=~/.emacs.d/bin:~/.scripts:~/.luarocks/bin:~/.dotnet/tools:~/go/bin:~/.npm-global/bin:~/.emacs.d/bin:~/.yarn/bin:~/.local/bin:~/.cargo/bin:~/.nimble/bin:/opt/homebrew/bin:$PATH
-export XDG_DATA_HOME=$HOME/.local/share
-
-eval $(keychain --eval --quiet id_rsa)
-export GO111MODULE="on"
-
-[ -f ~/.profile ] && source ~/.profile
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if [ "$(command -v bat)" ]; then
-  unalias -m 'cat'
-  cat() { bat -pp --theme="Nord" $@ }
-fi
-if [ -e /home/johnpyp/.nix-profile/etc/profile.d/nix.sh ]; then . /home/johnpyp/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/johnpyp/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/johnpyp/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/johnpyp/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/johnpyp/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-export CONDA_AUTO_ACTIVATE_BASE=false
-
-# export RUSTC_WRAPPER=sccache
-
-[[ "$(command -v direnv)" ]] && eval "$(direnv hook zsh)"
-
-export DIRENV_LOG_FORMAT=""
-# export TERM="kitty"
-
-# eval "$(starship init zsh)"
 
 function zsh_directory_name() {
   emulate -L zsh
@@ -250,46 +64,213 @@ function zsh_directory_name() {
   return 1
 }
 
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# eval $(thefuck --alias)
+
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
+DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
+
+bindkey '^H' backward-kill-word
+
+removelink() {
+  [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
+}
+
+benchzsh() {
+  repeat 20 { time zsh -i -c exit }
+}
+
+alias b="bun"
+alias p="pnpm"
+alias pe="pnpm exec"
+alias ppx="pnpm dlx"
+alias dc="docker-compose"
+alias vim="nvim"
+
+alias sudo="sudo -E "
+alias cp="cp -i"         # Confirm before overwriting something
+alias ex="aunpack"     # Extract an archive
+alias s="source $HOME/.zshrc"
+
+alias font-list="sort <(fc-list : family) | vim -"
+alias vimdiff="nvim -d"
+
+alias clr="printf '\033[2J\033[3J\033[1;1H'"
+alias synctime="timedatectl set-ntp true"
+
+# extra ls commands
+alias ls='eza --icons --classify --group-directories-first --time-style=long-iso --group --color-scale all'
+alias l='ls --git-ignore'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+
+alias copy="xsel -ib"
 
 
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/usr/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/home/johnpyp/micromamba";
-__mamba_setup="$('/usr/bin/micromamba' shell hook --shell zsh --prefix '/home/johnpyp/micromamba' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    if [ -f "/home/johnpyp/micromamba/etc/profile.d/mamba.sh" ]; then
-        . "/home/johnpyp/micromamba/etc/profile.d/mamba.sh"
-    else
-        export PATH="/home/johnpyp/micromamba/bin:$PATH"
-    fi
+#### A better rsync default
+# Included options
+#
+# --recursive          Recurse into directories
+# --links              Recreate symlinks
+# --perms              Set destination to be the same as the source permissions
+# --times              Transfer modification times along with the files (necessary for not duplicating work)
+# --owner              (sudo only) Sets destination file owner to the same owner as the source owner, associates by name, may fallback to ID number if no match (modified by --numeric-ids below).
+# --update             Skip files that are newer on the receiver (don't overwrite modifications)
+# --verbose            Increase verbosity (only one level)
+# --one-file-system    Don't cross filesystem boundaries
+# --hard-links         Look for hard-linked files in the source and link together corresponding files in the destination
+# --whole-file         Disables rsync's delta-transfer. May be faster when bandwidth between source and destination is higher than bandwidth to disk.
+# --xattrs             Update the destination extended attributes to be the same as the source ones
+# --partial            Keep partial files (maybe doesn't do anything with --whole-file)
+# --progress           Print the "progress line" (overall progress)
+# --numeric-ids        Use numeric ids rather than name matching for group/user
+# --human-readable     Output numbers in a human readable format
+# --info=progress2     Use the "progress2" info display
+#
+# Explicitly excluded notable options
+# --specials           Copy extra files
+# --devices            Recreate devices files
+# --group              Set the group of the dest file to be source file group
+alias goodsync="rsync --recursive --links --perms --times --owner --update --verbose --one-file-system \
+                      --hard-links --whole-file --xattrs --partial \
+                      --progress --numeric-ids --human-readable --info=progress2"
+
+### A better chmod default, properly setting permission flags for the current user
+alias goodmod="chmod -R a-x,u+rwX,go+rX,go-w $@"
+
+if [ "$(command -v bat)" ]; then
+  unalias -m 'cat'
+  cat() { bat -pp --theme="Nord" $@ }
 fi
-unset __mamba_setup
-# <<< mamba initialize <<<
+
+# turn on if you run into ssh display issues
+# alias ssh="TERM=\"xterm-256color\" ssh"
+
+# Forward a port from remote ssh to local
+sshforward() {
+  ssh $1 -L $2\:localhost\:$2 -N
+}
+
+# Get the ip of an ssh destination
+sship() {
+  ssh -G $1 | awk '/^hostname / { print $2 }'
+}
+
+checkip() {
+ curl https://ipapi.co/json/
+}
+checkipv4() {
+ curl -v4 https://ipapi.co/json/
+}
+
+# Forget (remove from known_hosts) an ssh destination
+sshforget() {
+  ssh-keygen -R $(sship $1)
+}
+
+# Use neovim for editor stuff
+export VISUAL=nvim;
+export EDITOR=nvim;
+
+# Automatic refresh of powerlevel10k git status
+# https://github.com/romkatv/gitstatus/issues/368#issuecomment-1387269889
+# maybe causes a bug with completions?
+TRAPALRM() {
+  local f
+  for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
+    [[ "${+functions[$f]}" == 0 ]] || "$f" &>/dev/null || true
+  done
+  p10k display -r
+}
+
+# uses envchain to export a single variable from the store current env
+# e.g `envpull aws AWS_SECRET_KEY`
+envpull () {
+  local ns="$1" var="$2"
+  local line
+  line=$(envchain "$ns" env | grep -E "^${var}=") || return 1
+  # prepend “export ” so the variable is marked for inheritance
+  eval "export ${line}"
+}
+
+codex1() {
+  codex -m gpt-5-codex \
+   -c model_reasoning_effort="medium" \
+    -c model_reasoning_summary_format="experimental" \
+   -c shell_environment_policy.inherit=all \
+   -c shell_environment_policy.ignore_default_excludes=true \
+   -c shell_environment_policy.experimental_use_profile=true \
+   --yolo \
+   --search \
+   "$@"
+}
+
+# Invoke TRAPALRM every 30 seconds.
+TMOUT=30
+
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS="--ansi"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+export BUN_INSTALL="$HOME/.bun"
+export DENO_INSTALL="$HOME/.deno"
+
+export DEPOT_INSTALL_DIR="/home/johnpyp/.depot/bin"
+
+export PATH=$DEPOT_INSTALL_DIR:$HOME/.dotnet/tools/:$DENO_INSTALL/bin:$BUN_INSTALL/bin:~/.scripts:~/.luarocks/bin:~/go/bin:~/.local/bin:$HOME/.npm-global/bin/:~/.cargo/bin:/opt/homebrew/bin:$PATH:$HOME/.modular/bin
+# export XDG_DATA_HOME=$HOME/.local/share
+
+export GO111MODULE="on"
+
+[ -f $HOME/.profile ] && source ~/.profile
+[ -f $HOME/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# Use good en_US presets for LC stuff
+[[ -f /usr/lib/locale/locale-archive ]] && export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive 
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_TYPE=en_US.UTF-8
+
+[[ -d $HOME/.kube/clusters ]] && export KUBECONFIG=$(find $HOME/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
 
 alias m="micromamba"
+alias b="bun"
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if [ "$(command -v pyenv)" ]; then
-  eval "$(pyenv init --path)"
-fi
+[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+command -v mise &>/dev/null && eval "$(mise activate zsh)"
+command -v keychain &>/dev/null && eval $(keychain --eval --quiet id_rsa)
+
+[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# ZSH VIM plugin (ZVM) configuration
 ZVM_CURSOR_STYLE_ENABLED=false
 ZVM_KEYTIMEOUT=0
 ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
 ZVM_ESCAPE_KEYTIMEOUT=0
 
-function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
-    RPS2=$RPS1
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
+[[ -f $HOME/.deno ]] && . "/home/johnpyp/.deno/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/johnpyp/.lmstudio/bin"
+
+export PATH="$PATH:/home/johnpyp/.modular/bin"
+
+eval "$(zoxide init zsh)"
+function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+# opencode
+export PATH=/home/johnpyp/.opencode/bin:$PATH
+
+export NVIM_APPNAME="nvim-uro"
+
+# alias claude="/home/johnpyp/.claude/local/claude"
+
+export PATH="$HOME/.claude/local:$PATH"
