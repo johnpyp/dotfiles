@@ -15,6 +15,7 @@
     ~/.config/kitty/themes: dots/kitty/themes
     ~/.config/kwalletrc: dots/kwalletrc
     ~/.config/nvim: dots/nvim
+    ~/.config/nvim-uro: dots/nvim-uro
     ~/.config/paru: dots/paru
     ~/.config/picom/picom.conf: dots/picom/picom.conf
     ~/.config/polybar: dots/polybar

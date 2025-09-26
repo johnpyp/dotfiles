@@ -69,16 +69,16 @@ return {
     "AstroNvim/astrolsp",
     optional = true,
     ---@param opts AstroLSPOpts
-    opts = function(_, opts)
-      local noice_opts = require("oko.utils").plugin_opts("noice.nvim")
-      -- disable the necessary handlers in AstroLSP
-      if not opts.lsp_handlers then opts.lsp_handlers = {} end
-      if vim.tbl_get(noice_opts, "lsp", "hover", "enabled") ~= false then
-        opts.lsp_handlers["textDocument/hover"] = false
-      end
-      if vim.tbl_get(noice_opts, "lsp", "signature", "enabled") ~= false then
-        opts.lsp_handlers["textDocument/signatureHelp"] = false
-      end
-    end,
+    -- opts = function(_, opts)
+    --   local noice_opts = require("oko.utils").plugin_opts("noice.nvim")
+    --   -- disable the necessary handlers in AstroLSP
+    --   if not opts.lsp_handlers then opts.lsp_handlers = {} end
+    --   if vim.tbl_get(noice_opts, "lsp", "hover", "enabled") ~= false then
+    --     opts.lsp_handlers["textDocument/hover"] = false
+    --   end
+    --   if vim.tbl_get(noice_opts, "lsp", "signature", "enabled") ~= false then
+    --     opts.lsp_handlers["textDocument/signatureHelp"] = false
+    --   end
+    -- end,
   },
 }

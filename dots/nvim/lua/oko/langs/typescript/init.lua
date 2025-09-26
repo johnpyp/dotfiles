@@ -19,6 +19,8 @@
 --   end
 --   return json
 -- end
+--
+local util = require("util")
 
 local format_filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
 
@@ -41,7 +43,6 @@ end
 M.has_prettier_config = require("oko.utils").memoize(M.has_prettier_config)
 M.has_biome_config = require("oko.utils").memoize(M.has_biome_config)
 
-
 ---@type LazySpec
 return {
   -- { import = "astrocommunity.pack.json" },
@@ -53,30 +54,28 @@ return {
   },
   {
     "AstroNvim/astrolsp",
+    dependencies = { "yioneko/nvim-vtsls" },
     ---@type AstroLSPOpts
     opts = {
       autocmds = {
-        eslint_fix_on_save = {
-          cond = function(client) return client.name == "eslint" and vim.fn.exists(":EslintFixAll") > 0 end,
-          {
-            event = "BufWritePost",
-            desc = "Fix all eslint errors",
-            callback = function() vim.cmd.EslintFixAll() end,
-          },
-        },
+
         typescript_deno_switch = {
           {
             event = "LspAttach",
             callback = function(args)
               local bufnr = args.buf
               local curr_client = vim.lsp.get_client_by_id(args.data.client_id)
+              -- util.info("[denoswitch] checking deno vs vtsls " .. curr_client.name)
+
 
               if curr_client and curr_client.name == "denols" then
                 local clients = (vim.lsp.get_clients or vim.lsp.get_active_clients) {
                   bufnr = bufnr,
                   name = "vtsls",
                 }
+                -- util.info("possible clients " .. vim.inspect(clients) .. " [current client: " .. curr_client.name)
                 for _, client in ipairs(clients) do
+                  util.info("[denoswitch] stopping other client " .. client.id)
                   vim.lsp.stop_client(client.id, true)
                 end
               end
@@ -84,9 +83,11 @@ return {
               -- if vtsls attached, stop it if there is a denols server attached
               if curr_client and curr_client.name == "vtsls" then
                 if next((vim.lsp.get_clients or vim.lsp.get_active_clients) { bufnr = bufnr, name = "denols" }) then
+                  -- util.info("[denoswitch] stopping current client " .. curr_client.name)
                   vim.lsp.stop_client(curr_client.id, true)
                 end
               end
+              -- util.info("[denoswitch] done " .. curr_client.name)
             end,
           }
         }
@@ -94,13 +95,10 @@ return {
       handlers = {
         -- Disable tsserver in favor of vtsls
         tsserver = false,
+        denols = false
       },
       ---@diagnostic disable: missing-fields
       config = {
-        denols = {
-          -- adjust deno ls root directory detection
-          root_dir = function(...) return require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")(...) end,
-        },
         vtsls = {
           root_dir = require("lspconfig.util").root_pattern("package.json"),
           settings = {
@@ -131,9 +129,61 @@ return {
             },
           },
         },
+        denols = {
+          -- adjust deno ls root directory detection
+          root_dir = function(...) return require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")(...) end,
+        },
       },
     },
   },
+  -- {
+  --   "AstroNvim/astrocore",
+  --   ---@type AstroLSPOpts
+  --   opts = {
+  --     autocmds = {
+  --       -- eslint_fix_on_save = {
+  --       --   cond = function(client) return client.name == "eslint" and vim.fn.exists(":EslintFixAll") > 0 end,
+  --       --   {
+  --       --     event = "BufWritePost",
+  --       --     desc = "Fix all eslint errors",
+  --       --     callback = function() vim.cmd.EslintFixAll() end,
+  --       --   },
+  --       -- },
+  --       typescript_deno_switch = {
+  --         {
+  --           event = "LspAttach",
+  --           callback = function(args)
+  --             local bufnr = args.buf
+  --             local curr_client = vim.lsp.get_client_by_id(args.data.client_id)
+  --             util.info("[denoswitch] checking deno vs vtsls " .. curr_client.name)
+
+
+  --             if curr_client and curr_client.name == "denols" then
+  --               local clients = (vim.lsp.get_clients or vim.lsp.get_active_clients) {
+  --                 bufnr = bufnr,
+  --                 name = "vtsls",
+  --               }
+  --               util.info("possible clients " .. vim.inspect(clients) .. " [current client: " .. curr_client.name)
+  --               for _, client in ipairs(clients) do
+  --                 util.info("[denoswitch] stopping other client " .. client.id)
+  --                 vim.lsp.stop_client(client.id, true)
+  --               end
+  --             end
+
+  --             -- if vtsls attached, stop it if there is a denols server attached
+  --             if curr_client and curr_client.name == "vtsls" then
+  --               if next((vim.lsp.get_clients or vim.lsp.get_active_clients) { bufnr = bufnr, name = "denols" }) then
+  --                 util.info("[denoswitch] stopping current client " .. curr_client.name)
+  --                 vim.lsp.stop_client(curr_client.id, true)
+  --               end
+  --             end
+  --             util.info("[denoswitch] done " .. curr_client.name)
+  --           end,
+  --         }
+  --       }
+  --     },
+  --   },
+  -- },
   {
     "stevearc/conform.nvim",
     optional = true,
@@ -184,6 +234,25 @@ return {
     "yioneko/nvim-vtsls",
     opts = {},
     config = function(_, opts) require("vtsls").config(opts) end,
+    dependencies = {
+      "AstroNvim/astrocore",
+      opts = {
+        autocmds = {
+          nvim_vtsls = {
+            {
+              event = "LspAttach",
+              desc = "Load nvim-vtsls with vtsls",
+              callback = function(args)
+                if assert(vim.lsp.get_client_by_id(args.data.client_id)).name == "vtsls" then
+                  require("vtsls")._on_attach(args.data.client_id, args.buf)
+                  vim.api.nvim_del_augroup_by_name "nvim_vtsls"
+                end
+              end,
+            },
+          },
+        },
+      },
+    },
   },
   {
     "dmmulroy/tsc.nvim",

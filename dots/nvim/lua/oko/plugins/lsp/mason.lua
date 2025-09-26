@@ -49,6 +49,7 @@ return {
     },
     config = function(_, opts)
       opts.ensure_installed = require("oko.utils").dedup(opts.ensure_installed)
+      require("astrolsp.mason-lspconfig").register_servers()
       require("mason-lspconfig").setup(opts)
     end
   },

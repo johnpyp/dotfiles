@@ -1,18 +1,18 @@
 nnoremap <Space> <Nop>
 let mapleader = ' '
 
-noremap <Leader>y "+y
-noremap <Leader>p "+p
+noremap <silent> <Leader>y "+y
+noremap <silent> <Leader>p "+p
 
 vmap y ygv<Esc>
 
 " nnoremap <silent> H <Cmd>call <SID>switchEditor(v:count, 'next')<CR>
 " nnoremap <silent> L <Cmd>call <SID>switchEditor(v:count, 'prev')<CR>
 
-nnoremap H :Tabprevious<CR>
-nnoremap L :Tabnext<CR>
+nnoremap <silent> H :Tabprevious<CR>
+nnoremap <silent> L :Tabnext<CR>
 
-nnoremap <leader>q :Quit<CR>
+nnoremap <silent> <leader>q :Quit<CR>
 
 nnoremap <leader>ve :Edit ~/.config/nvim/vscode.vim<CR>
 nnoremap <leader>vs :source ~/.config/nvim/vscode.vim<CR>
@@ -31,6 +31,8 @@ nnoremap <silent> <leader>ca <Cmd>call VSCodeNotify('editor.action.quickFix')<CR
 vnoremap <silent> <leader>ca <Cmd>call VSCodeNotify('editor.action.quickFix')<CR>
 nnoremap <silent> <leader>co <Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>
 nnoremap <silent> <leader>cr <Cmd>call VSCodeNotify('editor.action.rename')<CR>
+nnoremap <silent> <leader>b <Cmd>call VSCodeNotify('editor.action.inlineSuggest.trigger')<CR>
+" nnoremap <silent> <C-[> <Cmd>call VSCodeNotify('workbench.action.showErrorsWarnings')<CR>
 
 nnoremap <silent> gr <Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>
 nnoremap <silent> gd <Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>

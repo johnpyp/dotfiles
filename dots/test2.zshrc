@@ -82,12 +82,14 @@ benchzsh() {
 
 alias b="bun"
 alias p="pnpm"
+alias pe="pnpm exec"
+alias ppx="pnpm dlx"
 alias dc="docker-compose"
 alias vim="nvim"
 
 alias sudo="sudo -E "
 alias cp="cp -i"         # Confirm before overwriting something
-alias ex="ouch d -q"     # Extract an archive
+alias ex="aunpack"     # Extract an archive
 alias s="source $HOME/.zshrc"
 
 alias font-list="sort <(fc-list : family) | vim -"
@@ -182,6 +184,28 @@ TRAPALRM() {
   p10k display -r
 }
 
+# uses envchain to export a single variable from the store current env
+# e.g `envpull aws AWS_SECRET_KEY`
+envpull () {
+  local ns="$1" var="$2"
+  local line
+  line=$(envchain "$ns" env | grep -E "^${var}=") || return 1
+  # prepend “export ” so the variable is marked for inheritance
+  eval "export ${line}"
+}
+
+codex1() {
+  codex -m gpt-5-codex \
+   -c model_reasoning_effort="medium" \
+    -c model_reasoning_summary_format="experimental" \
+   -c shell_environment_policy.inherit=all \
+   -c shell_environment_policy.ignore_default_excludes=true \
+   -c shell_environment_policy.experimental_use_profile=true \
+   --yolo \
+   --search \
+   "$@"
+}
+
 # Invoke TRAPALRM every 30 seconds.
 TMOUT=30
 
@@ -238,3 +262,15 @@ ZVM_ESCAPE_KEYTIMEOUT=0
 export PATH="$PATH:/home/johnpyp/.lmstudio/bin"
 
 export PATH="$PATH:/home/johnpyp/.modular/bin"
+
+eval "$(zoxide init zsh)"
+function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+# opencode
+export PATH=/home/johnpyp/.opencode/bin:$PATH
+
+export NVIM_APPNAME="nvim-uro"
+
+# alias claude="/home/johnpyp/.claude/local/claude"
+
+export PATH="$HOME/.claude/local:$PATH"

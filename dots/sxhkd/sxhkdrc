@@ -29,7 +29,7 @@ mod4 + {_,shift +} {h,j,k,l}
 mod4 + {w,e,a}
   i3-msg layout {tabbed,default,stacked}
 
-mod4 + {grave,Tab}
+mod4 + {grave}
   rofi -show drun -show-icons -theme Arc-Dark
 
 mod4 + d

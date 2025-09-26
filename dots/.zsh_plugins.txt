@@ -18,7 +18,7 @@ z-shell/F-Sy-H # Fast-Syntax-Highlighting
 
 knu/zsh-manydots-magic kind:fpath # Requires accompanying configuration
 
-agkozak/zsh-z kind:defer # `z` command for fast cd
+# agkozak/zsh-z kind:defer # `z` command for fast cd
 robobenklein/zdharma-history-search-multi-word kind:defer # better history search multi word, needs defer else conflict with zsh-vi-mode
 
 sorin-ionescu/prezto path:modules/completion kind:defer # completion. Make sure this is `deferred` and comes *before* autosuggestions. Should also be basically at the end of the list, to capture any completions that come earlier.

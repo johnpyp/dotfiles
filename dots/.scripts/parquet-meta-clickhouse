@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Check if an input file is provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <parquet_file>"
+    exit 1
+fi
+
+# Input Parquet file
+PARQUET_FILE="$1"
+
+# Check if the file exists
+if [ ! -f "$PARQUET_FILE" ]; then
+    echo "File not found: $PARQUET_FILE"
+    exit 1
+fi
+
+# Run ClickHouse query
+clickhouse-local \
+    --query "SELECT * FROM file('$PARQUET_FILE', ParquetMetadata) FORMAT PrettyJSONEachRow;"

@@ -1,7 +1,9 @@
+local util = require("util")
 ---@type LazySpec
 return {
   {
     "AstroNvim/astrolsp",
+    tag = "v3.0.0",
     ---@type AstroLSPOpts
     opts_extend = { "servers" },
     opts = {
@@ -10,16 +12,22 @@ return {
           enabled = true,
         },
       },
-      lsp_handlers = {
-        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", silent = true }),
-        ["textDocument/signatureHelp"] = false,     -- set to false to disable any custom handlers
-      },
+      -- lsp_handlers = {
+      --   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", silent = true }),
+      --   ["textDocument/signatureHelp"] = false, -- set to false to disable any custom handlers
+      -- },
     },
+    config = function(_, opts)
+      -- util.info("setting up astrolsp")
+      -- util.info("astrolsp opts\n" .. vim.inspect(opts))
+
+      require("astrolsp").setup(opts)
+    end
   },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "AstroNvim/astrolsp",
+      { "AstroNvim/astrolsp", opts = {} },
       { "folke/neoconf.nvim", lazy = true, opts = {} },
       "williamboman/mason-lspconfig.nvim", -- MUST be set up before `nvim-lspconfig`
     },

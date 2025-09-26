@@ -1,0 +1,9 @@
+{
+  "lspconfig": {
+    "basedpyright": {
+      "basedpyright.analysis.autoFormatStrings": true,
+      "basedpyright.analysis.typeCheckingMode": "standard",
+      "basedpyright.analysis.inlayHints.callArgumentNames": false
+    }
+  }
+}
