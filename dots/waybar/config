@@ -1,0 +1,49 @@
+{
+  // General bar settings
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+  "margin": "0 0 0 0",
+
+  // Module placement
+  "modules-left": [
+    "sway/workspaces",
+    "pulseaudio"
+  ],
+  "modules-center": [
+    "clock#time"
+  ],
+  "modules-right": [
+    "tray"
+  ],
+
+  // ----------------- Modules -----------------
+
+  "sway/workspaces": {
+    "all-outputs": false,
+    "persistent_workspaces": {
+      "*": [1,2,3,4,5,6,7,8,9]
+    }
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}%  {icon}",
+    "format-muted": "",
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "tooltip": true,
+    "tooltip-format": "Volume: {volume}%"
+  },
+
+  "clock#time": {
+    "interval": 1,
+    "format": "{:%A, %B %e  %I:%M %p}",
+    "tooltip-format": "<tt>{:%Y-%m-%d %H:%M:%S}</tt>"
+  },
+
+  "tray": {
+    "icon-size": 24,
+    "spacing": 8
+  }
+}

@@ -11,6 +11,7 @@
     ~/.config/code-flags.conf: dots/code-flags.conf
     ~/.config/dunst: dots/dunst
     ~/.config/i3/config: dots/i3/config
+    ~/.config/sway/config: dots/sway/config
     ~/.config/kitty/kitty.conf: dots/kitty/kitty.conf
     ~/.config/kitty/themes: dots/kitty/themes
     ~/.config/kwalletrc: dots/kwalletrc
@@ -19,6 +20,7 @@
     ~/.config/paru: dots/paru
     ~/.config/picom/picom.conf: dots/picom/picom.conf
     ~/.config/polybar: dots/polybar
+    ~/.config/waybar: dots/waybar
     ~/.config/pscripts/player-mpris-tail.py: gmodules/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py
     ~/.config/pscripts/updates-pacman-aurhelper.sh: gmodules/polybar-scripts/polybar-scripts/updates-pacman-aurhelper/updates-pacman-aurhelper.sh
     ~/.config/pulse/default.pa: dots/pulse/default.pa

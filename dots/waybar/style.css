@@ -1,0 +1,56 @@
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 18px;
+  color: #ECEFF4;
+}
+
+/* The bar itself */
+window#waybar {
+  background-color: rgba(46, 52, 64, 0.9); /* Nord0 with transparency */
+  padding: 0 6px;
+}
+
+/* Workspaces */
+#workspaces button {
+  padding: 0 10px;
+  margin: 0 4px;
+  background: transparent;
+  color: #D8DEE9;
+  transition: background 0.15s ease-in-out;
+  border: 1px solid #96acd9;
+}
+
+#workspaces button.focused {
+  background: #81A1C1;
+  color: #2E3440;
+}
+
+#workspaces button.urgent {
+  background: #BF616A;
+  color: #2E3440;
+}
+
+/* Volume */
+#pulseaudio {
+  padding: 0 10px;
+}
+
+#pulseaudio.muted {
+  color: #BF616A;
+}
+
+/* Clock */
+#clock {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+/* System Tray */
+#tray {
+  padding: 0 4px;
+}
+
+#tray > .item {
+  margin: 0 3px;
+}
