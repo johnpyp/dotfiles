@@ -48,7 +48,7 @@ client.urgent           #BF616A #BF616A #2E3440 #BF616A #BF616A
 input type:pointer {
     accel_profile flat
     pointer_accel 0
-    scroll_factor 1
+    scroll_factor 3
 }
 
 input type:keyboard {
