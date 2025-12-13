@@ -46,6 +46,18 @@ window#waybar {
   letter-spacing: 0.4px;
 }
 
+/* Update counter */
+#custom-updates {
+  padding: 0 14px 6px;
+  margin: 0 10px 0 6px;
+  font-weight: 600;
+  box-shadow: inset 0 -4px 0 #bde7c5;
+}
+
+#custom-updates label {
+  letter-spacing: 0.4px;
+}
+
 /* System Tray */
 #tray {
   padding: 0 4px;
@@ -53,4 +65,24 @@ window#waybar {
 
 #tray > .item {
   margin: 0 3px;
+}
+
+/* Recording indicator */
+#custom-rec {
+  padding: 0 10px;
+  font-weight: 700;
+}
+
+#custom-rec.recording {
+  color: #BF616A; /* Nord red */
+  animation: rec-blink 1s steps(1, end) infinite;
+}
+
+#custom-rec.idle {
+  color: #88C0D0; /* subtle when idle */
+  opacity: 0.7;
+}
+
+@keyframes rec-blink {
+  50% { opacity: 0.2; }
 }

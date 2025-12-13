@@ -10,16 +10,16 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term kitty
+set $term ghostty
 set $menu wmenu-run
 
 ################################################################################
 # APPEARANCE
 ################################################################################
 # Output configuration
-# output * mode 2560x1440@240Hz
+output * mode 2560x1440@240hz
 # output * mode 1920x1200@240Hz
-output * mode 3840x2160@240Hz
+# output * mode 3840x2160@240Hz
 
 # Wallpaper
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -48,7 +48,7 @@ client.urgent           #BF616A #BF616A #2E3440 #BF616A #BF616A
 input type:pointer {
     accel_profile flat
     pointer_accel 0
-    scroll_factor 3
+    # scroll_factor 3
 }
 
 input type:keyboard {
@@ -66,10 +66,25 @@ workspace_auto_back_and_forth yes
 ################################################################################
 # AUTOSTART APPLICATIONS
 ################################################################################
+
+# johnpyp(2025-10-29): requires the `lxsession` package on archlinux. May not be necessary.
+exec --no-startup-id lxpolkit
+
+# johnpyp(2025-10-29): From https://wiki.archlinux.org/title/GNOME/Keyring#Using_gnome-keyring-daemon_outside_desktop_environments_(KDE,_GNOME,_XFCE,_...)
+# May not be necessary
+exec dbus-update-activation-environment --all # johnpyp
+exec gnome-keyring-daemon --start --components=secrets
+
+# johnpyp(2025-10-29): If you don't do this `export`, then the above doesn't matter.
+# For some reason, userland stuff will still not be able to "find" the proper gnome-keyring stuff without it.
+# (causing 20-30s hangs because they timeout)
+exec export $(gnome-keyring-daemon)
+
 # Notification Center
 exec swaync
 
 # Clipboard Manager
+# johnpyp(2025-10-29): If you don't have this, cross-window copy paste may not work.
 exec wl-paste -t text --watch clipman store --no-persist
 
 # Environment Variables for XDG Desktop Support
@@ -212,6 +227,8 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+bindsym $mod+o exec pkill -USR2 -n handy
+
 ################################################################################
 # KEY BINDINGS - MULTIMEDIA & UTILITIES
 ################################################################################
@@ -228,6 +245,7 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 # Screenshots
 bindsym Print exec grim
 bindsym $mod+p exec flameshot gui
+bindsym $mod+Shift+p exec /home/johnpyp/.scripts/region-video
 
 ################################################################################
 # STATUS BAR
@@ -239,7 +257,19 @@ bar {
 ################################################################################
 # WINDOW RULES
 ################################################################################
+set {
+	# $ii inhibit_idle focus
+	# $game inhibit_idle focus; floating enable; border none; fullscreen enable; shadows disable
+	$popup floating enable; border pixel 1; sticky enable; shadows enable;
+	$float floating enable; border pixel 1; shadows enable
+	$video inhibit_idle fullscreen; border none; max_render_time off
+	# $important inhibit_idle open; floating enable; border pixel 1
+	# $max inhibit_idle visible; floating enable; sticky enable; border pixel 1
+}
+
 for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
+# for_window [title="^🌴⬆🪟"] $popup
+for_window [title="Bitwarden Password Manager" app_id="zen"] $popup
 
 ################################################################################
 # INCLUDES

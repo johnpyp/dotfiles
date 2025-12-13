@@ -8,7 +8,9 @@
   // Module placement
   "modules-left": [
     "sway/workspaces",
-    "pulseaudio"
+    "pulseaudio",
+    "custom/rec",
+    "custom/updates"
   ],
   "modules-center": [
     "clock#time"
@@ -36,10 +38,25 @@
     "tooltip-format": "Volume: {volume}%"
   },
 
+  "custom/rec": {
+    "exec": "$HOME/.scripts/wf-rec-indicator",
+    "interval": 1,
+    "return-type": "json",
+    "signal": 8,
+    "on-click": "pkill --euid $USER --signal SIGINT wf-recorder",
+    "tooltip": true
+  },
+
   "clock#time": {
     "interval": 1,
     "format": "{:%A, %B %e  %I:%M %p}",
     "tooltip-format": "<tt>{:%Y-%m-%d %H:%M:%S}</tt>"
+  },
+
+  "custom/updates": {
+    "exec": "$HOME/.config/waybar/updates.sh",
+    "interval": 600,
+    "hide-empty-text": true
   },
 
   "tray": {

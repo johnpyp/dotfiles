@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+sleep 0.05
+# Shows JSON for Waybar custom module
+if pgrep -u "$USER" -x wf-recorder >/dev/null; then
+  echo '{"text":"● REC","class":"recording","tooltip":"Screen recording is active"}'
+else
+  echo '{"text":"●","class":"idle","tooltip":"Not recording"}'
+fi

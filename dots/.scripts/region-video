@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# If an instance of wf-recorder is running under this user kill it with SIGINT and exit
+pkill --euid "$USER" --signal SIGINT wf-recorder && exit
+
+# Define paths
+DefaultSaveDir="$HOME/Videos"
+TmpPathPrefix="/tmp/gif-record"
+TmpRecordPath="${TmpPathPrefix}-cap.mp4"
+TmpPalettePath="${TmpPathPrefix}-palette.png"
+
+# Trap for cleanup on exit
+OnExit() {
+  pkill -RTMIN+8 waybar || true
+  [[ -f "$TmpRecordPath" ]] && rm -f "$TmpRecordPath"
+  [[ -f "$TmpPalettePath" ]] && rm -f "$TmpPalettePath"
+}
+trap OnExit EXIT
+
+# Set umask so tmp files are only accessible to the user
+umask 177
+
+# Get selection and honor escape key
+Coords=$(slurp) || exit
+
+pkill -RTMIN+8 waybar || true
+
+# Capture video for the selected area
+# timeout and exit after 10 minutes as user has almost certainly forgotten it's running
+timeout 600 wf-recorder -g "$Coords" -f "$TmpRecordPath" || exit
+
+pkill -RTMIN+8 waybar || true
+
+# Ask for output path; offer multiple common formats (no forced .gif)
+SavePath=$(
+  zenity --file-selection --save --confirm-overwrite \
+    --file-filter='MP4 video | *.mp4' \
+    --file-filter='WebM video | *.webm' \
+    --file-filter='Matroska video | *.mkv' \
+    --file-filter='QuickTime MOV | *.mov' \
+    --file-filter='GIF animation | *.gif' \
+    --file-filter='APNG animation | *.apng' \
+    --file-filter='All files | *' \
+    --filename="$DefaultSaveDir/recording.mp4"
+) || exit
+
+# Determine/normalize extension; default to mp4 if none provided
+if [[ "$SavePath" != *.* ]]; then
+  SavePath="${SavePath}.mp4"
+fi
+ext="${SavePath##*.}"
+ext="${ext,,}" # lowercase
+
+# Return umask to default for final output
+umask 022
+
+# Encode based on chosen extension
+case "$ext" in
+mp4 | m4v | mov)
+  # H.264 (fast, widely compatible), faststart for quick playback
+  ffmpeg -y -i "$TmpRecordPath" \
+    -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p \
+    -c:a aac -b:a 160k -movflags +faststart \
+    "$SavePath"
+  ;;
+
+mkv)
+  # H.264 into MKV container
+  ffmpeg -y -i "$TmpRecordPath" \
+    -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p \
+    -c:a aac -b:a 160k \
+    "$SavePath"
+  ;;
+
+webm)
+  # VP9 WebM (quality/size tradeoff via CRF)
+  ffmpeg -y -i "$TmpRecordPath" \
+    -c:v libvpx-vp9 -b:v 0 -crf 30 \
+    -c:a libopus -b:a 128k \
+    "$SavePath"
+  ;;
+
+gif)
+  # High-quality palette-based GIF
+  ffmpeg -y -i "$TmpRecordPath" -filter_complex "palettegen=stats_mode=full" "$TmpPalettePath"
+  ffmpeg -y -i "$TmpRecordPath" -i "$TmpPalettePath" \
+    -filter_complex "paletteuse=dither=sierra2_4a" \
+    "$SavePath"
+  ;;
+
+apng | png)
+  # Animated PNG (infinite loop)
+  ffmpeg -y -i "$TmpRecordPath" -plays 0 "$SavePath"
+  ;;
+
+*)
+  zenity --error --text="Unsupported file extension: .$ext" || true
+  exit 1
+  ;;
+esac
