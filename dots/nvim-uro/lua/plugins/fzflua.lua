@@ -34,7 +34,7 @@ return {
     -- },
     grep = {
       previewer = false,
-      rg_opts = "--column --line-number --no-heading --color=always --ignore-case --max-columns=512 -g '!*.lock' -g '!pnpm-lock.yaml' -g '!vendor/' ",
+      rg_opts = "--column --line-number --no-heading --color=always --ignore-case --max-columns=512 -g '!*.lock' -g '!pnpm-lock.yaml' -g '!vendor/' --ignore-files",
     },
   },
   keys = {

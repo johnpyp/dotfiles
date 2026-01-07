@@ -13,11 +13,6 @@ vim.keymap.set("n", "<leader>q", function()
 end, { desc = "Delete buffer" })
 vim.keymap.del("n", "<leader>qq")
 
--- <leader>n for Snacks explorer
-vim.keymap.set("n", "<leader>n", function()
-  Snacks.explorer()
-end, { desc = "Explorer Snacks (cwd)" })
-
 -- <leader>p for fzf lua find files
 
 vim.keymap.set("n", "<c-p>", LazyVim.pick("files", { root = false }), { desc = "Find Files (Cwd)" })
