@@ -48,7 +48,8 @@ client.urgent           #BF616A #BF616A #2E3440 #BF616A #BF616A
 input type:pointer {
     accel_profile flat
     pointer_accel 0
-    # scroll_factor 3
+    # sometimes I comment this out, I don't remember why. Remember to say why next time in a comment!
+    scroll_factor 1
 }
 
 input type:keyboard {
@@ -86,6 +87,9 @@ exec swaync
 # Clipboard Manager
 # johnpyp(2025-10-29): If you don't have this, cross-window copy paste may not work.
 exec wl-paste -t text --watch clipman store --no-persist
+
+# Network Manager Applet
+exec nm-applet --indicator
 
 # Environment Variables for XDG Desktop Support
 # https://github.com/flameshot-org/flameshot/blob/master/docs/Sway%20and%20wlroots%20support.md

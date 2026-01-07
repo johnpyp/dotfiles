@@ -195,14 +195,12 @@ envpull () {
 }
 
 codex1() {
-  codex -m gpt-5-codex \
-   -c model_reasoning_effort="medium" \
-    -c model_reasoning_summary_format="experimental" \
+  codex \
    -c shell_environment_policy.inherit=all \
    -c shell_environment_policy.ignore_default_excludes=true \
    -c shell_environment_policy.experimental_use_profile=true \
    --yolo \
-   --search \
+   --enable web_search_request \
    "$@"
 }
 
@@ -218,7 +216,7 @@ export DENO_INSTALL="$HOME/.deno"
 
 export DEPOT_INSTALL_DIR="/home/johnpyp/.depot/bin"
 
-export PATH=$DEPOT_INSTALL_DIR:$HOME/.dotnet/tools/:$DENO_INSTALL/bin:$BUN_INSTALL/bin:~/.scripts:~/.luarocks/bin:~/go/bin:~/.local/bin:$HOME/.npm-global/bin/:~/.cargo/bin:/opt/homebrew/bin:$PATH:$HOME/.modular/bin
+export PATH=$DEPOT_INSTALL_DIR:$HOME/.dotnet/tools/:$DENO_INSTALL/bin:$BUN_INSTALL/bin:~/.scripts:~/.luarocks/bin:~/go/bin:~/.local/bin:$HOME/.npm-global/bin/:~/.cargo/bin:/opt/homebrew/bin:$PATH:$HOME/.modular/bin:/usr/lib/llvm19/bin
 # export XDG_DATA_HOME=$HOME/.local/share
 
 export GO111MODULE="on"
@@ -245,8 +243,13 @@ alias b="bun"
 
 [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# johnpyp(2025-10-29): Without this, keychain will sometimes attempt to go to a GUI prompt,
+# which may or may not be initialized.
+export SSH_ASKPASS_REQUIRE=never
+
 command -v mise &>/dev/null && eval "$(mise activate zsh)"
 command -v keychain &>/dev/null && eval $(keychain --eval --quiet id_rsa)
+command -v try &>/dev/null && eval "$(try init ~/code/sketches)"
 
 [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -271,6 +274,5 @@ export PATH=/home/johnpyp/.opencode/bin:$PATH
 
 export NVIM_APPNAME="nvim-uro"
 
-# alias claude="/home/johnpyp/.claude/local/claude"
+alias claude="/home/johnpyp/.claude/local/claude"
 
-export PATH="$HOME/.claude/local:$PATH"

@@ -1,3 +1,5 @@
+mattmc3/ez-compinit
+
 johnpyp/zsh-vi-mode # Better vim mode
 
 romkatv/powerlevel10k # prompt
@@ -21,5 +23,7 @@ knu/zsh-manydots-magic kind:fpath # Requires accompanying configuration
 # agkozak/zsh-z kind:defer # `z` command for fast cd
 robobenklein/zdharma-history-search-multi-word kind:defer # better history search multi word, needs defer else conflict with zsh-vi-mode
 
-sorin-ionescu/prezto path:modules/completion kind:defer # completion. Make sure this is `deferred` and comes *before* autosuggestions. Should also be basically at the end of the list, to capture any completions that come earlier.
+# completion. Make sure this is `deferred` and comes *before* autosuggestions. Should also be basically at the end of the list, to capture any completions that come earlier.
+# johnpyp(2025-10-14): Don't use. If you use this, it will make completions for normal apps n shit not work properly, like mise, jj, etc.
+# sorin-ionescu/prezto path:modules/completion kind:defer
 zsh-users/zsh-autosuggestions kind:defer # autosuggestions from history. Make sure this is `deferred` and comes *after* completion

@@ -3,20 +3,10 @@
   name = johnpyp
 [alias]
   co = checkout
-  ci = commit
-  czp = cz && git pu
-  st = status
-  br = branch
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
-  pu = push
   lg = log --graph --decorate --oneline --branches
-  pn = log --oneline --decorate --graph
-  chlogm = !sh -c 'git log $1...$2  --pretty=format:\"%s [view commit](http://github.com/$3/$4/commit/%H) \"' -
-  d = difftool
-[diff]
-  tool = riff
+  # `--force-if-includes` fixes dumb behavior with `--force-with-lease`
+  # it makes sure you **integrated** fetched commits, not just fetched them.
+  pushf = push --force-with-lease --force-if-includes
 [difftool]
   prompt = false
 [pull]
@@ -25,15 +15,31 @@
   editor = nvim
 [push]
 	default = current
+  # `--force-if-includes` fixes dumb behavior with `--force-with-lease`
+  # it makes sure you **integrated** fetched commits, not just fetched them.
+	useForceIfIncludes = true
 [delta]
 	side-by-side = true
 [init]
 	defaultBranch = main
+[commit]
+	gpgsign = true
+# clone https github urls as ssh instead
+[url "git@github.com:"]
+	insteadof = https://github.com/
+
+# get rid of useless stale remote refs
+# (doesn't get rid of local changes or anything)
+[remote "origin"]
+	prune = true
+
+# use riff for diffs, which shows diffs within lines as well
+# much more readable
 [pager]
 	diff = riff
 	show = riff
 	log = riff
+[diff]
+  tool = riff
 [interactive]
 	diffFilter = riff
-[commit]
-	gpgsign = true
